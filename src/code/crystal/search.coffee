@@ -2,6 +2,8 @@
 request = require 'request'
 
 search = (opts) ->
+  crystal = this
+  
   if typeof opts == 'object'
     if opts._ && opts._[1]
       name = opts._[1]
