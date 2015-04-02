@@ -1,0 +1,1 @@
+`crystal` is an open-source platform for automated code generation, versioning, licensing, security and deployment of popular languages and frameworks.

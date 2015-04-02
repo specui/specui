@@ -1,0 +1,591 @@
+<aside>
+  <ul>
+    <li>
+      <a href="#">Introduction</a>
+      <ul>
+        <li><a href="#">What is Crystal?</a></li>
+        <li><a href="#">Why Code Generation?</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Installation</a>
+      <ul>
+        <li><a href="#">Prerequisites</a></li>
+        <li><a href="#">Install</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Using Crystal</a>
+      <ul>
+        <li><a href="#">Command Line Interface</a></li>
+        <li><a href="#">Usage</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Projects</a>
+      <ul>
+        <li><a href="#">Difference Between Project &amp; Generator</a></li>
+        <li><a href="#">Using &#x60;crystal&#x60; for Your Projects</a></li>
+        <li><a href="#">Using &#x60;crystal&#x60; to Create Generators</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Project Structure</a>
+      <ul>
+        <li><a href="#">Files &amp; Folders</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Project Configuration</a>
+      <ul>
+        <li><a href="#">Crystal Config File</a></li>
+        <li><a href="#">Add Crystal to New Project</a></li>
+        <li><a href="#">Add Crystal to Existing Project</a></li>
+        <li><a href="#">Crystal Config Options</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Project Specification</a>
+      <ul>
+        <li><a href="#">Crystal Spec</a></li>
+        <li><a href="#">Directory Structure</a></li>
+        <li><a href="#">Processing</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Generators</a>
+      <ul>
+        <li><a href="#">What Are Generators?</a></li>
+        <li><a href="#">Loading Generators</a></li>
+        <li><a href="#">Creating Generators</a></li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+<section id="doc-about-content">
+  <h1>Introduction</h1>
+  <article id="doc-what-page">
+    <h2>What is Crystal?</h2>
+    <p><code>crystal</code> is an open-source platform for automated code generation, versioning, licensing, security and deployment of popular languages and frameworks.</p>
+
+  </article>
+  <article id="doc-why-page">
+    <h2>Why Code Generation?</h2>
+    <p>Artificial intelligence was created the moment the first line of code was written. Now it&#39;s written in C#, PHP &amp; JavaScript.</p>
+<p>Our goal is to perfect code: to embrace the creativity and unique ideas of various languages, frameworks and scripts, and make it as efficient, re-usable and intelligent as possible.</p>
+
+  </article>
+</section>
+<section id="doc-installation-content">
+  <h1>Installation</h1>
+  <article id="doc-prerequisites-page">
+    <h2>Prerequisites</h2>
+    <p><code>crystal</code> is written in <code>node.js</code> and distributed by <code>npm</code>:</p>
+<ul>
+<li>node.js: <a href="http://nodejs.com/download">http://nodejs.com/download</a></li>
+<li>npm: <a href="https://docs.npmjs.com/getting-started/installing-node">https://docs.npmjs.com/getting-started/installing-node</a></li>
+</ul>
+
+  </article>
+  <article id="doc-install-page">
+    <h2>Install</h2>
+    <p>After downloading and installing <code>node.js</code> and <code>npm</code>, run:</p>
+<pre><code class="lang-sh">npm install crystal -g
+</code></pre>
+<p>The option <code>-g</code> installs <code>crystal</code> globally so you can run <code>crystal</code> from any directory.</p>
+
+  </article>
+</section>
+<section id="doc-using-content">
+  <h1>Using Crystal</h1>
+  <article id="doc-cli-page">
+    <h2>Command Line Interface</h2>
+    <p>Once <a href="/docs#installation">installed</a>, <code>crystal</code> runs as a CLI program.</p>
+<p>Note: be sure to install <code>crystal</code> with the <code>-g</code> option to ensure it is installed globally and can be used for any directory.</p>
+
+  </article>
+  <article id="doc-cmd-page">
+    <h2>Usage</h2>
+    <p><code>crystal</code> accepts the commands and arguments below.</p>
+<p>Required arguments are surrounded by tags <code>&lt;&gt;</code> and optional arguments are surrounded by brackets <code>[]</code>.</p>
+<p>If a command accepts the <code>dir</code> argument and no <code>dir</code> is specified, it uses the current working directory.</p>
+<p>Note: Commands that use the <code>dir</code> argument are looking for a <a href="/docs#config">Crystal Config File</a>. If one doesn&#39;t exist, the command will return an error!</p>
+<pre><code class="lang-sh"># build project from current or specified directory
+crystal build [dir]
+
+# read/write value from/to cache
+crystal cache key [value]
+
+# clean project from current or specified directory
+crystal clean [dir]
+
+# load data
+crystal data [fixture]
+
+# get or set default value
+crystal default [key] [value]
+
+# get help
+crystal help
+
+# initialize a crystal project
+crystal init [dir]
+
+# install a generator
+crystal install &lt;generator&gt;
+
+# publish project from current or specified directory
+crystal publish [dir]
+
+# run project from current or specified directory
+crystal run [dir]
+
+# search for public generators
+crystal search &lt;generator&gt;
+
+# signup for crystal
+crystal signup
+
+# test project
+crystal test
+
+# update generators
+crystal update
+
+# get crystal version
+crystal version &lt;major|minor|patch&gt;
+</code></pre>
+
+  </article>
+</section>
+<section id="doc-project-content">
+  <h1>Projects</h1>
+  <article id="doc-difference-page">
+    <h2>Difference Between Project &amp; Generator</h2>
+    <p>There are many ways to use <code>crystal</code> but the two most common scenarios are:</p>
+<ul>
+<li>using <code>crystal</code> for your projects</li>
+<li>using <code>crystal</code> to create generators</li>
+</ul>
+
+  </article>
+  <article id="doc-project-page">
+    <h2>Using &#x60;crystal&#x60; for Your Projects</h2>
+    <p><code>crystal</code> is powerful. It has several generators to choose from and helps you bootstrap your projects in no time.</p>
+<p>But it doesn&#39;t stop there. <code>crystal</code> is meant to be used for projects on an ongoing basis. It helps you deliver high quality code for every story, every sprint and every epic. It&#39;s there for launch, maintenance and upgrades.</p>
+<p>If you are happy using <code>crystal</code> to make robust apps (or save the world), then use it for your projects and enjoy the generators made by the wonderful community of <code>crystal</code>.</p>
+
+  </article>
+  <article id="doc-generator-page">
+    <h2>Using &#x60;crystal&#x60; to Create Generators</h2>
+    <p>If you haven&#39;t found the right one. Or if you could do it better. Or just want to give a whirl:</p>
+<p>Try creating a generator for you favorite language, framework or even your own custom code.</p>
+<p>Generators are projects that are meant to be used as generators. In other words, a project is a project unless it:</p>
+<ul>
+<li>contains a <code>gen</code> key in the Crystal Config File</li>
+<li>contains a <code>gen</code> folder in the Crystal Source Directory (default: <code>./src</code>)</li>
+</ul>
+<p>Once this has been done, the <code>crystal</code> project can then be used a generator for other projects. Or generators. Or itself.</p>
+<p>If you want to share it with the world, then you&#39;ll also need to:</p>
+<ul>
+<li>create at least one test for the generator (in <code>/src/test</code>)</li>
+<li>publish it to <a href="http://crystal.sh">crystal.sh</a> using: <code>crystal publish</code></li>
+</ul>
+
+  </article>
+</section>
+<section id="doc-structure-content">
+  <h1>Project Structure</h1>
+  <article id="doc-file-page">
+    <h2>Files &amp; Folders</h2>
+    <p>Below are all of the folders that can be used by <code>crystal</code>.</p>
+<p>Note: The only required file is a Crystal Config File (default: <code>crystal.yml</code>).</p>
+<ul>
+<li><code>lib/</code> - output directory (where generators push to)</li>
+<li><code>src/</code> - source directory (where generators pulls from)<ul>
+<li><code>code/</code> - code files</li>
+<li><code>doc/</code> - documentation files<ul>
+<li><code>$chapter_name</code> - name of a chapter</li>
+<li><code>$page_name</code> - name of a page</li>
+</ul>
+</li>
+<li><code>gen/</code> - gen files used for generators<ul>
+<li><code>$gen_file.hbs</code> a generator file</li>
+</ul>
+</li>
+<li><code>spec/</code> - spec files that describe the project<ul>
+<li><code>model/</code><ul>
+<li><code>$model_name.yml</code> - name of a model</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>crystal.yml</code> - crystal config file</li>
+</ul>
+
+  </article>
+</section>
+<section id="doc-config-content">
+  <h1>Project Configuration</h1>
+  <article id="doc-file-page">
+    <h2>Crystal Config File</h2>
+    <p>In order for your project to properly integrate with <code>crystal</code>, a config file must be added to a directory in your project (preferably in the project&#39;s root directory).</p>
+<p>It can be created in the following formats:</p>
+<ul>
+<li>YAML</li>
+<li>CSON</li>
+<li>JSON</li>
+<li>XML</li>
+</ul>
+<p>Discovery of this file happens in the following order:</p>
+<ul>
+<li><code>crystal.yml</code></li>
+<li><code>crystal.yaml</code></li>
+<li><code>crystal.cson</code></li>
+<li><code>crystal.json</code></li>
+<li><code>crystal.xml</code></li>
+</ul>
+<p>For example, if you had both a <code>crystal.yml</code> file and <code>crystal.cson</code> file, only the <code>crystal.yml</code> would be loaded.</p>
+<p>The only required fields in the crystal config file are <code>name:</code> and <code>version:</code>. Everything else is optional.</p>
+
+  </article>
+  <article id="doc-new-page">
+    <h2>Add Crystal to New Project</h2>
+    <p>Adding <code>crystal</code> to a new project is easy.</p>
+
+  </article>
+  <article id="doc-add-page">
+    <h2>Add Crystal to Existing Project</h2>
+    <p>Adding <code>crystal</code> to an existing project is as easy as adding it to a new project.</p>
+
+  </article>
+  <article id="doc-options-page">
+    <h2>Crystal Config Options</h2>
+    <p>The options below can be used for the Crystal Config File:</p>
+<pre><code class="lang-yaml"># the project&#39;s name (required)
+name:
+
+# the project&#39;s version, must be semver 2.0 compliant (required)
+version:
+
+# the project&#39;s description (required)
+description:
+
+# true or false
+private:
+
+# the chief author&#39;s name, email &amp; url
+author:
+  name:
+  email:
+  url:
+
+# the project&#39;s copyright (example: 2015 Acme, Inc.)
+copyright:
+
+# the project&#39;s documentation
+doc:
+  $chapter-name:
+    title: # the chapter&#39;s title
+    pages:
+      $page-name:
+        title: # the page&#39;s title
+
+# the project&#39;s repository
+repository:
+  type: # git or svn
+  url:
+
+# the project&#39;s generator
+gen:
+  file:
+    $file: # name of the file (without the extension)
+      dest: # the destination of the file, use &#39;.&#39; for root (default: lib)
+      mapping:
+            model:
+                details:
+                    name:
+                        format:
+                            case: &#39;&lt;camel|lower|proper|upper&gt;&#39; (lowercase)
+                            spacing: &#39;&lt;dash|none|underscore&gt;&#39; (underscore)
+                    type:
+                        bool: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        date: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        decimal: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        image: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        model: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        number: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        string: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                        time: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+                name:
+                    format:
+                        case: &#39;&lt;camel|lower|proper|upper&gt;&#39;
+                        spacing: &#39;&lt;dash|none|underscore&gt;&#39;
+  spec: # custom spec
+    $field_name: # add custom field with unique name
+      required: &lt;true|false&gt;
+      type: &#39;&lt;option|string&gt;&#39;
+
+# the generators used by the project (yes, generators can use other generators)
+generators:
+  $generator_name: # add generator by name
+    pass: set to `true` to skip this generator when used by another generator (pass to projects that use this generator instead)
+    path: # the path used for the generator&#39;s output (the default is &#39;lib&#39;)
+    spec: # spec variables to pass to the generator
+    version: # the version of the generator to be used
+
+# languages based on generator&#39;s output
+languages: # optional
+  - &lt;csharp|go|java|js|nodejs|php|python|ruby|other&gt;
+
+# scripts ran for specific commands
+scripts:
+  build:
+    - $cmd # example - npm update
+  run:
+    - $cmd
+  test:
+    - $cmd
+</code></pre>
+
+  </article>
+</section>
+<section id="doc-spec-content">
+  <h1>Project Specification</h1>
+  <article id="doc-file-page">
+    <h2>Crystal Spec</h2>
+    
+  </article>
+  <article id="doc-structure-page">
+    <h2>Directory Structure</h2>
+    <p>The Directory Structure for the spec is like:</p>
+<pre><code class="lang-ruby"># usage
+- model/
+  - $model_name.$model_format
+
+# example
+- model/
+  - order.yml
+  - product.yml
+  - user.yml
+</code></pre>
+<p>Each file has the following options:</p>
+<h3 id="config-variables">Config Variables</h3>
+<p>Config Variables are defined in the Crystal Config File and can be used at any level within the document.</p>
+<pre><code class="lang-ruby">{{@name}} string
+{{@version}} string
+{{@description}} string
+{{@private}} bool
+
+{{@author}} object
+  {{@author.name}} string
+  {{@author.email}} string
+  {{@author.url}} string
+
+{{@copyright}} string
+
+{{@repository}} object
+  {{@repository.type}} string
+  {{@repository.url}} string
+</code></pre>
+<h3 id="spec-variables">Spec Variables</h3>
+<pre><code class="lang-ruby"># model
+{{model}}
+  {{$model_name}} object
+</code></pre>
+
+  </article>
+  <article id="doc-processing-page">
+    <h2>Processing</h2>
+    
+  </article>
+</section>
+<section id="doc-generator-content">
+  <h1>Generators</h1>
+  <article id="doc-what-page">
+    <h2>What Are Generators?</h2>
+    <p>Generators generate code.</p>
+<p>Some are big and produce entire libraries for Restful APIs, models and other robust services. Others are small and only produce a single file such as a <a href="/gen/readme">README.md</a>, <a href="/gen/authors">AUTHORS</a> or <a href="/gen/gitignore">.gitignore</a> file.</p>
+<p>They can work together or alone. They can have one purpose or many. They can be public or private. And they can be created from scratch or added to an existing project.</p>
+<p>Generators are what make <code>crystal</code> useful to you and others. So use them. Make them. Make a lot of them. Then make generators for your generators and generators for your generators&#39; generators.</p>
+
+  </article>
+  <article id="doc-loading-page">
+    <h2>Loading Generators</h2>
+    <p>Loading generators is easy and can happen in a few ways.</p>
+<h3 id="loading-generators-via-crystal-config">Loading Generators via Crystal Config</h3>
+<p>Usually generators are added to your project&#39;s crystal config such as this <a href="/gen/readme">readme</a> generator:</p>
+<pre><code class="lang-yaml"># crystal config
+generators:
+  readme:
+    version: latest
+</code></pre>
+<p>Then update your crystal project:</p>
+<pre><code class="lang-sh"># example
+cd $PROJECT_PATH
+crystal update
+</code></pre>
+<p>This is the quick way to add a generator to your project and use it.</p>
+<h3 id="loading-generators-via-command-line">Loading Generators via Command Line</h3>
+<p>If you&#39;d like to load a generator manually, you can do so by running:</p>
+<pre><code class="lang-sh"># usage
+crystal install &lt;generator&gt;
+# example
+crystal install readme
+</code></pre>
+<p>This will install the generator to your crystal home directory (set as <code>~/.crystal</code> by default).</p>
+<p>This is useful for checking out the source code for a generator before using it.</p>
+
+  </article>
+  <article id="doc-creating-page">
+    <h2>Creating Generators</h2>
+    <p>Creating Generators puts you in control of code generation.</p>
+<p>Generators use Handlebars syntax and are processed through a series of code templates &amp; configurations to produce source code.</p>
+<h2 id="why-create-code-generators-">Why Create Code Generators?</h2>
+<h3 id="create-unique-generators">Create Unique Generators</h3>
+<p>Whether you wish to create a completely unique generator or fine-tune an existing generator, creating generators allows you full control of the code that is produced.</p>
+<h4 id="django-configuration-example">Django Configuration Example</h4>
+<p>Below is an example <code>crystal.cson</code> file for the <a href="http://djangoproject.com">Django</a> framework which defines <code>python</code> as a language, <code>model</code> as a pattern and the mapping for various types of details.</p>
+<p>Since this example does not include the <code>iterator</code> option, each model is compiled into a single file named <code>models.py</code>.</p>
+<pre><code class="lang-yaml">languages:
+    - python
+gen:
+    file:
+        dest: models.py
+        models:
+            mapping:
+                model:
+                    details:
+                        type:
+                            bool: BooleanField
+                            date: DateField
+                            decimal: DecimalField
+                            image: ImageField
+                            model: ForeignKey
+                            number: IntegerField
+                            string: CharField
+                            time: DateTimeField
+</code></pre>
+<h4 id="doctrine-configuration-example">Doctrine Configuration Example</h4>
+<p>Below is an example <code>crystal.cson</code> file for the <a href="http://doctrine-project.org">Doctrine</a> framework which defines <code>php</code> as a language, <code>model</code> as a pattern and does not include mapping of detail types, since Doctrine doesn&#39;t use these.</p>
+<p>Since Doctrine defines each model in a separate file, the <code>files</code> object is used to place each file in the <code>model/</code> directory.</p>
+<pre><code class="lang-yaml">files:
+    model:
+        data: models
+        dest: &quot;models/{{name.pascal}}.php&quot;
+languages:
+    - php
+patterns:
+    - model
+</code></pre>
+<h2 id="code-generation">Code Generation</h2>
+<h3 id="directory-structure">Directory Structure</h3>
+<pre><code>gen/
+    . (GENERATOR files)
+crystal.cson
+</code></pre><h3 id="data-structures">Data Structures</h3>
+<h4 id="parent-data-structure">Parent Data Structure</h4>
+<p>Here are the available options for each project:</p>
+<pre><code>{{author}} object
+    {{email}} string
+    {{name}} string
+{{model}}
+    {{MODEL_NAME}} object
+        .. (same options as {{models}})
+{{models}} array
+    {{detail}} object
+        {{DETAIL_NAME}} object
+            .. (same options as {{models.details}})
+    {{details}} array
+        {{max}} object
+            {{length}} integer
+            {{number}} integer
+        {{min}} object
+            {{length}} integer
+            {{number}} integer
+        {{name}} string
+        {{required}} boolean
+        {{type}} string
+        {{unique}} boolean
+    {{has}} object
+        {{DETAIL_NAME}} boolean
+    {{name}} string
+{{project}} object
+    {{copyright}} string
+    {{description}} string
+    {{name}} string
+</code></pre><h4 id="-models-data-structure"><code>models</code> Data Structure</h4>
+<p>The <code>models</code> Data Structure is useful when iterating models over multiple files.</p>
+<pre><code>{{author}} object
+    {{email}} string
+    {{name}} string
+{{detail}} object
+    {{DETAIL_NAME}} object
+        .. (same options as {{models.details}})
+{{details}} array
+    {{max}} object
+        {{length}} integer
+        {{number}} integer
+    {{min}} object
+        {{length}} integer
+        {{number}} integer
+    {{name}} string
+    {{required}} boolean
+    {{type}} string
+    {{unique}} boolean
+    {{has}} object
+        {{DETAIL_NAME}} boolean
+{{name}} string
+{{project}} object
+    {{copyright}} string
+    {{description}} string
+    {{name}} string
+</code></pre><h2 id="tutorial">Tutorial</h2>
+<p>The example below illustrates how to use the Generator structure to create a <a href="#gen/types/documentation">Documentation Generator</a>. This same logic can be applied to any other type of Generator including <a href="#gen/types/api">API Generators</a>, <a href="#gen/types/db">Database Generators</a>, <a href="#gen/types/model">Model Generators</a> and <a href="#gen/types">more</a>.</p>
+<pre><code class="lang-html"># {{@name}} {{@version}}
+
+by {{@author.name}} &lt;{{@author.email}}&gt;
+
+## Models
+
+{{#each models}}
+
+### {{name}}
+
+#### Properties
+
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Required&lt;/th&gt;
+        &lt;th&gt;Unique&lt;/th&gt;
+        &lt;/tr&gt;
+    {{#each details}}
+    &lt;tr&gt;
+        &lt;td&gt;{{name}}&lt;/td&gt;
+        &lt;td&gt;{{type}}&lt;/td&gt;
+        &lt;td&gt;{{#if detail.required}}x{{/if}}&lt;/td&gt;
+        &lt;td&gt;{{#if detail.unique}}x{{/if}}&lt;/td&gt;
+    &lt;/tr&gt;
+    {{/each}}
+&lt;/table&gt;
+
+{{/each}}
+</code></pre>
+<p>To test this example:</p>
+<ol>
+<li>Create a Generator Project and associate it with a repository.</li>
+<li>Use your own environment to pull the repository.</li>
+<li>Create a folder named <code>gen</code> and add a file named <code>README.md</code>.</li>
+<li>Commit and push these changes to your project&#39;s repository with the contents above.</li>
+<li>Back in the Crystal Console, create a Code Project.</li>
+<li>Load Code or Create Models.</li>
+<li>Add your Generator Project.</li>
+<li>Generate Code and voila - you&#39;ve just created a <a href="#gen/types/documentation">Documentation Generator</a>.</li>
+</ol>
+
+  </article>
+</section>

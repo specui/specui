@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+// load coffeescript
+require('coffee-script').register();
+
+// load packages
+var ascii = require('../src/cli/ascii')(),
+	crystal = require('../src/code/crystal'),
+	fs = require('fs'),
+	minimist = require('minimist')(process.argv.slice(2)),
+	yaml = require('js-yaml');
+
+// get commands
+var commands = yaml.safeLoad(fs.readFileSync(__dirname + '/../src/cli/cmd.yml'));
+
+// get project
+var project = new crystal();
+
+// validate commands
+for (var command in commands) {
+	if (!project[command] && command != 'help') {
+		throw new Error('Invalid command: ' + command);
+	}
+}
+
+// get command
+var command = minimist._[0] || 'help';
+
+// validate command
+if (!commands[command]) {
+	throw new Error('Unknown command: ' + command);
+}
+
+// display ascii
+if (minimist.debug || command == 'help') {
+	console.log(ascii);
+}
+
+// get crystal output
+try {
+	switch (command) {
+		case 'cache':
+			project.cache(
+				minimist._[1] || minimist.key,
+				minimist._[2] || minimist.value,
+				minimist.debug ? true : false
+			);
+			break;
+		case 'help':
+			var output = require(__dirname + '/../src/cli/help')(commands);
+			console.log(output);
+			break;
+		case 'signup':
+			project.signup();
+			break;
+		default:
+			project[command](minimist);
+			break;
+	}
+	
+} catch(e) {
+	if (minimist.debug) {
+		throw e;
+	}
+	
+	console.error(e.message);
+	console.error('Failed.');
+}

@@ -1,0 +1,1 @@
+Adding `crystal` to a new project is easy.

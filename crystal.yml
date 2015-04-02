@@ -1,0 +1,148 @@
+name: crystal-js
+description: "Crystal: Node.JS Edition"
+version: 0.2.0
+
+author:
+  name: Chris Tate
+  email: chris@studiotate.com
+copyright: 2015 Studio Tate
+
+doc:
+  about:
+    title: Introduction
+    pages:
+      what:
+        title: What is Crystal?
+      why:
+        title: Why Code Generation?
+  installation:
+    title: Installation
+    pages:
+      prerequisites:
+        title: Prerequisites
+      install:
+        title: Install
+  using:
+    title: Using Crystal
+    pages:
+      cli:
+        title: Command Line Interface
+      cmd:
+        title: Usage
+  project:
+    title: Projects
+    pages:
+      difference:
+        title: Difference Between Project & Generator
+      project:
+        title: Using `crystal` for Your Projects
+      generator:
+        title: Using `crystal` to Create Generators
+  structure:
+    title: Project Structure
+    pages:
+      file:
+        title: Files & Folders
+  config:
+    title: Project Configuration
+    pages:
+      file:
+        title: Crystal Config File
+      new:
+        title: Add Crystal to New Project
+      add:
+        title: Add Crystal to Existing Project
+      options:
+        title: Crystal Config Options
+  spec:
+    title: Project Specification
+    pages:
+      file:
+        title: Crystal Spec
+      structure:
+        title: Directory Structure
+      processing:
+        title: Processing
+  generator:
+    title: Generators
+    pages:
+      what:
+        title: What Are Generators?
+      loading:
+        title: Loading Generators
+      creating:
+        title: Creating Generators
+
+repository:
+  type: git
+  url: https://github.com/studiotate/crystal-js
+
+generators:
+  authors:
+    path: .
+    version: latest
+  doc:
+    version: latest
+  gitignore:
+    path: .
+    spec:
+      items:
+        - .DS_Store
+    version: latest
+  mit-license:
+    path: .
+    version: latest
+  npm:
+    path: .
+    spec:
+      dependencies:
+        async: 0.9.0
+        backbone: latest
+        change-case: latest
+        coffee-script: latest
+        debug: latest
+        deepmerge: latest
+        diff-mark: latest
+        extend: latest
+        find-versions: latest
+        fs-extra: latest
+        fs-readdir-recursive: latest
+        fstream: latest
+        fstream-ignore: latest
+        fstream-npm: latest
+        gift: latest
+        gzip-js: latest
+        handlebars: latest
+        js-yaml: latest
+        marked: "~0.3.3"
+        merge: 1.2.0
+        mkdirp: latest
+        minimist: latest
+        mustache: latest
+        prompt: 0.2.14
+        pad: latest
+        pluralize: latest
+        request: latest
+        season: latest
+        semver: latest
+        semver-regex: 1.0.0
+        sprintf: latest
+        tar: latest
+        xml-to-jsobj: latest
+        user-home: latest
+        unzip: latest
+      devDependencies:
+        mocha: latest
+        should: latest
+    version: latest
+  readme:
+    path: .
+    version: latest
+
+scripts:
+  build:
+    - npm install
+  run:
+    - npm install
+  test:
+    - test
