@@ -1,4 +1,4 @@
-# crystal-js v0.2.0
+# crystal v0.2.0
 
 Crystal: Node.JS Edition
 
