@@ -30,7 +30,7 @@ Crystal is a fully customizable metaprogramming engine that:
 
 - is meant to be used on an ongoing basis beyond project creation
 
-- allows multiple generators to be added (or removed) to a project or another generators at anytime
+- allows multiple generators to be added (or removed) to a project or another generator at anytime
 
 - has its own package manager built-in so you can easily search, install and update generators
 
