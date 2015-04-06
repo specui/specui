@@ -1,6 +1,5 @@
-# crystal v0.2.1
+# Crystal v0.2.1 (Quartz)
 
-Crystal: Node.JS Edition
 [![image_alt](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
 Crystal is an open source code generator for every language and platform.
