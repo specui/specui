@@ -134,6 +134,20 @@ generators:
       devDependencies:
         mocha: latest
         should: latest
+      keywords:
+        - crystal
+        - codegen
+        - code generator
+        - code generation
+        - metaprogramming
+        - node.js generator
+        - python generator
+        - php generator
+        - javascript generator
+        - coffeescript generator
+        - python generator
+      homepage: "http://crystal.sh"
+      license: mit
     version: latest
   readme:
     path: .
