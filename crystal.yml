@@ -15,6 +15,11 @@ doc:
         title: Prerequisites
       install:
         title: Install
+  features:
+    title: Features
+    pages:
+      features:
+        title: null
   using:
     title: Using Crystal
     pages:
