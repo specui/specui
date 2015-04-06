@@ -9,18 +9,13 @@ Crystal is an open source code generator for every language and platform.
 
 ## Prerequisites
 
-`crystal` is written in `node.js` and distributed by `npm`:
-
-- node.js: http://nodejs.com/download
-- npm: https://docs.npmjs.com/getting-started/installing-node
+Crystal requires [Node.js](http://nodejs.com) and [npm](http://npmjs.com).
 
 
 ## Install
 
-After downloading and installing `node.js` and `npm`, run:
-
 ```sh
-npm install crystal -g
+$ npm install crystal -g
 ```
 
 The option `-g` installs `crystal` globally so you can run `crystal` from any directory.
