@@ -2,20 +2,6 @@
 
 Crystal: Node.JS Edition
 
-
-# Introduction
-
-## What is Crystal?
-
-`crystal` is an open-source platform for automated code generation, versioning, licensing, security and deployment of popular languages and frameworks.
-
-
-## Why Code Generation?
-
-Artificial intelligence was created the moment the first line of code was written. Now it's written in C#, PHP & JavaScript.
-
-Our goal is to perfect code: to embrace the creativity and unique ideas of various languages, frameworks and scripts, and make it as efficient, re-usable and intelligent as possible.
-
 Crystal is an open source code generator for every language and platform.
 
 

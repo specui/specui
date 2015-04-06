@@ -8,13 +8,6 @@ author:
 copyright: 2015 Studio Tate
 
 doc:
-  about:
-    title: Introduction
-    pages:
-      what:
-        title: What is Crystal?
-      why:
-        title: Why Code Generation?
   installation:
     title: Installation
     pages:
