@@ -132,6 +132,12 @@ generators:
     version: latest
   readme:
     path: .
+    spec:
+      image_alt: 'Crystal'
+      image_src: 'http://crystal.sh/images/crystal.svg'
+      image_url: 'http://crystal.sh'
+      name: 'Crystal'
+      title: 'Crystal v0.2.1 (Quartz)'
     version: latest
 
 scripts:
