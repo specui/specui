@@ -1,4 +1,4 @@
-# Crystal v0.2.1 (Quartz)
+# Crystal v0.2.2 (Quartz)
 
 [![image_alt](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
