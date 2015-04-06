@@ -16,6 +16,7 @@ Artificial intelligence was created the moment the first line of code was writte
 
 Our goal is to perfect code: to embrace the creativity and unique ideas of various languages, frameworks and scripts, and make it as efficient, re-usable and intelligent as possible.
 
+Crystal is an open source code generator for every language and platform.
 
 
 # Installation

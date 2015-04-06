@@ -2,7 +2,7 @@
 	
 	"name": "crystal",
 	"version": "0.2.1",
-	"description": "Crystal: Node.JS Edition",
+	"description": "open source code generator for every language and platform",
 	
 	"bin": {
 		"crystal": "./bin/crystal"
