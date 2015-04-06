@@ -51,9 +51,6 @@ crystal cache key [value]
 # clean project from current or specified directory
 crystal clean [dir]
 
-# load data
-crystal data [fixture]
-
 # get or set default value
 crystal default [key] [value]
 
@@ -78,13 +75,13 @@ crystal search <generator>
 # signup for crystal
 crystal signup
 
-# test project
+# run tests for generator
 crystal test
 
-# update generators
+# update generators for project
 crystal update
 
-# get crystal version
+# update project version
 crystal version <major|minor|patch>
 ```
 
