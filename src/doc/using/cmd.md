@@ -4,7 +4,7 @@ Required arguments are surrounded by tags `<>` and optional arguments are surrou
 
 If a command accepts the `dir` argument and no `dir` is specified, it uses the current working directory.
 
-Note: Commands that use the `dir` argument are looking for a [Crystal Config File](/docs#config). If one doesn't exist, the command will return an error!
+Note: Commands that use the `dir` argument are looking for a [Crystal Config](#crystal-config-file) file.
 
 ```sh
 # build project from current or specified directory
