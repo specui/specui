@@ -251,6 +251,10 @@ generate = (config, spec) ->
 				# render content via handlebars
 				content = handlebars.compile(gen_file_contents) spec, data
 				
+				# convert content
+				if generator_config.gen && generator_config.gen.file && generator_config.gen.file[gen_file] && generator_config.gen.file[gen_file].type == 'json'
+					content = JSON.stringify JSON.parse(content), null, "\t"
+				
 				# get dest folder/file
 				dest_folder = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib')
 				dest_file = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib') + '/'
