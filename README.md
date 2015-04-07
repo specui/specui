@@ -4,6 +4,7 @@
 
 Crystal is an open source code generator for every language and platform.
 
+Have a quick question? Let us answer on  [Twitter](http://twitter.com/crystalcodegen) and [Facebook](http://facebook.com/crystalcodegen).
 
 # Installation
 
