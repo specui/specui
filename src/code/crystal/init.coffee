@@ -33,15 +33,16 @@ init = (opts) ->
 		config.description = opts.description
 	
 	# add generators to config
-	default_generators = this.default { _: ['default','generators'] }
-	if default_generators
-		config.generators = default_generators
+	#default_generators = this.default { _: ['default','generators'] }
+	#if default_generators
+	#	config.generators = default_generators
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
 	
 	# create src dir
-	fs.mkdirSync 'src'
+	if !fs.existsSync 'src'
+		fs.mkdirSync 'src'
 	
 	# create gitignore/crystal config files
 	fs.writeFileSync '.gitignore', 'lib/'
