@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
+
 # Crystal v0.2.2 (Quartz)
 
 [![image_alt](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
