@@ -1,6 +1,6 @@
 # Crystal v0.2.2 (Quartz)
 
-[![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
+[![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal) [![Build Status](https://travis-ci.org/studiotate/crystal-js.svg?branch=master)](https://travis-ci.org/studiotate/crystal-js)
 
 [![image_alt](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
