@@ -65,5 +65,8 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/studiotate/crystal-js"
+	},
+	"scripts": {
+		"test": "mocha"
 	}
 }

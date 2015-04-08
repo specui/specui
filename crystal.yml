@@ -148,6 +148,8 @@ generators:
         - python generator
       homepage: "http://crystal.sh"
       license: mit
+      scripts:
+        test: mocha
     version: latest
   readme:
     path: .
