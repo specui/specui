@@ -114,7 +114,7 @@ crystal version <major|minor|patch>
 
 # Projects
 
-## Difference Between Project &amp; Generator
+## Difference Between Project & Generator
 
 There are many ways to use `crystal` but the two most common scenarios are:
 
@@ -122,7 +122,7 @@ There are many ways to use `crystal` but the two most common scenarios are:
 - using `crystal` to create generators
 
 
-## Using &#x60;crystal&#x60; for Your Projects
+## Using `crystal` for Your Projects
 
 `crystal` is powerful. It has several generators to choose from and helps you bootstrap your projects in no time.
 
@@ -131,7 +131,7 @@ But it doesn't stop there. `crystal` is meant to be used for projects on an ongo
 If you are happy using `crystal` to make robust apps (or save the world), then use it for your projects and enjoy the generators made by the wonderful community of `crystal`.
 
 
-## Using &#x60;crystal&#x60; to Create Generators
+## Using `crystal` to Create Generators
 
 If you haven't found the right one. Or if you could do it better. Or just want to give a whirl:
 
@@ -153,7 +153,7 @@ If you want to share it with the world, then you'll also need to:
 
 # Project Structure
 
-## Files &amp; Folders
+## Files & Folders
 
 Below are all of the folders that can be used by `crystal`.
 
