@@ -3,6 +3,7 @@
 	"version": "0.2.2",
 	"description": "open source code generator for every language and platform",
 	"author": "Chris Tate <chris@studiotate.com>",
+	"license": "mit",
 	"homepage": "http://crystal.sh",
 	"bin": {
 		"crystal": "./bin/crystal"
@@ -48,7 +49,6 @@
 		"mocha": "latest",
 		"should": "latest"
 	},
-	"license": "mit",
 	"keywords": [
 		"crystal",
 		"codegen",
