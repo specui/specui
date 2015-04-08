@@ -41,25 +41,25 @@ gen:
     $file: # name of the file (without the extension)
       dest: # the destination of the file, use '.' for root (default: lib)
       mapping:
-    		model:
-    			details:
-    				name:
-    					format:
-    						case: '<camel|lower|proper|upper>' (lowercase)
-    						spacing: '<dash|none|underscore>' (underscore)
-    				type:
-    					bool: <'DETAIL_TYPE'|false>
-    					date: <'DETAIL_TYPE'|false>
-    					decimal: <'DETAIL_TYPE'|false>
-    					image: <'DETAIL_TYPE'|false>
-    					model: <'DETAIL_TYPE'|false>
-    					number: <'DETAIL_TYPE'|false>
-    					string: <'DETAIL_TYPE'|false>
-    					time: <'DETAIL_TYPE'|false>
-    			name:
-    				format:
-    					case: '<camel|lower|proper|upper>'
-    					spacing: '<dash|none|underscore>'
+        model:
+          details:
+            name:
+              format:
+                case: '<camel|lower|proper|upper>' (lowercase)
+                spacing: '<dash|none|underscore>' (underscore)
+            type:
+              bool: <'DETAIL_TYPE'|false>
+              date: <'DETAIL_TYPE'|false>
+              decimal: <'DETAIL_TYPE'|false>
+              image: <'DETAIL_TYPE'|false>
+              model: <'DETAIL_TYPE'|false>
+              number: <'DETAIL_TYPE'|false>
+              string: <'DETAIL_TYPE'|false>
+              time: <'DETAIL_TYPE'|false>
+          name:
+            format:
+              case: '<camel|lower|proper|upper>'
+              spacing: '<dash|none|underscore>'
   spec: # custom spec
     $field_name: # add custom field with unique name
       required: <true|false>

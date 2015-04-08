@@ -309,25 +309,25 @@ gen:
     $file: # name of the file (without the extension)
       dest: # the destination of the file, use &#39;.&#39; for root (default: lib)
       mapping:
-            model:
-                details:
-                    name:
-                        format:
-                            case: &#39;&lt;camel|lower|proper|upper&gt;&#39; (lowercase)
-                            spacing: &#39;&lt;dash|none|underscore&gt;&#39; (underscore)
-                    type:
-                        bool: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        date: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        decimal: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        image: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        model: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        number: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        string: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                        time: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
-                name:
-                    format:
-                        case: &#39;&lt;camel|lower|proper|upper&gt;&#39;
-                        spacing: &#39;&lt;dash|none|underscore&gt;&#39;
+        model:
+          details:
+            name:
+              format:
+                case: &#39;&lt;camel|lower|proper|upper&gt;&#39; (lowercase)
+                spacing: &#39;&lt;dash|none|underscore&gt;&#39; (underscore)
+            type:
+              bool: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              date: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              decimal: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              image: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              model: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              number: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              string: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+              time: &lt;&#39;DETAIL_TYPE&#39;|false&gt;
+          name:
+            format:
+              case: &#39;&lt;camel|lower|proper|upper&gt;&#39;
+              spacing: &#39;&lt;dash|none|underscore&gt;&#39;
   spec: # custom spec
     $field_name: # add custom field with unique name
       required: &lt;true|false&gt;
