@@ -1,4 +1,4 @@
-# Crystal v0.2.2 (Quartz)
+# Crystal v0.2.3 (Quartz)
 
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal) [![Build Status](https://travis-ci.org/studiotate/crystal-js.svg?branch=master)](https://travis-ci.org/studiotate/crystal-js)
 

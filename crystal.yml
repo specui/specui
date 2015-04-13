@@ -1,6 +1,6 @@
 name: crystal
 description: "open source code generator for every language and platform"
-version: 0.2.2
+version: 0.2.3
 
 author:
   name: Chris Tate
@@ -159,7 +159,7 @@ generators:
       image_src: 'http://crystal.sh/images/crystal.svg'
       image_url: 'http://crystal.sh'
       short_name: Crystal
-      title: 'Crystal v0.2.2 (Quartz)'
+      title: 'Crystal v0.2.3 (Quartz)'
     version: latest
 
 scripts:
