@@ -33,4 +33,5 @@ test:
 update:
   desc: update generators
 version:
-  desc: get crystal version
+  opts: '<version>'
+  desc: update project's version

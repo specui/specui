@@ -1,73 +1,75 @@
 <aside>
   <ul>
     <li>
-      <a href="#">Installation</a>
+      <a href="#Installation">Installation</a>
       <ul>
-        <li><a href="#">Prerequisites</a></li>
-        <li><a href="#">Install</a></li>
+        <li><a href="#Prerequisites">Prerequisites</a></li>
+        <li><a href="#Install">Install</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Features</a>
+      <a href="#Features">Features</a>
       <ul>
-        <li><a href="#"></a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Using Crystal</a>
+      <a href="#Using Crystal">Using Crystal</a>
       <ul>
-        <li><a href="#">Command Line Interface</a></li>
-        <li><a href="#">Usage</a></li>
+        <li><a href="#Command Line Interface">Command Line Interface</a></li>
+        <li><a href="#Usage">Usage</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Projects</a>
+      <a href="#Projects">Projects</a>
       <ul>
-        <li><a href="#">Difference Between Project &amp; Generator</a></li>
-        <li><a href="#">Using &#x60;crystal&#x60; for Your Projects</a></li>
-        <li><a href="#">Using &#x60;crystal&#x60; to Create Generators</a></li>
+        <li><a href="#Difference Between Project & Generator">Difference Between Project & Generator</a></li>
+        <li><a href="#Using `crystal` for Your Projects">Using `crystal` for Your Projects</a></li>
+        <li><a href="#Using `crystal` to Create Generators">Using `crystal` to Create Generators</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Project Structure</a>
+      <a href="#Project Structure">Project Structure</a>
       <ul>
-        <li><a href="#">Files &amp; Folders</a></li>
+        <li><a href="#Files & Folders">Files & Folders</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Project Configuration</a>
+      <a href="#Project Configuration">Project Configuration</a>
       <ul>
-        <li><a href="#">Crystal Config File</a></li>
-        <li><a href="#">Add Crystal to New Project</a></li>
-        <li><a href="#">Add Crystal to Existing Project</a></li>
-        <li><a href="#">Crystal Config Options</a></li>
+        <li><a href="#Crystal Config File">Crystal Config File</a></li>
+        <li><a href="#Add Crystal to New Project">Add Crystal to New Project</a></li>
+        <li><a href="#Add Crystal to Existing Project">Add Crystal to Existing Project</a></li>
+        <li><a href="#Crystal Config Options">Crystal Config Options</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Project Specification</a>
+      <a href="#Project Specification">Project Specification</a>
       <ul>
-        <li><a href="#">Crystal Spec</a></li>
-        <li><a href="#">Directory Structure</a></li>
-        <li><a href="#">Processing</a></li>
+        <li><a href="#Crystal Spec">Crystal Spec</a></li>
+        <li><a href="#Directory Structure">Directory Structure</a></li>
+        <li><a href="#Processing">Processing</a></li>
       </ul>
     </li>
     <li>
-      <a href="#">Generators</a>
+      <a href="#Generators">Generators</a>
       <ul>
-        <li><a href="#">What Are Generators?</a></li>
-        <li><a href="#">Loading Generators</a></li>
-        <li><a href="#">Creating Generators</a></li>
+        <li><a href="#What Are Generators?">What Are Generators?</a></li>
+        <li><a href="#Loading Generators">Loading Generators</a></li>
+        <li><a href="#Creating Generators">Creating Generators</a></li>
       </ul>
     </li>
   </ul>
 </aside>
 <section id="doc-installation-content">
+  <a name="Installation"></a>
   <h1>Installation</h1>
+  <a name="Prerequisites"></a>
   <article id="doc-prerequisites-page">
     <h2>Prerequisites</h2>
     <p>Crystal requires <a href="http://nodejs.com">Node.js</a> and <a href="http://npmjs.com">npm</a>.</p>
 
   </article>
+  <a name="Install"></a>
   <article id="doc-install-page">
     <h2>Install</h2>
     <pre><code class="lang-sh">$ npm install crystal -g
@@ -77,7 +79,9 @@
   </article>
 </section>
 <section id="doc-features-content">
+  <a name="Features"></a>
   <h1>Features</h1>
+  <a name=""></a>
   <article id="doc-features-page">
     <h2></h2>
     <p>Crystal is a fully customizable metaprogramming engine that:</p>
@@ -105,13 +109,16 @@
   </article>
 </section>
 <section id="doc-using-content">
+  <a name="Using Crystal"></a>
   <h1>Using Crystal</h1>
+  <a name="Command Line Interface"></a>
   <article id="doc-cli-page">
     <h2>Command Line Interface</h2>
     <p>Once <a href="/docs#installation">installed</a>, <code>crystal</code> runs as a CLI program.</p>
 <p>Note: be sure to install <code>crystal</code> with the <code>-g</code> option to ensure it is installed globally and can be used for any directory.</p>
 
   </article>
+  <a name="Usage"></a>
   <article id="doc-cmd-page">
     <h2>Usage</h2>
     <p><code>crystal</code> accepts the commands and arguments below.</p>
@@ -164,9 +171,11 @@ crystal version &lt;major|minor|patch&gt;
   </article>
 </section>
 <section id="doc-project-content">
+  <a name="Projects"></a>
   <h1>Projects</h1>
+  <a name="Difference Between Project & Generator"></a>
   <article id="doc-difference-page">
-    <h2>Difference Between Project &amp; Generator</h2>
+    <h2>Difference Between Project & Generator</h2>
     <p>There are many ways to use <code>crystal</code> but the two most common scenarios are:</p>
 <ul>
 <li>using <code>crystal</code> for your projects</li>
@@ -174,15 +183,17 @@ crystal version &lt;major|minor|patch&gt;
 </ul>
 
   </article>
+  <a name="Using `crystal` for Your Projects"></a>
   <article id="doc-project-page">
-    <h2>Using &#x60;crystal&#x60; for Your Projects</h2>
+    <h2>Using `crystal` for Your Projects</h2>
     <p><code>crystal</code> is powerful. It has several generators to choose from and helps you bootstrap your projects in no time.</p>
 <p>But it doesn&#39;t stop there. <code>crystal</code> is meant to be used for projects on an ongoing basis. It helps you deliver high quality code for every story, every sprint and every epic. It&#39;s there for launch, maintenance and upgrades.</p>
 <p>If you are happy using <code>crystal</code> to make robust apps (or save the world), then use it for your projects and enjoy the generators made by the wonderful community of <code>crystal</code>.</p>
 
   </article>
+  <a name="Using `crystal` to Create Generators"></a>
   <article id="doc-generator-page">
-    <h2>Using &#x60;crystal&#x60; to Create Generators</h2>
+    <h2>Using `crystal` to Create Generators</h2>
     <p>If you haven&#39;t found the right one. Or if you could do it better. Or just want to give a whirl:</p>
 <p>Try creating a generator for you favorite language, framework or even your own custom code.</p>
 <p>Generators are projects that are meant to be used as generators. In other words, a project is a project unless it:</p>
@@ -200,9 +211,11 @@ crystal version &lt;major|minor|patch&gt;
   </article>
 </section>
 <section id="doc-structure-content">
+  <a name="Project Structure"></a>
   <h1>Project Structure</h1>
+  <a name="Files & Folders"></a>
   <article id="doc-file-page">
-    <h2>Files &amp; Folders</h2>
+    <h2>Files & Folders</h2>
     <p>Below are all of the folders that can be used by <code>crystal</code>.</p>
 <p>Note: The only required file is a Crystal Config File (default: <code>crystal.yml</code>).</p>
 <ul>
@@ -233,7 +246,9 @@ crystal version &lt;major|minor|patch&gt;
   </article>
 </section>
 <section id="doc-config-content">
+  <a name="Project Configuration"></a>
   <h1>Project Configuration</h1>
+  <a name="Crystal Config File"></a>
   <article id="doc-file-page">
     <h2>Crystal Config File</h2>
     <p>In order for your project to properly integrate with <code>crystal</code>, a config file must be added to a directory in your project (preferably in the project&#39;s root directory).</p>
@@ -256,16 +271,19 @@ crystal version &lt;major|minor|patch&gt;
 <p>The only required fields in the crystal config file are <code>name:</code> and <code>version:</code>. Everything else is optional.</p>
 
   </article>
+  <a name="Add Crystal to New Project"></a>
   <article id="doc-new-page">
     <h2>Add Crystal to New Project</h2>
     <p>Adding <code>crystal</code> to a new project is easy.</p>
 
   </article>
+  <a name="Add Crystal to Existing Project"></a>
   <article id="doc-add-page">
     <h2>Add Crystal to Existing Project</h2>
     <p>Adding <code>crystal</code> to an existing project is as easy as adding it to a new project.</p>
 
   </article>
+  <a name="Crystal Config Options"></a>
   <article id="doc-options-page">
     <h2>Crystal Config Options</h2>
     <p>The options below can be used for the Crystal Config File:</p>
@@ -358,11 +376,14 @@ scripts:
   </article>
 </section>
 <section id="doc-spec-content">
+  <a name="Project Specification"></a>
   <h1>Project Specification</h1>
+  <a name="Crystal Spec"></a>
   <article id="doc-file-page">
     <h2>Crystal Spec</h2>
     
   </article>
+  <a name="Directory Structure"></a>
   <article id="doc-structure-page">
     <h2>Directory Structure</h2>
     <p>The Directory Structure for the spec is like:</p>
@@ -402,13 +423,16 @@ scripts:
 </code></pre>
 
   </article>
+  <a name="Processing"></a>
   <article id="doc-processing-page">
     <h2>Processing</h2>
     
   </article>
 </section>
 <section id="doc-generator-content">
+  <a name="Generators"></a>
   <h1>Generators</h1>
+  <a name="What Are Generators?"></a>
   <article id="doc-what-page">
     <h2>What Are Generators?</h2>
     <p>Generators generate code.</p>
@@ -417,6 +441,7 @@ scripts:
 <p>Generators are what make <code>crystal</code> useful to you and others. So use them. Make them. Make a lot of them. Then make generators for your generators and generators for your generators&#39; generators.</p>
 
   </article>
+  <a name="Loading Generators"></a>
   <article id="doc-loading-page">
     <h2>Loading Generators</h2>
     <p>Loading generators is easy and can happen in a few ways.</p>
@@ -444,6 +469,7 @@ crystal install readme
 <p>This is useful for checking out the source code for a generator before using it.</p>
 
   </article>
+  <a name="Creating Generators"></a>
   <article id="doc-creating-page">
     <h2>Creating Generators</h2>
     <p>Creating Generators puts you in control of code generation.</p>
@@ -547,50 +573,6 @@ crystal.cson
     {{copyright}} string
     {{description}} string
     {{name}} string
-</code></pre><h2 id="tutorial">Tutorial</h2>
-<p>The example below illustrates how to use the Generator structure to create a <a href="#gen/types/documentation">Documentation Generator</a>. This same logic can be applied to any other type of Generator including <a href="#gen/types/api">API Generators</a>, <a href="#gen/types/db">Database Generators</a>, <a href="#gen/types/model">Model Generators</a> and <a href="#gen/types">more</a>.</p>
-<pre><code class="lang-html"># {{@name}} {{@version}}
-
-by {{@author.name}} &lt;{{@author.email}}&gt;
-
-## Models
-
-{{#each models}}
-
-### {{name}}
-
-#### Properties
-
-&lt;table&gt;
-    &lt;tr&gt;
-        &lt;th&gt;Name&lt;/th&gt;
-        &lt;th&gt;Type&lt;/th&gt;
-        &lt;th&gt;Required&lt;/th&gt;
-        &lt;th&gt;Unique&lt;/th&gt;
-        &lt;/tr&gt;
-    {{#each details}}
-    &lt;tr&gt;
-        &lt;td&gt;{{name}}&lt;/td&gt;
-        &lt;td&gt;{{type}}&lt;/td&gt;
-        &lt;td&gt;{{#if detail.required}}x{{/if}}&lt;/td&gt;
-        &lt;td&gt;{{#if detail.unique}}x{{/if}}&lt;/td&gt;
-    &lt;/tr&gt;
-    {{/each}}
-&lt;/table&gt;
-
-{{/each}}
 </code></pre>
-<p>To test this example:</p>
-<ol>
-<li>Create a Generator Project and associate it with a repository.</li>
-<li>Use your own environment to pull the repository.</li>
-<li>Create a folder named <code>gen</code> and add a file named <code>README.md</code>.</li>
-<li>Commit and push these changes to your project&#39;s repository with the contents above.</li>
-<li>Back in the Crystal Console, create a Code Project.</li>
-<li>Load Code or Create Models.</li>
-<li>Add your Generator Project.</li>
-<li>Generate Code and voila - you&#39;ve just created a <a href="#gen/types/documentation">Documentation Generator</a>.</li>
-</ol>
-
   </article>
 </section>

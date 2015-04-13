@@ -20,7 +20,7 @@ module.exports = (opts) ->
 		when this.path != undefined then this.path
 		else process.cwd()
 	
-	console.log "Building from #{this.path}..."
+	console.log "Building from: #{this.path}"
 	
 	# clean project
 	#this.clean()
@@ -49,8 +49,6 @@ module.exports = (opts) ->
 	# process spec
 	if (this.spec = this.loadProcessor(this.config, spec)) == false
 		throw new Error 'Unable to process spec'
-	
-	console.log 'Generating Code...'
 	
 	# generate code
 	if this.loadGenerator() == false

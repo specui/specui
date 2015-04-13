@@ -3,8 +3,7 @@ crystal = {
 	config: require './config'
 }
 cson = require 'season'
-deepmerge = require 'deepmerge'
-extend = require 'extend'
+extend = require 'extend-combine'
 findVersions = require 'find-versions'
 fs = require 'fs'
 error = require '../error'
@@ -17,6 +16,8 @@ semver = require 'semver'
 userHome = require 'user-home'
 
 generate = (config, spec) ->
+	console.log "Generating code from: #{this.path}"
+	
 	# get config
 	config = config or this.config
 	if !config then return false
@@ -42,20 +43,33 @@ generate = (config, spec) ->
 	# get gen path
 	gen_path = "#{userHome}/.crystal/gen/"
 	
+	if !config.generators
+		console.log "You have not added any generators yet!"
+	
+	# loop thru project's generators
 	for generator_name of config.generators
+		# require generator's version
 		if !config.generators[generator_name] || !config.generators[generator_name].version
 			throw new Error "Version not specified for Generator (#{generator_name})."
+		# validate "latest" version
 		else if config.generators[generator_name].version == 'latest'
 			generator_version = 'latest'
+		# validate semver version
 		else
 			generator_version = findVersions(config.generators[generator_name].version, { loose: true })[0]
+		
+		# get local generator's path
 		if generator_name.substr 0, 1 == '/'
 			generator_path = generator_name
+		# get public generator's path
 		else
 			generator_path = "#{gen_path}#{generator_name}/#{generator_version}"
 		
+		# version for public generator does not exist
 		if !fs.existsSync generator_path
 			throw new Error "Version (#{generator_version}) does not exist for Generator (#{generator_name}). Try: crystal update"
+		
+		console.log "Loading config for Generator (#{generator_name})..."
 		
 		# get generator config
 		generator_config = this.loadConfig generator_path
@@ -67,7 +81,9 @@ generate = (config, spec) ->
 			if generator_config.generators[passable_generator_name].pass
 				if !passable_generators[passable_generator_name]
 					passable_generators[passable_generator_name] = {}
-				passable_generators[passable_generator_name] = merge.recursive(
+				passable_generators[passable_generator_name] = extend(
+					true,
+					true,
 					passable_generators[passable_generator_name],
 					generator_config.generators[passable_generator_name]
 				)
@@ -105,9 +121,8 @@ generate = (config, spec) ->
 						)
 					config.generators[i].version = gen2_ver
 					passable_generators[n].version = gen2_ver
-	
-	generators = deepmerge config.generators, passable_generators
-	
+					
+	generators = extend true, true, config.generators, passable_generators
 	config_data = config
 	config_data.generators = generators
 	data = {

@@ -16,7 +16,7 @@
 		"debug": "latest",
 		"deepmerge": "latest",
 		"diff-mark": "latest",
-		"extend": "latest",
+		"extend-combine": "latest",
 		"find-versions": "latest",
 		"fs-extra": "latest",
 		"fs-readdir-recursive": "latest",
