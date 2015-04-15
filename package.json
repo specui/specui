@@ -13,6 +13,7 @@
 		"backbone": "latest",
 		"change-case": "latest",
 		"coffee-script": "latest",
+		"confine": "3.0.x",
 		"debug": "latest",
 		"deepmerge": "latest",
 		"diff-mark": "latest",

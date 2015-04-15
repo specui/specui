@@ -100,6 +100,7 @@ generators:
         backbone: latest
         change-case: latest
         coffee-script: latest
+        confine: 3.0.x
         debug: latest
         deepmerge: latest
         diff-mark: latest
@@ -164,8 +165,8 @@ generators:
 
 scripts:
   build:
-    - npm install
+    - sudo npm install
   run:
-    - npm install
+    - sudo npm install
   test:
     - test

@@ -2,18 +2,19 @@
 crystal = {
 	config: require './config'
 }
-cson = require 'season'
-extend = require 'extend-combine'
+confine      = require 'confine'
+cson         = require 'season'
+extend       = require 'extend-combine'
 findVersions = require 'find-versions'
-fs = require 'fs'
-error = require '../error'
-handlebars = require 'handlebars'
-merge = require 'merge'
-mkdirp = require 'mkdirp'
-mustache = require 'mustache'
-readdir = require 'fs-readdir-recursive'
-semver = require 'semver'
-userHome = require 'user-home'
+fs           = require 'fs'
+error        = require '../error'
+handlebars   = require 'handlebars'
+merge        = require 'merge'
+mkdirp       = require 'mkdirp'
+mustache     = require 'mustache'
+readdir      = require 'fs-readdir-recursive'
+semver       = require 'semver'
+userHome     = require 'user-home'
 
 generate = (config, spec) ->
 	console.log "Generating code from: #{this.path}"
@@ -154,37 +155,53 @@ generate = (config, spec) ->
 		
 		gen_spec = {}
 		if generator_config.gen
-			for spec_name of generator_config.gen.spec
-				if generator_config.gen.spec[spec_name].required and !this.config.generators[generator_name].spec[spec_name]
-					error(
-						'%s spec is required for %s generator',
-						spec_name, generator_name
-					)
+			if generator_config.gen.schema
+				validator = new confine()
 				
-				if !this.config.generators[generator_name].spec || !this.config.generators[generator_name].spec[spec_name]
-					continue
+				# validate schema
+				validSchema = validator.validateSchema generator_config.gen.schema
+				if !validSchema
+					throw new Error "Invalid schema for Generator (#{generator_name})."
 				
-				switch generator_config.gen.spec[spec_name].type
-					when 'array'
-						gen_spec[spec_name] = []
-						for i of this.config.generators[generator_name].spec[spec_name]
-							g = {}
-							g[generator_config.gen.spec[spec_name].key] = this.config.generators[generator_name].spec[spec_name][i]
-							gen_spec[spec_name].push g
-						
-					when 'number'
-						gen_spec[spec_name] = this.config.generators[generator_name].spec[spec_name]
-						
-					when 'object'
-						gen_spec[spec_name] = []
-						for key of this.config.generators[generator_name].spec[spec_name]
-							g = {}
-							g[generator_config.gen.spec[spec_name].key] = key
-							g[generator_config.gen.spec[spec_name].value] = this.config.generators[generator_name].spec[spec_name][key]
-							gen_spec[spec_name].push g
-						
-					when 'string'
-						gen_spec[spec_name] = this.config.generators[generator_name].spec[spec_name]
+				# validate spec
+				validSpec = validator.validate this.config.generators[generator_name].spec, generator_config.gen.schema
+				if !validSpec
+					throw new Error "Invalid spec for Generator (#{generator_name})."
+					
+				gen_spec = extend true, true, gen_spec, this.config.generators[generator_name].spec
+				
+			else if generator_config.gen.spec
+				for spec_name of generator_config.gen.spec
+					if generator_config.gen.spec[spec_name].required and !this.config.generators[generator_name].spec[spec_name]
+						error(
+							'%s spec is required for %s generator',
+							spec_name, generator_name
+						)
+					
+					if !this.config.generators[generator_name].spec || !this.config.generators[generator_name].spec[spec_name]
+						continue
+					
+					switch generator_config.gen.spec[spec_name].type
+						when 'array'
+							gen_spec[spec_name] = []
+							for i of this.config.generators[generator_name].spec[spec_name]
+								g = {}
+								g[generator_config.gen.spec[spec_name].key] = this.config.generators[generator_name].spec[spec_name][i]
+								gen_spec[spec_name].push g
+							
+						when 'number'
+							gen_spec[spec_name] = this.config.generators[generator_name].spec[spec_name]
+							
+						when 'object'
+							gen_spec[spec_name] = []
+							for key of this.config.generators[generator_name].spec[spec_name]
+								g = {}
+								g[generator_config.gen.spec[spec_name].key] = key
+								g[generator_config.gen.spec[spec_name].value] = this.config.generators[generator_name].spec[spec_name][key]
+								gen_spec[spec_name].push g
+							
+						when 'string'
+							gen_spec[spec_name] = this.config.generators[generator_name].spec[spec_name]
 		
 		generator_spec = merge spec, gen_spec
 		
