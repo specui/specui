@@ -1,6 +1,6 @@
 {
 	"name": "crystal",
-	"version": "0.2.3",
+	"version": "0.3.0",
 	"description": "open source code generator for every language and platform",
 	"author": "Chris Tate <chris@studiotate.com>",
 	"license": "mit",
