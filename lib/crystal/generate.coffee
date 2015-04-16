@@ -3,7 +3,7 @@ crystal = {
 	config: require './config'
 }
 confine      = require 'confine'
-cson         = require 'season'
+cson         = require 'cson-parser'
 extend       = require 'extend-combine'
 findVersions = require 'find-versions'
 fs           = require 'fs'
@@ -13,8 +13,10 @@ merge        = require 'merge'
 mkdirp       = require 'mkdirp'
 mustache     = require 'mustache'
 readdir      = require 'fs-readdir-recursive'
+season       = require 'season'
 semver       = require 'semver'
 userHome     = require 'user-home'
+yaml         = require 'js-yaml'
 
 generate = (config, spec) ->
 	console.log "Generating code from: #{this.path}"
@@ -149,7 +151,7 @@ generate = (config, spec) ->
 			continue
 		
 		if typeof this.config.generators[generator_name].spec == 'string'
-			this.config.generators[generator_name].spec = cson.readFileSync(
+			this.config.generators[generator_name].spec = season.readFileSync(
 				this.config.generators[generator_name].spec
 			)
 		
@@ -286,7 +288,18 @@ generate = (config, spec) ->
 				# convert content
 				if generator_config.gen && generator_config.gen.file && generator_config.gen.file[gen_file] && generator_config.gen.file[gen_file].type == 'json'
 					content = JSON.stringify JSON.parse(content), null, "\t"
-				
+				else if generator_config.gen && generator_config.gen.file && generator_config.gen.file[gen_file] && generator_config.gen.file[gen_file].decoder && generator_config.gen.file[gen_file].encoder
+					switch generator_config.gen.file[gen_file].decoder
+						when 'cson' then decoded_content = cson.parse content
+						when 'json' then decoded_content = JSON.parse content
+						when 'yaml' then decoded_content = yaml.safeLoad content
+						else throw new Error "Unsupported decoder (#{generator_config.gen.file[gen_file].decoder}) for generator (#{generator_name})."
+					switch generator_config.gen.file[gen_file].encoder
+						when 'cson' then content = season.stringify decoded_content
+						when 'json' then content = JSON.stringify decoded_content, null, "\t"
+						when 'yaml' then content = yaml.safeDump decoded_content
+						else throw new Error "Unsupported encoder (#{generator_config.gen.file[gen_file].decoder}) for generator (#{generator_name})."
+						
 				# get dest folder/file
 				dest_folder = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib')
 				dest_file = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib') + '/'
