@@ -101,6 +101,7 @@ generators:
         change-case: latest
         coffee-script: latest
         confine: 3.0.x
+        cson-parser: 1.0.x
         debug: latest
         deepmerge: latest
         diff-mark: latest
