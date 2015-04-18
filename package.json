@@ -41,6 +41,7 @@
 		"season": "latest",
 		"semver": "latest",
 		"semver-regex": "1.0.0",
+		"skeemas": "~1.1.6",
 		"sprintf": "latest",
 		"tar": "latest",
 		"xml-to-jsobj": "latest",
