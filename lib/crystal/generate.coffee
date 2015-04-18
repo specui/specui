@@ -2,7 +2,6 @@
 crystal = {
 	config: require './config'
 }
-confine      = require 'confine'
 cson         = require 'cson-parser'
 extend       = require 'extend-combine'
 findVersions = require 'find-versions'
@@ -15,6 +14,7 @@ mustache     = require 'mustache'
 readdir      = require 'fs-readdir-recursive'
 season       = require 'season'
 semver       = require 'semver'
+skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
@@ -158,16 +158,10 @@ generate = (config, spec) ->
 		gen_spec = {}
 		if generator_config.gen
 			if generator_config.gen.schema
-				validator = new confine()
-				
-				# validate schema
-				validSchema = validator.validateSchema generator_config.gen.schema
-				if !validSchema
-					throw new Error "Invalid schema for Generator (#{generator_name})."
-				
-				# validate spec
-				validSpec = validator.validate this.config.generators[generator_name].spec, generator_config.gen.schema
-				if !validSpec
+				validate = skeemas.validate this.config.generators[generator_name].spec, generator_config.gen.schema
+				if !validate.valid
+					console.log("Spec failed validation:")
+					console.log(validate.errors)
 					throw new Error "Invalid spec for Generator (#{generator_name})."
 					
 				gen_spec = extend true, true, gen_spec, this.config.generators[generator_name].spec
