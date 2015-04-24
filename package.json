@@ -53,16 +53,16 @@
 		"should": "latest"
 	},
 	"keywords": [
-		"code generation",
-		"code generator",
-		"codegen",
-		"coffeescript generator",
 		"crystal",
-		"javascript generator",
+		"codegen",
+		"code generator",
+		"code generation",
 		"metaprogramming",
 		"node.js generator",
+		"python generator",
 		"php generator",
-		"python generator"
+		"javascript generator",
+		"coffeescript generator"
 	],
 	"repository": {
 		"type": "git",

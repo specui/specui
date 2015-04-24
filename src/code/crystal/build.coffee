@@ -33,7 +33,7 @@ module.exports = (opts) ->
 	
 	# get config
 	if (this.config = this.loadConfig()) == false
-		throw new Error 'Unable to load crystal.cson'
+		throw new Error 'Unable to load configuration.'
 	
 	# update generators
 	#this.update(opts)
@@ -42,17 +42,17 @@ module.exports = (opts) ->
 	
 	# load spec
 	if (spec = this.loadSpec()) == false
-		throw new Error 'Unable to load spec'
+		throw new Error 'Unable to load specification.'
 	
 	console.log 'Loading Processor...'
 	
 	# process spec
 	if (this.spec = this.loadProcessor(this.config, spec)) == false
-		throw new Error 'Unable to process spec'
+		throw new Error 'Unable to process spec.'
 	
 	# generate code
 	if this.loadGenerator() == false
-		throw new Error 'Unable to generate code'
+		throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build
 		console.log 'Done.'

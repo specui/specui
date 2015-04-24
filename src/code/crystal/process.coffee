@@ -8,17 +8,17 @@
 #
 
 # load deps
-changecase = require 'change-case'
 crystal = {
 	format: require './format'
 }
-cson = require 'season'
-debug = require('debug')('build')
-fs = require 'fs'
-merge = require 'merge'
-mkdirp = require 'mkdirp'
-mustache = require 'mustache'
-pluralize = require 'pluralize'
+changecase = require 'change-case'
+cson       = require 'season'
+debug      = require('debug')('build')
+fs         = require 'fs'
+merge      = require 'merge'
+mkdirp     = require 'mkdirp'
+mustache   = require 'mustache'
+pluralize  = require 'pluralize'
 
 # valid detail types
 detail_types = [
@@ -58,13 +58,6 @@ process = (config, spec) ->
 	
 	# create gen object
 	gen = {}
-	
-	if config.author
-		gen.author = config.author
-	if config.description
-		gen.description = config.description
-	if config.name
-		gen.name = config.name
 		
 	# process models
 	spec = merge.recursive spec, config.spec or {}

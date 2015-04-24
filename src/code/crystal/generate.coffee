@@ -156,15 +156,55 @@ generate = (config, spec) ->
 			)
 		
 		gen_spec = {}
+		validate_spec = this.config.generators[generator_name].spec || {}
 		if generator_config.gen
-			if generator_config.gen.schema
-				validate = skeemas.validate this.config.generators[generator_name].spec, generator_config.gen.schema
+			if generator_config.schema or generator_config.gen.schema or fs.existsSync("#{generator_path}/src/schema.yml") or fs.existsSync("#{generator_path}/src/schema.yaml") or fs.existsSync("#{generator_path}/src/schema.cson") or fs.existsSync("#{generator_path}/src/schema.json")
+				if generator_config.schema
+					schema = generator_config.schema
+				else if generator_config.gen.schema
+					schema = generator_config.gen.schema
+				else
+					schema = switch true
+						when fs.existsSync "#{generator_path}/src/schema.yml"
+							yaml.safeLoad fs.readFileSync("#{generator_path}/src/schema.yml")
+						when fs.existsSync "#{generator_path}/src/schema.yaml"
+							yaml.safeLoad fs.readFileSync("#{generator_path}/src/schema.yaml")
+						when fs.existsSync "#{generator_path}/src/schema.cson"
+							cson.readFileSync "#{generator_path}/src/schema.cson"
+						when fs.existsSync "#{generator_path}/src/schema.json"
+							JSON.parse fs.readFileSync("#{generator_path}/src/schema.json")
+						else
+							throw new Error "Unknown file format for schema (#{schema_name})"
+							
+				if schema.type == 'object' and fs.existsSync "#{generator_path}/src/schema/properties"
+					if !schema.properties
+						schema.properties = {}
+					schema_files = fs.readdirSync "#{generator_path}/src/schema/properties"
+					for schema_file in schema_files
+						schema_name = schema_file.replace(/\.(cson|json|yaml|yml)$/i, '')
+						schema_file = "#{generator_path}/src/schema/properties/#{schema_file}"
+						schema_data = switch true
+							when schema_file.match(/\.yml$/i) != null, schema_file.match(/\.yaml$/i) != null
+								yaml.safeLoad fs.readFileSync(schema_file)
+							when schema_file.match(/\.cson$/i) != null
+								cson.readFileSync schema_file
+							when schema_file.match(/\.json$/i) != null
+								JSON.parse fs.readFileSync(schema_file)
+							else
+								throw new Error "Unknown file format for schema (#{schema_name})"
+						schema.properties[schema_name] = schema_data
+				
+				for property_name of schema.properties
+					if validate_spec[property_name] == undefined && this.config[property_name]
+						validate_spec[property_name] = this.config[property_name]
+				
+				validate = skeemas.validate validate_spec, schema
 				if !validate.valid
 					console.log("Spec failed validation:")
 					console.log(validate.errors)
 					throw new Error "Invalid spec for Generator (#{generator_name})."
-					
-				gen_spec = extend true, true, gen_spec, this.config.generators[generator_name].spec
+				
+				gen_spec = validate_spec
 				
 			else if generator_config.gen.spec
 				for spec_name of generator_config.gen.spec
@@ -215,12 +255,41 @@ generate = (config, spec) ->
 							generator_spec_model.details.splice(n, 1)
 						else
 							generator_spec_model.details[n].type = mapping[generator_spec_model.details[n].type]
-						
+		
+		# get gens
+		if generator_config.gen
+			gens = generator_config.gen
+			if generator_config.gen.file
+				gens = generator_config.gen.file
+			
+			for gen_name of gens
+				gen = gens[gen_name]
+				
+				if !fs.existsSync "#{generator_path}/src/gen/#{gen_name}.hbs"
+					content = switch gen.encoder
+						when 'cson' then season.stringify spec
+						when 'json' then JSON.stringify spec, null, "\t"
+						when 'yaml' then yaml.safeDump spec
+						else throw new Error "Unsupported encoder (#{generator_config.gen.file[gen_file].decoder}) for generator (#{generator_name})."
+					
+					# get dest folder/file
+					dest_folder = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib')
+					dest_file = this.path + '/' + (if config.generators[generator_name].path then config.generators[generator_name].path else 'lib') + '/'
+					if gen.dest
+						dest_file += gen.dest
+					else
+						dest_file += gen_name
+					
+					# create dirs
+					mkdirp.sync dest_folder
+					
+					# write to dest file
+					fs.writeFileSync dest_file, content
+		
 		# get gen files
 		if !fs.existsSync "#{generator_path}/src/gen"
-			console.log "Generator (#{generator_name}) has nothing to generate."
 			continue
-			
+		
 		gen_files = fs.readdirSync "#{generator_path}/src/gen"
 		
 		# process each gen file
