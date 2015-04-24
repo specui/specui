@@ -197,10 +197,8 @@ generate = (config, spec) ->
 				for property_name of schema.properties
 					property = schema.properties[property_name]
 					if property.config && validate_spec[property_name] == undefined
-						if property.config == true
+						if property.config == true and this.config[property_name]
 							validate_spec[property_name] = this.config[property_name]
-						else
-							validate_spec[property_name] = handlebars.compile(property.config) this.config
 				
 				validate_spec = sortObject(validate_spec)
 				
