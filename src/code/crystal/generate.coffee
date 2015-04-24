@@ -155,6 +155,8 @@ generate = (config, spec) ->
 				this.config.generators[generator_name].spec
 			)
 		
+		generator_spec = {}
+		
 		if generator_config.gen
 			if generator_config.schema or generator_config.gen.schema or fs.existsSync("#{generator_path}/src/schema.yml") or fs.existsSync("#{generator_path}/src/schema.yaml") or fs.existsSync("#{generator_path}/src/schema.cson") or fs.existsSync("#{generator_path}/src/schema.json")
 				validate_spec = this.config.generators[generator_name].spec || {}
@@ -197,10 +199,8 @@ generate = (config, spec) ->
 				for property_name of schema.properties
 					property = schema.properties[property_name]
 					if property.config && validate_spec[property_name] == undefined
-						if property.config == true
+						if property.config == true and this.config[property_name]
 							validate_spec[property_name] = this.config[property_name]
-						else
-							validate_spec[property_name] = handlebars.compile(property.config) this.config
 				
 				validate_spec = sortObject(validate_spec)
 				
