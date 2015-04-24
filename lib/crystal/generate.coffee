@@ -155,10 +155,10 @@ generate = (config, spec) ->
 				this.config.generators[generator_name].spec
 			)
 		
-		gen_spec = {}
-		validate_spec = this.config.generators[generator_name].spec || {}
 		if generator_config.gen
 			if generator_config.schema or generator_config.gen.schema or fs.existsSync("#{generator_path}/src/schema.yml") or fs.existsSync("#{generator_path}/src/schema.yaml") or fs.existsSync("#{generator_path}/src/schema.cson") or fs.existsSync("#{generator_path}/src/schema.json")
+				validate_spec = this.config.generators[generator_name].spec || {}
+				
 				if generator_config.schema
 					schema = generator_config.schema
 				else if generator_config.gen.schema
@@ -195,8 +195,14 @@ generate = (config, spec) ->
 						schema.properties[schema_name] = schema_data
 				
 				for property_name of schema.properties
-					if validate_spec[property_name] == undefined && this.config[property_name]
-						validate_spec[property_name] = this.config[property_name]
+					property = schema.properties[property_name]
+					if property.config && validate_spec[property_name] == undefined
+						if property.config == true
+							validate_spec[property_name] = this.config[property_name]
+						else
+							validate_spec[property_name] = handlebars.compile(property.config) this.config
+				
+				validate_spec = sortObject(validate_spec)
 				
 				validate = skeemas.validate validate_spec, schema
 				if !validate.valid
@@ -204,9 +210,12 @@ generate = (config, spec) ->
 					console.log(validate.errors)
 					throw new Error "Invalid spec for Generator (#{generator_name})."
 				
-				gen_spec = validate_spec
+				generator_spec = validate_spec
+				extend true, true, spec, validate_spec
 				
 			else if generator_config.gen.spec
+				gen_spec = {}
+				
 				for spec_name of generator_config.gen.spec
 					if generator_config.gen.spec[spec_name].required and !this.config.generators[generator_name].spec[spec_name]
 						error(
@@ -239,7 +248,7 @@ generate = (config, spec) ->
 						when 'string'
 							gen_spec[spec_name] = this.config.generators[generator_name].spec[spec_name]
 		
-		generator_spec = merge spec, gen_spec
+				generator_spec = extend true, true, spec, gen_spec
 		
 		if generator_config.mapping && generator_config.mapping.model && generator_config.mapping.details && generator_config.mapping.details.type
 			mapping = {}
@@ -264,12 +273,11 @@ generate = (config, spec) ->
 			
 			for gen_name of gens
 				gen = gens[gen_name]
-				
 				if !fs.existsSync "#{generator_path}/src/gen/#{gen_name}.hbs"
 					content = switch gen.encoder
-						when 'cson' then season.stringify spec
-						when 'json' then JSON.stringify spec, null, "\t"
-						when 'yaml' then yaml.safeDump spec
+						when 'cson' then season.stringify generator_spec
+						when 'json' then JSON.stringify generator_spec, null, "\t"
+						when 'yaml' then yaml.safeDump generator_spec
 						else throw new Error "Unsupported encoder (#{generator_config.gen.file[gen_file].decoder}) for generator (#{generator_name})."
 					
 					# get dest folder/file
@@ -376,5 +384,11 @@ generate = (config, spec) ->
 				
 				# write to dest file
 				fs.writeFileSync dest_file, content
+
+sortObject = (object) ->
+	Object.keys(object).sort().reduce ((result, key) ->
+		result[key] = object[key]
+		result
+	), {}
 
 module.exports = generate

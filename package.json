@@ -1,10 +1,5 @@
 {
-	"name": "crystal",
-	"version": "0.3.2",
-	"description": "open source code generator for every language and platform",
-	"author": "Chris Tate <chris@studiotate.com>",
-	"license": "mit",
-	"homepage": "http://crystal.sh",
+	"author": "Chris Tate <chris@studiotate.com> (http://studiotate.com)",
 	"bin": {
 		"crystal": "./bin/crystal"
 	},
@@ -48,10 +43,12 @@
 		"user-home": "latest",
 		"unzip": "latest"
 	},
+	"description": "open source code generator for every language and platform",
 	"devDependencies": {
 		"mocha": "latest",
 		"should": "latest"
 	},
+	"homepage": "http://crystal.sh",
 	"keywords": [
 		"crystal",
 		"codegen",
@@ -64,11 +61,14 @@
 		"javascript generator",
 		"coffeescript generator"
 	],
+	"license": "mit",
+	"name": "crystal",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/studiotate/crystal-js"
 	},
 	"scripts": {
 		"test": "mocha"
-	}
+	},
+	"version": "0.3.2"
 }
