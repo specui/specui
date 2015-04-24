@@ -98,13 +98,10 @@ generators:
         crystal: "./bin/crystal"
       dependencies:
         async: 0.9.0
-        backbone: latest
         change-case: latest
         coffee-script: latest
-        confine: 3.0.x
         cson-parser: 1.0.x
         debug: latest
-        deepmerge: latest
         diff-mark: latest
         extend-combine: latest
         find-versions: latest
@@ -113,7 +110,6 @@ generators:
         fstream: latest
         fstream-ignore: latest
         fstream-npm: latest
-        gift: latest
         gzip-js: latest
         handlebars: latest
         js-yaml: latest
@@ -134,7 +130,6 @@ generators:
         tar: latest
         xml-to-jsobj: latest
         user-home: latest
-        unzip: latest
       devDependencies:
         mocha: latest
         should: latest

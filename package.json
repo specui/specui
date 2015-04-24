@@ -1,17 +1,18 @@
 {
-	"author": "Chris Tate <chris@studiotate.com> (http://studiotate.com)",
+	"author": {
+		"name": "Chris Tate",
+		"email": "chris@studiotate.com",
+		"url": "http://studiotate.com"
+	},
 	"bin": {
 		"crystal": "./bin/crystal"
 	},
 	"dependencies": {
 		"async": "0.9.0",
-		"backbone": "latest",
 		"change-case": "latest",
 		"coffee-script": "latest",
-		"confine": "3.0.x",
 		"cson-parser": "1.0.x",
 		"debug": "latest",
-		"deepmerge": "latest",
 		"diff-mark": "latest",
 		"extend-combine": "latest",
 		"find-versions": "latest",
@@ -20,7 +21,6 @@
 		"fstream": "latest",
 		"fstream-ignore": "latest",
 		"fstream-npm": "latest",
-		"gift": "latest",
 		"gzip-js": "latest",
 		"handlebars": "latest",
 		"js-yaml": "latest",
@@ -40,8 +40,7 @@
 		"sprintf": "latest",
 		"tar": "latest",
 		"xml-to-jsobj": "latest",
-		"user-home": "latest",
-		"unzip": "latest"
+		"user-home": "latest"
 	},
 	"description": "open source code generator for every language and platform",
 	"devDependencies": {
