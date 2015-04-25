@@ -53,6 +53,9 @@ init = (path, validate = true) ->
 				when 'test'
 					extend true, true, config.src, src
 	
+	if !config
+		return false
+	
 	if validate == false
 		return config.src.schema
 	else
