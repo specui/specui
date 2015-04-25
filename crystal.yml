@@ -2,163 +2,96 @@ name: crystal
 description: "open source code generator for every language and platform"
 version: 0.3.2
 
-author:
-  name: Chris Tate
-  email: chris@studiotate.com
-  url: http://studiotate.com
-copyright: 2015 Studio Tate
-
-doc:
-  installation:
-    title: Installation
-    pages:
-      prerequisites:
-        title: Prerequisites
-      install:
-        title: Install
-  features:
-    title: Features
-    pages:
-      features:
-        title: null
-  using:
-    title: Using Crystal
-    pages:
-      cli:
-        title: Command Line Interface
-      cmd:
-        title: Usage
-  project:
-    title: Projects
-    pages:
-      difference:
-        title: Difference Between Project & Generator
-      project:
-        title: Using `crystal` for Your Projects
-      generator:
-        title: Using `crystal` to Create Generators
-  structure:
-    title: Project Structure
-    pages:
-      file:
-        title: Files & Folders
-  config:
-    title: Project Configuration
-    pages:
-      file:
-        title: Crystal Config File
-      new:
-        title: Add Crystal to New Project
-      add:
-        title: Add Crystal to Existing Project
-      options:
-        title: Crystal Config Options
-  spec:
-    title: Project Specification
-    pages:
-      file:
-        title: Crystal Spec
-      structure:
-        title: Directory Structure
-      processing:
-        title: Processing
-  generator:
-    title: Generators
-    pages:
-      what:
-        title: What Are Generators?
-      loading:
-        title: Loading Generators
-      creating:
-        title: Creating Generators
-
 repository:
   type: git
   url: https://github.com/studiotate/crystal-js
 
-generators:
-  authors:
-    path: .
-    version: latest
-  doc:
-    version: latest
-  gitignore:
-    path: .
-    spec:
-      items:
-        - .DS_Store
-    version: latest
-  mit-license:
-    path: .
-    version: latest
-  npm:
-    path: .
-    spec:
-      bin:
-        crystal: "./bin/crystal"
-      dependencies:
-        async: 0.9.0
-        change-case: latest
-        coffee-script: latest
-        cson-parser: 1.0.x
-        debug: latest
-        diff-mark: latest
-        extend-combine: latest
-        find-versions: latest
-        fs-extra: latest
-        fs-readdir-recursive: latest
-        fstream: latest
-        fstream-ignore: latest
-        fstream-npm: latest
-        gzip-js: latest
-        handlebars: latest
-        js-yaml: latest
-        marked: "~0.3.3"
-        merge: 1.2.0
-        mkdirp: latest
-        minimist: latest
-        mustache: latest
-        prompt: 0.2.14
-        pad: latest
-        pluralize: latest
-        request: latest
-        season: latest
-        semver: latest
-        semver-regex: 1.0.0
-        skeemas: "~1.1.6"
-        sprintf: latest
-        tar: latest
-        xml-to-jsobj: latest
-        user-home: latest
-      devDependencies:
-        mocha: latest
-        should: latest
-      keywords:
-        - crystal
-        - codegen
-        - code generator
-        - code generation
-        - metaprogramming
-        - node.js generator
-        - python generator
-        - php generator
-        - javascript generator
-        - coffeescript generator
-      homepage: "http://crystal.sh"
-      license: mit
-      scripts:
-        test: mocha
-    version: latest
-  readme:
-    path: .
-    spec:
-      is_a_vowel: true
-      image_alt: 'Crystal'
-      image_src: 'http://crystal.sh/images/crystal.svg'
-      image_url: 'http://crystal.sh'
-      short_name: Crystal
-      title: 'Crystal v0.3.2 (Quartz)'
-    version: latest
+dependencies:
+  configuration:
+    studiotate: latest
+  generators:
+    authors:
+      path: .
+      version: latest
+    doc:
+      version: latest
+    gitignore:
+      path: .
+      spec:
+        items:
+          - .DS_Store
+      version: latest
+    mit-license:
+      path: .
+      version: latest
+    npm:
+      path: .
+      spec:
+        bin:
+          crystal: "./bin/crystal"
+        dependencies:
+          async: 0.9.0
+          change-case: latest
+          coffee-script: latest
+          cson-parser: 1.0.x
+          debug: latest
+          diff-mark: latest
+          extend-combine: latest
+          find-versions: latest
+          fs-extra: latest
+          fs-readdir-recursive: latest
+          fstream: latest
+          fstream-ignore: latest
+          fstream-npm: latest
+          gzip-js: latest
+          handlebars: latest
+          js-yaml: latest
+          marked: "~0.3.3"
+          merge: 1.2.0
+          mkdirp: latest
+          minimist: latest
+          mustache: latest
+          prompt: 0.2.14
+          pad: latest
+          pluralize: latest
+          request: latest
+          season: latest
+          semver: latest
+          semver-regex: 1.0.0
+          skeemas: "~1.1.6"
+          sprintf: latest
+          tar: latest
+          xml-to-jsobj: latest
+          user-home: latest
+        devDependencies:
+          mocha: latest
+          should: latest
+        keywords:
+          - crystal
+          - codegen
+          - code generator
+          - code generation
+          - metaprogramming
+          - node.js generator
+          - python generator
+          - php generator
+          - javascript generator
+          - coffeescript generator
+        homepage: "http://crystal.sh"
+        license: mit
+        scripts:
+          test: mocha
+      version: latest
+    readme:
+      path: .
+      spec:
+        is_a_vowel: true
+        image_alt: 'Crystal'
+        image_src: 'http://crystal.sh/images/crystal.svg'
+        image_url: 'http://crystal.sh'
+        short_name: Crystal
+        title: 'Crystal v0.3.2 (Quartz)'
+      version: latest
 
 scripts:
   build:

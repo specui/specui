@@ -25,33 +25,14 @@ module.exports = (opts) ->
 	# clean project
 	#this.clean()
 	
-	# load internal methods
-	this.loadConfig = require './config'
-	this.loadGenerator = require './generate'
-	this.loadProcessor = require './process'
-	this.loadSpec = require './spec'
+	console.log 'Loading Configuration...'
 	
 	# get config
-	if (this.config = this.loadConfig()) == false
+	if (this.project = this.config()) == false
 		throw new Error 'Unable to load configuration.'
-	
-	# update generators
-	#this.update(opts)
-	
-	console.log 'Loading Spec...'
-	
-	# load spec
-	if (spec = this.loadSpec()) == false
-		throw new Error 'Unable to load specification.'
-	
-	console.log 'Loading Processor...'
-	
-	# process spec
-	if (this.spec = this.loadProcessor(this.config, spec)) == false
-		throw new Error 'Unable to process spec.'
-	
+		
 	# generate code
-	if this.loadGenerator() == false
+	if this.generate() == false
 		throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build

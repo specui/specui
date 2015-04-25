@@ -17,6 +17,8 @@ global.ErrorRequired.prototype = Error.prototype
 
 crystal = (path) ->
   
+  this.project = {}
+  
   # define methods
   methods = [
     'build'

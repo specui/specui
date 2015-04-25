@@ -1,0 +1,9 @@
+enum:
+- application
+- configuration
+- generator
+- helper
+- module
+- processor
+- schematic
+- specification

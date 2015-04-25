@@ -1,0 +1,62 @@
+installation:
+  title: Installation
+  pages:
+    prerequisites:
+      title: Prerequisites
+    install:
+      title: Install
+features:
+  title: Features
+  pages:
+    features:
+      title: null
+using:
+  title: Using Crystal
+  pages:
+    cli:
+      title: Command Line Interface
+    cmd:
+      title: Usage
+project:
+  title: Projects
+  pages:
+    difference:
+      title: Difference Between Project & Generator
+    project:
+      title: Using `crystal` for Your Projects
+    generator:
+      title: Using `crystal` to Create Generators
+structure:
+  title: Project Structure
+  pages:
+    file:
+      title: Files & Folders
+config:
+  title: Project Configuration
+  pages:
+    file:
+      title: Crystal Config File
+    new:
+      title: Add Crystal to New Project
+    add:
+      title: Add Crystal to Existing Project
+    options:
+      title: Crystal Config Options
+spec:
+  title: Project Specification
+  pages:
+    file:
+      title: Crystal Spec
+    structure:
+      title: Directory Structure
+    processing:
+      title: Processing
+generator:
+  title: Generators
+  pages:
+    what:
+      title: What Are Generators?
+    loading:
+      title: Loading Generators
+    creating:
+      title: Creating Generators

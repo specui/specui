@@ -18,154 +18,15 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
-passable_dependencies = {}
-
-loadDependencies = (dependencies, crystal, pass = false) ->
-	# load project dependencies
-	for dependency_type of dependencies
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
-			
-			# pass dependency
-			if pass == true && !dependency.pass
-				continue
-							
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			dependency_path += switch dependency_type
-				when 'configurations' then 'config'
-				when 'generators' then 'gen'
-			dependency_path += '/'
-
-			# get dependency version
-			if dependency.version
-				dependency_version = dependency.version
-			else if typeof dependency == 'string'
-				dependency_version = dependency
-			else
-				throw new Error "Unable to determine version of #{dependency_type} (#{dependency_name})."
-			
-			# update dependency path
-			dependency_path += "#{dependency_name}/#{dependency_version}"
-			
-			# get dependency config
-			dependency_config = crystal.config dependency_path
-			
-			if dependency_config.dependencies
-				loadDependencies dependency_config.dependencies, crystal, true
-			
-			if !passable_dependencies[dependency_type]
-				passable_dependencies[dependency_type] = {}
-			if typeof dependency == 'string'
-				passable_dependencies[dependency_type][dependency_name] = {
-					version: dependency
-				}
-			else
-				passable_dependencies[dependency_type][dependency_name] = dependency
-			passable_dependencies[dependency_type][dependency_name].config = dependency_config
-			delete passable_dependencies[dependency_type][dependency_name].pass
-	
-	passable_dependencies
-
-loadGen = (path, gen_name) ->
-	gen_file = "#{path}/#{gen_name}.hbs"
-	
-	if fs.existsSync gen_file
-		gen = fs.readFileSync gen_file, 'utf8'
-	
-	gen
-
-generate = (project) ->
+generate = (config, spec) ->
 	console.log "Generating code from: #{this.path}"
 	
-	# get project
-	project = project or this.project
-	
-	# get dependencies
-	dependencies = loadDependencies project.dependencies, this
-	
-	# load project dependencies
-	for dependency_type of dependencies
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
-			
-			if !dependency.config.src
-				console.log "Dependency (#{dependency_name}) has nothing to do."
-				continue
-			
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			switch dependency_type
-				when 'configurations'
-					dependency_path += 'config'
-				when 'generators'
-					dependency_path += 'gen'
-			dependency_path += "/#{dependency_name}/#{dependency.version}/src"
-			
-			switch dependency_type
-				when 'configurations'
-					project = extend true, true, project, dependency.config.src.config
-	
-	# get dependencies
-	dependencies = loadDependencies project.dependencies, this
-	
-	# load project dependencies
-	for dependency_type of dependencies
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
-			
-			if !dependency.config.src
-				console.log "Dependency (#{dependency_name}) has nothing to do."
-				continue
-			
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			switch dependency_type
-				when 'configurations'
-					dependency_path += 'config'
-				when 'generators'
-					dependency_path += 'gen'
-			dependency_path += "/#{dependency_name}/#{dependency.version}/src"
-			
-			switch dependency_type
-				when 'generators'
-					# validate generator's schema
-					if dependency.config.src.schema
-						validate = skeemas.validate dependency.spec or {}, dependency.config.src.schema
-						if !validate.valid
-							console.log("Spec failed validation:")
-							console.log(validate.errors)
-							throw new Error "Invalid spec for Generator (#{generator_name})."
-					
-					# generate files
-					if dependency.config.src.gen
-						for gen_name of dependency.config.src.gen
-							gen = dependency.config.src.gen[gen_name]
-							gen_contents = loadGen "#{dependency_path}/gen", gen_name
-							content = handlebars.compile(gen_contents) dependency.spec, {
-								data: project
-							}
-							if dependency.path == '.'
-								dest_path = ''
-							else
-								dest_path = '/lib'
-							
-							if !fs.existsSync "#{this.path}#{dest_path}"
-								mkdirp "#{this.path}#{dest_path}"
-							fs.writeFileSync "#{this.path}#{dest_path}/#{gen.dest}", content
-	
-	process.kill 0
-	config = config or this.project.config
+	# get config
+	config = config or this.config
 	if !config then return false
 	
 	# get spec
-	spec = spec or this.project.src.spec
+	spec = spec or this.spec
 	if !spec then return false
 	
 	# get code path
