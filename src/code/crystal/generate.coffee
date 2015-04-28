@@ -18,51 +18,51 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
-passable_dependencies = {}
+passable_modules = {}
 
-loadDependencies = (dependencies, crystal, pass = false) ->
-	# load project dependencies
-	for dependency_type of dependencies
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
+loadModules = (modules, crystal, pass = false) ->
+	# load project modules
+	for mod_type of modules
+		# load modules by name
+		for mod_name of modules[mod_type]
+			# get mod
+			mod = modules[mod_type][mod_name]
 			
-			# pass dependency
-			if pass == true && !dependency.pass
+			# pass mod
+			if pass == true && !mod.pass
 				continue
 							
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			dependency_path += switch dependency_type
+			# get mod path
+			mod_path = "/Volumes/File/.crystal/"
+			mod_path += switch mod_type
 				when 'configurations' then 'config'
 				when 'generators' then 'gen'
 				when 'schematics' then 'schema'
-				else throw new Error "Invalid type (#{dependency_type}) for dependency (#{dependency_name})."
-			dependency_path += '/'
+				else throw new Error "Invalid type (#{mod_type}) for module (#{mod_name})."
+			mod_path += '/'
 
-			# get dependency version
-			if dependency.version
-				dependency_version = dependency.version
-			else if typeof dependency == 'string'
-				dependency_version = dependency
+			# get mod version
+			if mod.version
+				mod_version = mod.version
+			else if typeof mod == 'string'
+				mod_version = mod
 			else
-				throw new Error "Unable to determine version of #{dependency_type} (#{dependency_name})."
+				throw new Error "Unable to determine version of #{mod_type} (#{mod_name})."
 			
-			# update dependency path
-			dependency_path += "#{dependency_name}/#{dependency_version}"
+			# update mod path
+			mod_path += "#{mod_name}/#{mod_version}"
 			
-			# get dependency config
-			dependency_config = crystal.config dependency_path
+			# get mod config
+			mod_config = crystal.config mod_path
 			
-			if !dependency_config
+			if !mod_config
 				continue
 			
-			if dependency_config.dependencies
-				if dependency_config.dependencies.schematics
-					for schematic_name of dependency_config.dependencies.schematics
+			if mod_config.modules
+				if mod_config.modules.schematics
+					for schematic_name of mod_config.modules.schematics
 						# get schematic
-						schematic = dependency_config.dependencies.schematics[schematic_name]
+						schematic = mod_config.modules.schematics[schematic_name]
 						
 						# get schematic path
 						schematic_path = "/Volumes/File/.crystal/schema/"
@@ -81,28 +81,28 @@ loadDependencies = (dependencies, crystal, pass = false) ->
 						schematic_config = crystal.config schematic_path
 						
 						if schematic.schema
-							if !dependency_config.src.schema
-								dependency_config.src.schema = {}
-							if !dependency_config.src.schema.properties
-								dependency_config.src.schema.properties = {}
-							dependency_config.src.schema.properties[schematic.schema] = extend true, true, dependency_config.src.schema.properties[schematic.schema], schematic_config.src.schema
+							if !mod_config.src.schema
+								mod_config.src.schema = {}
+							if !mod_config.src.schema.properties
+								mod_config.src.schema.properties = {}
+							mod_config.src.schema.properties[schematic.schema] = extend true, true, mod_config.src.schema.properties[schematic.schema], schematic_config.src.schema
 						else
-							dependency_config.src.schema = extend true, true, dependency_config.src.schema, schematic_config.src.schema
+							mod_config.src.schema = extend true, true, mod_config.src.schema, schematic_config.src.schema
 				
-				loadDependencies dependency_config.dependencies, crystal, true
+				loadModules mod_config.modules, crystal, true
 			
-			if !passable_dependencies[dependency_type]
-				passable_dependencies[dependency_type] = {}
-			if typeof dependency == 'string'
-				passable_dependencies[dependency_type][dependency_name] = {
-					version: dependency
+			if !passable_modules[mod_type]
+				passable_modules[mod_type] = {}
+			if typeof mod == 'string'
+				passable_modules[mod_type][mod_name] = {
+					version: mod
 				}
 			else
-				passable_dependencies[dependency_type][dependency_name] = dependency
-			passable_dependencies[dependency_type][dependency_name].config = dependency_config
-			delete passable_dependencies[dependency_type][dependency_name].pass
+				passable_modules[mod_type][mod_name] = mod
+			passable_modules[mod_type][mod_name].config = mod_config
+			delete passable_modules[mod_type][mod_name].pass
 	
-	passable_dependencies
+	passable_modules
 
 loadGen = (path, gen_name) ->
 	gen_file = "#{path}/#{gen_name}.hbs"
@@ -118,85 +118,85 @@ generate = (project) ->
 	# get project
 	project = project or this.project
 	
-	console.log "Loading dependencies..."
+	console.log "Loading modules..."
 	
-	# get dependencies
-	dependencies = loadDependencies project.dependencies, this
+	# get modules
+	modules = loadModules project.modules, this
 	
-	# load project dependencies
-	for dependency_type of dependencies
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
+	# load project modules
+	for mod_type of modules
+		# load modules by name
+		for mod_name of modules[mod_type]
+			# get mod
+			mod = modules[mod_type][mod_name]
 			
-			if !dependency.config.src
-				console.log "Dependency (#{dependency_name}) has nothing to do."
+			if !mod.config.src
+				console.log "Module (#{mod_name}) has nothing to do."
 				continue
 			
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			switch dependency_type
+			# get mod path
+			mod_path = "/Volumes/File/.crystal/"
+			switch mod_type
 				when 'configurations'
-					dependency_path += 'config'
+					mod_path += 'config'
 				when 'generators'
-					dependency_path += 'gen'
-			dependency_path += "/#{dependency_name}/#{dependency.version}/src"
+					mod_path += 'gen'
+			mod_path += "/#{mod_name}/#{mod.version}/src"
 			
-			switch dependency_type
+			switch mod_type
 				when 'configurations'
-					project = extend true, true, project, dependency.config.src.config
+					project = extend true, true, project, mod.config.src.config
 	
-	# get dependencies
-	dependencies = loadDependencies project.dependencies, this
+	# get modules
+	modules = loadModules project.modules, this
 	
-	# load project dependencies
-	for dependency_type of dependencies
-		console.log "Loading #{dependency_type}..."
+	# load project modules
+	for mod_type of modules
+		console.log "Loading #{mod_type}..."
 		
-		# load dependencies by name
-		for dependency_name of dependencies[dependency_type]
-			console.log "- #{dependency_name}"
+		# load modules by name
+		for mod_name of modules[mod_type]
+			console.log "- #{mod_name}"
 			
-			# get dependency
-			dependency = dependencies[dependency_type][dependency_name]
+			# get mod
+			mod = modules[mod_type][mod_name]
 			
-			if !dependency.config.src
-				console.log "Dependency (#{dependency_name}) has nothing to do."
+			if !mod.config.src
+				console.log "Module (#{mod_name}) has nothing to do."
 				continue
 			
-			# get dependency path
-			dependency_path = "/Volumes/File/.crystal/"
-			switch dependency_type
+			# get mod path
+			mod_path = "/Volumes/File/.crystal/"
+			switch mod_type
 				when 'configurations'
-					dependency_path += 'config'
+					mod_path += 'config'
 				when 'generators'
-					dependency_path += 'gen'
-			dependency_path += "/#{dependency_name}/#{dependency.version}/src"
+					mod_path += 'gen'
+			mod_path += "/#{mod_name}/#{mod.version}/src"
 			
-			switch dependency_type
+			switch mod_type
 				when 'generators'
 					# get spec
-					spec = extend true, true, {}, dependency.spec, project.src.spec
+					spec = extend true, true, {}, mod.spec, project.src.spec
 					
 					# validate generator's schema
-					if dependency.config.src.schema
-						validate = skeemas.validate spec, dependency.config.src.schema
+					if mod.config.src.schema
+						validate = skeemas.validate spec, mod.config.src.schema
 						if !validate.valid
-							console.log("Specification failed validation for generator (#{dependency_name}):")
+							console.log("Specification failed validation for generator (#{mod_name}):")
 							for error in validate.errors
 								console.log "- #{error.message} for specification (#{error.context.substr(2)})"
-							throw new Error "ERROR: Invalid specification for generator (#{dependency_name})."
+							throw new Error "ERROR: Invalid specification for generator (#{mod_name})."
 					
 					# generate files
-					if dependency.config.src.gen
-						for gen_name of dependency.config.src.gen
-							gen = dependency.config.src.gen[gen_name]
-							gen_contents = loadGen "#{dependency_path}/gen", gen_name
+					if mod.config.src.gen
+						for gen_name of mod.config.src.gen
+							gen = mod.config.src.gen[gen_name]
+							gen_contents = loadGen "#{mod_path}/gen", gen_name
 							content = handlebars.compile(gen_contents) spec, {
 								data: project
 							}
-							if dependency.path == '.'
+							if mod.path == '.'
 								dest_path = ''
 							else
 								dest_path = '/lib'
