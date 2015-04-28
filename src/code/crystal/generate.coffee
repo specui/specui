@@ -143,6 +143,13 @@ generate = (project) ->
 					mod_path += 'gen'
 			mod_path += "/#{mod_name}/#{mod.version}/src"
 			
+			# process spec
+			if fs.existsSync "#{mod_path}/proc"
+				for file in readdir "#{mod_path}/proc"
+					project.src.spec = require("#{mod_path}/proc/#{file}")(project.src.spec)
+					if project.src.spec == false
+						throw new Error "Module (#{mod_name}) was unable to process specification."
+			
 			switch mod_type
 				when 'configurations'
 					project = extend true, true, project, mod.config.src.config
@@ -173,14 +180,7 @@ generate = (project) ->
 				when 'generators'
 					mod_path += 'gen'
 			mod_path += "/#{mod_name}/#{mod.version}/src"
-			
-			# process spec
-			if fs.existsSync "#{mod_path}/proc"
-				for file in readdir "#{mod_path}/proc"
-					project.src.spec = require("#{mod_path}/proc/#{file}")(project.src.spec)
-					if project.src.spec == false
-						throw new Error "Module (#{mod_name}) was unable to process specification."
-			
+						
 			switch mod_type
 				when 'generators'
 					# get spec
