@@ -32,34 +32,13 @@ init = (path, validate = true) ->
 	# load config
 	config = load path
 	
-	# load src
-	src_files = readdir "#{path}/src"
-	if src_files and src_files.length
-		if !config.src
-			config.src = {}
-		for src_file in src_files
-			src = loadSrc "#{path}/src/#{src_file}"
-			src = setNestedPropertyValue({}, "#{src_file.split('.')[0].replace(/\//g, '.')}", src)
-			src_type = src_file.split('.')[0].split('/')[0]
-			switch src_type
-				when 'config'
-					extend true, true, config.src, src
-				when 'gen'
-					extend true, true, config.src, src
-				when 'schema'
-					extend true, true, config.src, src
-				when 'spec'
-					extend true, true, config.src, src
-				when 'test'
-					extend true, true, config.src, src
-	
 	if !config
 		return false
 	
 	if validate == false
-		return config.src.schema
+		return yaml.safeLoad fs.readFileSync("/Users/ctate/.crystal/dev/crystal/.crystal/schema/#{config.exports.ConfigSchematic.schema}")
 	else
-		config_schema = this.config '/Volumes/File/.crystal/dev/crystal/js', false
+		config_schema = this.config '/Users/ctate/.crystal/dev/crystal', false
 	
 	validate = skeemas.validate config, config_schema
 	if !validate.valid
@@ -72,7 +51,7 @@ init = (path, validate = true) ->
 load = (path) ->
 	# get config
 	for ext in ['yml','yaml','cson','json','xml']
-		file = "#{path}/crystal.#{ext}"
+		file = "#{path}/.crystal/config.#{ext}"
 		
 		if fs.existsSync file
 			config = fs.readFileSync file

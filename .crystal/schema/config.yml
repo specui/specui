@@ -1,0 +1,38 @@
+type: object
+properties:
+  description:
+    type: string
+  exports:
+    type: object
+    properties:
+      engine:
+        type: string
+      helper:
+        type: string
+      processor:
+        type: string
+      generator:
+        type: string
+      schema:
+        type: string
+      spec:
+        type: string
+  imports:
+    type: object
+    additionalProperties:
+      type:
+        - string
+        - object
+      properties:
+        aliases:
+          type: object
+          additionalProperties:
+            type: string
+        version:
+          type: string
+  name:
+    type: string
+  version:
+    type:
+      - number
+      - string

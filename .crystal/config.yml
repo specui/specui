@@ -1,0 +1,39 @@
+id: sh.crystal.crystal
+name: Crystal
+description: open source code generator for every language and platform
+version: 1.0.0
+repository: https://github.com/crystalcodegen/crystal
+modules:
+  sh.crystal.default: v0.1.0
+  sh.crystal.npm: v0.1.0
+  sh.crystal.travis: v0.1.0
+imports:
+  default.DefaultConfiguration: default-config
+  npm.ConfigGenerator: npm-gen
+  travis.ConfigGenerator: travis-gen
+inputs:
+  - config: default-config
+exports:
+  ConfigSchematic:
+    schema: config.yml
+    type: schematic
+outputs:
+  #- generator: default-config.gitignore-gen
+  #  merge: true
+  #  spec:
+  #    items:
+  #      - .DS_Store
+  - generator: npm-gen
+    spec: npm.yml
+  - generator: travis-gen
+    spec:
+      language: node_js
+      node_js:
+      - '0.12'
+scripts:
+  build:
+    - sudo npm install
+  run:
+    - sudo npm install
+  test:
+    - test

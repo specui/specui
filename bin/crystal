@@ -54,6 +54,9 @@ try {
 			project.signup();
 			break;
 		default:
+			if (minimist.f === true) {
+				project.force = true;
+			}
 			project[command](minimist);
 			break;
 	}
@@ -63,6 +66,6 @@ try {
 		throw e;
 	}
 	
-	console.error(e.message);
+	console.error('ERROR: ' + e.message);
 	console.error('Failed.');
 }

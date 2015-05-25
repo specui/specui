@@ -1,8 +1,8 @@
 {
 	"author": {
 		"name": "Chris Tate",
-		"email": "chris@studiotate.com",
-		"url": "http://studiotate.com"
+		"email": "chris@crystal.sh",
+		"url": "http://crystal.sh"
 	},
 	"bin": {
 		"crystal": "./bin/crystal"
@@ -64,10 +64,10 @@
 	"name": "crystal",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/studiotate/crystal-js"
+		"url": "https://github.com/crystalcodegen/crystal"
 	},
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.3.2"
+	"version": "1.0.0"
 }

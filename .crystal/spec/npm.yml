@@ -1,0 +1,61 @@
+name: crystal
+version: $version
+description: $description
+author: $author
+repository:
+  type: git
+  url: $repository
+bin:
+  crystal: "./bin/crystal"
+dependencies:
+  async: 0.9.0
+  change-case: latest
+  coffee-script: latest
+  cson-parser: 1.0.x
+  debug: latest
+  diff-mark: latest
+  extend-combine: latest
+  find-versions: latest
+  fs-extra: latest
+  fs-readdir-recursive: latest
+  fstream: latest
+  fstream-ignore: latest
+  fstream-npm: latest
+  gzip-js: latest
+  handlebars: latest
+  js-yaml: latest
+  marked: "~0.3.3"
+  merge: 1.2.0
+  mkdirp: latest
+  minimist: latest
+  mustache: latest
+  prompt: 0.2.14
+  pad: latest
+  pluralize: latest
+  request: latest
+  season: latest
+  semver: latest
+  semver-regex: 1.0.0
+  skeemas: "~1.1.6"
+  sprintf: latest
+  tar: latest
+  xml-to-jsobj: latest
+  user-home: latest
+devDependencies:
+  mocha: latest
+  should: latest
+keywords:
+  - crystal
+  - codegen
+  - code generator
+  - code generation
+  - metaprogramming
+  - node.js generator
+  - python generator
+  - php generator
+  - javascript generator
+  - coffeescript generator
+homepage: "http://crystal.sh"
+license: mit
+scripts:
+  test: mocha

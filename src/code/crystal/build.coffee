@@ -35,14 +35,14 @@ module.exports = (opts) ->
 	if this.generate() == false
 		throw new Error 'Unable to generate code.'
 	
-	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build
+	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.project.scripts or !this.project.scripts.build
 		console.log 'Done.'
 		return
 	
 	console.log 'Running build scripts...'
 	
 	opts = this.opts
-	scripts = this.config.scripts
+	scripts = this.project.scripts
 	
 	i = 0
 	buildCmd = () ->

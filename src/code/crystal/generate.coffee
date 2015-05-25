@@ -2,6 +2,7 @@
 crystal = {
 	config: require './config'
 }
+crypto       = require 'crypto'
 cson         = require 'cson-parser'
 extend       = require 'extend-combine'
 findVersions = require 'find-versions'
@@ -18,99 +19,171 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
-passable_modules = {}
+project_id = ''
 
-loadModules = (modules, crystal, pass = false) ->
-	# load project modules
-	for mod_type of modules
-		# load modules by name
-		for mod_name of modules[mod_type]
-			# get mod
-			mod = modules[mod_type][mod_name]
-			
-			# pass mod
-			if pass == true && !mod.pass
-				continue
-							
-			# get mod path
-			mod_path = "/Volumes/File/.crystal/"
-			mod_path += switch mod_type
-				when 'configurations' then 'config'
-				when 'generators' then 'gen'
-				when 'schematics' then 'schema'
-				else throw new Error "Invalid type (#{mod_type}) for module (#{mod_name})."
-			mod_path += '/'
-
-			# get mod version
-			if mod.version
-				mod_version = mod.version
-			else if typeof mod == 'string'
-				mod_version = mod
-			else
-				throw new Error "Unable to determine version of #{mod_type} (#{mod_name})."
-			
-			# update mod path
-			mod_path += "#{mod_name}/#{mod_version}"
-			
-			# get mod config
-			mod_config = crystal.config mod_path
-			
-			if !mod_config
-				continue
-			
-			if mod_config.modules
-				if mod_config.modules.schematics
-					for schematic_name of mod_config.modules.schematics
-						# get schematic
-						schematic = mod_config.modules.schematics[schematic_name]
-						
-						# get schematic path
-						schematic_path = "/Volumes/File/.crystal/schema/"
-
-						# get schematic version
-						if schematic.version
-							schematic_version = schematic.version
-						else if typeof schematic == 'string'
-							schematic_version = schematic
-						else
-							throw new Error "Unable to determine version of #{schematic_type} (#{schematic_name})."
-						
-						# update schematic path
-						schematic_path += "#{schematic_name}/#{schematic_version}"
-						
-						schematic_config = crystal.config schematic_path
-						
-						if schematic.schema
-							if !mod_config.src.schema
-								mod_config.src.schema = {}
-							if !mod_config.src.schema.properties
-								mod_config.src.schema.properties = {}
-							mod_config.src.schema.properties[schematic.schema] = extend true, true, mod_config.src.schema.properties[schematic.schema], schematic_config.src.schema
-						else
-							mod_config.src.schema = extend true, true, mod_config.src.schema, schematic_config.src.schema
+loadImports = (imports, modules) ->
+	loaded_imports = {}
+	
+	# check if each import exists
+	for import_id of imports
+		console.log "- #{import_id}"
+		
+		# get import module
+		import_alias = imports[import_id]
+		import_parts = import_id.split '.'
+		module_name = import_parts[0]
+		import_name = import_parts[1]
+		
+		# module is not loaded
+		if !modules[module_name]
+			throw new Error "Module (#{module_name}.#{import_name}) not initialized for import (#{import_parts[2]})"
+		
+		# get import module
+		import_module = modules[module_name]
+		module_id = import_module.id
+		import_config = import_module.config
+		import_path = import_module.path
+		
+		# load exported
+		exported = import_config.exports[import_name]
+		if !exported
+			throw new Error "Export (#{import_name}) does not exist for import (#{module_id})"
+		
+		# load child imports
+		if import_config.imports and module_id != project_id
+			console.log "Loading modules for #{module_id}..."
+			child_modules = loadModules import_config.modules
+			console.log "Loading imports for #{import_name}..."
+			child_imports = loadImports import_config.imports, child_modules
+		
+		loaded_imports[import_alias] = exported
+		loaded_imports[import_alias].imports = child_imports
+		
+		if !exported.type
+			throw new Error "Type is required for export (#{import_name}) in module (#{module_id})"
+		
+		switch exported.type
+			when 'configuration'
+				loaded_imports[import_alias].config = exported.config
+				loaded_imports[import_alias].doc = fs.readFileSync "#{import_path}/.crystal/config.yml"
+			when 'engine'
+				loaded_imports[import_alias].engine = require "#{import_path}/.crystal/engine/#{exported.engine}"
+			when 'generator'
+				if exported.engine
+					loaded_imports[import_alias].engine = child_imports[exported.engine].engine
+				if exported.schema && typeof(exported.schema) == 'string'
+					loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
+				if exported.template
+					loaded_imports[import_alias].template = fs.readFileSync "#{import_path}/.crystal/template/#{exported.template}", 'utf8'
+			when 'helper'
+				loaded_imports[import_alias].helper = require "#{import_path}/.crystal/engine/#{exported.helper}"
+			when 'processor'
+				loaded_imports[import_alias].processor = require "#{import_path}/.crystal/proc/#{exported.processor}"
+			when 'schematic'
+				loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
+			else throw new Error "unknown type (#{exported.type}) for export (#{import_name}) in import (#{module_id})"
 				
-				loadModules mod_config.modules, crystal, true
-			
-			if !passable_modules[mod_type]
-				passable_modules[mod_type] = {}
-			if typeof mod == 'string'
-				passable_modules[mod_type][mod_name] = {
-					version: mod
-				}
-			else
-				passable_modules[mod_type][mod_name] = mod
-			passable_modules[mod_type][mod_name].config = mod_config
-			delete passable_modules[mod_type][mod_name].pass
-	
-	passable_modules
+	loaded_imports
 
-loadGen = (path, gen_name) ->
-	gen_file = "#{path}/#{gen_name}.hbs"
+loadModules = (modules) ->
+	loaded_modules = {}
 	
-	if fs.existsSync gen_file
-		gen = fs.readFileSync gen_file, 'utf8'
-	
-	gen
+	for module_id of modules
+		console.log "- #{module_id}"
+		
+		module_parts = module_id.split '.'
+		module_name = module_parts[module_parts.length-1]
+		module_version = modules[module_id]
+		
+		# get/validate module path
+		module_path = module_id.replace /\./g, '/'
+		module_path = "/Users/ctate/.crystal/module/#{module_path}/#{module_version}"
+		if !fs.existsSync module_path
+			throw new Error "Unknown module (#{module_id}). Try: crystal update"
+		
+		# get/validate module config
+		module_config = crystal.config module_path
+		if !module_config
+			throw new Error "Unable to load configuration for module (#{module_id})"
+		
+		loaded_modules[module_name] = {
+			id: module_id
+			config: module_config
+			path: module_path
+			version: module_version
+		}
+		
+	loaded_modules
+
+loadOutputs = (outputs, imports, project, force = false) ->
+	for output in outputs
+		# validate generator
+		if !output.generator
+			throw new Error "Generator is required."
+		else if !imports[output.generator]
+			throw new Error "Generator (#{output.generator}) does not exist."
+		
+		# load generator from imports
+		generator = imports[output.generator]
+		
+		# validate filename
+		if !generator.filename
+			throw new Error "Filename is required for output."
+		
+		# validate spec
+		if !output.spec
+			throw new Error "Spec is required."
+		
+		# load spec from file
+		if typeof(output.spec) == 'string'
+			output.spec = yaml.safeLoad fs.readFileSync(".crystal/spec/#{output.spec}", 'utf8')
+		output.spec = parse output.spec, project
+		
+		# validate spec
+		if generator.schema
+			validate = skeemas.validate output.spec, generator.schema
+			if !validate.valid
+				console.log validate.errors
+				console.log("ERROR: Specification failed validation.")
+				for error in validate.errors
+					console.log "- #{error.message} for specification (#{error.context.substr(2)})"
+				throw new Error "ERROR: Invalid specification."
+
+		# get content from output
+		content = generator.engine output.spec, generator.template
+		
+			# get file/cache/ checksum
+		filename_checksum = crypto.createHash('md5').update(generator.filename, 'utf8').digest('hex')
+		if fs.existsSync ".crystal/cache/#{filename_checksum}"
+			if !fs.existsSync generator.filename
+				if force != true
+					throw new Error "ERROR: File (#{generator.filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
+			else
+				cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
+				file_checksum = crypto.createHash('md5').update(fs.readFileSync(generator.filename, 'utf8'), 'utf8').digest('hex')
+				
+				# validate checksum
+				if cache_checksum != file_checksum && force != true
+					throw new Error "ERROR: File (#{generator.filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
+		
+		# get content checksum
+		content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
+		
+		# cache checksum
+		if !fs.existsSync ".crystal/cache"
+			mkdirp.sync ".crystal/cache"
+		fs.writeFileSync ".crystal/cache/#{filename_checksum}", content_checksum
+
+		# write content to file
+		file_last_path = generator.filename.lastIndexOf('/')
+		if file_last_path != -1
+			mkdirp.sync generator.filename.substr(0, file_last_path)
+		fs.writeFileSync generator.filename, content
+		
+		console.log "- #{generator.filename}"
+		
+		if generator.outputs
+			loadOutputs generator.outputs, generator.imports, project, force
 
 generate = (project) ->
 	console.log "Generating code from: #{this.path}"
@@ -118,104 +191,51 @@ generate = (project) ->
 	# get project
 	project = project or this.project
 	
-	console.log "Loading modules..."
+	# set project id
+	project_id = project.id
 	
-	# get modules
-	modules = loadModules project.modules, this
+	# load modules
+	if project.modules
+		console.log "Loading modules for #{project.name}..."
+		modules = loadModules project.modules
 	
-	# load project modules
-	for mod_type of modules
-		# load modules by name
-		for mod_name of modules[mod_type]
-			# get mod
-			mod = modules[mod_type][mod_name]
-			
-			if !mod.config.src
-				console.log "Module (#{mod_name}) has nothing to do."
-				continue
-			
-			# get mod path
-			mod_path = "/Volumes/File/.crystal/"
-			switch mod_type
-				when 'configurations'
-					mod_path += 'config'
-				when 'generators'
-					mod_path += 'gen'
-			mod_path += "/#{mod_name}/#{mod.version}/src"
-			
-			# process spec
-			if fs.existsSync "#{mod_path}/proc"
-				for file in readdir "#{mod_path}/proc"
-					project.src.spec = require("#{mod_path}/proc/#{file}")(project.src.spec)
-					if project.src.spec == false
-						throw new Error "Module (#{mod_name}) was unable to process specification."
-			
-			switch mod_type
-				when 'configurations'
-					project = extend true, true, project, mod.config.src.config
+	# load imports
+	if project.imports
+		console.log "Loading imports for #{project.name}..."
+		imports = loadImports project.imports, modules
 	
-	# get modules
-	modules = loadModules project.modules, this
-	
-	# load project modules
-	for mod_type of modules
-		console.log "Loading #{mod_type}..."
+	# load inputs
+	if project.inputs
+		console.log "Loading inputs..."
 		
-		# load modules by name
-		for mod_name of modules[mod_type]
-			console.log "- #{mod_name}"
+		config = ""
+		for input in project.inputs
+			if !imports[input.config]
+				throw new Error "Config (input.config) does not exist."
 			
-			# get mod
-			mod = modules[mod_type][mod_name]
+			extend true, true, project, imports[input.config].config
+			config += imports[input.config].doc
 			
-			if !mod.config.src
-				console.log "Module (#{mod_name}) has nothing to do."
-				continue
-			
-			# get mod path
-			mod_path = "/Volumes/File/.crystal/"
-			switch mod_type
-				when 'configurations'
-					mod_path += 'config'
-				when 'generators'
-					mod_path += 'gen'
-			mod_path += "/#{mod_name}/#{mod.version}/src"
-						
-			switch mod_type
-				when 'generators'
-					# get spec
-					spec = extend true, true, {}, mod.spec, project.src.spec
-					
-					# validate generator's schema
-					if mod.config.src.schema
-						validate = skeemas.validate spec, mod.config.src.schema
-						if !validate.valid
-							console.log("Specification failed validation for generator (#{mod_name}):")
-							for error in validate.errors
-								console.log "- #{error.message} for specification (#{error.context.substr(2)})"
-							throw new Error "ERROR: Invalid specification for generator (#{mod_name})."
-					
-					# generate files
-					if mod.config.src.gen
-						for gen_name of mod.config.src.gen
-							gen = mod.config.src.gen[gen_name]
-							gen_contents = loadGen "#{mod_path}/gen", gen_name
-							content = handlebars.compile(gen_contents) spec, {
-								data: project
-							}
-							if mod.path == '.'
-								dest_path = ''
-							else
-								dest_path = '/lib'
-							
-							if !fs.existsSync "#{this.path}#{dest_path}"
-								mkdirp "#{this.path}#{dest_path}"
-							fs.writeFileSync "#{this.path}#{dest_path}/#{gen.dest}", content
+			console.log "- #{input.config}"
+	
+	# get imports
+	if project.imports
+		modules = loadModules project.modules
+		imports = loadImports project.imports, modules
+	
+	# load outputs
+	if project.outputs
+		console.log "Loading outputs..."
+		loadOutputs project.outputs, imports, project, this.force
 
-sortObject = (object) ->
-	Object.keys(object).sort().reduce ((result, key) ->
-		result[key] = object[key]
-		result
-	), {}
+parse = (spec, project) ->
+	for i of spec
+		s = spec[i]
+		if typeof(s) == 'object'
+			spec[i] = parse(spec[i], project)
+		else if typeof(s) == 'string'
+			if s.substr(0, 1) == '$' && project[s.substr(1)]
+				spec[i] = project[s.substr(1)]
+	spec
 
 module.exports = generate
