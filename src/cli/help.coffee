@@ -28,7 +28,7 @@ module.exports = (commands) ->
 		
 	getCopyright = () ->
 		# define output
-		output = "Copyright (c) 2014 Studio Tate. All Rights Reserved.\n"
+		output = "Copyright (c) 2014 Crystal. All Rights Reserved.\n"
 		
 	getInfo = () ->
 		# add info to output
@@ -36,10 +36,10 @@ module.exports = (commands) ->
 		
 		# define details
 		details = {
-			Author: 'Chris Tate <chris@studiotate.com>'
+			Author: 'Chris Tate <chris@crystal.sh>'
 			License: 'MIT'
-			Website: 'http://crystal.sh/'
-			Repository: 'https://github.com/studiotate/crystal-js'
+			Website: 'http://crystal.sh'
+			Repository: 'https://github.com/crystal/crystal'
 		}
 		
 		# get longest detail
