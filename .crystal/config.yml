@@ -2,7 +2,7 @@ id: sh.crystal.crystal
 name: Crystal
 description: open source code generator for every language and platform
 version: 1.0.0
-repository: https://github.com/crystalcodegen/crystal
+repository: https://github.com/crystal/crystal
 modules:
   sh.crystal.default: v0.1.0
   sh.crystal.npm: v0.1.0
