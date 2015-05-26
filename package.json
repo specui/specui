@@ -64,10 +64,10 @@
 	"name": "crystal",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/crystalcodegen/crystal"
+		"url": "https://github.com/crystal/crystal"
 	},
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "1.0.0"
+	"version": "0.5.0"
 }
