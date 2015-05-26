@@ -14,7 +14,7 @@
 		"cson-parser": "1.0.x",
 		"debug": "latest",
 		"diff-mark": "latest",
-		"extend-combine": "latest",
+		"extend-combine": "~0.2.0",
 		"find-versions": "latest",
 		"fs-extra": "latest",
 		"fs-readdir-recursive": "latest",
