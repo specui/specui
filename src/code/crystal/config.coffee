@@ -3,6 +3,7 @@ cson     = require 'season'
 extend   = require 'extend-combine'
 fs       = require 'fs'
 marked   = require 'marked'
+path     = require 'path'
 readdir  = require 'fs-readdir-recursive'
 skeemas  = require 'skeemas'
 userHome = require 'user-home'
@@ -22,37 +23,40 @@ setNestedPropertyValue = (obj, fields, val) ->
 	cur[last] = val
 	obj
 
-init = (path, validate = true) ->
-	# get path
-	path = path or this.path
+init = (project_path, validate = true) ->
+	# get project path
+	project_path = project_path or this.path
 	
-	# require path
-	if !path
-		throw new Error 'path for crystal config is required'
+	# require project path
+	if !project_path
+		throw new Error 'project_path for crystal config is required'
 	
 	# load config
-	config = load path
+	config = load project_path
 	
 	if !config
 		return false
 	
+	# get crystal path
+	crystal_path = path.resolve "#{__dirname}/../../.."
+	
 	if validate == false
-		return yaml.safeLoad fs.readFileSync("#{userHome}/.crystal/dev/crystal/.crystal/schema/#{config.exports.ConfigSchematic.schema}")
+		return yaml.safeLoad fs.readFileSync("#{crystal_path}/.crystal/schema/#{config.exports.ConfigSchematic.schema}")
 	else
-		config_schema = this.config "#{userHome}/.crystal/dev/crystal", false
+		config_schema = this.config crystal_path, false
 	
 	validate = skeemas.validate config, config_schema
 	if !validate.valid
 		console.log "Configuration failed validation:"
 		console.log(validate.errors)
-		throw new Error "Invalid Configuration for path: #{path}"
+		throw new Error "Invalid Configuration for path: #{project_path}"
 		
 	config
 
-load = (path) ->
+load = (project_path) ->
 	# get config
 	for ext in ['yml','yaml','cson','json','xml']
-		file = "#{path}/.crystal/config.#{ext}"
+		file = "#{project_path}/.crystal/config.#{ext}"
 		
 		if fs.existsSync file
 			config = fs.readFileSync file
