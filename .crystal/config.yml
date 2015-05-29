@@ -1,6 +1,6 @@
 id: sh.crystal.crystal
 name: Crystal
-version: 0.5.0
+version: 0.5.1
 description: the open source code generator for every language, library and platform
 repository: https://github.com/crystal/crystal
 author:
