@@ -42,7 +42,7 @@
 		"xml-to-jsobj": "latest",
 		"user-home": "latest"
 	},
-	"description": "open source code generator for every language and platform",
+	"description": "the open source code generator for every language, library and platform",
 	"devDependencies": {
 		"mocha": "latest",
 		"should": "latest"

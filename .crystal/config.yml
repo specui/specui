@@ -1,30 +1,52 @@
 id: sh.crystal.crystal
 name: Crystal
-description: open source code generator for every language and platform
 version: 0.5.0
+description: the open source code generator for every language, library and platform
 repository: https://github.com/crystal/crystal
+author:
+  name: Chris Tate
+  email: chris@crystal.sh
+  url: http://crystal.sh
+copyright: 2015 Crystal
 modules:
   sh.crystal.default: v0.1.0
+  sh.crystal.gitignore: v0.1.0
   sh.crystal.npm: v0.1.0
+  sh.crystal.readme: v0.1.0
   sh.crystal.travis: v0.1.0
 imports:
-  default.DefaultConfiguration: default-config
+  gitignore.GitignoreGenerator: gitignore-gen
   npm.ConfigGenerator: npm-gen
+  readme.ReadmeGenerator: readme-gen
   travis.ConfigGenerator: travis-gen
-inputs:
-  - config: default-config
 exports:
   ConfigSchematic:
     schema: config.yml
     type: schematic
 outputs:
-  #- generator: default-config.gitignore-gen
-  #  merge: true
-  #  spec:
-  #    items:
-  #      - .DS_Store
+  - generator: gitignore-gen
+    spec:
+      items:
+        - .DS_Store
+        - node_modules/
   - generator: npm-gen
     spec: npm.yml
+  - generator: readme-gen
+    spec:
+      name: $name
+      description: $description
+      version: $version
+      logo:
+        image: http://crystal.sh/images/crystal.svg
+        text: $name
+        url: http://crystal.sh
+      badges:
+        - image: https://badge.fury.io/js/crystal.svg
+          text: npm version
+          url: http://badge.fury.io/js/crystal
+        - image: https://travis-ci.org/crystal/crystal.svg?branch=master
+          text: Build Status
+          url: https://travis-ci.org/crystal/crystal
   - generator: travis-gen
     spec:
       language: node_js

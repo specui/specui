@@ -12,7 +12,7 @@ module.exports = (path) ->
 	if this.config.type == 'generator'
 		if this.config.specifications && this.config.specifications.default
 			for i in this.config.specifications.default
-				path = "/Users/ctate/.crystal/spec/#{i}/src/spec"
+				path = "#{userHome}/.crystal/spec/#{i}/src/spec"
 				break
 	
 	spec = {}

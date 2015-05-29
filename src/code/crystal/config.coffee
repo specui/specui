@@ -1,12 +1,13 @@
 # load modules
-cson    = require 'season'
-extend  = require 'extend-combine'
-fs      = require 'fs'
-marked  = require 'marked'
-readdir = require 'fs-readdir-recursive'
-skeemas = require 'skeemas'
-yaml    = require 'js-yaml'
-xml     = require 'xml-to-jsobj'
+cson     = require 'season'
+extend   = require 'extend-combine'
+fs       = require 'fs'
+marked   = require 'marked'
+readdir  = require 'fs-readdir-recursive'
+skeemas  = require 'skeemas'
+userHome = require 'user-home'
+xml      = require 'xml-to-jsobj'
+yaml     = require 'js-yaml'
 
 setNestedPropertyValue = (obj, fields, val) ->
 	fields = fields.split '.'
@@ -36,9 +37,9 @@ init = (path, validate = true) ->
 		return false
 	
 	if validate == false
-		return yaml.safeLoad fs.readFileSync("/Users/ctate/.crystal/dev/crystal/.crystal/schema/#{config.exports.ConfigSchematic.schema}")
+		return yaml.safeLoad fs.readFileSync("#{userHome}/.crystal/dev/crystal/.crystal/schema/#{config.exports.ConfigSchematic.schema}")
 	else
-		config_schema = this.config '/Users/ctate/.crystal/dev/crystal', false
+		config_schema = this.config "#{userHome}/.crystal/dev/crystal", false
 	
 	validate = skeemas.validate config, config_schema
 	if !validate.valid

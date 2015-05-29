@@ -19,8 +19,6 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
-project_id = ''
-
 loadImports = (imports, modules) ->
 	loaded_imports = {}
 	
@@ -50,7 +48,7 @@ loadImports = (imports, modules) ->
 			throw new Error "Export (#{import_name}) does not exist for import (#{module_id})"
 		
 		# load child imports
-		if import_config.imports and module_id != project_id
+		if import_config.imports
 			console.log "Loading modules for #{module_id}..."
 			child_modules = loadModules import_config.modules
 			console.log "Loading imports for #{import_name}..."
@@ -97,7 +95,7 @@ loadModules = (modules) ->
 		
 		# get/validate module path
 		module_path = module_id.replace /\./g, '/'
-		module_path = "/Users/ctate/.crystal/module/#{module_path}/#{module_version}"
+		module_path = "#{userHome}/.crystal/module/#{module_path}/#{module_version}"
 		if !fs.existsSync module_path
 			throw new Error "Unknown module (#{module_id}). Try: crystal update"
 		
@@ -190,9 +188,6 @@ generate = (project) ->
 	
 	# get project
 	project = project or this.project
-	
-	# set project id
-	project_id = project.id
 	
 	# load modules
 	if project.modules
