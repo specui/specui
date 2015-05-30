@@ -66,6 +66,8 @@ try {
 		throw e;
 	}
 	
-	console.error('ERROR: ' + e.message);
-	console.error('Failed.');
+	var messages = e.message.split("\n");
+	for (var i in messages) {
+		console.error('ERROR: ' + messages[i]);
+	}
 }

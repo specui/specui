@@ -45,7 +45,10 @@ loadImports = (imports, modules) ->
 		# load exported
 		exported = import_config.exports[import_name]
 		if !exported
-			throw new Error "Export (#{import_name}) does not exist for import (#{module_id})"
+			error = "Export (#{import_name}) does not exist for import (#{module_id}).\nTry these instead:"
+			for module_export of import_config.exports
+				error += "\n- #{module_export}"
+			throw new Error error 
 		
 		# load child imports
 		if import_config.imports
@@ -73,10 +76,14 @@ loadImports = (imports, modules) ->
 					loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
 				if exported.template
 					loaded_imports[import_alias].template = fs.readFileSync "#{import_path}/.crystal/template/#{exported.template}", 'utf8'
+				if exported.transformer
+					loaded_imports[import_alias].transformer = child_imports[exported.transformer].transformer
 			when 'helper'
-				loaded_imports[import_alias].helper = require "#{import_path}/.crystal/engine/#{exported.helper}"
+				loaded_imports[import_alias].helper = require "#{import_path}/.crystal/helper/#{exported.helper}"
 			when 'processor'
 				loaded_imports[import_alias].processor = require "#{import_path}/.crystal/proc/#{exported.processor}"
+			when 'transformer'
+				loaded_imports[import_alias].transformer = require "#{import_path}/.crystal/trans/#{exported.transformer}"
 			when 'schematic'
 				loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
 			else throw new Error "unknown type (#{exported.type}) for export (#{import_name}) in import (#{module_id})"
@@ -114,6 +121,9 @@ loadModules = (modules) ->
 	loaded_modules
 
 loadOutputs = (outputs, imports, project, force = false) ->
+	if !imports
+		throw new Error 'No imports available for output'
+		
 	for output in outputs
 		# validate generator
 		if !output.generator
@@ -125,8 +135,18 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		generator = imports[output.generator]
 		
 		# validate filename
-		if !generator.filename
+		if output.filename
+			filename = output.filename
+		else if generator.filename
+			filename = generator.filename
+		else
 			throw new Error "Filename is required for output."
+		
+		# append path to filename
+		if output.path
+			if !fs.existsSync output.path
+				mkdirp output.path
+			filename = "#{output.path}/#{filename}"
 		
 		# validate spec
 		if !output.spec
@@ -150,19 +170,28 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		# get content from output
 		content = generator.engine output.spec, generator.template
 		
+		# transform content
+		if output.transformer
+			if typeof(output.transformer) == 'string'
+				content = imports[output.transformer].transformer content
+			else
+				content = output.transformer content
+		if generator.transformer
+			content = generator.transformer content
+		
 			# get file/cache/ checksum
-		filename_checksum = crypto.createHash('md5').update(generator.filename, 'utf8').digest('hex')
+		filename_checksum = crypto.createHash('md5').update(filename, 'utf8').digest('hex')
 		if fs.existsSync ".crystal/cache/#{filename_checksum}"
-			if !fs.existsSync generator.filename
+			if !fs.existsSync filename
 				if force != true
-					throw new Error "ERROR: File (#{generator.filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
+					throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
 			else
 				cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
-				file_checksum = crypto.createHash('md5').update(fs.readFileSync(generator.filename, 'utf8'), 'utf8').digest('hex')
+				file_checksum = crypto.createHash('md5').update(fs.readFileSync(filename, 'utf8'), 'utf8').digest('hex')
 				
 				# validate checksum
 				if cache_checksum != file_checksum && force != true
-					throw new Error "ERROR: File (#{generator.filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
+					throw new Error "ERROR: File (#{filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
 		
 		# get content checksum
 		content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
@@ -173,12 +202,12 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		fs.writeFileSync ".crystal/cache/#{filename_checksum}", content_checksum
 
 		# write content to file
-		file_last_path = generator.filename.lastIndexOf('/')
+		file_last_path = filename.lastIndexOf('/')
 		if file_last_path != -1
-			mkdirp.sync generator.filename.substr(0, file_last_path)
-		fs.writeFileSync generator.filename, content
+			mkdirp.sync filename.substr(0, file_last_path)
+		fs.writeFileSync filename, content
 		
-		console.log "- #{generator.filename}"
+		console.log "- #{filename}"
 		
 		if generator.outputs
 			loadOutputs generator.outputs, generator.imports, project, force
