@@ -184,6 +184,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# pass filename thru engine
 			if engine
 				filename = engine { name: file.name }, generator_filename, helpers
+			else
+				filename = generator_filename
 				
 			# append path to filename
 			if output.path
