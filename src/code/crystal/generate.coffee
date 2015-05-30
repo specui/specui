@@ -19,12 +19,14 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
-loadImports = (imports, modules) ->
+loaded_modules = {}
+
+loadImports = (imports) ->
 	loaded_imports = {}
 	
 	# check if each import exists
 	for import_id of imports
-		console.log "- #{import_id}"
+		#console.log "- #{import_id}"
 		
 		# get import module
 		import_alias = imports[import_id]
@@ -91,14 +93,23 @@ loadImports = (imports, modules) ->
 	loaded_imports
 
 loadModules = (modules) ->
-	loaded_modules = {}
-	
+	# load each module
 	for module_id of modules
-		console.log "- #{module_id}"
-		
+		# get module name/version
 		module_parts = module_id.split '.'
 		module_name = module_parts[module_parts.length-1]
 		module_version = modules[module_id]
+		
+		# module already loaded
+		if loaded_modules[module_id] and loaded_modules[module_id][module_version]
+			continue
+		
+		# load module
+		#console.log "- #{module_id}@#{module_version}"
+		
+		# create module object
+		if !loaded_modules[module_id]
+			loaded_modules[module_id] = {}
 		
 		# get/validate module path
 		module_path = module_id.replace /\./g, '/'
@@ -111,14 +122,73 @@ loadModules = (modules) ->
 		if !module_config
 			throw new Error "Unable to load configuration for module (#{module_id})"
 		
-		loaded_modules[module_name] = {
-			id: module_id
-			config: module_config
-			path: module_path
-			version: module_version
-		}
+		# load exports
+		if module_config.exports
+			for export_name of module_config.exports
+				exported = module_config.exports[export_name]
+				
+				if typeof(exported.engine) == 'string' && exported.engine.match(/\./)
+					export_path = "#{module_path}/.crystal/engine/#{exported.engine}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].engine = require export_path
+				if typeof(exported.helper) == 'string' && exported.helper.match(/\./)
+					export_path = "#{module_path}/.crystal/helper/#{exported.helper}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].helper = require export_path
+				if typeof(exported.schema) == 'string' && exported.schema.match(/\./)
+					export_path = "#{module_path}/.crystal/schema/#{exported.schema}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].schema = yaml.safeLoad fs.readFileSync(export_path)
+				if typeof(exported.template) == 'string' && exported.template.match(/\./)
+					export_path = "#{module_path}/.crystal/template/#{exported.template}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].template = fs.readFileSync(export_path, 'utf8')
+				if typeof(exported.transformer) == 'string' && exported.transformer.match(/\./)
+					export_path = "#{module_path}/.crystal/trans/#{exported.transformer}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].transformer = require export_path
 		
-	loaded_modules
+		# add module to loaded modules
+		loaded_modules[module_id][module_version] = module_config
+		
+		# load submodules
+		if module_config.modules
+			loadModules module_config.modules
+	
+	loaded_modules = sortObject(loaded_modules)
+
+processModules = () ->
+	for module_name of loaded_modules
+		module_versions = loaded_modules[module_name]
+		for version_name of module_versions
+			loaded_module = module_versions[version_name]
+			
+			for export_name of loaded_module.exports
+				exported = loaded_module.exports[export_name]
+				
+				if typeof(exported.engine) == 'string'
+					test = loaded_module.imports[exported.engine].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+				if typeof(exported.helper) == 'string'
+					test = loaded_module.imports[exported.helper].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].helper = {
+						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
+						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
+					}
+				if typeof(exported.transformer) == 'string'
+					test = loaded_module.imports[exported.transformer].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].transformer = loaded_modules[test][loaded_module.modules[test]].exports[test2].transformer
 
 loadOutputs = (outputs, imports, project, force = false) ->
 	if !imports
@@ -168,7 +238,11 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				throw new Error "ERROR: Invalid specification."
 
 		# get content from output
-		content = generator.engine output.spec, generator.template
+		if generator.helper
+			helpers = [generator.helper]
+		else
+			helpers = null
+		content = generator.engine output.spec, generator.template, helpers
 		
 		# transform content
 		if output.transformer
@@ -207,10 +281,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			mkdirp.sync filename.substr(0, file_last_path)
 		fs.writeFileSync filename, content
 		
-		console.log "- #{filename}"
+		#console.log "- #{filename}"
 		
-		if generator.outputs
-			loadOutputs generator.outputs, generator.imports, project, force
+		#if generator.outputs
+			#loadOutputs generator.outputs, generator.imports, project, force
 
 generate = (project) ->
 	console.log "Generating code from: #{this.path}"
@@ -220,32 +294,21 @@ generate = (project) ->
 	
 	# load modules
 	if project.modules
-		console.log "Loading modules for #{project.name}..."
-		modules = loadModules project.modules
+		#console.log "Loading modules for #{project.name}..."
+		loadModules project.modules
+		processModules()
 	
-	# load imports
-	if project.imports
-		console.log "Loading imports for #{project.name}..."
-		imports = loadImports project.imports, modules
-	
-	# load inputs
-	if project.inputs
-		console.log "Loading inputs..."
+	imports = {}
+	for import_alias of project.imports
+		import_parts = project.imports[import_alias].split('.')
+		import_name = import_parts.pop()
+		import_module = import_parts.join('.')
+		import_version = project.modules[import_module]
 		
-		config = ""
-		for input in project.inputs
-			if !imports[input.config]
-				throw new Error "Config (input.config) does not exist."
-			
-			extend true, true, project, imports[input.config].config
-			config += imports[input.config].doc
-			
-			console.log "- #{input.config}"
-	
-	# get imports
-	if project.imports
-		modules = loadModules project.modules
-		imports = loadImports project.imports, modules
+		if !loaded_modules[import_module]
+			throw new Error "Unknown module for import (#{import_alias})."
+		
+		imports[import_alias] = loaded_modules[import_module][import_version].exports[import_name]
 	
 	# load outputs
 	if project.outputs
@@ -261,5 +324,12 @@ parse = (spec, project) ->
 			if s.substr(0, 1) == '$' && project[s.substr(1)]
 				spec[i] = project[s.substr(1)]
 	spec
+
+sortObject = (object) ->
+  Object.keys(object).sort().reduce ((result, key) ->
+    result[key] = object[key]
+    result
+  ), {}
+  
 
 module.exports = generate
