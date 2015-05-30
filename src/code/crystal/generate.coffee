@@ -21,77 +21,6 @@ yaml         = require 'js-yaml'
 
 loaded_modules = {}
 
-loadImports = (imports) ->
-	loaded_imports = {}
-	
-	# check if each import exists
-	for import_id of imports
-		#console.log "- #{import_id}"
-		
-		# get import module
-		import_alias = imports[import_id]
-		import_parts = import_id.split '.'
-		module_name = import_parts[0]
-		import_name = import_parts[1]
-		
-		# module is not loaded
-		if !modules[module_name]
-			throw new Error "Module (#{module_name}.#{import_name}) not initialized for import (#{import_parts[2]})"
-		
-		# get import module
-		import_module = modules[module_name]
-		module_id = import_module.id
-		import_config = import_module.config
-		import_path = import_module.path
-		
-		# load exported
-		exported = import_config.exports[import_name]
-		if !exported
-			error = "Export (#{import_name}) does not exist for import (#{module_id}).\nTry these instead:"
-			for module_export of import_config.exports
-				error += "\n- #{module_export}"
-			throw new Error error 
-		
-		# load child imports
-		if import_config.imports
-			console.log "Loading modules for #{module_id}..."
-			child_modules = loadModules import_config.modules
-			console.log "Loading imports for #{import_name}..."
-			child_imports = loadImports import_config.imports, child_modules
-		
-		loaded_imports[import_alias] = exported
-		loaded_imports[import_alias].imports = child_imports
-		
-		if !exported.type
-			throw new Error "Type is required for export (#{import_name}) in module (#{module_id})"
-		
-		switch exported.type
-			when 'configuration'
-				loaded_imports[import_alias].config = exported.config
-				loaded_imports[import_alias].doc = fs.readFileSync "#{import_path}/.crystal/config.yml"
-			when 'engine'
-				loaded_imports[import_alias].engine = require "#{import_path}/.crystal/engine/#{exported.engine}"
-			when 'generator'
-				if exported.engine
-					loaded_imports[import_alias].engine = child_imports[exported.engine].engine
-				if exported.schema && typeof(exported.schema) == 'string'
-					loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
-				if exported.template
-					loaded_imports[import_alias].template = fs.readFileSync "#{import_path}/.crystal/template/#{exported.template}", 'utf8'
-				if exported.transformer
-					loaded_imports[import_alias].transformer = child_imports[exported.transformer].transformer
-			when 'helper'
-				loaded_imports[import_alias].helper = require "#{import_path}/.crystal/helper/#{exported.helper}"
-			when 'processor'
-				loaded_imports[import_alias].processor = require "#{import_path}/.crystal/proc/#{exported.processor}"
-			when 'transformer'
-				loaded_imports[import_alias].transformer = require "#{import_path}/.crystal/trans/#{exported.transformer}"
-			when 'schematic'
-				loaded_imports[import_alias].schema = yaml.safeLoad fs.readFileSync("#{import_path}/.crystal/schema/#{exported.schema}")
-			else throw new Error "unknown type (#{exported.type}) for export (#{import_name}) in import (#{module_id})"
-				
-	loaded_imports
-
 loadModules = (modules) ->
 	# load each module
 	for module_id of modules
@@ -180,6 +109,7 @@ processModules = () ->
 					test = loaded_module.imports[exported.helper].split('.')
 					test2 = test.pop()
 					test = test.join('.')
+					
 					loaded_modules[module_name][version_name].exports[export_name].helper = {
 						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
 						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
@@ -206,85 +136,117 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		
 		# validate filename
 		if output.filename
-			filename = output.filename
+			generator_filename = output.filename
 		else if generator.filename
-			filename = generator.filename
+			generator_filename = generator.filename
 		else
 			throw new Error "Filename is required for output."
 		
-		# append path to filename
-		if output.path
-			if !fs.existsSync output.path
-				mkdirp output.path
-			filename = "#{output.path}/#{filename}"
-		
-		# validate spec
-		if !output.spec
-			throw new Error "Spec is required."
-		
-		# load spec from file
-		if typeof(output.spec) == 'string'
-			output.spec = yaml.safeLoad fs.readFileSync(".crystal/spec/#{output.spec}", 'utf8')
-		output.spec = parse output.spec, project
-		
-		# validate spec
-		if generator.schema
-			validate = skeemas.validate output.spec, generator.schema
-			if !validate.valid
-				console.log validate.errors
-				console.log("ERROR: Specification failed validation.")
-				for error in validate.errors
-					console.log "- #{error.message} for specification (#{error.context.substr(2)})"
-				throw new Error "ERROR: Invalid specification."
+		# get iterator
+		if generator.iterator
+			files = []
+			for name in output.spec[generator.iterator]
+				files.push name
+		else
+			# load spec from file
+			if typeof(output.spec) == 'string'
+				output.spec = yaml.safeLoad fs.readFileSync(".crystal/spec/#{output.spec}", 'utf8')
+			output.spec = parse output.spec, project
+			
+			# validate spec
+			if generator.schema
+				validate = skeemas.validate output.spec, generator.schema
+				if !validate.valid
+					console.log validate.errors
+					console.log("ERROR: Specification failed validation.")
+					for error in validate.errors
+						console.log "- #{error.message} for specification (#{error.context.substr(2)})"
+					throw new Error "ERROR: Invalid specification."
+					
+			files = [generator_filename]
 
-		# get content from output
+		# get engine
+		if output.engine
+			engine = output.engine
+		else if generator.engine
+			engine = generator.engine
+		else
+			engine = null
+
 		if generator.helper
 			helpers = [generator.helper]
 		else
 			helpers = null
-		content = generator.engine output.spec, generator.template, helpers
 		
-		# transform content
-		if output.transformer
-			if typeof(output.transformer) == 'string'
-				content = imports[output.transformer].transformer content
-			else
-				content = output.transformer content
-		if generator.transformer
-			content = generator.transformer content
-		
-			# get file/cache/ checksum
-		filename_checksum = crypto.createHash('md5').update(filename, 'utf8').digest('hex')
-		if fs.existsSync ".crystal/cache/#{filename_checksum}"
-			if !fs.existsSync filename
-				if force != true
-					throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
-			else
-				cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
-				file_checksum = crypto.createHash('md5').update(fs.readFileSync(filename, 'utf8'), 'utf8').digest('hex')
+		for i of files
+			file = files[i]
+			
+			# pass filename thru engine
+			if engine
+				filename = engine { name: file.name }, generator_filename, helpers
 				
-				# validate checksum
-				if cache_checksum != file_checksum && force != true
-					throw new Error "ERROR: File (#{filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
-		
-		# get content checksum
-		content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
-		
-		# cache checksum
-		if !fs.existsSync ".crystal/cache"
-			mkdirp.sync ".crystal/cache"
-		fs.writeFileSync ".crystal/cache/#{filename_checksum}", content_checksum
+			# append path to filename
+			if output.path
+				if !fs.existsSync output.path
+					mkdirp output.path
+				filename = "#{output.path}/#{filename}"
+			
+			# validate spec
+			if !output.spec
+				throw new Error "Spec is required."
+			
+			# get content from output
+			if engine
+				if generator.iterator
+					content = engine output.spec[generator.iterator][i], generator.template, helpers
+				else
+					content = engine output.spec, generator.template, helpers
+			else if generator.template
+				content = generator.template
+			else
+				content = output.spec
+			
+			# transform content
+			if output.transformer
+				if typeof(output.transformer) == 'string'
+					content = imports[output.transformer].transformer content
+				else
+					content = output.transformer content
+			if generator.transformer
+				content = generator.transformer content
+			
+				# get file/cache/ checksum
+			filename_checksum = crypto.createHash('md5').update(filename, 'utf8').digest('hex')
+			if fs.existsSync ".crystal/cache/#{filename_checksum}"
+				if !fs.existsSync filename
+					if force != true
+						throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
+				else
+					cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
+					file_checksum = crypto.createHash('md5').update(fs.readFileSync(filename, 'utf8'), 'utf8').digest('hex')
+					
+					# validate checksum
+					if cache_checksum != file_checksum && force != true
+						throw new Error "ERROR: File (#{filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
+			
+			# get content checksum
+			content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
+			
+			# cache checksum
+			if !fs.existsSync ".crystal/cache"
+				mkdirp.sync ".crystal/cache"
+			fs.writeFileSync ".crystal/cache/#{filename_checksum}", content_checksum
 
-		# write content to file
-		file_last_path = filename.lastIndexOf('/')
-		if file_last_path != -1
-			mkdirp.sync filename.substr(0, file_last_path)
-		fs.writeFileSync filename, content
-		
-		#console.log "- #{filename}"
-		
-		#if generator.outputs
-			#loadOutputs generator.outputs, generator.imports, project, force
+			# write content to file
+			file_last_path = filename.lastIndexOf('/')
+			if file_last_path != -1
+				mkdirp.sync filename.substr(0, file_last_path)
+			fs.writeFileSync filename, content
+			
+			console.log "- #{filename}"
+			
+			#if generator.outputs
+				#loadOutputs generator.outputs, generator.imports, project, force
 
 generate = (project) ->
 	console.log "Generating code from: #{this.path}"
