@@ -15,10 +15,10 @@ modules:
   sh.crystal.readme: v0.1.0
   sh.crystal.travis: v0.1.0
 imports:
-  gitignore.GitignoreGenerator: gitignore-gen
-  npm.ConfigGenerator: npm-gen
-  readme.ReadmeGenerator: readme-gen
-  travis.ConfigGenerator: travis-gen
+  gitignore-gen: sh.crystal.gitignore.GitignoreGenerator
+  npm-gen: sh.crystal.npm.ConfigGenerator
+  readme-gen: sh.crystal.readme.ReadmeGenerator
+  travis-gen: sh.crystal.travis.ConfigGenerator
 exports:
   ConfigSchematic:
     schema: config.yml
