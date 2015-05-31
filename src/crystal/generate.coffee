@@ -131,7 +131,7 @@ processModules = () ->
 loadOutputs = (outputs, imports, project, force = false) ->
 	if !imports
 		throw new Error 'No imports available for output'
-		
+	
 	for output in outputs
 		# validate generator
 		if !output.generator
@@ -282,6 +282,13 @@ generate = (project) ->
 		
 		if !loaded_modules[import_module]
 			throw new Error "Unknown module for import (#{import_alias})."
+		else if !loaded_modules[import_module][import_version].exports
+			throw new Error "Module (#{import_alias}) has no exports."
+		else if !loaded_modules[import_module][import_version].exports[import_name]
+			error = "Unknown export (#{import_name}) for module (#{import_module}). Try:"
+			for export_name of loaded_modules[import_module][import_version].exports
+				error += "\n- #{export_name}"
+			throw new Error error.red
 		
 		imports[import_alias] = loaded_modules[import_module][import_version].exports[import_name]
 	
