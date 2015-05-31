@@ -15,23 +15,23 @@ modules:
   sh.crystal.readme: v0.1.0
   sh.crystal.travis: v0.1.0
 imports:
-  gitignore-gen: sh.crystal.gitignore.GitignoreGenerator
-  npm-gen: sh.crystal.npm.ConfigGenerator
-  readme-gen: sh.crystal.readme.ReadmeGenerator
-  travis-gen: sh.crystal.travis.ConfigGenerator
+  gitignore: sh.crystal.gitignore.GitignoreGenerator
+  npm: sh.crystal.npm.ConfigGenerator
+  readme: sh.crystal.readme.ReadmeGenerator
+  travis: sh.crystal.travis.ConfigGenerator
 exports:
   ConfigSchematic:
     schema: config.yml
     type: schematic
 outputs:
-  - generator: gitignore-gen
+  - generator: gitignore
     spec:
       items:
         - .DS_Store
         - node_modules/
-  - generator: npm-gen
+  - generator: npm
     spec: npm.yml
-  - generator: readme-gen
+  - generator: readme
     spec:
       name: $name
       description: $description
@@ -47,7 +47,7 @@ outputs:
         - image: https://travis-ci.org/crystal/crystal.svg?branch=master
           text: Build Status
           url: https://travis-ci.org/crystal/crystal
-  - generator: travis-gen
+  - generator: travis
     spec:
       language: node_js
       node_js:
