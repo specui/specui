@@ -1,4 +1,4 @@
-id: sh.crystal.crystal
+id: crystal.codegen
 name: Crystal
 version: 0.5.1
 description: the open source code generator for every language, library and platform
@@ -9,16 +9,17 @@ author:
   url: http://crystal.sh
 copyright: 2015 Crystal
 modules:
-  sh.crystal.default: v0.1.0
-  sh.crystal.gitignore: v0.1.0
-  sh.crystal.npm: v0.1.0
-  sh.crystal.readme: v0.1.0
-  sh.crystal.travis: v0.1.0
+  official.authors: v0.1.0
+  official.gitignore: v0.1.0
+  official.npm: v0.1.0
+  official.readme: v0.1.0
+  official.travis: v0.1.0
 imports:
-  gitignore: sh.crystal.gitignore.GitignoreGenerator
-  npm: sh.crystal.npm.ConfigGenerator
-  readme: sh.crystal.readme.ReadmeGenerator
-  travis: sh.crystal.travis.ConfigGenerator
+  authors: official.authors.AuthorsGenerator
+  gitignore: official.gitignore.GitignoreGenerator
+  npm: official.npm.ConfigGenerator
+  readme: official.readme.ReadmeGenerator
+  travis: official.travis.ConfigGenerator
 exports:
   ConfigSchematic:
     schema: config.yml
