@@ -11,6 +11,7 @@
 		"async": "0.9.0",
 		"change-case": "latest",
 		"coffee-script": "latest",
+		"colors": "~1.1.0",
 		"cson-parser": "1.0.x",
 		"debug": "latest",
 		"diff-mark": "latest",

@@ -38,7 +38,7 @@ init = (project_path, validate = true) ->
 		return false
 	
 	# get crystal path
-	crystal_path = path.resolve "#{__dirname}/../../.."
+	crystal_path = path.resolve "#{__dirname}/../.."
 	
 	if validate == false
 		return yaml.safeLoad fs.readFileSync("#{crystal_path}/.crystal/schema/#{config.exports.ConfigSchematic.schema}")

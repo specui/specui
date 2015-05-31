@@ -32,6 +32,8 @@ properties:
           type: string
   name:
     type: string
+  release:
+    type: string
   version:
     type:
       - number

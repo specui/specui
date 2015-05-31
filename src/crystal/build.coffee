@@ -1,11 +1,12 @@
 # load dependencies
 changecase = require 'change-case'
-cson = require 'season'
-fs = require 'fs'
-mkdirp = require 'mkdirp'
-mustache = require 'mustache'
-pluralize = require 'pluralize'
-spawn = require('child_process').spawn
+colors     = require 'colors'
+cson       = require 'season'
+fs         = require 'fs'
+mkdirp     = require 'mkdirp'
+mustache   = require 'mustache'
+pluralize  = require 'pluralize'
+spawn      = require('child_process').spawn
 
 exports.generate = require './generate'
 
@@ -20,7 +21,7 @@ module.exports = (opts) ->
 		when this.path != undefined then this.path
 		else process.cwd()
 	
-	console.log "Building from: #{this.path}"
+	console.log "Building from: #{this.path}".bold
 	
 	# clean project
 	#this.clean()

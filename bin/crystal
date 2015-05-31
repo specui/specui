@@ -5,7 +5,8 @@ require('coffee-script').register();
 
 // load packages
 var ascii = require('../src/cli/ascii')(),
-	crystal = require('../src/code/crystal'),
+	colors = require('colors'),
+	crystal = require('../src/crystal'),
 	fs = require('fs'),
 	minimist = require('minimist')(process.argv.slice(2)),
 	yaml = require('js-yaml');
@@ -33,7 +34,7 @@ if (!commands[command]) {
 
 // display ascii
 if (minimist.debug || command == 'help') {
-	console.log(ascii);
+	console.log(ascii.gray);
 }
 
 // get crystal output

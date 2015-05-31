@@ -2,6 +2,7 @@
 crystal = {
 	config: require './config'
 }
+colors       = require 'colors'
 crypto       = require 'crypto'
 cson         = require 'cson-parser'
 extend       = require 'extend-combine'
@@ -105,6 +106,13 @@ processModules = () ->
 					test2 = test.pop()
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					
+				if exported.filename and typeof(exported.filename.engine) == 'string'
+					test = loaded_module.imports[exported.filename.engine].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].filename.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					
 				if typeof(exported.helper) == 'string'
 					test = loaded_module.imports[exported.helper].split('.')
 					test2 = test.pop()
@@ -182,8 +190,11 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			file = files[i]
 			
 			# pass filename thru engine
-			if engine
-				filename = engine { name: file.name }, generator_filename, helpers
+			if generator_filename.engine
+				filename_options = {}
+				if file.name
+					filename_options.name = file.name
+				filename = generator_filename.engine filename_options, generator_filename.value, helpers
 			else
 				filename = generator_filename
 				
@@ -222,14 +233,14 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			if fs.existsSync ".crystal/cache/#{filename_checksum}"
 				if !fs.existsSync filename
 					if force != true
-						throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion."
+						throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion.".red.bold
 				else
 					cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
 					file_checksum = crypto.createHash('md5').update(fs.readFileSync(filename, 'utf8'), 'utf8').digest('hex')
 					
 					# validate checksum
 					if cache_checksum != file_checksum && force != true
-						throw new Error "ERROR: File (#{filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes."
+						throw new Error "ERROR: File (#{filename}) has been manually changed outside of Crystal. Use -f to force code generation and overwrite these changes.".red.bold
 			
 			# get content checksum
 			content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
@@ -245,7 +256,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				mkdirp.sync filename.substr(0, file_last_path)
 			fs.writeFileSync filename, content
 			
-			console.log "- #{filename}"
+			console.log "- #{filename}".green
 			
 			#if generator.outputs
 				#loadOutputs generator.outputs, generator.imports, project, force
@@ -276,7 +287,7 @@ generate = (project) ->
 	
 	# load outputs
 	if project.outputs
-		console.log "Loading outputs..."
+		console.log "Loading outputs...".bold
 		loadOutputs project.outputs, imports, project, this.force
 
 parse = (spec, project) ->

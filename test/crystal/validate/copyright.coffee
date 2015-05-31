@@ -1,4 +1,4 @@
-crystal = require '../../../src/code/crystal'
+crystal = require '../../../src/crystal'
 
 describe 'crystal', () ->
   describe 'validate', () ->
