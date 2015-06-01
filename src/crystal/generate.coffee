@@ -57,26 +57,35 @@ loadModules = (modules) ->
 			for export_name of module_config.exports
 				exported = module_config.exports[export_name]
 				
+				# handle engine
 				if typeof(exported.engine) == 'string' && exported.engine.match(/\./)
 					export_path = "#{module_path}/.crystal/engine/#{exported.engine}"
 					if not fs.existsSync export_path
 						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
 					module_config.exports[export_name].engine = require export_path
+					
+				# handle helper
 				if typeof(exported.helper) == 'string' && exported.helper.match(/\./)
 					export_path = "#{module_path}/.crystal/helper/#{exported.helper}"
 					if not fs.existsSync export_path
 						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
 					module_config.exports[export_name].helper = require export_path
+				
+				# handle schema
 				if typeof(exported.schema) == 'string' && exported.schema.match(/\./)
 					export_path = "#{module_path}/.crystal/schema/#{exported.schema}"
 					if not fs.existsSync export_path
 						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
 					module_config.exports[export_name].schema = yaml.safeLoad fs.readFileSync(export_path)
+				
+				# handle template
 				if typeof(exported.template) == 'string' && exported.template.match(/\./)
 					export_path = "#{module_path}/.crystal/template/#{exported.template}"
 					if not fs.existsSync export_path
 						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
 					module_config.exports[export_name].template = fs.readFileSync(export_path, 'utf8')
+				
+				# handle transformer
 				if typeof(exported.transformer) == 'string' && exported.transformer.match(/\./)
 					export_path = "#{module_path}/.crystal/trans/#{exported.transformer}"
 					if not fs.existsSync export_path
@@ -112,16 +121,32 @@ processModules = () ->
 					test2 = test.pop()
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].filename.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+				
+				if exported.helper instanceof Array
+					helpers = []
 					
-				if typeof(exported.helper) == 'string'
+					for helper in exported.helper
+						test = loaded_module.imports[helper].split('.')
+						test2 = test.pop()
+						test = test.join('.')
+						
+						helpers.push {
+							callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
+							name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
+						}
+					
+					loaded_modules[module_name][version_name].exports[export_name].helper = helpers
+					
+				else if typeof(exported.helper) == 'string'
 					test = loaded_module.imports[exported.helper].split('.')
 					test2 = test.pop()
 					test = test.join('.')
 					
-					loaded_modules[module_name][version_name].exports[export_name].helper = {
+					loaded_modules[module_name][version_name].exports[export_name].helper = [{
 						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
 						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
-					}
+					}]
+					
 				if typeof(exported.transformer) == 'string'
 					test = loaded_module.imports[exported.transformer].split('.')
 					test2 = test.pop()
@@ -135,35 +160,47 @@ loadOutputs = (outputs, imports, project, force = false) ->
 	for output in outputs
 		# validate generator
 		if !output.generator
-			throw new Error "Generator is required."
+			throw new Error "Generator is required for output in project (#{project.id})"
 		else if !imports[output.generator]
-			throw new Error "Generator (#{output.generator}) does not exist."
+			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.id})"
 		
 		# load generator from imports
 		generator = imports[output.generator]
 		
 		# validate filename
-		if output.filename
-			generator_filename = output.filename
-		else if generator.filename
-			generator_filename = generator.filename
-		else
-			throw new Error "Filename is required for output."
+		generator_filename = output.filename or generator.filename
+		if !generator_filename
+			throw new Error "Filename is required for output in project (#{project.id})."
+		
+		# load spec from file
+		if output.spec
+			if typeof(output.spec) == 'object'
+				spec = output.spec
+			else if typeof(output.spec) == 'string'
+				spec_filename = ".crystal/spec/#{output.spec}"
+				if !fs.existsSync spec_filename
+					throw new Error "File does not exist for spec in output for project (#{project.id})"
+				spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
+			
+			# parse spec variables
+			spec = parse spec, project
 		
 		# get iterator
-		if generator.iterator
+		iterator = output.iterator or generator.iterator
+		if iterator
+			if !spec[iterator]
+				throw new Error "Iterator (#{iterator}) not found in spec for generator (#{generator}) in project (#{project.id})"
 			files = []
-			for name in output.spec[generator.iterator]
-				files.push name
+			if spec[iterator] instanceof Array
+				for file in spec[iterator]
+					files.push file.name
+			else
+				for name of spec[iterator]
+					files.push name
 		else
-			# load spec from file
-			if typeof(output.spec) == 'string'
-				output.spec = yaml.safeLoad fs.readFileSync(".crystal/spec/#{output.spec}", 'utf8')
-			output.spec = parse output.spec, project
-			
 			# validate spec
 			if generator.schema
-				validate = skeemas.validate output.spec, generator.schema
+				validate = skeemas.validate spec, generator.schema
 				if !validate.valid
 					console.log validate.errors
 					console.log("ERROR: Specification failed validation.")
@@ -174,17 +211,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			files = [generator_filename]
 
 		# get engine
-		if output.engine
-			engine = output.engine
-		else if generator.engine
-			engine = generator.engine
-		else
-			engine = null
+		engine = output.engine or generator.engine
 
-		if generator.helper
-			helpers = [generator.helper]
-		else
-			helpers = null
+		# get helpers
+		helpers = if generator.helper then generator.helper else null
 		
 		for i of files
 			file = files[i]
@@ -192,9 +222,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# pass filename thru engine
 			if generator_filename.engine
 				filename_options = {}
-				if file.name
-					filename_options.name = file.name
+				if file
+					filename_options.name = file
 				filename = generator_filename.engine filename_options, generator_filename.value, helpers
+
 			else
 				filename = generator_filename
 				
@@ -205,28 +236,34 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				filename = "#{output.path}/#{filename}"
 			
 			# validate spec
-			if !output.spec
+			if !spec
 				throw new Error "Spec is required."
 			
 			# get content from output
 			if engine
-				if generator.iterator
-					content = engine output.spec[generator.iterator][i], generator.template, helpers
+				if iterator
+					if spec[iterator][file]
+						spec[iterator][file].name = file
+					content = engine spec[iterator][file], generator.template, helpers
 				else
-					content = engine output.spec, generator.template, helpers
+					content = engine spec, generator.template, helpers
 			else if generator.template
 				content = generator.template
+			else if spec
+				content = spec
 			else
-				content = output.spec
+				content = ""
 			
 			# transform content
-			if output.transformer
-				if typeof(output.transformer) == 'string'
-					content = imports[output.transformer].transformer content
-				else
-					content = output.transformer content
-			if generator.transformer
-				content = generator.transformer content
+			transformer = output.transformer or generator.transformer
+			if transformer
+				if typeof(transformer) == 'string'
+					if !imports[output.transformer]
+						throw new Error "Transformer #{transformer} does not exist"
+					transformer = imports[output.transformer]
+				content = transformer content
+			else if typeof(content) == 'object'
+				content = ""
 			
 				# get file/cache/ checksum
 			filename_checksum = crypto.createHash('md5').update(filename, 'utf8').digest('hex')

@@ -36,11 +36,11 @@ initProject = (opts, path) ->
 	config = yaml.safeDump config
 	
 	# create src dir
-	if !fs.existsSync "#{path}/src"
-		fs.mkdirSync "#{path}/src"
+	if !fs.existsSync "#{path}/.crystal"
+		fs.mkdirSync "#{path}/.crystal"
 	
 	# create crystal config
-	fs.writeFileSync "#{path}/crystal.yml", config
+	fs.writeFileSync "#{path}/.crystal/config.yml", config
 	
 	console.log 'Crystal initialization is complete.'
 	

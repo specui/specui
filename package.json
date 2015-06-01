@@ -22,6 +22,7 @@
 		"fstream": "latest",
 		"fstream-ignore": "latest",
 		"fstream-npm": "latest",
+		"gift": "~0.6.0",
 		"gzip-js": "latest",
 		"handlebars": "latest",
 		"js-yaml": "latest",
