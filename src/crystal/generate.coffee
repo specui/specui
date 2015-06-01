@@ -242,9 +242,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# get content from output
 			if engine
 				if iterator
-					if spec[iterator][file]
-						spec[iterator][file].name = file
-					content = engine spec[iterator][file], generator.template, helpers
+					content_spec = spec[iterator][i] or spec[iterator][file]
+					if content_spec
+						content_spec.name = file
+					content = engine content_spec, generator.template, helpers
 				else
 					content = engine spec, generator.template, helpers
 			else if generator.template
