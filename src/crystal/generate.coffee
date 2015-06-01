@@ -245,7 +245,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# get content from output
 			template = generator.template
 			if template
-				template = template.replace /([\s]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
+				template = template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
 					injector_tabs = injector.match /^[\s]+>/g
 					if injector_tabs
 						injector_tabs = injector_tabs[0].substr(0, injector_tabs[0].length-1)
@@ -261,7 +261,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 						inject = ''
 						for inj in injected.split "\n"
 							inject += "#{injector_tabs}#{inj}\n"
-						inject += "\n"
+						inject += ""
 					else
 						''
 			if engine
