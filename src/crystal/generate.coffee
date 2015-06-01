@@ -216,6 +216,9 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		# get helpers
 		helpers = if generator.helper then generator.helper else null
 		
+		# get injectors
+		injectors = if output.injector then output.injector else null
+		
 		for i of files
 			file = files[i]
 			
@@ -238,19 +241,37 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# validate spec
 			if !spec
 				throw new Error "Spec is required."
-			
+				
 			# get content from output
+			template = generator.template
+			if template
+				template = template.replace /([\s]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
+					injector_tabs = injector.match /^[\s]+>/g
+					if injector_tabs
+						injector_tabs = injector_tabs[0].substr(0, injector_tabs[0].length-1)
+					else
+						injector_tabs = ''
+					injector = injector.replace /[\s]+/g, ''
+					injector = injector.substr 3, injector.length-6
+					if injectors and injectors[injector]
+						injected = fs.readFileSync ".crystal/#{injectors[injector]}", 'utf8'
+						inject = ''
+						for inj in injected.split "\n"
+							inject += "#{injector_tabs}#{inj}\n"
+						inject += "\n"
+					else
+						''
 			if engine
 				if iterator
 					content_spec = spec[iterator][i] or spec[iterator][file]
 					if content_spec
 						content_spec = extend true, true, content_spec, spec
 						content_spec.name = file
-					content = engine content_spec, generator.template, helpers
+					content = engine content_spec, template, helpers
 				else
-					content = engine spec, generator.template, helpers
-			else if generator.template
-				content = generator.template
+					content = engine spec, template, helpers
+			else if template
+				content = template
 			else if spec
 				content = spec
 			else
