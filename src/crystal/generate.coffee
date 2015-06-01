@@ -244,6 +244,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				if iterator
 					content_spec = spec[iterator][i] or spec[iterator][file]
 					if content_spec
+						content_spec = extend true, true, content_spec, spec
 						content_spec.name = file
 					content = engine content_spec, generator.template, helpers
 				else
