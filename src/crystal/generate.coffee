@@ -329,8 +329,8 @@ generate = (project) ->
 		import_module = import_parts.join('.')
 		import_version = project.modules[import_module]
 		
-		if !loaded_modules[import_module]
-			throw new Error "Unknown module for import (#{import_alias})."
+		if !loaded_modules[import_module] or !loaded_modules[import_module][import_version]
+			throw new Error "Unknown module (#{import_module}) for import (#{import_name}) in project (#{project.id})."
 		else if !loaded_modules[import_module][import_version].exports
 			throw new Error "Module (#{import_alias}) has no exports."
 		else if !loaded_modules[import_module][import_version].exports[import_name]
