@@ -254,7 +254,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 					injector = injector.replace /[\s]+/g, ''
 					injector = injector.substr 3, injector.length-6
 					if injectors and injectors[injector]
-						injected = fs.readFileSync ".crystal/#{injectors[injector]}", 'utf8'
+						if injectors[injector] instanceof Array
+							injected = injectors[injector].join "\n"
+						else
+							injected = fs.readFileSync ".crystal/#{injectors[injector]}", 'utf8'
 						inject = ''
 						for inj in injected.split "\n"
 							inject += "#{injector_tabs}#{inj}\n"
