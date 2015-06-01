@@ -179,7 +179,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			else if typeof(output.spec) == 'string'
 				spec_filename = ".crystal/spec/#{output.spec}"
 				if !fs.existsSync spec_filename
-					throw new Error "File does not exist for spec in output for project (#{project.id})"
+					throw new Error "File (#{spec_filename}) does not exist for spec in output for project (#{project.id})"
 				spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
@@ -267,14 +267,25 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			else if typeof(content) == 'object'
 				content = ""
 			
-				# get file/cache/ checksum
+			# get cached checksums
+			cache_filename = ".crystal/cache.yml"
+			if fs.existsSync cache_filename
+				cache = yaml.safeLoad fs.readFileSync(cache_filename, 'utf8')
+				if !cache.checksum
+					cache.checksum = {}
+			else
+				cache = {
+					checksum: {}
+				}
+			
+			# get file/cache/ checksum
 			filename_checksum = crypto.createHash('md5').update(filename, 'utf8').digest('hex')
-			if fs.existsSync ".crystal/cache/#{filename_checksum}"
+			if cache.checksum[filename_checksum]
 				if !fs.existsSync filename
 					if force != true
 						throw new Error "ERROR: File (#{filename}) has been manually deleted outside of Crystal. Use -f to force code generation and overwrite this deletion.".red.bold
 				else
-					cache_checksum = fs.readFileSync(".crystal/cache/#{filename_checksum}", 'utf8')
+					cache_checksum = cache.checksum[filename_checksum]
 					file_checksum = crypto.createHash('md5').update(fs.readFileSync(filename, 'utf8'), 'utf8').digest('hex')
 					
 					# validate checksum
@@ -285,9 +296,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			content_checksum = crypto.createHash('md5').update(content, 'utf8').digest('hex')
 			
 			# cache checksum
-			if !fs.existsSync ".crystal/cache"
-				mkdirp.sync ".crystal/cache"
-			fs.writeFileSync ".crystal/cache/#{filename_checksum}", content_checksum
+			cache.checksum[filename_checksum] = content_checksum
+			fs.writeFileSync ".crystal/cache.yml", yaml.safeDump cache
 
 			# write content to file
 			file_last_path = filename.lastIndexOf('/')
