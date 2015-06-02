@@ -16,7 +16,7 @@ popular_modules = [
 	'official.gorm'
 ]
 
-initProject = (opts, path) ->
+initProject = (crystal, opts, path) ->
 	# validate name
 	if !opts.name
 		throw new Error 'Name is required.'
@@ -36,6 +36,14 @@ initProject = (opts, path) ->
 	if opts.description
 		config.description = opts.description
 	
+	config.author = {
+		name: opts.author_name
+		email: opts.author_email
+		url: opts.author_url
+	}
+	
+	config.copyright = opts.copyright
+	
 	# add modules to config
 	if opts.modules
 		config.modules = {}
@@ -47,6 +55,29 @@ initProject = (opts, path) ->
 				import_name = module_name.split '.'
 				import_name = import_name[import_name.length-1]
 				config.imports[import_name] = "#{module_name}.#{imported}"
+				
+			switch module_name
+				when 'official.authors'
+					config.outputs.push {
+						generator: 'authors'
+						spec:
+							name: '$name'
+							author: '$author'
+					}
+				when 'official.license'
+					config.outputs.push {
+						generator: 'license'
+						spec:
+							copyright: '$copyright'
+					}
+				when 'official.readme'
+					config.outputs.push {
+						generator: 'readme'
+						spec:
+							name: '$name'
+							version: '$version'
+							description: '$description'
+					}
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -59,6 +90,8 @@ initProject = (opts, path) ->
 	fs.writeFileSync "#{path}/.crystal/config.yml", config
 	
 	console.log 'Crystal initialization is complete.'.green
+	
+	crystal.build path
 	
 init = (opts) ->
 	
@@ -113,6 +146,31 @@ init = (opts) ->
 		if !opts.description
 			properties.description = {
 				description: "Description (ex: website for Acme, Inc.)"
+				required: true
+				type: 'string'
+			}
+		if !opts.author_name
+			properties.author_name = {
+				description: "Author Name (ex: Author)"
+				required: true
+				type: 'string'
+			}
+		if !opts.author_email
+			properties.author_email = {
+				description: "Author Email (ex: author@example.org)"
+				required: true
+				type: 'string'
+			}
+		if !opts.author_url
+			properties.author_url = {
+				description: "Author URL (ex: http://example.org)"
+				required: true
+				type: 'string'
+			}
+		if !opts.copyright
+			properties.copyright = {
+				description: "Copyright (ex: 2015 Acme, Inc.)"
+				required: true
 				type: 'string'
 			}
 			
@@ -124,6 +182,10 @@ init = (opts) ->
 				result.name = opts.name || result.name
 				result.version = opts.version || result.version
 				result.description = opts.description || result.description
+				result.author_name = opts.author_name || result.author_name
+				result.author_email = opts.author_email || result.author_email
+				result.author_url = opts.author_url || result.author_url
+				result.copyright = opts.copyright || result.copyright
 				
 				addModule = () ->
 					console.log "Choose from popular modules or enter your own:".bold
@@ -156,7 +218,7 @@ init = (opts) ->
 									
 								addImport(module_name)
 							else
-								initProject result, opts.path
+								initProject crystal, result, opts.path
 								
 				addImport = (module_name) ->
 					module_path = module_name.replace /\./g, '/'
