@@ -9,6 +9,16 @@ fs     = require 'fs'
 prompt = require 'prompt'
 yaml   = require 'js-yaml'
 
+popular_modules = [
+	'official.readme'
+	'official.license'
+	'official.authors'
+	'official.express'
+	'official.laravel'
+	'official.rails'
+	'official.gorm'
+]
+
 initProject = (opts, path) ->
 	# validate name
 	if !opts.name
@@ -29,10 +39,12 @@ initProject = (opts, path) ->
 	if opts.description
 		config.description = opts.description
 	
-	# add generators to config
-	#default_generators = this.default { _: ['default','generators'] }
-	#if default_generators
-	#	config.generators = default_generators
+	# add modules to config
+	if opts.modules
+		config.modules = {}
+		for i in opts.modules
+			module = popular_modules[parseInt(i)-1]
+			config.modules[module] = 'latest'
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -44,7 +56,7 @@ initProject = (opts, path) ->
 	# create crystal config
 	fs.writeFileSync "#{path}/.crystal/config.yml", config
 	
-	console.log 'Crystal initialization is complete.'
+	console.log 'Crystal initialization is complete.'.green
 	
 init = (opts) ->
 	
@@ -103,10 +115,33 @@ init = (opts) ->
 			if err
 				console.log "\nMaybe next time."
 			else
+				result.id = opts.id || result.id
 				result.name = opts.name || result.name
 				result.version = opts.version || result.version
 				result.description = opts.description || result.description
 				
-				initProject result, opts.path
+				console.log "Choose from popular modules to get you started:".bold
+				for i of popular_modules
+					popular_module = popular_modules[i]
+					module_i = parseInt(i)+1
+					console.log "#{module_i}) #{popular_module}"
+				
+				addModule = () ->
+					prompt.get {
+						properties:
+							module:
+								description: 'Module (ex: 1, 2, official.readme)'
+					}, (err, module_result) ->
+						if err
+							console.log "\nMaybe next time."
+						else
+							if module_result.module.length
+								if !result.modules
+									result.modules = []
+								result.modules.push(module_result.module)
+								addModule()
+							else
+								initProject result, opts.path
+				addModule()
 
 module.exports = init
