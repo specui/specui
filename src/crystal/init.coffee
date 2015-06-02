@@ -1,12 +1,13 @@
 # load deps
-assert = require 'assert'
 crystal = {
 	config: require './config'
 	generate: require './generate'
 }
-fs = require 'fs'
+assert = require 'assert'
+colors = require 'colors'
+fs     = require 'fs'
 prompt = require 'prompt'
-yaml = require 'js-yaml'
+yaml   = require 'js-yaml'
 
 initProject = (opts, path) ->
 	# validate name
@@ -19,6 +20,7 @@ initProject = (opts, path) ->
 	
 	# create config
 	config = {
+		id: opts.id
 		name: opts.name
 		version: opts.version
 	}
@@ -47,7 +49,7 @@ initProject = (opts, path) ->
 init = (opts) ->
 	
 	# get path
-	opts.path = opts._[1] || opts.path || this.path || '.'
+	opts.path = opts._[1] || opts.path || this.path || process.cwd()
 	
 	# validate path
 	if !opts.path
@@ -60,7 +62,7 @@ init = (opts) ->
 	if config != false
 		throw new Error "Crystal has already been initialized in: #{opts.path}"
 	
-	console.log "Initializing Crystal for: #{opts.path}"
+	console.log "Initializing Crystal in: #{opts.path}".green.bold
 	
 	# setup prompt
 	prompt.message = ''
@@ -72,22 +74,28 @@ init = (opts) ->
 	else
 		properties = {}
 		
+		if !opts.id
+			properties.id = {
+				description: "ID (ex: acme.website)"
+				required: true
+				type: 'string'
+			}
 		if !opts.name
 			properties.name = {
-				description: "Enter your project's name"
+				description: "Name (ex: Acme Website)"
 				required: true
 				type: 'string'
 			}
 		if !opts.version
 			properties.version = {
 				default: '0.1.0'
-				description: "Enter your project's version"
+				description: "Version"
 				required: true
 				type: 'string'
 			}
 		if !opts.description
 			properties.description = {
-				description: "Enter your project's description"
+				description: "Description (ex: website for Acme, Inc.)"
 				type: 'string'
 			}
 			
