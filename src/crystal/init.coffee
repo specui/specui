@@ -1,13 +1,10 @@
 # load deps
-crystal = {
-	config: require './config'
-	generate: require './generate'
-}
-assert = require 'assert'
-colors = require 'colors'
-fs     = require 'fs'
-prompt = require 'prompt'
-yaml   = require 'js-yaml'
+assert   = require 'assert'
+colors   = require 'colors'
+fs       = require 'fs'
+prompt   = require 'prompt'
+userHome = require 'user-home'
+yaml     = require 'js-yaml'
 
 popular_modules = [
 	'official.readme'
@@ -42,9 +39,14 @@ initProject = (opts, path) ->
 	# add modules to config
 	if opts.modules
 		config.modules = {}
-		for i in opts.modules
-			module = popular_modules[parseInt(i)-1]
-			config.modules[module] = 'latest'
+		config.imports = {}
+		config.outputs = []
+		for module_name of opts.modules
+			config.modules[module_name] = 'master'
+			for imported in opts.modules[module_name]
+				import_name = module_name.split '.'
+				import_name = import_name[import_name.length-1]
+				config.imports[import_name] = "#{module_name}.#{imported}"
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -60,6 +62,9 @@ initProject = (opts, path) ->
 	
 init = (opts) ->
 	
+	# get crystal
+	crystal = this
+	
 	# get path
 	opts.path = opts._[1] || opts.path || this.path || process.cwd()
 	
@@ -70,7 +75,7 @@ init = (opts) ->
 		throw new Error "Path does not exist: #{opts.path}"
 	
 	# check if crystal config exists
-	config = crystal.config opts.path
+	config = this.config opts.path
 	if config != false
 		throw new Error "Crystal has already been initialized in: #{opts.path}"
 	
@@ -120,13 +125,13 @@ init = (opts) ->
 				result.version = opts.version || result.version
 				result.description = opts.description || result.description
 				
-				console.log "Choose from popular modules to get you started:".bold
-				for i of popular_modules
-					popular_module = popular_modules[i]
-					module_i = parseInt(i)+1
-					console.log "#{module_i}) #{popular_module}"
-				
 				addModule = () ->
+					console.log "Choose from popular modules or enter your own:".bold
+					for i of popular_modules
+						popular_module = popular_modules[i]
+						module_i = parseInt(i)+1
+						console.log "#{module_i}) #{popular_module}"
+						
 					prompt.get {
 						properties:
 							module:
@@ -137,11 +142,59 @@ init = (opts) ->
 						else
 							if module_result.module.length
 								if !result.modules
-									result.modules = []
-								result.modules.push(module_result.module)
-								addModule()
+									result.modules = {}
+								
+								if parseInt(module_result.module) > 0 and popular_modules[module_result.module-1]
+									module_name = popular_modules[module_result.module-1]
+								else
+									module_name = module_result.module
+								
+								if result.modules[module_name]
+									console.log "Module (#{module_name}) has already been added"
+								else
+									result.modules[module_name] = []
+									
+								addImport(module_name)
 							else
 								initProject result, opts.path
+								
+				addImport = (module_name) ->
+					module_path = module_name.replace /\./g, '/'
+					
+					module_config = crystal.config "#{userHome}/.crystal/module/#{module_path}/master"
+					if !module_config
+						throw new Error "Config not found for module (#{module_name})"
+					if !module_config.exports
+						throw new Error "Module (#{module_name}) has no exports"
+					
+					console.log "Choose exports from this module to import:".bold
+					imports = []
+					import_i = 1
+					for export_name of module_config.exports
+						console.log "#{import_i}) #{export_name}"
+						imports.push export_name
+						import_i++
+					
+					prompt.get {
+						properties:
+							import:
+								description: 'Import (ex: 1, 2, etc.)'
+					}, (err, import_result) ->
+						if err
+							console.log "\nMaybe next time."
+						else
+							if import_result.import.length
+								if !imports[parseInt(import_result.import)-1]
+									console.log "Import (#{import_result.import}) does not exit for module (#{module_name})"
+									addImport module_name
+									return
+									
+								result.modules[module_name].push imports[parseInt(import_result.import)-1]
+								addImport module_name
+								
+							else
+								addModule()
+								
 				addModule()
 
 module.exports = init
