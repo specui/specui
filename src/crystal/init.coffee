@@ -10,10 +10,13 @@ popular_modules = [
 	'official.readme'
 	'official.license'
 	'official.authors'
+	'official.gitignore'
 	'official.express'
+	'official.wordpress'
+	'official.ios'
+	'official.npm'
 	'official.laravel'
 	'official.rails'
-	'official.gorm'
 ]
 
 initProject = (crystal, opts, path) ->
@@ -51,33 +54,209 @@ initProject = (crystal, opts, path) ->
 		config.outputs = []
 		for module_name of opts.modules
 			config.modules[module_name] = 'master'
-			for imported in opts.modules[module_name]
-				import_name = module_name.split '.'
-				import_name = import_name[import_name.length-1]
-				config.imports[import_name] = "#{module_name}.#{imported}"
+			for import_name in opts.modules[module_name]
+				config.imports[import_name] = "#{module_name}.#{import_name}"
 				
-			switch module_name
-				when 'official.authors'
-					config.outputs.push {
-						generator: 'authors'
-						spec:
-							name: '$name'
-							author: '$author'
-					}
-				when 'official.license'
-					config.outputs.push {
-						generator: 'license'
-						spec:
-							copyright: '$copyright'
-					}
-				when 'official.readme'
-					config.outputs.push {
-						generator: 'readme'
-						spec:
-							name: '$name'
-							version: '$version'
-							description: '$description'
-					}
+				switch module_name
+					when 'official.authors'
+						config.outputs.push {
+							generator: 'AuthorsGenerator'
+							spec:
+								name: '$name'
+								author: '$author'
+						}
+					when 'official.express'
+						switch import_name
+							when 'AppGenerator'
+								config.outputs.push {
+									generator: 'AppGenerator'
+									path: 'src/api'
+									spec:
+										port: 3000
+										routes: [
+											{
+												name: 'module'
+												method: 'GET'
+												uri: '/v1/modules/:id'
+											}
+										]
+								}
+							when 'RouteGenerator'
+								config.outputs.push {
+									generator: 'RouteGenerator'
+									path: 'src/api/routes'
+									spec:
+										port: 3000
+										routes: [
+											{
+												name: 'home'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'contact'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'about'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'products'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'services'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'help'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'support'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'tutorials'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'trial'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											},
+											{
+												name: 'search'
+												method: 'GET'
+												scripts: [
+													'scripts/page/home.js'
+												]
+												styles: [
+													'styles/page/home.css'
+													'styles/page/home/contribute.css'
+												]
+												title: 'Home'
+												uri: '/v1/modules/:id'
+												view: 'home'
+											}
+										]
+								}
+					when 'official.gitignore'
+						config.outputs.push {
+							generator: 'GitignoreGenerator'
+							spec:
+								items: ['.DS_Store', 'node_modules/']
+						}
+					when 'official.license'
+						config.outputs.push {
+							generator: 'MITGenerator'
+							spec:
+								copyright: '$copyright'
+						}
+					when 'official.npm'
+						config.outputs.push {
+							generator: 'ConfigGenerator'
+							spec:
+								dependencies:
+									express: 'latest'
+						}
+					when 'official.readme'
+						config.outputs.push {
+							generator: 'ReadmeGenerator'
+							spec:
+								name: '$name'
+								version: '$version'
+								description: '$description'
+						}
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -233,9 +412,16 @@ init = (opts) ->
 					imports = []
 					import_i = 1
 					for export_name of module_config.exports
+						if result.modules[module_name].indexOf(export_name) != -1
+							continue
 						console.log "#{import_i}) #{export_name}"
 						imports.push export_name
 						import_i++
+					
+					if !imports.length
+						console.log "All exports have been imported from module (#{module_name})".blue
+						addModule()
+						return
 					
 					prompt.get {
 						properties:
@@ -247,7 +433,7 @@ init = (opts) ->
 						else
 							if import_result.import.length
 								if !imports[parseInt(import_result.import)-1]
-									console.log "Import (#{import_result.import}) does not exit for module (#{module_name})"
+									console.log "Import (#{import_result.import}) does not exit for module (#{module_name})".red
 									addImport module_name
 									return
 									

@@ -57,6 +57,9 @@ loadModules = (modules) ->
 			for export_name of module_config.exports
 				exported = module_config.exports[export_name]
 				
+				# add dir
+				module_config.exports[export_name].dir = module_path
+				
 				# handle engine
 				if typeof(exported.engine) == 'string' && exported.engine.match(/\./)
 					export_path = "#{module_path}/.crystal/engine/#{exported.engine}"
@@ -109,6 +112,18 @@ processModules = () ->
 			
 			for export_name of loaded_module.exports
 				exported = loaded_module.exports[export_name]
+				
+				if exported.copy and typeof(exported.copy.engine) == 'string'
+					test = loaded_module.imports[exported.copy.engine].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].copy.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+				
+				if exported.copy and exported.copy.dest and exported.copy.dest.engine and typeof(exported.copy.dest.engine) == 'string'
+					test = loaded_module.imports[exported.copy.dest.engine].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].copy.dest.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
 				
 				if typeof(exported.engine) == 'string'
 					test = loaded_module.imports[exported.engine].split('.')
@@ -166,13 +181,9 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		
 		# load generator from imports
 		generator = imports[output.generator]
-		
-		# validate filename
-		generator_filename = output.filename or generator.filename
-		if !generator_filename
-			throw new Error "Filename is required for output in project (#{project.id})."
-		
+
 		# load spec from file
+		spec = {}
 		if output.spec
 			if typeof(output.spec) == 'object'
 				spec = output.spec
@@ -184,32 +195,17 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			
 			# parse spec variables
 			spec = parse spec, project
-		
-		# get iterator
-		iterator = output.iterator or generator.iterator
-		if iterator
-			if !spec[iterator]
-				throw new Error "Iterator (#{iterator}) not found in spec for generator (#{generator}) in project (#{project.id})"
-			files = []
-			if spec[iterator] instanceof Array
-				for file in spec[iterator]
-					files.push file.name
-			else
-				for name of spec[iterator]
-					files.push name
-		else
-			# validate spec
-			if generator.schema
-				validate = skeemas.validate spec, generator.schema
-				if !validate.valid
-					console.log validate.errors
-					console.log("ERROR: Specification failed validation.")
-					for error in validate.errors
-						console.log "- #{error.message} for specification (#{error.context.substr(2)})"
-					throw new Error "ERROR: Invalid specification."
-					
-			files = [generator_filename]
-
+			
+		# validate spec
+		if generator.schema
+			validate = skeemas.validate spec, generator.schema
+			if !validate.valid
+				console.log validate.errors
+				console.log("ERROR: Specification failed validation.")
+				for error in validate.errors
+					console.log "- #{error.message} for specification (#{error.context.substr(2)})"
+				throw new Error "ERROR: Invalid specification."
+			
 		# get engine
 		engine = output.engine or generator.engine
 
@@ -219,16 +215,82 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		# get injectors
 		injectors = if output.injector then output.injector else null
 		
+		# copy files
+		if generator.copy
+			if typeof(generator.copy) == 'object'
+				if !generator.copy.src
+					throw new Error "Copy requires source"
+				copy_src = generator.copy.src
+			else if typeof(generator.copy) == 'string'
+				copy_src = generator.copy
+			else
+				throw new Error "Invalid value for copy"
+			
+			if generator.copy.dest
+				if typeof(generator.copy.dest) == 'object'
+					if !generator.copy.dest.engine
+						throw new Error "Destination engine is required for copy"
+					if !generator.copy.dest.value
+						throw new Error "Destination value is required for copy"
+					copy_dest = generator.copy.dest.engine spec, generator.copy.dest.value, helpers
+				else if typeof(generator.copy.dest) == 'string'
+					copy_dest = generator.copy.dest
+				else
+					throw new Error "Invalid Destination for copy"
+				if copy_dest.substr(copy_dest.length - 1) != '/'
+					copy_dest += '/'
+			else
+				copy_dest = ''
+			
+			copy_dir = "#{generator.dir}/.crystal/#{copy_src}"
+			if !fs.existsSync copy_dir
+				throw new Error "Directory (#{copy_dir}) does not exist in copy"
+			
+			code_files = readdir copy_dir
+			for code_file in code_files
+				copy_filename = "#{output.path}/#{copy_dest}#{code_file}"
+				code_dir = copy_filename.substring 0, copy_filename.lastIndexOf('/')+1
+				if !fs.existsSync code_dir
+					mkdirp.sync code_dir
+				fs.writeFileSync "#{copy_filename}", fs.readFileSync "#{copy_dir}/#{code_file}"
+				
+				console.log "- #{copy_filename}".green
+		
+		# validate filename
+		generator_filename = output.filename or generator.filename
+		if !generator_filename
+			continue
+		
+		# get iterator
+		iterator = output.iterator or generator.iterator
+		if iterator
+			if !spec[iterator]
+				throw new Error "Iterator (#{iterator}) not found in spec for generator (#{generator}) in project (#{project.id})"
+			files = []
+			if spec[iterator] instanceof Array
+				for file in spec[iterator]
+					files.push file
+			else
+				for name of spec[iterator]
+					files.push name
+		else
+			files = [generator_filename]
+
 		for i of files
 			file = files[i]
 			
+			if file.name
+				filename_options = {
+					name: file.name
+				}
+				file = file.name
+			else
+				filename_options = spec
+				file_name = null
+			
 			# pass filename thru engine
 			if generator_filename.engine
-				filename_options = {}
-				if file
-					filename_options.name = file
 				filename = generator_filename.engine filename_options, generator_filename.value, helpers
-
 			else
 				filename = generator_filename
 				
