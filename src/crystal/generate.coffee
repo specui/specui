@@ -132,6 +132,8 @@ processModules = () ->
 					loaded_modules[module_name][version_name].exports[export_name].engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
 					
 				if exported.filename and typeof(exported.filename.engine) == 'string'
+					if !loaded_module.imports[exported.filename.engine]
+						throw new Error "Import does not exist for alias (#{exported.filename.engine})"
 					test = loaded_module.imports[exported.filename.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
@@ -157,6 +159,9 @@ processModules = () ->
 					test2 = test.pop()
 					test = test.join('.')
 					
+					if !loaded_modules[test][loaded_module.modules[test]].exports[test2]
+						throw new Error "Import (#{test2}) does not exist for module (#{test})"
+						
 					loaded_modules[module_name][version_name].exports[export_name].helper = [{
 						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
 						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
