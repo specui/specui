@@ -251,7 +251,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			if !fs.existsSync copy_dir
 				throw new Error "Directory (#{copy_dir}) does not exist in copy"
 			
-			code_files = readdir copy_dir
+			code_files = readdir copy_dir, (x) ->
+				return true
 			for code_file in code_files
 				copy_filename = "#{output.path}/#{copy_dest}#{code_file}"
 				code_dir = copy_filename.substring 0, copy_filename.lastIndexOf('/')+1
@@ -311,6 +312,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				
 			# get content from output
 			template = generator.template
+			
 			if template
 				template = template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
 					injector_tabs = injector.match /^[\s]+>/g
