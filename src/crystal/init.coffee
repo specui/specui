@@ -7,16 +7,16 @@ userHome = require 'user-home'
 yaml     = require 'js-yaml'
 
 popular_modules = [
-	'official.readme'
+  'official.android'
+  'official.authors'
+  'official.docker'
+  'official.express'
+  'official.gitignore'
+  'official.ios'
 	'official.license'
-	'official.authors'
-	'official.gitignore'
-	'official.express'
-	'official.wordpress'
-	'official.ios'
-	'official.npm'
-	'official.laravel'
-	'official.rails'
+  'official.npm'
+	'official.readme'
+  'official.wordpress'
 ]
 
 initProject = (crystal, opts, path) ->
@@ -28,12 +28,12 @@ initProject = (crystal, opts, path) ->
 	if !opts.version
 		throw new Error 'Version is required.'
 	
+	config = yaml.safeLoad(fs.readFileSync("#{userHome}/.crystal/dev/crystal/example/config.yml"))
+	
 	# create config
-	config = {
-		id: opts.id
-		name: opts.name
-		version: opts.version
-	}
+	config.id = opts.id
+	config.name = opts.name
+	config.version = opts.version
 	
 	# add description to config
 	if opts.description
@@ -46,217 +46,6 @@ initProject = (crystal, opts, path) ->
 	}
 	
 	config.copyright = opts.copyright
-	
-	# add modules to config
-	if opts.modules
-		config.modules = {}
-		config.imports = {}
-		config.outputs = []
-		for module_name of opts.modules
-			config.modules[module_name] = 'master'
-			for import_name in opts.modules[module_name]
-				config.imports[import_name] = "#{module_name}.#{import_name}"
-				
-				switch module_name
-					when 'official.authors'
-						config.outputs.push {
-							generator: 'AuthorsGenerator'
-							spec:
-								name: '$name'
-								author: '$author'
-						}
-					when 'official.express'
-						switch import_name
-							when 'AppGenerator'
-								config.outputs.push {
-									generator: 'AppGenerator'
-									path: 'src/api'
-									spec:
-										port: 3000
-										routes: [
-											{
-												name: 'module'
-												method: 'GET'
-												uri: '/v1/modules/:id'
-											}
-										]
-								}
-							when 'RouteGenerator'
-								config.outputs.push {
-									generator: 'RouteGenerator'
-									path: 'src/api/routes'
-									spec:
-										port: 3000
-										routes: [
-											{
-												name: 'home'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'contact'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'about'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'products'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'services'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'help'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'support'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'tutorials'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'trial'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											},
-											{
-												name: 'search'
-												method: 'GET'
-												scripts: [
-													'scripts/page/home.js'
-												]
-												styles: [
-													'styles/page/home.css'
-													'styles/page/home/contribute.css'
-												]
-												title: 'Home'
-												uri: '/v1/modules/:id'
-												view: 'home'
-											}
-										]
-								}
-					when 'official.gitignore'
-						config.outputs.push {
-							generator: 'GitignoreGenerator'
-							spec:
-								items: ['.DS_Store', 'node_modules/']
-						}
-					when 'official.license'
-						config.outputs.push {
-							generator: 'MITGenerator'
-							spec:
-								copyright: '$copyright'
-						}
-					when 'official.npm'
-						config.outputs.push {
-							generator: 'ConfigGenerator'
-							spec:
-								dependencies:
-									express: 'latest'
-						}
-					when 'official.readme'
-						config.outputs.push {
-							generator: 'ReadmeGenerator'
-							spec:
-								name: '$name'
-								version: '$version'
-								description: '$description'
-						}
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -385,6 +174,25 @@ init = (opts) ->
 								if !result.modules
 									result.modules = {}
 								
+								if module_result.module == '*'
+									for module_name in popular_modules
+										result.modules[module_name] = []
+										
+										module_path = module_name.replace /\./g, '/'
+										
+										module_config = crystal.config "#{userHome}/.crystal/module/#{module_path}/master"
+										if !module_config
+											throw new Error "Config not found for module (#{module_name})"
+										if !module_config.exports
+											throw new Error "Module (#{module_name}) has no exports"
+											
+										for export_name of module_config.exports
+											result.modules[module_name].push export_name
+											
+									addModule(module_name)
+									
+									return
+								
 								if parseInt(module_result.module) > 0 and popular_modules[module_result.module-1]
 									module_name = popular_modules[module_result.module-1]
 								else
@@ -431,7 +239,12 @@ init = (opts) ->
 						if err
 							console.log "\nMaybe next time."
 						else
-							if import_result.import.length
+							if import_result.import == '*'
+								for import_i of imports
+									result.modules[module_name].push imports[import_i]
+								addImport module_name
+								
+							else if import_result.import.length
 								if !imports[parseInt(import_result.import)-1]
 									console.log "Import (#{import_result.import}) does not exit for module (#{module_name})".red
 									addImport module_name

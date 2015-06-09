@@ -166,6 +166,12 @@ processModules = () ->
 						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
 						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
 					}]
+
+				if typeof(exported.schema) == 'string'
+					test = loaded_module.imports[exported.schema].split('.')
+					test2 = test.pop()
+					test = test.join('.')
+					loaded_modules[module_name][version_name].exports[export_name].schema = loaded_modules[test][loaded_module.modules[test]].exports[test2].schema
 					
 				if typeof(exported.transformer) == 'string'
 					test = loaded_module.imports[exported.transformer].split('.')
@@ -210,7 +216,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				for error in validate.errors
 					console.log "- #{error.message} for specification (#{error.context.substr(2)})"
 				throw new Error "ERROR: Invalid specification."
-			
+		
 		# get engine
 		engine = output.engine or generator.engine
 
