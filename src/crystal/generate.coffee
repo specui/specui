@@ -168,6 +168,8 @@ processModules = () ->
 					}]
 
 				if typeof(exported.schema) == 'string'
+					if !loaded_module.imports[exported.schema]
+						throw new Error "Schema (#{exported.schema}) does not exist for export (#{export_name}) in module (#{module_name})"
 					test = loaded_module.imports[exported.schema].split('.')
 					test2 = test.pop()
 					test = test.join('.')
