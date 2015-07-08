@@ -31,6 +31,7 @@ crystal = (path) ->
     'generate'
     'init'
     'install'
+    'link'
     'publish'
     'process'
     'run'

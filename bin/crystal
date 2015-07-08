@@ -51,6 +51,32 @@ try {
 			var output = require(__dirname + '/../src/cli/help')(commands);
 			console.log(output);
 			break;
+			
+		case 'link':
+			var dest = minimist._[1].split('@');
+			var version = dest[1];
+			dest = dest[0].split('.');
+			var collection = dest[0];
+			var module = dest[1];
+			
+			if (minimist._[2]) {
+				var src = minimist._[2];
+			} else {
+				var src = process.cwd();
+			}
+			
+			var force = minimist.f === true || minimist.force === true ? true : false;
+			
+			project.link({
+				collection: collection,
+				force: force,
+				module: module,
+				src: src,
+				version: version
+			});
+			
+			break;
+			
 		case 'signup':
 			project.signup();
 			break;
