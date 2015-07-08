@@ -143,18 +143,31 @@ processModules = () ->
 					helpers = []
 					
 					for helper in exported.helper
-						test = loaded_module.imports[helper].split('.')
-						test2 = test.pop()
-						test = test.join('.')
-						
-						helpers.push {
-							callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
-							name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
-						}
+						if !loaded_module.imports[helper] and !loaded_module.exports[helper]
+							throw new Error "Import does not exist for alias (#{helper})"
+							
+						if loaded_module.exports[helper]
+							helpers.push {
+								callback: loaded_module.exports[helper].helper
+								name: loaded_module.exports[helper].name
+							}
+							
+						else
+							test = loaded_module.imports[helper].split('.')
+							test2 = test.pop()
+							test = test.join('.')
+							
+							helpers.push {
+								callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
+								name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
+							}
 					
 					loaded_modules[module_name][version_name].exports[export_name].helper = helpers
 					
 				else if typeof(exported.helper) == 'string'
+					if !loaded_module.imports[exported.helper]
+						throw new Error "Import does not exist for alias (#{exported.helper})"
+					
 					test = loaded_module.imports[exported.helper].split('.')
 					test2 = test.pop()
 					test = test.join('.')
