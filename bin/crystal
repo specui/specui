@@ -9,6 +9,7 @@ var ascii = require('../src/cli/ascii')(),
 	crystal = require('../src/crystal'),
 	fs = require('fs'),
 	minimist = require('minimist')(process.argv.slice(2)),
+	userHome = require('user-home'),
 	yaml = require('js-yaml');
 
 // get commands
@@ -39,6 +40,22 @@ if (minimist.debug || command == 'help') {
 
 // get crystal output
 try {
+	// change cwd
+	if (command != 'link' && minimist._[1]) {
+		var dest = minimist._[1].split('@');
+		var version = dest[1] || 'master';
+		dest = dest[0].split('.');
+		var collection = dest[0];
+		var module = dest[1];
+		
+		var cwd = userHome + '/.crystal/module/' + collection + '/' + module + '/' + version;
+		if (!fs.existsSync(cwd)) {
+			throw new Error('Module (' + collection + '.' + module + '@' + version + ') does not exist at: ' + cwd);
+		}
+		
+		process.chdir(cwd);
+	}
+	
 	switch (command) {
 		case 'cache':
 			project.cache(
