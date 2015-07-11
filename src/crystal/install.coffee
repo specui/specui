@@ -4,11 +4,8 @@ request = require 'request'
 install = (opts) ->
   crystal = this
   
-  if typeof opts == 'object'
-    if opts._ && opts._[1]
-      name = opts._[1]
-    else if opts.keyword
-      name = opts.name
+  if typeof opts == 'object' && opts.name
+    name = opts.name
   else if typeof keyword == 'string'
     name = opts
   
@@ -17,11 +14,12 @@ install = (opts) ->
   
   console.log "Finding generator (#{name})..."
   
+  console.log crystal.url('api','modules')
+  
   request.get {
-    qs: {
+    qs:
       name: name
-    }
-    url: crystal.url 'api', 'generators'
+    url: crystal.url 'api', 'modules'
   }, (err, resp, body) ->
     if err || resp.statusCode != 200
       throw new Error 'Search failed.'

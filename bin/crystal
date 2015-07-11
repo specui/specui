@@ -41,9 +41,9 @@ if (minimist.debug || command == 'help') {
 // get crystal output
 try {
 	// change cwd
-	if (command != 'link' && minimist._[1]) {
+	if (command != 'install' && command != 'link' && minimist._[1]) {
 		var dest = minimist._[1].split('@');
-		var version = dest[1] || 'master';
+		var version = dest[1] || 'latest';
 		dest = dest[0].split('.');
 		var collection = dest[0];
 		var module = dest[1];
@@ -64,17 +64,34 @@ try {
 				minimist.debug ? true : false
 			);
 			break;
+			
 		case 'help':
 			var output = require(__dirname + '/../src/cli/help')(commands);
 			console.log(output);
 			break;
-			
+		
+		case 'install':
+			project.install({
+				name: minimist._[1]
+			});
+		
+			break;
+		
 		case 'link':
-			var dest = minimist._[1].split('@');
-			var version = dest[1];
-			dest = dest[0].split('.');
-			var collection = dest[0];
-			var module = dest[1];
+			var config = project.config('.');
+			var version = config.version;
+			var id = config.id.split('.');
+			
+			if (minimist._[1]) {
+				var dest = minimist._[1].split('@');
+				version = dest[1];
+				if (dest[0].length) {
+					id = dest[0].split('.');
+				}
+			}
+			
+			var collection = id[0];
+			var module = id[1];
 			
 			if (minimist._[2]) {
 				var src = minimist._[2];

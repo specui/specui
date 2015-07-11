@@ -73,6 +73,13 @@ loadModules = (modules) ->
 					if not fs.existsSync export_path
 						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
 					module_config.exports[export_name].helper = require export_path
+					
+				# handle processor
+				if typeof(exported.processor) == 'string' && exported.processor.match(/\./)
+					export_path = "#{module_path}/.crystal/processor/#{exported.processor}"
+					if not fs.existsSync export_path
+						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
+					module_config.exports[export_name].processor = require export_path
 				
 				# handle schema
 				if typeof(exported.schema) == 'string' && exported.schema.match(/\./)
@@ -208,6 +215,24 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		# load generator from imports
 		generator = imports[output.generator]
 
+		# load processors
+		if output.processor instanceof Array
+			processors = []
+			
+			for processor in output.processor
+				if !imports[processor] and !loaded_module.exports[processor]
+					throw new Error "Import does not exist for alias (#{processor})"
+					
+				processors.push imports[output.processor].processor
+			
+			output.processor = processors
+			
+		else if typeof(output.processor) == 'string'
+			if !imports[output.processor]
+				throw new Error "Import does not exist for alias (#{output.processor})"
+				
+			output.processor = [imports[output.processor].processor]
+
 		# load spec from file
 		spec = {}
 		if output.spec
@@ -220,7 +245,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
-			spec = parse spec, project
+			spec = parse spec, project, output.processor
 			
 		# validate spec
 		if generator.schema
@@ -236,6 +261,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		engine = output.engine or generator.engine
 
 		# get helpers
+		if helpers
+			old_helpers = helpers
 		helpers = if generator.helper then generator.helper else null
 		
 		# get injectors
@@ -258,7 +285,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 						throw new Error "Destination engine is required for copy"
 					if !generator.copy.dest.value
 						throw new Error "Destination value is required for copy"
-					copy_dest = generator.copy.dest.engine spec, generator.copy.dest.value, helpers
+					copy_dest = generator.copy.dest.engine spec, generator.copy.dest.value, helpers, old_helpers
 				else if typeof(generator.copy.dest) == 'string'
 					copy_dest = generator.copy.dest
 				else
@@ -312,12 +339,14 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				}
 				file = file.name
 			else
-				filename_options = spec
+				filename_options = []
+				filename_options[0] = {}
+				filename_options[0][file] = spec
 				file_name = null
 			
 			# pass filename thru engine
 			if generator_filename.engine
-				filename = generator_filename.engine filename_options, generator_filename.value, helpers
+				filename = generator_filename.engine filename_options, generator_filename.value, helpers, old_helpers
 			else
 				filename = generator_filename
 				
@@ -360,7 +389,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 					if content_spec
 						content_spec = extend true, true, content_spec, spec
 						content_spec.name = file
-					content = engine content_spec, template, helpers
+					content = engine content_spec, template, helpers, old_helpers
 				else
 					content = engine spec, template, helpers
 			else if template
@@ -460,14 +489,18 @@ generate = (project) ->
 		console.log "Loading outputs...".bold
 		loadOutputs project.outputs, imports, project, this.force
 
-parse = (spec, project) ->
+parse = (spec, project, processors) ->
 	for i of spec
 		s = spec[i]
 		if typeof(s) == 'object'
-			spec[i] = parse(spec[i], project)
-		else if typeof(s) == 'string'
-			if s.substr(0, 1) == '$' && project[s.substr(1)]
-				spec[i] = project[s.substr(1)]
+			spec[i] = parse(spec[i], project, processors)
+		else
+			if typeof(s) == 'string'
+				if s.substr(0, 1) == '$' && project[s.substr(1)]
+					spec[i] = project[s.substr(1)]
+		if processors and processors.length
+			for processor in processors
+				spec[i] = processor spec[i]
 	spec
 
 sortObject = (object) ->
