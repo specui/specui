@@ -205,33 +205,56 @@ loadOutputs = (outputs, imports, project, force = false) ->
 	if !imports
 		throw new Error 'No imports available for output'
 	
-	for output in outputs
+	for output_i of outputs
+		output = outputs[output_i]
+		
 		# validate generator
 		if !output.generator
 			throw new Error "Generator is required for output in project (#{project.id})"
 		else if !imports[output.generator]
 			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.id})"
 		
+		console.log "\nOutput ##{parseInt(output_i)+1}: #{output.generator}".bold
+		
 		# load generator from imports
 		generator = imports[output.generator]
 
 		# load processors
-		if output.processor instanceof Array
+		output_processor = output.processor
+		generator_processor = generator.processor
+		if generator_processor
+			if typeof(output_processor) == 'string'
+				output_processor = [output_processor]
+			if typeof(generator_processor) == 'string'
+				generator_processor = [generator_processor]
+				
+			if output_processor && generator_processor
+				output_processor = extend true, true, output_processor, generator_processor
+			else
+				output_processor = generator_processor
+		
+		if output_processor instanceof Array
 			processors = []
 			
-			for processor in output.processor
-				if !imports[processor] and !loaded_module.exports[processor]
+			for processor in output_processor
+				if !imports[processor]
 					throw new Error "Import does not exist for alias (#{processor})"
-					
-				processors.push imports[output.processor].processor
-			
-			output.processor = processors
-			
-		else if typeof(output.processor) == 'string'
-			if !imports[output.processor]
-				throw new Error "Import does not exist for alias (#{output.processor})"
 				
-			output.processor = [imports[output.processor].processor]
+				processors.push {
+					alias: processor
+					callback: imports[processor].processor
+				}
+			
+			output_processor = processors
+			
+		else if typeof(output_processor) == 'string'
+			if !imports[output_processor]
+				throw new Error "Import does not exist for alias (#{output_processor})"
+				
+			output_processor = [{
+				alias: output_processor
+				callback: imports[output_processor].processor
+			}]
 
 		# load spec from file
 		spec = {}
@@ -245,7 +268,14 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
-			spec = parse spec, project, output.processor
+			console.log "Processed spec.".blue
+			if project.debug
+				console.log "    - Before:".green
+				console.log JSON.stringify spec[i], null, "  "
+			spec = parse spec, project, output_processor
+			if project.debug
+				console.log "    - After:".green
+				console.log JSON.stringify spec[i], null, "  "
 			
 		# validate spec
 		if generator.schema
@@ -308,7 +338,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 					mkdirp.sync code_dir
 				fs.writeFileSync "#{copy_filename}", fs.readFileSync "#{copy_dir}/#{code_file}"
 				
-				console.log "- #{copy_filename}".green
+				console.log "Generated file: #{copy_filename}".green
 		
 		# validate filename
 		generator_filename = output.filename or generator.filename
@@ -363,36 +393,25 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# get content from output
 			template = generator.template
 			
-			if template
-				template = template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
-					injector_tabs = injector.match /^[\s]+>/g
-					if injector_tabs
-						injector_tabs = injector_tabs[0].substr(0, injector_tabs[0].length-1)
-					else
-						injector_tabs = ''
-					injector = injector.replace /[\s]+/g, ''
-					injector = injector.substr 3, injector.length-6
-					if injectors and injectors[injector]
-						if injectors[injector] instanceof Array
-							injected = injectors[injector].join "\n"
-						else
-							injected = fs.readFileSync ".crystal/#{injectors[injector]}", 'utf8'
-						inject = ''
-						for inj in injected.split "\n"
-							inject += "#{injector_tabs}#{inj}\n"
-						inject += ""
-					else
-						''
 			if engine
 				if iterator
-					content_spec = spec[iterator][i] or spec[iterator][file]
+					content_spec = extend true, true, {}, spec[iterator][i] or spec[iterator][file]
 					if content_spec
 						content_spec = extend true, true, content_spec, spec
 						content_spec.name = file
+					if content_spec and content_spec[iterator][file]['$injector']
+						template = inject template, injectors, false
+						template = inject template, content_spec[iterator][file]['$injector'], false
+						template = inject template, null, true
+					else
+						template = inject template, injectors, true
 					content = engine content_spec, template, helpers, old_helpers
 				else
+					if template
+						template = inject template, injectors, true
 					content = engine spec, template, helpers
 			else if template
+				template = inject template, injectors, true
 				content = template
 			else if spec
 				content = spec
@@ -448,14 +467,12 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				mkdirp.sync filename.substr(0, file_last_path)
 			fs.writeFileSync filename, content
 			
-			console.log "- #{filename}".green
+			console.log "Generated file: #{filename}".green
 			
 			#if generator.outputs
 				#loadOutputs generator.outputs, generator.imports, project, force
 
 generate = (project) ->
-	console.log "Generating code from: #{this.path}"
-	
 	# get project
 	project = project or this.project
 	
@@ -489,6 +506,34 @@ generate = (project) ->
 		console.log "Loading outputs...".bold
 		loadOutputs project.outputs, imports, project, this.force
 
+inject = (template, injectors, remove_injector = true) ->
+	template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
+		injector_tabs = injector.match /^[\s]+>/g
+		if injector_tabs
+			injector_tabs = injector_tabs[0].substr(0, injector_tabs[0].length-1)
+		else
+			injector_tabs = ''
+		injector = injector.replace /[\s]+/g, ''
+		injector = injector.substr 3, injector.length-6
+		if injectors and injectors[injector]
+			if injectors[injector] instanceof Array
+				injected = injectors[injector].join "\n"
+			else if (injectors[injector].substr(0,1) == '/' or injectors[injector].substr(0,2) == './') and fs.existsSync ".crystal/#{injectors[injector]}"
+				injected = fs.readFileSync ".crystal/#{injectors[injector]}", 'utf8'
+			else
+				injected = injectors[injector]
+			if remove_injector == true
+				inject_final = ''
+			else
+				inject_final = "#{injector_tabs}>>>#{injector}<<<\n"
+			for inj in injected.split "\n"
+				inject_final += "#{injector_tabs}#{inj}\n"
+			inject_final += ""
+		else if remove_injector == true
+			''
+		else
+			"#{injector_tabs}>>>#{injector}<<<\n"
+		
 parse = (spec, project, processors) ->
 	for i of spec
 		s = spec[i]
@@ -500,7 +545,7 @@ parse = (spec, project, processors) ->
 					spec[i] = project[s.substr(1)]
 		if processors and processors.length
 			for processor in processors
-				spec[i] = processor spec[i]
+				spec[i] = processor.callback spec[i]
 	spec
 
 sortObject = (object) ->
