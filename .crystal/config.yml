@@ -1,6 +1,6 @@
 id: crystal.codegen
 name: Crystal
-version: 0.5.1
+version: 0.6.0
 description: the open source code generator for every language, library and platform
 repository: https://github.com/crystal/crystal
 author:
