@@ -5,4 +5,4 @@
 
 [![Crystal](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
-Crystal is the open source code generator for every language, library and platform.
+the open source code generator for every language, library and platform

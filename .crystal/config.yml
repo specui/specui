@@ -13,13 +13,13 @@ modules:
   git.ignore: v0.1.0
   npm.package: v0.1.0
   readme.md: v0.1.0
-  travis.build: v0.1.0
+  travis.config: v0.1.0
 imports:
-  authors: authors.file.AuthorsGenerator
-  gitignore: git.ignore.GitignoreGenerator
-  npm: npm.package.ConfigGenerator
-  readme: readme.md.ReadmeGenerator
-  travis: travis.build.ConfigGenerator
+  authors: authors.file.Generator
+  gitignore: git.ignore.Generator
+  npm: npm.package.Generator
+  readme: readme.md.Generator
+  travis: travis.config.Generator
 exports:
   ConfigSchematic:
     schema: config.yml
