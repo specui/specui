@@ -21,17 +21,17 @@ module.exports = (opts) ->
 		when this.path != undefined then this.path
 		else process.cwd()
 	
-	console.log "Building from: #{this.path}".bold
-	
 	# clean project
 	#this.clean()
-	
-	console.log 'Loading Configuration...'
 	
 	# get config
 	if (this.project = this.config()) == false
 		throw new Error 'Unable to load configuration.'
-		
+	
+	console.log "\n#{this.project.name} (#{this.project.id}@#{this.project.version})".bold
+	console.log "by #{this.project.author.name} <#{this.project.author.email}> (#{this.project.author.url})"
+	console.log "at #{this.path}\n"
+	
 	# generate code
 	if this.generate() == false
 		throw new Error 'Unable to generate code.'
@@ -40,7 +40,7 @@ module.exports = (opts) ->
 		console.log 'Done.'
 		return
 	
-	console.log 'Running build scripts...'
+	console.log "\nRunning build scripts...".bold
 	
 	opts = this.opts
 	scripts = this.project.scripts
@@ -48,7 +48,7 @@ module.exports = (opts) ->
 	i = 0
 	buildCmd = () ->
 		if !scripts.build[i]
-			console.log 'Done.'
+			console.log "Done!\n".bold
 			return
 		
 		# get build cmd/arg

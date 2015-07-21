@@ -101,6 +101,8 @@ try {
 			
 			var force = minimist.f === true || minimist.force === true ? true : false;
 			
+			project.build(minimist);
+			
 			project.link({
 				collection: collection,
 				force: force,
