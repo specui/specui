@@ -5,4 +5,4 @@
 
 [![Crystal](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
-the open source code generator for every language, library and platform
+the open source code generator that makes every developer a full stack developer
