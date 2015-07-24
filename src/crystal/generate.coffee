@@ -537,15 +537,23 @@ inject = (template, injectors, remove_injector = true) ->
 parse = (spec, project, processors) ->
 	for i of spec
 		s = spec[i]
-		if typeof(s) == 'object'
+		
+		if typeof(s) == 'object' and !s['$processor']
 			spec[i] = parse(spec[i], project, processors)
-		else
-			if typeof(s) == 'string'
-				if s.substr(0, 1) == '$' && project[s.substr(1)]
-					spec[i] = project[s.substr(1)]
-		if processors and processors.length
-			for processor in processors
-				spec[i] = processor.callback spec[i]
+		else if typeof(s) == 'string' && s.substr(0, 1) == '$' && project[s.substr(1)]
+			spec[i] = project[s.substr(1)]
+			
+		if spec[i]['$processor']
+			if typeof(spec[i]['$processor']) == 'string'
+				spec[i]['$processor'] = [spec[i]['$processor']]
+				
+			for proc in spec[i]['$processor']
+				for processor in processors
+					if processor.alias == proc
+						spec[i]['$value'] = processor.callback spec[i]['$value']
+						
+			spec[i] = spec[i]['$value']
+					
 	spec
 
 sortObject = (object) ->
