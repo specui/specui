@@ -354,7 +354,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			if spec[iterator] instanceof Array
 				for file in spec[iterator]
 					files.push file
-			else
+			else if typeof(spec[iterator]) == 'object'
 				for name of spec[iterator]
 					files.push name
 		else
@@ -392,7 +392,6 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				
 			# get content from output
 			template = generator.template
-			
 			if engine
 				if iterator
 					content_spec = extend true, true, {}, spec[iterator][i] or spec[iterator][file]
