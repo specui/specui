@@ -29,6 +29,7 @@ crystal = (path) ->
     'default'
     'format'
     'generate'
+    'info'
     'init'
     'install'
     'link'

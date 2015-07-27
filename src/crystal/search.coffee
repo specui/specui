@@ -19,21 +19,21 @@ search = (opts) ->
   
   request.get {
     qs: {
-      name: name
+      name: "%#{name}%"
     }
-    url: crystal.url 'api', 'generators/search'
+    url: crystal.url 'api', 'modules'
   }, (err, resp, body) ->
     if err || resp.statusCode != 200
       throw new Error 'Search failed.'
     
-    # get generators
-    generators = JSON.parse body
+    # get modules
+    modules = JSON.parse body
     
     # print matches
-    console.log "Found #{generators.length} generator(s)!"
+    console.log "Found #{modules.length} generator(s)!"
     
-    # print generator names
-    for generator in generators
-      console.log "#{generator.name}"
+    # print module names
+    for mod in modules
+      console.log "- #{mod.Collection.name}.#{mod.name}"
 
 module.exports = search

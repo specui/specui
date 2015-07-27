@@ -4,7 +4,7 @@ error    = require '../error'
 fs       = require 'fs'
 git      = require 'gift'
 mkdirp   = require 'mkdirp'
-request  = require 'request'
+request  = require 'sync-request'
 semver   = require 'semver'
 tar      = require 'tar'
 userHome = require 'user-home'
@@ -12,6 +12,8 @@ version  = require '../version'
 zlib     = require 'zlib'
 
 update = (opts) ->
+	crystal = this
+	
 	# get path
 	path = "#{userHome}/.crystal/module/"
 	if !fs.existsSync path
@@ -39,24 +41,18 @@ update = (opts) ->
 	
 	if !modules
 		return
-		
-	crystal = this
-	load_modules = {}
-	repos = {}
-	resp = (err, data) ->
-		for item in data.Items
-			#if !modules or !modules[item.id.S]
-				#continue
-			repos[item.id.S] = item.repository.S
-			tag = modules[item.id.S] or 'master'
-			repo_path = "#{path}#{item.id.S.replace(/\./g,'/')}/#{tag}"
-			if !fs.existsSync repo_path
-				mkdirp repo_path
-				repo = git.clone item.repository.S, repo_path, (err, _repo) ->
-					if err
-						console.log err
-						return
-					crystal.update {path: _repo.path}
-					console.log "Repo created: #{_repo.path}"
-		
+	
+	for module_name of modules
+		module_version = modules[module_name]
+		module_path_name = module_name.replace /\./, '/'
+		module_path = "#{path}#{module_path_name}/#{module_version}"
+		if fs.existsSync module_path
+			continue
+		mkdirp module_path
+		url = crystal.url 'api', "modules/#{module_name}"
+		resp = request 'get', url
+		body = JSON.parse resp.body.toString()
+		repo = git.clone body.repository, module_path, (err) ->
+			console.log err
+
 module.exports = update

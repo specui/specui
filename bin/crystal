@@ -5,6 +5,7 @@ require('coffee-script').register();
 
 // load packages
 var ascii = require('../src/cli/ascii')(),
+	bluebird = require('bluebird'),
 	colors = require('colors'),
 	crystal = require('../src/crystal'),
 	fs = require('fs'),
@@ -39,9 +40,9 @@ if (minimist.debug || command == 'help') {
 }
 
 // get crystal output
-try {
+bluebird.try(function() {
 	// change cwd
-	if (command != 'install' && command != 'link' && minimist._[1]) {
+	if (command != 'info' && command != 'install' && command != 'link' && command != 'search' && minimist._[1]) {
 		var dest = minimist._[1].split('@');
 		var version = dest[1] || 'latest';
 		dest = dest[0].split('.');
@@ -122,12 +123,12 @@ try {
 			}
 			project[command](minimist);
 			break;
-	}
-	
-} catch(e) {
+	}	
+})
+
+.catch(function(e) {
 	if (minimist.debug) {
 		throw e;
 	}
-	
 	console.log(e.message.red);
-}
+});

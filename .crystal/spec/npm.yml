@@ -9,6 +9,7 @@ bin:
   crystal: "./bin/crystal"
 dependencies:
   async: 0.9.0
+  bluebird: ~2.9.34
   change-case: latest
   coffee-script: latest
   colors: ~1.1.0
@@ -40,6 +41,7 @@ dependencies:
   semver-regex: 1.0.0
   skeemas: "~1.1.6"
   sprintf: latest
+  sync-request: ~2.0.1
   tar: latest
   xml-to-jsobj: latest
   user-home: latest

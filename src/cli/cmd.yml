@@ -9,6 +9,9 @@ clean:
   desc: clean project from current or specified directory
 help:
   desc: get help
+info:
+  opts: '<collection|module>'
+  desc: gets info for a collection or module
 init:
   opts: '[dir]'
   desc: initialize a crystal project
