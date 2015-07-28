@@ -3,21 +3,11 @@ assert   = require 'assert'
 colors   = require 'colors'
 fs       = require 'fs'
 prompt   = require 'prompt'
+request  = require 'sync-request'
 userHome = require 'user-home'
 yaml     = require 'js-yaml'
 
-popular_modules = [
-  'official.android'
-  'official.authors'
-  'official.docker'
-  'official.express'
-  'official.gitignore'
-  'official.ios'
-	'official.license'
-  'official.npm'
-	'official.readme'
-  'official.wordpress'
-]
+popular_modules = []
 
 initProject = (crystal, opts, path) ->
 	# validate name
@@ -28,7 +18,7 @@ initProject = (crystal, opts, path) ->
 	if !opts.version
 		throw new Error 'Version is required.'
 	
-	config = yaml.safeLoad(fs.readFileSync("#{userHome}/.crystal/dev/crystal/example/config.yml"))
+	config = {}
 	
 	# create config
 	config.id = opts.id
@@ -46,6 +36,16 @@ initProject = (crystal, opts, path) ->
 	}
 	
 	config.copyright = opts.copyright
+	
+	if opts.modules
+		config.modules = {}
+		for module_name of opts.modules
+			exports = opts.modules[module_name]
+			config.modules[module_name] = 'latest'
+			if exports.length
+				config.imports = {}
+				for exp in exports
+					config.imports["#{exp}"] = "#{module_name}.#{exp}"
 	
 	# convert config obj to yaml doc
 	config = yaml.safeDump config
@@ -155,6 +155,15 @@ init = (opts) ->
 				result.author_url = opts.author_url || result.author_url
 				result.copyright = opts.copyright || result.copyright
 				
+				console.log "Loading popular modules..."
+				
+				response = request 'get', crystal.url('api', 'modules?limit=10')
+				modules = JSON.parse response.body.toString()
+        
+				popular_modules = []
+				for mod in modules
+          popular_modules.push(mod.identifier)
+				
 				addModule = () ->
 					console.log "Choose from popular modules or enter your own:".bold
 					for i of popular_modules
@@ -165,7 +174,7 @@ init = (opts) ->
 					prompt.get {
 						properties:
 							module:
-								description: 'Module (ex: 1, 2, official.readme)'
+								description: 'Module (ex: 1, 2, readme.md)'
 					}, (err, module_result) ->
 						if err
 							console.log "\nMaybe next time."
@@ -178,9 +187,8 @@ init = (opts) ->
 									for module_name in popular_modules
 										result.modules[module_name] = []
 										
-										module_path = module_name.replace /\./g, '/'
-										
-										module_config = crystal.config "#{userHome}/.crystal/module/#{module_path}/master"
+										response = request 'get', crystal.url('api', "modules/#{module_name}")
+										module_config = JSON.parse response.body.toString()
 										if !module_config
 											throw new Error "Config not found for module (#{module_name})"
 										if !module_config.exports
@@ -208,9 +216,10 @@ init = (opts) ->
 								initProject crystal, result, opts.path
 								
 				addImport = (module_name) ->
-					module_path = module_name.replace /\./g, '/'
+					console.log "Loading module..."
 					
-					module_config = crystal.config "#{userHome}/.crystal/module/#{module_path}/master"
+					response = request 'get', crystal.url('api', "modules/#{module_name}")
+					module_config = JSON.parse response.body.toString()
 					if !module_config
 						throw new Error "Config not found for module (#{module_name})"
 					if !module_config.exports

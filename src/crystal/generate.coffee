@@ -45,7 +45,7 @@ loadModules = (modules) ->
 		module_path = module_id.replace /\./g, '/'
 		module_path = "#{userHome}/.crystal/module/#{module_path}/#{module_version}"
 		if !fs.existsSync module_path
-			throw new Error "Unknown module (#{module_id}). Try: crystal update"
+			throw new Error "Unknown module (#{module_id}) at version (#{module_version}). Try: crystal update"
 		
 		# get/validate module config
 		module_config = crystal.config module_path

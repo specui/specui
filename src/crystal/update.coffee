@@ -43,16 +43,20 @@ update = (opts) ->
 		return
 	
 	for module_name of modules
+		url = crystal.url 'api', "modules/#{module_name}"
+		resp = request 'get', url
+		if resp.statusCode != 200
+			throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
+		mod = JSON.parse resp.body.toString()
+		
 		module_version = modules[module_name]
 		module_path_name = module_name.replace /\./, '/'
 		module_path = "#{path}#{module_path_name}/#{module_version}"
 		if fs.existsSync module_path
 			continue
 		mkdirp module_path
-		url = crystal.url 'api', "modules/#{module_name}"
-		resp = request 'get', url
-		body = JSON.parse resp.body.toString()
-		repo = git.clone body.repository, module_path, (err) ->
+		
+		repo = git.clone mod.repository, module_path, (err) ->
 			console.log err
 
 module.exports = update
