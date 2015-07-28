@@ -158,6 +158,8 @@ init = (opts) ->
 				console.log "Loading popular modules..."
 				
 				response = request 'get', crystal.url('api', 'modules?limit=10')
+				if response.statusCode != 200
+					throw new Error "Unable to load popular modules"
 				modules = JSON.parse response.body.toString()
         
 				popular_modules = []
@@ -188,6 +190,8 @@ init = (opts) ->
 										result.modules[module_name] = []
 										
 										response = request 'get', crystal.url('api', "modules/#{module_name}")
+										if response.statusCode != 200
+											throw new Error "Unknown module: #{module_name}"
 										module_config = JSON.parse response.body.toString()
 										if !module_config
 											throw new Error "Config not found for module (#{module_name})"
