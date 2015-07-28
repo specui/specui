@@ -12,6 +12,14 @@ var ascii = require('../src/cli/ascii')(),
 	minimist = require('minimist')(process.argv.slice(2)),
 	userHome = require('user-home'),
 	yaml = require('js-yaml');
+	
+// handle uncaught exceptions
+process.on('uncaughtException', function (e) {
+	if (minimist.debug) {
+		throw e;
+	}
+	console.log(e.message.red);
+});
 
 // get commands
 var commands = yaml.safeLoad(fs.readFileSync(__dirname + '/../src/cli/cmd.yml'));

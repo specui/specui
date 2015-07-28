@@ -21,4 +21,7 @@ module.exports = (host, uri) ->
   
   if url.substr(url.length-1) != '/'
     url += '/'
-  url += uri
+  if uri
+    url += uri
+  
+  url
