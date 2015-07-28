@@ -223,6 +223,8 @@ init = (opts) ->
 					console.log "Loading module..."
 					
 					response = request 'get', crystal.url('api', "modules/#{module_name}")
+					if response.statusCode != 200
+						throw new Error "Unable to module: #{module_name}"
 					module_config = JSON.parse response.body.toString()
 					if !module_config
 						throw new Error "Config not found for module (#{module_name})"
