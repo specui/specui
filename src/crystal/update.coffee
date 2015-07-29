@@ -4,11 +4,12 @@ fs       = require 'fs'
 gunzip   = require 'gunzip-maybe'
 mkdirp   = require 'mkdirp'
 request  = require 'sync-request'
-requestA = require 'request'
 semver   = require 'semver'
 tarfs    = require 'tar-fs'
+untar    = require 'untar.js'
 userHome = require 'user-home'
 version  = require '../version'
+zlib     = require 'zlib'
 
 update = (opts) ->
 	crystal = this
@@ -16,7 +17,7 @@ update = (opts) ->
 	# get path
 	path = "#{userHome}/.crystal/module/"
 	if !fs.existsSync path
-		mkdirp path
+		mkdirp.sync path
 	
 	# get modules from opts
 	if opts.modules
@@ -51,7 +52,7 @@ update = (opts) ->
 			
 			console.log "Loading module: #{module_name}@#{module_version}".blue
 			
-			mkdirp module_path
+			mkdirp.sync module_path
 			url = crystal.url 'api', "modules/#{module_name}"
 			resp = request 'get', url
 			if resp.statusCode != 200
@@ -60,23 +61,38 @@ update = (opts) ->
 			if !mod.source
 				throw new Error "Repository not found for module: #{module_name}"
 			
+			# get module source url
 			url = mod.source
 			if process.env.GITHUB_ACCESS_TOKEN
 				url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
-			r = requestA.get {
+			
+			# download module
+			response = request 'get', url, {
 				headers:
 					'User-Agent': 'Crystal <support@crystal.sh> (https://crystal.sh)'
-				url: url
 			}
-			.pipe(gunzip()).pipe(tarfs.extract(module_path, {
-			  map: (header) ->
-			    header.name = header.name.split('/').slice(1).join('/')
-			    header
-			}))
-			r.on 'finish', () ->
-				module_config = crystal.config module_path
-				loadModules module_config.modules
-	
+			
+			# gunzip module
+			data = zlib.gunzipSync response.body
+			
+			# untar module
+			untar.untar(data).forEach (file) ->
+				filename = file.filename.split('/').slice(1).join('/')
+				file_path = require('path').dirname(filename)
+				mkdirp.sync "#{module_path}/#{file_path}"
+				buffer = new Buffer(file.fileData.length)
+				i = 0
+				while i < file.fileData.length
+				  buffer.writeUInt8 file.fileData[i], i
+				  i++
+				fs.writeFileSync "#{module_path}/#{filename}", buffer
+			
+			# get module config and load sub modules
+			module_config = crystal.config module_path
+			loadModules module_config.modules
+			
 	loadModules modules
+	
+	console.log 'Done'
 
 module.exports = update
