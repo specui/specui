@@ -5,7 +5,7 @@ fstream = require './publish/fstream'
 mkdirp = require 'mkdirp'
 prompt = require 'prompt'
 request = require 'request'
-tar = require 'tar'
+tar = require 'tar-fs'
 userHome = require 'user-home'
 zlib = require 'zlib'
 

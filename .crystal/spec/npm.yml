@@ -8,7 +8,6 @@ repository:
 bin:
   crystal: "./bin/crystal"
 dependencies:
-  async: 0.9.0
   bluebird: ~2.9.34
   change-case: latest
   coffee-script: latest
@@ -23,7 +22,7 @@ dependencies:
   fstream: latest
   fstream-ignore: latest
   fstream-npm: latest
-  gift: ~0.6.0
+  gunzip-maybe: ~1.2.1
   gzip-js: latest
   handlebars: latest
   js-yaml: latest
@@ -42,7 +41,7 @@ dependencies:
   skeemas: "~1.1.6"
   sprintf: latest
   sync-request: ~2.0.1
-  tar: latest
+  tar-fs: ~1.7.0
   xml-to-jsobj: latest
   user-home: latest
 devDependencies:
