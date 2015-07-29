@@ -21,6 +21,8 @@ module.exports = (opts) ->
 		when this.path != undefined then this.path
 		else process.cwd()
 	
+	process.chdir this.path
+	
 	# clean project
 	#this.clean()
 	
@@ -33,8 +35,9 @@ module.exports = (opts) ->
 	console.log "at #{this.path}\n"
 	
 	# generate code
-	if this.generate() == false
-		throw new Error 'Unable to generate code.'
+	if opts.skipGeneration != true
+		if this.generate() == false
+			throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.project.scripts or !this.project.scripts.build
 		console.log 'Done.'

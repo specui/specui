@@ -42,6 +42,8 @@ update = (opts) ->
 	if !modules
 		return
 	
+	submodules = []
+	
 	loadModules = (modules) ->
 		for module_name of modules
 			module_version = modules[module_name]
@@ -88,10 +90,17 @@ update = (opts) ->
 				fs.writeFileSync "#{module_path}/#{filename}", buffer
 			
 			# get module config and load sub modules
+			submodules.push module_path
 			module_config = crystal.config module_path
 			loadModules module_config.modules
 			
 	loadModules modules
+	
+	for submodule in submodules
+		crystal.build {
+			path: submodule
+			skipGeneration: true
+		}
 	
 	console.log 'Done'
 
