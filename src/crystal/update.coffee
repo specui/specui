@@ -51,6 +51,7 @@ update = (opts) ->
 			
 			console.log "Loading module: #{module_name}@#{module_version}".blue
 			
+			mkdirp module_path
 			url = crystal.url 'api', "modules/#{module_name}"
 			resp = request 'get', url
 			if resp.statusCode != 200
