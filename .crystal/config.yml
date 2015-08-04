@@ -1,7 +1,7 @@
 id: crystal.codegen
 name: Crystal
-version: 0.8.1
-description: the open source code generator that makes every developer a full stack developer
+version: 0.8.2
+description: code generator for every language, framework and platform
 repository: https://github.com/crystal/crystal
 author:
   name: Chris Tate

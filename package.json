@@ -46,7 +46,7 @@
 		"xml-to-jsobj": "latest",
 		"user-home": "latest"
 	},
-	"description": "the open source code generator that makes every developer a full stack developer",
+	"description": "code generator for every language, framework and platform",
 	"devDependencies": {
 		"mocha": "latest",
 		"should": "latest"
@@ -73,5 +73,5 @@
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.8.1"
+	"version": "0.8.2"
 }
