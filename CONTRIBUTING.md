@@ -17,6 +17,8 @@ Chris Tate
 
 ## What We Need
 
+- **Stars.** One of the easiest ways to help is to star our project. This shows that there is interest for our project and can influence other developers to contribute code.
+
 - **Bug Reports.** Now that there will be more eyes on Crystal, there will likely be issues that are discovered. I will address these issues ASAP.
   - Issues for the [core](ttps://github.com/crystal/crystal) codebase should be reported [here](https://github.com/crystal/crystal/issues).
   - Issues related to specific modules should be reported for their respective repositories which can be found in the sidebar on the module's page (such as https://hub.crystal.sh/handlebars/template).
