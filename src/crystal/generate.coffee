@@ -209,15 +209,13 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		output = outputs[output_i]
 		
 		# validate generator
-		if !output.generator
-			throw new Error "Generator is required for output in project (#{project.id})"
-		else if !imports[output.generator]
+		if output.generator and !imports[output.generator]
 			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.id})"
 		
-		console.log "\nOutput ##{parseInt(output_i)+1}: #{output.generator}".bold
+		console.log "\nOutput ##{parseInt(output_i)+1}".bold
 		
 		# load generator from imports
-		generator = imports[output.generator]
+		generator = imports[output.generator] or {}
 
 		# load processors
 		output_processor = output.processor
