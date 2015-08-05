@@ -1,6 +1,6 @@
 module.exports = (opts) ->
 	# load packages
-	spawn = require('child_process').spawn
+	spawn = require 'cross-spawn'
 	
 	this.build opts
 	

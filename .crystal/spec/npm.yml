@@ -12,6 +12,7 @@ dependencies:
   change-case: latest
   coffee-script: latest
   colors: ~1.1.0
+  cross-spawn: ~2.0.0
   cson-parser: 1.0.x
   debug: latest
   diff-mark: latest

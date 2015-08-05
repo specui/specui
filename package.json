@@ -13,6 +13,7 @@
 		"coffee-script": "latest",
 		"colors": "~1.1.0",
 		"cson-parser": "1.0.x",
+		"cross-spawn": "~2.0.0",
 		"debug": "latest",
 		"diff-mark": "latest",
 		"extend-combine": "~0.2.0",

@@ -6,7 +6,7 @@ fs         = require 'fs'
 mkdirp     = require 'mkdirp'
 mustache   = require 'mustache'
 pluralize  = require 'pluralize'
-spawn      = require('child_process').spawn
+spawn      = require 'cross-spawn'
 
 exports.generate = require './generate'
 
