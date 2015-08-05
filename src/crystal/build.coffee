@@ -30,8 +30,10 @@ module.exports = (opts) ->
 	if (this.project = this.config()) == false
 		throw new Error 'Unable to load configuration.'
 	
-	console.log "\n#{this.project.name} (#{this.project.id}@#{this.project.version})".bold
-	console.log "by #{this.project.author.name} <#{this.project.author.email}> (#{this.project.author.url})"
+	if this.project.name
+		console.log "\n#{this.project.name} (#{this.project.id}@#{this.project.version})".bold
+	if this.project.author
+		console.log "by #{this.project.author.name} <#{this.project.author.email}> (#{this.project.author.url})"
 	console.log "at #{this.path}\n"
 	
 	# generate code
