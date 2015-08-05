@@ -287,6 +287,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		
 		# get engine
 		engine = output.engine or generator.engine
+		if typeof(engine) == 'string'
+			if !imports[engine] or !imports[engine].engine
+				throw new Error "Engine was not imported: #{engine}"
+			engine = imports[engine].engine
 
 		# get helpers
 		if helpers
