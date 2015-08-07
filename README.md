@@ -1,4 +1,4 @@
-# Crystal 0.8.6
+# Crystal 0.8.7
 
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
 [![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
@@ -11,13 +11,13 @@ Crystal is an open source code generator that was created to solve fragmentation
 
 View Crystal's Official Documentation here:
 
-https://crystal.readme.io
+[https://crystal.readme.io](https://crystal.readme.io)
 
 ## Live Editor
 
 Use Crystal Editor to try Crystal online:
 
-https://crystal.sh/editor
+[https://crystal.sh/editor](https://crystal.sh/editor)
 
 ## Top 10 Features
 
