@@ -400,7 +400,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 					if content_spec
 						content_spec = extend true, true, content_spec, spec
 						content_spec.name = file
-					if content_spec and content_spec[iterator][file]['$injector']
+					if content_spec and content_spec[iterator] and content_spec[iterator][file] and content_spec[iterator][file]['$injector']
 						template = inject template, injectors, false
 						template = inject template, content_spec[iterator][file]['$injector'], false
 						template = inject template, null, true
@@ -425,7 +425,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				if typeof(transformer) == 'string'
 					if !imports[output.transformer]
 						throw new Error "Transformer #{transformer} does not exist"
-					transformer = imports[output.transformer]
+					transformer = imports[output.transformer].transformer
 				content = transformer content
 			else if typeof(content) == 'object'
 				content = ""
@@ -474,6 +474,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				#loadOutputs generator.outputs, generator.imports, project, force
 
 generate = (project) ->
+	loaded_modules = {}
+	
 	# get project
 	project = project or this.project
 	

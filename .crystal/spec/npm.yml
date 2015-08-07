@@ -7,6 +7,7 @@ repository:
   url: $repository
 bin:
   crystal: "./bin/crystal"
+main: src/crystal.coffee
 dependencies:
   bluebird: ~2.9.34
   change-case: latest

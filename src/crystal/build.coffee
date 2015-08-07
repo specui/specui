@@ -80,4 +80,5 @@ module.exports = (opts) ->
 		
 		i++
 	
-	buildCmd()
+	if opts.skipScripts != true
+		buildCmd()
