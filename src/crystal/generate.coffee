@@ -393,7 +393,13 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				throw new Error "Spec is required."
 				
 			# get content from output
-			template = generator.template
+			if output.template
+				output_path = ".crystal/template/#{output.template}"
+				if not fs.existsSync output_path
+					throw new Error "Template (#{output.template}) does not exist at path (#{output_path})"
+				template = fs.readFileSync(output_path, 'utf8')
+			else
+				template = generator.template
 			if engine
 				if iterator
 					content_spec = extend true, true, {}, spec[iterator][i] or spec[iterator][file]
@@ -423,9 +429,9 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			transformer = output.transformer or generator.transformer
 			if transformer
 				if typeof(transformer) == 'string'
-					if !imports[output.transformer]
+					if !imports[transformer]
 						throw new Error "Transformer #{transformer} does not exist"
-					transformer = imports[output.transformer].transformer
+					transformer = imports[transformer].transformer
 				content = transformer content
 			else if typeof(content) == 'object'
 				content = ""
