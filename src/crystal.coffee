@@ -39,6 +39,7 @@ crystal = (path) ->
     'search'
     'signup'
     'spec'
+    'stop'
     'test'
     'update'
     'url'
