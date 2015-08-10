@@ -10,7 +10,7 @@ spawn      = require 'cross-spawn'
 
 exports.generate = require './generate'
 
-module.exports = (opts) ->
+module.exports = (opts, callback) ->
 	
 	opts = opts || {}
 	
@@ -54,6 +54,8 @@ module.exports = (opts) ->
 	buildCmd = () ->
 		if !scripts.build[i]
 			console.log "Done!\n".bold
+			if callback
+				callback()
 			return
 		
 		# get build cmd/arg
