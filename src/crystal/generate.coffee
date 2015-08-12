@@ -397,9 +397,10 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			# get content from output
 			if output.template
 				output_path = ".crystal/template/#{output.template}"
-				if not fs.existsSync output_path
-					throw new Error "Template (#{output.template}) does not exist at path (#{output_path})"
-				template = fs.readFileSync(output_path, 'utf8')
+				if fs.existsSync output_path
+					template = fs.readFileSync(output_path, 'utf8')
+				else
+					template = output.template
 			else
 				template = generator.template
 			if engine
