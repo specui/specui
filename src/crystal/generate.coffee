@@ -91,9 +91,11 @@ loadModules = (modules) ->
 				# handle template
 				if typeof(exported.template) == 'string' && exported.template.match(/\./)
 					export_path = "#{module_path}/.crystal/template/#{exported.template}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].template = fs.readFileSync(export_path, 'utf8')
+					if fs.existsSync export_path
+						template = fs.readFileSync(export_path, 'utf8')
+					else
+						template = exported.template
+					module_config.exports[export_name].template = template
 				
 				# handle transformer
 				if typeof(exported.transformer) == 'string' && exported.transformer.match(/\./)
