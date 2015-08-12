@@ -32,5 +32,5 @@
                             ````....`                           
                                `.`                              
 
-                         crystal v0.9.1
+                         crystal v0.10.0
                              quartz
