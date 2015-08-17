@@ -48,6 +48,9 @@ outputs:
         - image: https://travis-ci.org/crystal/crystal.svg?branch=master
           text: Build Status
           url: https://travis-ci.org/crystal/crystal
+        - image: https://badges.gitter.im/Join%20Chat.svg
+          text: Join the chat at https://gitter.im/crystal/crystal
+          url: https://gitter.im/crystal/crystal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
   - generator: travis
     spec:
       language: node_js
