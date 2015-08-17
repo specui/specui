@@ -1,5 +1,7 @@
 # Crystal 0.11.0
 
+[![Join the chat at https://gitter.im/crystal/crystal](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/crystal/crystal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
 [![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
 
