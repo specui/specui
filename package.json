@@ -4,9 +4,6 @@
 		"email": "chris@crystal.sh",
 		"url": "http://crystal.sh"
 	},
-	"bin": {
-		"crystal": "./bin/crystal"
-	},
 	"dependencies": {
 		"bluebird": "~2.9.34",
 		"change-case": "latest",
@@ -75,5 +72,5 @@
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.12.0"
+	"version": "0.12.1"
 }
