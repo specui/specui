@@ -63,30 +63,38 @@ loadModules = (modules) ->
 				# handle engine
 				if typeof(exported.engine) == 'string' && exported.engine.match(/\./)
 					export_path = "#{module_path}/.crystal/engine/#{exported.engine}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].engine = require export_path
+					if fs.existsSync export_path
+						engine = require export_path
+					else
+						engine = exported.engine
+					module_config.exports[export_name].engine = engine
 					
 				# handle helper
 				if typeof(exported.helper) == 'string' && exported.helper.match(/\./)
 					export_path = "#{module_path}/.crystal/helper/#{exported.helper}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].helper = require export_path
+					if fs.existsSync export_path
+						helper = require export_path
+					else
+						helper = exported.helper
+					module_config.exports[export_name].helper = helper
 					
 				# handle processor
 				if typeof(exported.processor) == 'string' && exported.processor.match(/\./)
 					export_path = "#{module_path}/.crystal/processor/#{exported.processor}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].processor = require export_path
+					if fs.existsSync export_path
+						processor = require export_path
+					else
+						processor = exported.processor
+					module_config.exports[export_name].processor = processor
 				
 				# handle schema
 				if typeof(exported.schema) == 'string' && exported.schema.match(/\./)
 					export_path = "#{module_path}/.crystal/schema/#{exported.schema}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].schema = yaml.safeLoad fs.readFileSync(export_path)
+					if fs.existsSync export_path
+						schema = yaml.safeLoad fs.readFileSync(export_path)
+					else
+						schema = exported.schema
+					module_config.exports[export_name].schema = schema
 				
 				# handle template
 				if typeof(exported.template) == 'string' && exported.template.match(/\./)
@@ -100,9 +108,11 @@ loadModules = (modules) ->
 				# handle transformer
 				if typeof(exported.transformer) == 'string' && exported.transformer.match(/\./)
 					export_path = "#{module_path}/.crystal/trans/#{exported.transformer}"
-					if not fs.existsSync export_path
-						throw new Error "Unknown export path (#{export_path}) for export (#{export_name}) in module (#{module_name})"
-					module_config.exports[export_name].transformer = require export_path
+					if fs.existsSync export_path
+						transformer = require export_path
+					else
+						transformer = exported.transformer
+					module_config.exports[export_name].transformer = transformer
 		
 		# add module to loaded modules
 		loaded_modules[module_id][module_version] = module_config
@@ -134,7 +144,7 @@ processModules = () ->
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].copy.dest.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
 				
-				if typeof(exported.engine) == 'string'
+				if typeof(exported.engine) == 'string' and loaded_module.imports[exported.engine]
 					test = loaded_module.imports[exported.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
@@ -173,10 +183,7 @@ processModules = () ->
 					
 					loaded_modules[module_name][version_name].exports[export_name].helper = helpers
 					
-				else if typeof(exported.helper) == 'string'
-					if !loaded_module.imports[exported.helper]
-						throw new Error "Import does not exist for alias (#{exported.helper})"
-					
+				else if typeof(exported.helper) == 'string' and loaded_module.imports[exported.helper]
 					test = loaded_module.imports[exported.helper].split('.')
 					test2 = test.pop()
 					test = test.join('.')
@@ -189,15 +196,13 @@ processModules = () ->
 						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
 					}]
 
-				if typeof(exported.schema) == 'string'
-					if !loaded_module.imports[exported.schema]
-						throw new Error "Schema (#{exported.schema}) does not exist for export (#{export_name}) in module (#{module_name})"
+				if typeof(exported.schema) == 'string' and loaded_module.imports[exported.schema]
 					test = loaded_module.imports[exported.schema].split('.')
 					test2 = test.pop()
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].schema = loaded_modules[test][loaded_module.modules[test]].exports[test2].schema
 					
-				if typeof(exported.transformer) == 'string'
+				if typeof(exported.transformer) == 'string' and loaded_module.imports[exported.transformer]
 					test = loaded_module.imports[exported.transformer].split('.')
 					test2 = test.pop()
 					test = test.join('.')

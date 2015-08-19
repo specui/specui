@@ -5,8 +5,6 @@ author: $author
 repository:
   type: git
   url: $repository
-bin:
-  crystal: "./bin/crystal"
 main: src/crystal.coffee
 dependencies:
   bluebird: ~2.9.34
