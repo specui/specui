@@ -85,6 +85,8 @@ update = (opts) ->
 			if !module_version
 				throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
 			
+			console.log "Found version (#{module_version}) for module (#{module_name}).".green
+			
 			module_path = "#{path}#{config.host}/#{module_path_name}/#{module_version}"
 			#if fs.existsSync module_path
 			#	continue

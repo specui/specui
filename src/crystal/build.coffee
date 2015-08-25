@@ -31,7 +31,9 @@ module.exports = (opts, callback) ->
 		throw new Error 'Unable to load configuration.'
 	
 	if this.project.name
-		console.log "\n#{this.project.name} (#{this.project.id}@#{this.project.version})".bold
+		console.log "\n#{this.project.name}".bold
+	if this.project.description
+		console.log "#{this.project.description}"
 	if this.project.author
 		console.log "by #{this.project.author.name} <#{this.project.author.email}> (#{this.project.author.url})"
 	console.log "at #{this.path}\n"
