@@ -198,7 +198,7 @@ processModules = () ->
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].filename.engine = loaded_modules[test][submodules[test]].exports[test2].engine
 				
-				if exported.helper
+				if typeof(exported.helper) == 'object'
 					helpers = []
 					
 					for helper_name of exported.helper
