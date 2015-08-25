@@ -42,37 +42,58 @@ update = (opts) ->
 	if !modules
 		return
 	
+	loaded_modules = {}
 	submodules = []
 	
 	loadModules = (modules) ->
 		for module_name of modules
-			module_version = modules[module_name]
+			module_version = null
+			module_version_query = modules[module_name]
 			module_path_name = module_name.replace /\./, '/'
-			module_path = "#{path}#{module_path_name}/#{module_version}"
-			if fs.existsSync module_path
+			
+			if !loaded_modules[module_name]
+				loaded_modules[module_name] = []
+			if loaded_modules[module_name].indexOf(module_version_query) != -1
 				continue
+			else
+				loaded_modules[module_name].push module_version_query
 			
-			console.log "Loading module: #{module_name}@#{module_version}".blue
+			console.log "Loading module (#{module_name}) with version (#{module_version_query})...".blue
 			
-			mkdirp.sync module_path
-			url = crystal.url 'api', "modules/#{module_name}"
-			resp = request 'get', url
+			# set headers for github
+			headers = {
+				'User-Agent': 'Crystal <support@crystal.sh> (https://crystal.sh)'
+			}
+			
+			# get access token url
+			access_token_url = ''
+			if process.env.GITHUB_ACCESS_TOKEN
+		    access_token_url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
+			
+			url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
+			resp = request 'get', url, { headers: headers }
 			if resp.statusCode != 200
 				throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
-			mod = JSON.parse resp.body.toString()
-			if !mod.source
+			releases = JSON.parse resp.body.toString()
+			if !releases[0]
 				throw new Error "Repository not found for module: #{module_name}"
+			for release in releases
+				if semver.satisfies release.tag_name, module_version_query
+					module_version = semver.clean release.tag_name
+					tarball_url = release.tarball_url
+					break
+			if !module_version
+				throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
+			
+			module_path = "#{path}#{config.host}/#{module_path_name}/#{module_version}"
+			#if fs.existsSync module_path
+			#	continue
 			
 			# get module source url
-			url = mod.source
-			if process.env.GITHUB_ACCESS_TOKEN
-				url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
+			url = "#{tarball_url}#{access_token_url}"
 			
 			# download module
-			response = request 'get', url, {
-				headers:
-					'User-Agent': 'Crystal <support@crystal.sh> (https://crystal.sh)'
-			}
+			response = request 'get', url, { headers: headers }
 			
 			# gunzip module
 			data = zlib.gunzipSync response.body

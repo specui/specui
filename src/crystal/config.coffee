@@ -50,6 +50,9 @@ init = (project_path, validate = true) ->
 		console.log "Configuration failed validation:"
 		console.log(validate.errors)
 		throw new Error "Invalid Configuration for path: #{project_path}"
+	
+	if !config.host
+		config.host = 'github.com'
 		
 	config
 

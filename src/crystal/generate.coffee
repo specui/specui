@@ -13,6 +13,7 @@ handlebars   = require 'handlebars'
 merge        = require 'merge'
 mkdirp       = require 'mkdirp'
 mustache     = require 'mustache'
+path         = require 'path'
 readdir      = require 'fs-readdir-recursive'
 season       = require 'season'
 semver       = require 'semver'
@@ -22,35 +23,47 @@ yaml         = require 'js-yaml'
 
 loaded_modules = {}
 
-loadModules = (modules) ->
+loadModules = (modules, host) ->
 	# load each module
-	for module_id of modules
-		# get module name/version
-		module_parts = module_id.split '.'
-		module_name = module_parts[module_parts.length-1]
-		module_version = modules[module_id]
+	for module_name of modules
+		module_version_query = modules[module_name]
+		
+		if module_version_query == 'latest'
+			module_version = 'latest'
+		else
+			module_version = null
+			module_versions_path = path.normalize "#{userHome}/.crystal/module/#{host}/#{module_name}"
+			if fs.existsSync module_versions_path
+				module_versions = fs.readdirSync module_versions_path
+				for model_ver in module_versions
+					model_ver = semver.clean model_ver
+					if model_ver and semver.satisfies(model_ver, modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
+						module_version = model_ver
+		if !module_version
+			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
+		
+		module_alias = module_name.substr(module_name.lastIndexOf('/') + 1)
 		
 		# module already loaded
-		if loaded_modules[module_id] and loaded_modules[module_id][module_version]
+		if loaded_modules[module_name] and loaded_modules[module_name][module_version]
 			continue
 		
 		# load module
-		#console.log "- #{module_id}@#{module_version}"
+		#console.log "- #{module_name}@#{module_version}"
 		
 		# create module object
-		if !loaded_modules[module_id]
-			loaded_modules[module_id] = {}
+		if !loaded_modules[module_name]
+			loaded_modules[module_name] = {}
 		
 		# get/validate module path
-		module_path = module_id.replace /\./g, '/'
-		module_path = "#{userHome}/.crystal/module/#{module_path}/#{module_version}"
+		module_path = "#{userHome}/.crystal/module/#{host}/#{module_name}/#{module_version}"
 		if !fs.existsSync module_path
-			throw new Error "Unknown module (#{module_id}) at version (#{module_version}). Try: crystal update"
+			throw new Error "Unknown module (#{module_name}) at version (#{module_version}). Try: crystal update"
 		
 		# get/validate module config
 		module_config = crystal.config module_path
 		if !module_config
-			throw new Error "Unable to load configuration for module (#{module_id})"
+			throw new Error "Unable to load configuration for module (#{module_name})"
 		
 		# load exports
 		if module_config.exports
@@ -115,11 +128,11 @@ loadModules = (modules) ->
 					module_config.exports[export_name].transformer = transformer
 		
 		# add module to loaded modules
-		loaded_modules[module_id][module_version] = module_config
+		loaded_modules[module_name][module_version] = module_config
 		
 		# load submodules
 		if module_config.modules
-			loadModules module_config.modules
+			loadModules module_config.modules, module_config.host
 	
 	loaded_modules = sortObject(loaded_modules)
 
@@ -129,6 +142,33 @@ processModules = () ->
 		for version_name of module_versions
 			loaded_module = module_versions[version_name]
 			
+			submodules = {}
+			loaded_module.imports = {}
+			for submodule_name of loaded_module.modules
+				submodule_alias = submodule_name.substr(submodule_name.lastIndexOf('/') + 1)
+				submodule_version_query = loaded_module.modules[submodule_name]
+				
+				if submodule_version_query == 'latest'
+					submodule_version = 'latest'
+				else
+					submodule_version = null
+					submodule_versions_path = path.normalize "#{userHome}/.crystal/module/#{loaded_module.host}/#{submodule_name}"
+					if fs.existsSync submodule_versions_path
+						submodule_versions = fs.readdirSync submodule_versions_path
+						for model_ver in submodule_versions
+							model_ver = semver.clean model_ver
+							if model_ver and semver.satisfies(model_ver, submodule_version_query) and (!submodule_version or semver.gt(model_ver, submodule_version))
+								submodule_version = model_ver
+				if !submodule_version
+					throw new Error "No matches for submodule (#{submodule_name}) with version (#{submodule_version_query}). Try: crystal update"
+					
+				submodule_exports = loaded_modules[submodule_name][submodule_version].exports
+				for submodule_export_name of submodule_exports
+					submodule_export = submodule_exports[submodule_export_name]
+					loaded_module.imports["#{submodule_alias}.#{submodule_export_name}"] = "#{submodule_name}.#{submodule_export_name}"
+				
+				submodules[submodule_name] = submodule_version
+			
 			for export_name of loaded_module.exports
 				exported = loaded_module.exports[export_name]
 				
@@ -136,19 +176,19 @@ processModules = () ->
 					test = loaded_module.imports[exported.copy.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].copy.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					loaded_modules[module_name][version_name].exports[export_name].copy.engine = loaded_modules[test][submodules[test]].exports[test2].engine
 				
 				if exported.copy and exported.copy.dest and exported.copy.dest.engine and typeof(exported.copy.dest.engine) == 'string'
 					test = loaded_module.imports[exported.copy.dest.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].copy.dest.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					loaded_modules[module_name][version_name].exports[export_name].copy.dest.engine = loaded_modules[test][submodules[test]].exports[test2].engine
 				
 				if typeof(exported.engine) == 'string' and loaded_module.imports[exported.engine]
 					test = loaded_module.imports[exported.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					loaded_modules[module_name][version_name].exports[export_name].engine = loaded_modules[test][submodules[test]].exports[test2].engine
 					
 				if exported.filename and typeof(exported.filename.engine) == 'string'
 					if !loaded_module.imports[exported.filename.engine]
@@ -156,19 +196,20 @@ processModules = () ->
 					test = loaded_module.imports[exported.filename.engine].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].filename.engine = loaded_modules[test][loaded_module.modules[test]].exports[test2].engine
+					loaded_modules[module_name][version_name].exports[export_name].filename.engine = loaded_modules[test][submodules[test]].exports[test2].engine
 				
-				if exported.helper instanceof Array
+				if exported.helper
 					helpers = []
 					
-					for helper in exported.helper
+					for helper_name of exported.helper
+						helper = exported.helper[helper_name]
 						if !loaded_module.imports[helper] and !loaded_module.exports[helper]
 							throw new Error "Import does not exist for alias (#{helper})"
 							
 						if loaded_module.exports[helper]
 							helpers.push {
 								callback: loaded_module.exports[helper].helper
-								name: loaded_module.exports[helper].name
+								name: helper_name
 							}
 							
 						else
@@ -177,8 +218,8 @@ processModules = () ->
 							test = test.join('.')
 							
 							helpers.push {
-								callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
-								name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
+								callback: loaded_modules[test][submodules[test]].exports[test2].helper
+								name: helper_name
 							}
 					
 					loaded_modules[module_name][version_name].exports[export_name].helper = helpers
@@ -188,25 +229,25 @@ processModules = () ->
 					test2 = test.pop()
 					test = test.join('.')
 					
-					if !loaded_modules[test][loaded_module.modules[test]].exports[test2]
+					if !loaded_modules[test][submodules[test]].exports[test2]
 						throw new Error "Import (#{test2}) does not exist for module (#{test})"
 						
 					loaded_modules[module_name][version_name].exports[export_name].helper = [{
-						callback: loaded_modules[test][loaded_module.modules[test]].exports[test2].helper
-						name: loaded_modules[test][loaded_module.modules[test]].exports[test2].name
+						callback: loaded_modules[test][submodules[test]].exports[test2].helper
+						name: loaded_modules[test][submodules[test]].exports[test2].name
 					}]
 
 				if typeof(exported.schema) == 'string' and loaded_module.imports[exported.schema]
 					test = loaded_module.imports[exported.schema].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].schema = loaded_modules[test][loaded_module.modules[test]].exports[test2].schema
+					loaded_modules[module_name][version_name].exports[export_name].schema = loaded_modules[test][submodules[test]].exports[test2].schema
 					
 				if typeof(exported.transformer) == 'string' and loaded_module.imports[exported.transformer]
 					test = loaded_module.imports[exported.transformer].split('.')
 					test2 = test.pop()
 					test = test.join('.')
-					loaded_modules[module_name][version_name].exports[export_name].transformer = loaded_modules[test][loaded_module.modules[test]].exports[test2].transformer
+					loaded_modules[module_name][version_name].exports[export_name].transformer = loaded_modules[test][submodules[test]].exports[test2].transformer
 
 loadOutputs = (outputs, imports, project, force = false) ->
 	if !imports
@@ -217,7 +258,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		
 		# validate generator
 		if output.generator and !imports[output.generator]
-			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.id})"
+			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.name})"
 		
 		console.log "\nOutput ##{parseInt(output_i)+1}".bold
 		
@@ -496,27 +537,52 @@ generate = (project) ->
 	# load modules
 	if project.modules
 		#console.log "Loading modules for #{project.name}..."
-		loadModules project.modules
+		loadModules project.modules, project.host
 		processModules()
 	
 	imports = {}
-	for import_alias of project.imports
-		import_parts = project.imports[import_alias].split('.')
-		import_name = import_parts.pop()
-		import_module = import_parts.join('.')
-		import_version = project.modules[import_module]
+	for module_name of project.modules
+		module_alias = module_name.substr(module_name.lastIndexOf('/') + 1)
+		module_version_query = project.modules[module_name]
 		
-		if !loaded_modules[import_module] or !loaded_modules[import_module][import_version]
-			throw new Error "Unknown module (#{import_module}) for import (#{import_name}) in project (#{project.id})."
-		else if !loaded_modules[import_module][import_version].exports
-			throw new Error "Module (#{import_alias}) has no exports."
-		else if !loaded_modules[import_module][import_version].exports[import_name]
-			error = "Unknown export (#{import_name}) for module (#{import_module}). Try:"
-			for export_name of loaded_modules[import_module][import_version].exports
-				error += "\n- #{export_name}"
-			throw new Error error.red
+		if module_version_query == 'latest'
+			module_version = 'latest'
+		else
+			module_version = null
+			module_versions_path = path.normalize "#{userHome}/.crystal/module/#{project.host}/#{module_name}"
+			if fs.existsSync module_versions_path
+				module_versions = fs.readdirSync module_versions_path
+				for model_ver in module_versions
+					model_ver = semver.clean model_ver
+					if model_ver and semver.satisfies(model_ver, project.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
+						module_version = model_ver
+		if !module_version
+			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
 		
-		imports[import_alias] = loaded_modules[import_module][import_version].exports[import_name]
+		exports = loaded_modules[module_name][module_version].exports
+		for export_name of exports
+			exported = exports[export_name]
+			imports["#{module_alias}.#{export_name}"] = exported
+	
+	#imports = {}
+	#for import_alias of project.imports
+	#	console.log import_alias
+	#	import_parts = project.imports[import_alias].split('.')
+	#	import_name = import_parts.pop()
+	#	import_module = import_parts.join('.')
+	#	import_version = project.modules[import_module]
+	#	
+	#	if !loaded_modules[import_module] or !loaded_modules[import_module][import_version]
+	#		throw new Error "Unknown module (#{import_module}) for import (#{import_name}) in project (#{project.id})."
+	#	else if !loaded_modules[import_module][import_version].exports
+	#		throw new Error "Module (#{import_alias}) has no exports."
+	#	else if !loaded_modules[import_module][import_version].exports[import_name]
+	#		error = "Unknown export (#{import_name}) for module (#{import_module}). Try:"
+	#		for export_name of loaded_modules[import_module][import_version].exports
+	#			error += "\n- #{export_name}"
+	#		throw new Error error.red
+	#	
+	#	imports[import_alias] = loaded_modules[import_module][import_version].exports[import_name]
 	
 	# load outputs
 	if project.outputs
