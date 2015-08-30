@@ -37,7 +37,10 @@ update = (opts) ->
 		config = this.config()
 		
 		# get modules
-		modules = config.modules
+		if config.imports
+			modules = config.imports
+		else
+			modules = config.modules
 	
 	if !modules
 		return
