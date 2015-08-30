@@ -534,6 +534,11 @@ generate = (project) ->
 	# get project
 	project = project or this.project
 	
+	# reassign imports
+	if project.imports
+		project.modules = project.imports
+		delete project.imports
+	
 	# load modules
 	if project.modules
 		#console.log "Loading modules for #{project.name}..."
