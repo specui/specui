@@ -130,8 +130,10 @@ loadModules = (modules, host) ->
 		# add module to loaded modules
 		loaded_modules[module_name][module_version] = module_config
 		
-		# load submodules
-		if module_config.modules
+		# load submoduless
+		if module_config.imports
+			loadModules module_config.imports, module_config.host
+		else if module_config.modules
 			loadModules module_config.modules, module_config.host
 	
 	loaded_modules = sortObject(loaded_modules)
@@ -143,6 +145,8 @@ processModules = () ->
 			loaded_module = module_versions[version_name]
 			
 			submodules = {}
+			if loaded_module.imports
+				loaded_module.modules = loaded_module.imports
 			loaded_module.imports = {}
 			for submodule_name of loaded_module.modules
 				submodule_alias = submodule_name.substr(submodule_name.lastIndexOf('/') + 1)
