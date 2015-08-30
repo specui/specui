@@ -7,18 +7,12 @@ author:
   email: chris@crystal.sh
   url: http://crystal.sh
 copyright: 2015 Crystal
-modules:
-  authors.file: v0.1.0
-  git.ignore: v0.1.0
-  npm.package: v0.1.0
-  readme.md: v0.1.0
-  travis.config: v0.1.0
 imports:
-  authors: authors.file.Generator
-  gitignore: git.ignore.Generator
-  npm: npm.package.Generator
-  readme: readme.md.Generator
-  travis: travis.config.Generator
+  crystal/authors: ~0.2.5
+  crystal/gitignore: ~0.1.1
+  crystal/npm: ~0.2.5
+  crystal/readme: ~0.2.2
+  crystal/travis: ~0.1.0
 exports:
   ConfigSchematic:
     schema: config.yml
