@@ -1,5 +1,16 @@
 type: object
 properties:
+  author:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      url:
+        type: string
+  copyright:
+    type: string
   description:
     type: string
   exports:
@@ -39,8 +50,6 @@ properties:
         version:
           type: string
   name:
-    type: string
-  release:
     type: string
   version:
     type:
