@@ -14,16 +14,10 @@ initProject = (crystal, opts, path) ->
 	if !opts.name
 		throw new Error 'Name is required.'
 	
-	# validate version
-	if !opts.version
-		throw new Error 'Version is required.'
-	
 	config = {}
 	
 	# create config
-	config.id = opts.id
 	config.name = opts.name
-	config.version = opts.version
 	
 	# add description to config
 	if opts.description
@@ -87,27 +81,14 @@ init = (opts) ->
 	prompt.delimiter = ''
 	prompt.start()
 	
-	if opts.name and opts.name.length and opts.version and opts.version.length
+	if opts.name and opts.name.length
 		initProject opts, opts.path
 	else
 		properties = {}
 		
-		if !opts.id
-			properties.id = {
-				description: "ID (ex: acme.website)"
-				required: true
-				type: 'string'
-			}
 		if !opts.name
 			properties.name = {
 				description: "Name (ex: Acme Website)"
-				required: true
-				type: 'string'
-			}
-		if !opts.version
-			properties.version = {
-				default: '0.1.0'
-				description: "Version"
 				required: true
 				type: 'string'
 			}
@@ -146,14 +127,15 @@ init = (opts) ->
 			if err
 				console.log "\nMaybe next time."
 			else
-				result.id = opts.id || result.id
 				result.name = opts.name || result.name
-				result.version = opts.version || result.version
 				result.description = opts.description || result.description
 				result.author_name = opts.author_name || result.author_name
 				result.author_email = opts.author_email || result.author_email
 				result.author_url = opts.author_url || result.author_url
 				result.copyright = opts.copyright || result.copyright
+				
+				initProject crystal, result, opts.path
+				return
 				
 				console.log "Loading popular modules..."
 				
