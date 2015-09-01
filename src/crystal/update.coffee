@@ -61,6 +61,16 @@ update = (opts) ->
 			else
 				loaded_modules[module_name].push module_version_query
 			
+			# load submodules if module is local path
+			if module_version_query.match /^(\.|\/)/
+				module_path = module_version_query
+				module_config = crystal.config module_path
+				if module_config.imports
+					loadModules module_config.imports
+				else
+					loadModules module_config.modules
+				continue
+			
 			console.log "Loading module (#{module_name}) with version (#{module_version_query})...".blue
 			
 			# set headers for github
@@ -118,7 +128,10 @@ update = (opts) ->
 			# get module config and load sub modules
 			submodules.push module_path
 			module_config = crystal.config module_path
-			loadModules module_config.modules
+			if module_config.imports
+				loadModules module_config.imports
+			else
+				loadModules module_config.modules
 			
 	loadModules modules
 	

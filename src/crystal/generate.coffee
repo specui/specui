@@ -32,13 +32,20 @@ loadModules = (modules, host) ->
 			module_version = 'latest'
 		else
 			module_version = null
-			module_versions_path = path.normalize "#{userHome}/.crystal/module/#{host}/#{module_name}"
-			if fs.existsSync module_versions_path
-				module_versions = fs.readdirSync module_versions_path
-				for model_ver in module_versions
-					model_ver = semver.clean model_ver
-					if model_ver and semver.satisfies(model_ver, modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
-						module_version = model_ver
+			# load module from local path
+			if module_version_query.match /^(\.|\/)/
+				module_versions_path = path.normalize module_version_query
+				if fs.existsSync module_versions_path
+					module_version = module_version_query
+			# determine version of installed module based on semver range
+			else
+				module_versions_path = path.normalize "#{userHome}/.crystal/module/#{host}/#{module_name}"
+				if fs.existsSync module_versions_path
+					module_versions = fs.readdirSync module_versions_path
+					for model_ver in module_versions
+						model_ver = semver.clean model_ver
+						if model_ver and semver.satisfies(model_ver, modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
+							module_version = model_ver
 		if !module_version
 			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
 		
@@ -55,8 +62,12 @@ loadModules = (modules, host) ->
 		if !loaded_modules[module_name]
 			loaded_modules[module_name] = {}
 		
-		# get/validate module path
-		module_path = "#{userHome}/.crystal/module/#{host}/#{module_name}/#{module_version}"
+		# get local module path
+		if module_version_query.match /^(\.|\/)/
+			module_path = module_version_query
+		# get installed module path
+		else
+			module_path = "#{userHome}/.crystal/module/#{host}/#{module_name}/#{module_version}"
 		if !fs.existsSync module_path
 			throw new Error "Unknown module (#{module_name}) at version (#{module_version}). Try: crystal update"
 		
@@ -156,13 +167,20 @@ processModules = () ->
 					submodule_version = 'latest'
 				else
 					submodule_version = null
-					submodule_versions_path = path.normalize "#{userHome}/.crystal/module/#{loaded_module.host}/#{submodule_name}"
-					if fs.existsSync submodule_versions_path
-						submodule_versions = fs.readdirSync submodule_versions_path
-						for model_ver in submodule_versions
-							model_ver = semver.clean model_ver
-							if model_ver and semver.satisfies(model_ver, submodule_version_query) and (!submodule_version or semver.gt(model_ver, submodule_version))
-								submodule_version = model_ver
+					# load module from local path
+					if submodule_version_query.match /^(\.|\/)/
+						submodule_versions_path = path.normalize submodule_version_query
+						if fs.existsSync submodule_versions_path
+							submodule_version = submodule_version_query
+					# determine version of installed module based on semver range
+					else
+						submodule_versions_path = path.normalize "#{userHome}/.crystal/module/#{loaded_module.host}/#{submodule_name}"
+						if fs.existsSync submodule_versions_path
+							submodule_versions = fs.readdirSync submodule_versions_path
+							for model_ver in submodule_versions
+								model_ver = semver.clean model_ver
+								if model_ver and semver.satisfies(model_ver, submodule_version_query) and (!submodule_version or semver.gt(model_ver, submodule_version))
+									submodule_version = model_ver
 				if !submodule_version
 					throw new Error "No matches for submodule (#{submodule_name}) with version (#{submodule_version_query}). Try: crystal update"
 					
@@ -558,13 +576,22 @@ generate = (project) ->
 			module_version = 'latest'
 		else
 			module_version = null
-			module_versions_path = path.normalize "#{userHome}/.crystal/module/#{project.host}/#{module_name}"
-			if fs.existsSync module_versions_path
-				module_versions = fs.readdirSync module_versions_path
-				for model_ver in module_versions
-					model_ver = semver.clean model_ver
-					if model_ver and semver.satisfies(model_ver, project.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
-						module_version = model_ver
+			# load module from local path
+			if module_version_query.match /^(\.|\/)/
+				module_versions_path = path.normalize module_version_query
+				if !fs.existsSync module_versions_path
+					throw new Error "Module (#{module_name}) not found at local path (#{module_version_query})."
+				else
+					module_version = module_version_query
+			# determine version of installed module based on semver range
+			else
+				module_versions_path = path.normalize "#{userHome}/.crystal/module/#{project.host}/#{module_name}"
+				if fs.existsSync module_versions_path
+					module_versions = fs.readdirSync module_versions_path
+					for model_ver in module_versions
+						model_ver = semver.clean model_ver
+						if model_ver and semver.satisfies(model_ver, project.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
+							module_version = model_ver
 		if !module_version
 			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
 		
