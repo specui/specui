@@ -96,7 +96,7 @@ update = (opts) ->
 					tarball_url = release.tarball_url
 					break
 			if !module_version
-				throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
+				throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query})"
 			
 			console.log "Found version (#{module_version}) for module (#{module_name}).".green
 			
