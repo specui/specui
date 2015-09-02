@@ -83,20 +83,32 @@ update = (opts) ->
 			if process.env.GITHUB_ACCESS_TOKEN
 		    access_token_url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
 			
-			url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
+			# get latest release
+			if module_version_query == 'latest'
+				url = "https://api.github.com/repos/#{module_name}/releases/latest#{access_token_url}"
+			# get all releases
+			else
+				url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
 			resp = request 'get', url, { headers: headers }
 			if resp.statusCode != 200
 				throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
-			releases = JSON.parse resp.body.toString()
-			if !releases[0]
-				throw new Error "Repository not found for module: #{module_name}"
-			for release in releases
-				if semver.satisfies release.tag_name, module_version_query
-					module_version = semver.clean release.tag_name
-					tarball_url = release.tarball_url
-					break
-			if !module_version
-				throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query})"
+			# parse latest release
+			if module_version_query == 'latest'
+				release = JSON.parse resp.body.toString()
+				module_version = semver.clean release.tag_name
+				tarball_url = release.tarball_url
+			# find/parse release matching semver range
+			else
+				releases = JSON.parse resp.body.toString()
+				if !releases[0]
+					throw new Error "Repository not found for module: #{module_name}"
+				for release in releases
+					if semver.satisfies release.tag_name, module_version_query
+						module_version = semver.clean release.tag_name
+						tarball_url = release.tarball_url
+						break
+				if !module_version
+					throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query})"
 			
 			console.log "Found version (#{module_version}) for module (#{module_name}).".green
 			
@@ -124,6 +136,12 @@ update = (opts) ->
 				  buffer.writeUInt8 file.fileData[i], i
 				  i++
 				fs.writeFileSync "#{module_path}/#{filename}", buffer
+				
+				if module_version_query == 'latest'
+					link_path = "#{path}#{config.host}/#{module_path_name}/latest"
+					if fs.existsSync link_path
+						fs.unlinkSync link_path
+					fs.symlinkSync module_path, link_path
 			
 			# get module config and load sub modules
 			submodules.push module_path
