@@ -120,6 +120,15 @@ loadModules = (modules, host) ->
 						schema = exported.schema
 					module_config.exports[export_name].schema = schema
 				
+				# handle spec
+				if typeof(exported.spec) == 'string' && exported.spec.match(/\./)
+					export_path = "#{module_path}/.crystal/spec/#{exported.spec}"
+					if fs.existsSync export_path
+						spec = yaml.safeLoad fs.readFileSync(export_path)
+					else
+						spec = exported.spec
+					module_config.exports[export_name].spec = spec
+				
 				# handle template
 				if typeof(exported.template) == 'string' && exported.template.match(/\./)
 					export_path = "#{module_path}/.crystal/template/#{exported.template}"
@@ -330,10 +339,13 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			if typeof(output.spec) == 'object'
 				spec = output.spec
 			else if typeof(output.spec) == 'string'
-				spec_filename = ".crystal/spec/#{output.spec}"
-				if !fs.existsSync spec_filename
-					throw new Error "File (#{spec_filename}) does not exist for spec in output for project (#{project.id})"
-				spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
+				if imports[output.spec]
+					spec = imports[output.spec].spec
+				else
+					spec_filename = ".crystal/spec/#{output.spec}"
+					if !fs.existsSync spec_filename
+						throw new Error "File (#{spec_filename}) does not exist for spec in output for project (#{project.id})"
+					spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
 			console.log "Processed spec.".blue
