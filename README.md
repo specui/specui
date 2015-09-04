@@ -1,4 +1,4 @@
-# Crystal 0.15.4
+# Crystal 0.16.0
 
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
 [![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
@@ -16,14 +16,11 @@ Use [npm](https://npmjs.com) to install [Crystal](https://crystal.sh):
 npm install crystal
 ```
 
-Note: for the CLI version of Crystal, install [crystal-cli](https://npmjs.com/crystal-cli).
-
 # Example
 
 ```js
 var crystal = require('crystal');
 
-// load project
 var project = new crystal({
   name: 'My API',
   description: 'this is my API',
@@ -45,15 +42,7 @@ var project = new crystal({
     }
   }]
 });
-
-// update project
-project.update();
-
-// build project
 project.build({ force: true });
-
-// run project
-project.run();
 ```
 
 # Output
