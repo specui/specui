@@ -113,6 +113,7 @@ outputs:
 scripts:
   build:
     - sudo npm install
+    - coffee --compile --output lib/ src/
   run:
     - sudo npm install
   test:
