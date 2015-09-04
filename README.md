@@ -1,4 +1,4 @@
-# Crystal 0.15.1
+# Crystal 0.15.2
 
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
 [![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
