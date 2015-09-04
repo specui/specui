@@ -18,10 +18,15 @@ npm install crystal
 
 # Example
 
+## Load Crystal
+
 ```js
 var Crystal = require('crystal');
+```
 
-// create project
+## Load Project
+
+```js
 var project = new Crystal({
   name: 'My API',
   description: 'this is my API',
@@ -31,11 +36,13 @@ var project = new Crystal({
     'crystal/readme': '~0.2.2'
   },
   outputs: [{
+    // generate a LICENSE file
     generator: 'license.MITGenerator',
     spec: {
       copyright: '2015 Crystal'
     }
   },{
+    // generate a README.md file
     generator: 'readme.ReadmeGenerator',
     spec: {
       name: '$name',
@@ -43,14 +50,26 @@ var project = new Crystal({
     }
   }]
 });
+```
 
-// update project (and its imports)
+## Update Project (and its Imports)
+
+```js
 project.update();
+```
 
-// build project
-project.build({ force: true });
+## Build Project
 
-// run project
+```js
+project.build({
+  // overwrites any manual changes
+  force: true
+});
+```
+
+## Run Project
+
+```js
 project.run();
 ```
 
