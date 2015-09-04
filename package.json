@@ -63,7 +63,7 @@
 		"coffeescript generator"
 	],
 	"license": "mit",
-	"main": "src/crystal.coffee",
+	"main": "src/crystal.js",
 	"name": "crystal",
 	"repository": {
 		"type": "git",
@@ -72,5 +72,5 @@
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.15.2"
+	"version": "0.15.3"
 }
