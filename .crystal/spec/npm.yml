@@ -5,7 +5,7 @@ author: $author
 repository:
   type: git
   url: $repository
-main: src/crystal.js
+main: lib/crystal.js
 dependencies:
   bluebird: ~2.9.34
   change-case: latest
