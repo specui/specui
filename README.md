@@ -8,19 +8,19 @@
 
 code generator for every language, framework and platform
 
-## Official Documentation
+# Official Documentation
 
 View Crystal's Official Documentation here:
 
 [https://crystal.readme.io](https://crystal.readme.io)
 
-## Live Editor
+# Live Editor
 
 Use Crystal Editor to try Crystal online:
 
 [https://crystal.sh/editor](https://crystal.sh/editor)
 
-## Top 10 Features
+# Top 10 Features
 
 (1) Crystal unifies all technologies with a standardized input written in YAML, JSON, CSON and/or XML.
 
@@ -67,3 +67,4 @@ Use Crystal Editor to try Crystal online:
 (9) To prevent vendor lock-in and becoming dependent of Crystal, it's kept in its own directory: `.crystal/`. If you wish to no longer use Crystal, simply delete this directory and continue using the generated code (and making changes) without Crystal.
 
 (10) Crystal makes language integration and/or migration easier.
+
