@@ -19,9 +19,10 @@ npm install crystal
 # Example
 
 ```js
-var crystal = require('crystal');
+var Crystal = require('crystal');
 
-var project = new crystal({
+// create project
+var project = new Crystal({
   name: 'My API',
   description: 'this is my API',
   path: './myapi',
@@ -42,7 +43,15 @@ var project = new crystal({
     }
   }]
 });
+
+// update project (and its imports)
+project.update();
+
+// build project
 project.build({ force: true });
+
+// run project
+project.run();
 ```
 
 # Output
