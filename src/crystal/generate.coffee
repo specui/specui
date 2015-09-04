@@ -1,6 +1,6 @@
 # load deps
 crystal = {
-	config: require './config'
+	load: require './load'
 }
 colors       = require 'colors'
 crypto       = require 'crypto'
@@ -21,6 +21,7 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
+force = false
 loaded_modules = {}
 
 loadModules = (modules, host) ->
@@ -72,7 +73,7 @@ loadModules = (modules, host) ->
 			throw new Error "Unknown module (#{module_name}) at version (#{module_version}). Try: crystal update"
 		
 		# get/validate module config
-		module_config = crystal.config module_path
+		module_config = crystal.load module_path
 		if !module_config
 			throw new Error "Unable to load configuration for module (#{module_name})"
 		
@@ -280,7 +281,7 @@ processModules = () ->
 					test = test.join('.')
 					loaded_modules[module_name][version_name].exports[export_name].transformer = loaded_modules[test][submodules[test]].exports[test2].transformer
 
-loadOutputs = (outputs, imports, project, force = false) ->
+loadOutputs = (outputs, imports, config) ->
 	if !imports
 		throw new Error 'No imports available for output'
 	
@@ -289,7 +290,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		
 		# validate generator
 		if output.generator and !imports[output.generator]
-			throw new Error "Generator (#{output.generator}) does not exist for output in project (#{project.name})"
+			throw new Error "Generator (#{output.generator}) does not exist for output in config (#{config.name})"
 		
 		console.log "\nOutput ##{parseInt(output_i)+1}".bold
 		
@@ -344,16 +345,16 @@ loadOutputs = (outputs, imports, project, force = false) ->
 				else
 					spec_filename = ".crystal/spec/#{output.spec}"
 					if !fs.existsSync spec_filename
-						throw new Error "File (#{spec_filename}) does not exist for spec in output for project (#{project.id})"
+						throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
 					spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
 			console.log "Processed spec.".blue
-			if project.debug
+			if config.debug
 				console.log "    - Before:".green
 				console.log JSON.stringify spec[i], null, "  "
-			spec = parse spec, project, output_processor
-			if project.debug
+			spec = parse spec, config, output_processor
+			if config.debug
 				console.log "    - After:".green
 				console.log JSON.stringify spec[i], null, "  "
 			
@@ -433,7 +434,7 @@ loadOutputs = (outputs, imports, project, force = false) ->
 		iterator = output.iterator or generator.iterator
 		if iterator
 			if !spec[iterator]
-				throw new Error "Iterator (#{iterator}) not found in spec for generator (#{generator}) in project (#{project.id})"
+				throw new Error "Iterator (#{iterator}) not found in spec for generator (#{generator}) in config (#{config.id})"
 			files = []
 			if spec[iterator] instanceof Array
 				for file in spec[iterator]
@@ -549,6 +550,8 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			
 			# cache checksum
 			cache.checksum[filename_checksum] = content_checksum
+			if !fs.existsSync ".crystal"
+				mkdirp.sync ".crystal"
 			fs.writeFileSync ".crystal/cache.yml", yaml.safeDump cache
 
 			# write content to file
@@ -560,29 +563,33 @@ loadOutputs = (outputs, imports, project, force = false) ->
 			console.log "Generated file: #{filename}".green
 			
 			#if generator.outputs
-				#loadOutputs generator.outputs, generator.imports, project, force
+				#loadOutputs generator.outputs, generator.imports, config
 
-generate = (project) ->
+generate = (opts) ->
 	loaded_modules = {}
 	
-	# get project
-	project = project or this.project
+	# get config
+	config = this.config
+	
+	# get opts
+	if opts and opts.force
+		force = true
 	
 	# reassign imports
-	if project.imports
-		project.modules = project.imports
-		delete project.imports
+	if config.imports
+		config.modules = config.imports
+		delete config.imports
 	
 	# load modules
-	if project.modules
-		#console.log "Loading modules for #{project.name}..."
-		loadModules project.modules, project.host
+	if config.modules
+		#console.log "Loading modules for #{config.name}..."
+		loadModules config.modules, config.host
 		processModules()
 	
 	imports = {}
-	for module_name of project.modules
+	for module_name of config.modules
 		module_alias = module_name.substr(module_name.lastIndexOf('/') + 1)
-		module_version_query = project.modules[module_name]
+		module_version_query = config.modules[module_name]
 		
 		if module_version_query == 'latest'
 			module_version = 'latest'
@@ -597,12 +604,12 @@ generate = (project) ->
 					module_version = module_version_query
 			# determine version of installed module based on semver range
 			else
-				module_versions_path = path.normalize "#{userHome}/.crystal/module/#{project.host}/#{module_name}"
+				module_versions_path = path.normalize "#{userHome}/.crystal/module/#{config.host}/#{module_name}"
 				if fs.existsSync module_versions_path
 					module_versions = fs.readdirSync module_versions_path
 					for model_ver in module_versions
 						model_ver = semver.clean model_ver
-						if model_ver and semver.satisfies(model_ver, project.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
+						if model_ver and semver.satisfies(model_ver, config.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
 							module_version = model_ver
 		if !module_version
 			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
@@ -613,15 +620,15 @@ generate = (project) ->
 			imports["#{module_alias}.#{export_name}"] = exported
 	
 	#imports = {}
-	#for import_alias of project.imports
+	#for import_alias of config.imports
 	#	console.log import_alias
-	#	import_parts = project.imports[import_alias].split('.')
+	#	import_parts = config.imports[import_alias].split('.')
 	#	import_name = import_parts.pop()
 	#	import_module = import_parts.join('.')
-	#	import_version = project.modules[import_module]
+	#	import_version = config.modules[import_module]
 	#	
 	#	if !loaded_modules[import_module] or !loaded_modules[import_module][import_version]
-	#		throw new Error "Unknown module (#{import_module}) for import (#{import_name}) in project (#{project.id})."
+	#		throw new Error "Unknown module (#{import_module}) for import (#{import_name}) in config (#{config.id})."
 	#	else if !loaded_modules[import_module][import_version].exports
 	#		throw new Error "Module (#{import_alias}) has no exports."
 	#	else if !loaded_modules[import_module][import_version].exports[import_name]
@@ -633,9 +640,9 @@ generate = (project) ->
 	#	imports[import_alias] = loaded_modules[import_module][import_version].exports[import_name]
 	
 	# load outputs
-	if project.outputs
+	if config.outputs
 		console.log "Loading outputs...".bold
-		loadOutputs project.outputs, imports, project, this.force
+		loadOutputs config.outputs, imports, config
 
 inject = (template, injectors, remove_injector = true) ->
 	template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
@@ -665,14 +672,14 @@ inject = (template, injectors, remove_injector = true) ->
 		else
 			"#{injector_tabs}>>>#{injector}<<<\n"
 		
-parse = (spec, project, processors) ->
+parse = (spec, config, processors) ->
 	for i of spec
 		s = spec[i]
 		
 		if typeof(s) == 'object' and !s['$processor']
-			spec[i] = parse(spec[i], project, processors)
-		else if typeof(s) == 'string' && s.substr(0, 1) == '$' && project[s.substr(1)]
-			spec[i] = project[s.substr(1)]
+			spec[i] = parse(spec[i], config, processors)
+		else if typeof(s) == 'string' && s.substr(0, 1) == '$' && config[s.substr(1)]
+			spec[i] = config[s.substr(1)]
 			
 		if spec[i]['$processor']
 			if typeof(spec[i]['$processor']) == 'string'

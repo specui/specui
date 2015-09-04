@@ -21,36 +21,39 @@ module.exports = (opts, callback) ->
 		when this.path != undefined then this.path
 		else process.cwd()
 	
+	if !fs.existsSync this.path
+		mkdirp.sync this.path
+	
 	process.chdir this.path
 	
 	# clean project
 	#this.clean()
 	
 	# get config
-	if (this.project = this.config()) == false
+	if !this.config and (this.config = this.load()) == false
 		throw new Error 'Unable to load configuration.'
 	
-	if this.project.name
-		console.log "\n#{this.project.name}".bold
-	if this.project.description
-		console.log "#{this.project.description}"
-	if this.project.author
-		console.log "by #{this.project.author.name} <#{this.project.author.email}> (#{this.project.author.url})"
+	if this.config.name
+		console.log "\n#{this.config.name}".bold
+	if this.config.description
+		console.log "#{this.config.description}"
+	if this.config.author
+		console.log "by #{this.config.author.name} <#{this.config.author.email}> (#{this.config.author.url})"
 	console.log "at #{this.path}\n"
 	
 	# generate code
 	if opts.skipGeneration != true
-		if this.generate() == false
+		if this.generate(opts) == false
 			throw new Error 'Unable to generate code.'
 	
-	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.project.scripts or !this.project.scripts.build
+	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build
 		console.log 'Done.'
 		return
 	
 	console.log "\nRunning build scripts...".bold
 	
 	opts = this.opts
-	scripts = this.project.scripts
+	scripts = this.config.scripts
 	
 	i = 0
 	buildCmd = () ->
@@ -84,5 +87,7 @@ module.exports = (opts, callback) ->
 		
 		i++
 	
-	if opts.skipScripts != true
-		buildCmd()
+	if opts and opts.skipScripts = true
+		return
+		
+	buildCmd()

@@ -8,6 +8,104 @@
 
 code generator for every language, framework and platform
 
+# Install
+
+Use [npm](https://npmjs.com) to install [Crystal](https://crystal.sh):
+  
+```sh
+npm install crystal
+```
+
+Note: for the CLI version of Crystal, install [crystal-cli](https://npmjs.com/crystal-cli).
+
+# Example
+
+```js
+var crystal = require('crystal');
+
+// load project
+var project = new crystal({
+  name: 'My API',
+  description: 'this is my API',
+  path: './myapi',
+  imports: {
+    'crystal/license': '~0.2.4',
+    'crystal/readme': '~0.2.2'
+  },
+  outputs: [{
+    generator: 'license.MITGenerator',
+    spec: {
+      copyright: '2015 Crystal'
+    }
+  },{
+    generator: 'readme.ReadmeGenerator',
+    spec: {
+      name: '$name',
+      description: '$description'
+    }
+  }]
+});
+
+// update project
+project.update();
+
+// build project
+project.build({ force: true });
+
+// run project
+project.run();
+```
+
+# Output
+
+## README.md
+
+```md
+# My API
+
+this is my API
+```
+
+## LICENSE
+
+```md
+The MIT License (MIT)
+
+Copyright (c) 2015 Crystal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+# Usage
+
+- Crystal#build
+- Crystal#cache
+- Crystal#generate
+- Crystal#init
+- Crystal#install
+- Crystal#load
+- Crystal#run
+- Crystal#search
+- Crystal#test
+- Crystal#update
+- Crystal#validate
+
 # Official Documentation
 
 View Crystal's Official Documentation here:

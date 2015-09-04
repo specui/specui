@@ -15,60 +15,57 @@ global.ErrorRequired = (name) ->
   this.message = "'#{name}' is required."
 global.ErrorRequired.prototype = Error.prototype
 
-crystal = (path) ->
-  
-  this.project = {}
+crystal = (config) ->
   
   # define methods
   methods = [
     'build'
     'cache'
-    'clean'
-    'config'
-    'data'
-    'default'
-    'format'
+    #'clean'
+    #'data'
+    #'default'
+    #'format'
     'generate'
-    'info'
+    #'info'
     'init'
     'install'
-    'link'
-    'publish'
-    'process'
+    #'link'
+    'load'
+    #'publish'
+    #'process'
     'run'
     'search'
-    'signup'
-    'spec'
-    'stop'
+    #'signup'
+    #'spec'
+    #'stop'
     'test'
     'update'
-    'url'
+    #'url'
     'validate'
-    'version'
+    #'version'
   ]
   
   # load methods
   for method in methods
     this[method] = require "./crystal/#{method}"
   
-  # load or validate config
-  if typeof path == 'string'
-    this.path = path
-    config = this.config path
-  else if typeof path == 'object'
-    config = this.validate path
+  if typeof(config) == 'object'
+    valid = this.validate config
+    if !valid
+      throw new Error "Config is invalid."
+    this.config = config
+    this.path = if this.config.path then this.config.path else process.cwd()
+  else if typeof(config) == 'string'
+    this.config = this.load config
+    this.path = if this.config.path then this.config.path else config
+  else
+    this.config = {}
+    this.path = process.cwd()
   
   # invalid config
-  if config == false
+  if this.config == false
     throw new Error "Unable to load config for (#{path})."
     
-  # define config
-  if config != undefined
-    this.config = config
-  
-  # define opts
-  this.opts = {}
-  
   this
 
 module.exports = crystal

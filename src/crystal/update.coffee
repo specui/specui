@@ -11,37 +11,26 @@ userHome = require 'user-home'
 version  = require '../version'
 zlib     = require 'zlib'
 
-update = (opts) ->
+update = (config) ->
 	crystal = this
 	
-	# get path
+	# get module path
 	path = "#{userHome}/.crystal/module/"
 	if !fs.existsSync path
 		mkdirp.sync path
 	
-	# get modules from opts
-	if opts.modules
-		modules = opts.modules
-		
-	# get modules from config
+	# load config
+	if config
+		config = config
+	else if this.config
+		config = this.config
 	else
-		# store path
-		if opts._ && opts._[1]
-			this.path = opts._[1]
-		else if opts.path
-			this.path = opts.path
-		else
-			this.path = '.'
-		
-		# get config
-		config = this.config()
-		
-		# get modules
-		if config.imports
-			modules = config.imports
-		else
-			modules = config.modules
+		config = this.load()
 	
+	# get modules from config
+	if config.modules or config.imports
+		modules = if config.modules then config.modules else config.imports
+		
 	if !modules
 		return
 	
@@ -64,7 +53,7 @@ update = (opts) ->
 			# load submodules if module is local path
 			if module_version_query.match /^(\.|\/)/
 				module_path = module_version_query
-				module_config = crystal.config module_path
+				module_config = crystal.load module_path
 				if module_config.imports
 					loadModules module_config.imports
 				else
@@ -145,7 +134,7 @@ update = (opts) ->
 			
 			# get module config and load sub modules
 			submodules.push module_path
-			module_config = crystal.config module_path
+			module_config = crystal.load module_path
 			if module_config.imports
 				loadModules module_config.imports
 			else

@@ -1,7 +1,7 @@
 # load packages
-config = require './config'
 fs = require 'fs'
 fstream = require './publish/fstream'
+load = require './load'
 mkdirp = require 'mkdirp'
 prompt = require 'prompt'
 request = require 'request'
@@ -24,7 +24,7 @@ publish = (opts) ->
 	dest_dir = "#{userHome}/.crystal/tmp"
 	mkdirp.sync dest_dir
 	
-	config = config this.path
+	config = load this.path
 	
 	dest_file = "#{dest_dir}/#{config.name}-#{config.version}"
 	dest = fs.createWriteStream "#{dest_file}.tar"
