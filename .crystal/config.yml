@@ -1,4 +1,4 @@
-name: Crystal
+name: Crystal JS
 version: 0.16.1
 description: code generator for every language, framework and platform
 repository: https://github.com/crystal/crystal
@@ -49,10 +49,25 @@ outputs:
       sections:
         - title: Install
           content: |
-            Use [npm](https://npmjs.com) to install [Crystal](https://crystal.sh):
+            Choose your favorite way to install things:
               
+            - [npm](#install-npm)
+            - [GitHub](#install-github)
+            
+            <a name="install-npm"></a>
+            
+            ## npm
+            
             ```sh
             npm install crystal
+            ```
+            
+            <a name="install-github"></a>
+            
+            ## GitHub
+            
+            ```sh
+            git clone https://github.com/crystal/crystal
             ```
         - title: Examples
           content: |

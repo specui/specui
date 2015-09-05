@@ -1,19 +1,34 @@
-# Crystal 0.16.1
+# Crystal JS 0.16.1
 
 [![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
 [![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
 [![Join the chat at https://gitter.im/crystal/crystal](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/crystal/crystal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Crystal](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
+[![Crystal JS](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
 code generator for every language, framework and platform
 
 # Install
 
-Use [npm](https://npmjs.com) to install [Crystal](https://crystal.sh):
+Choose your favorite way to install things:
   
+- [npm](#install-npm)
+- [GitHub](#install-github)
+
+<a name="install-npm"></a>
+
+## npm
+
 ```sh
 npm install crystal
+```
+
+<a name="install-github"></a>
+
+## GitHub
+
+```sh
+git clone https://github.com/crystal/crystal
 ```
 
 # Examples
