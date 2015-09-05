@@ -11,7 +11,7 @@ userHome = require 'user-home'
 version  = require '../version'
 zlib     = require 'zlib'
 
-update = (config) ->
+update = () ->
 	crystal = this
 	
 	# get module path
@@ -20,9 +20,7 @@ update = (config) ->
 		mkdirp.sync path
 	
 	# load config
-	if config
-		config = config
-	else if this.config
+	if this.config
 		config = this.config
 	else
 		config = this.load()
