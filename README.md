@@ -16,7 +16,17 @@ Use [npm](https://npmjs.com) to install [Crystal](https://crystal.sh):
 npm install crystal
 ```
 
-# Example
+# Examples
+
+- [Load Crystal](#load-crystal)
+- [Create Project](#create-project)
+- [Save Project](#save-project)
+- [Load Project](#load-project)
+- [Update Project](#update-project)
+- [Build Project](#build-project)
+- [Run Project](#run-project)
+
+<a name="load-crystal"></a>
 
 ## Load Crystal
 
@@ -24,13 +34,15 @@ npm install crystal
 var Crystal = require('crystal');
 ```
 
-## Load Project
+<a name="create-project"></a>
+
+## Create Project
 
 ```js
 var project = new Crystal({
-  name: 'My API',
-  description: 'this is my API',
-  path: './myapi',
+  name: 'My App',
+  description: 'This is my app.',
+  path: './output/myapp',
   imports: {
     'crystal/license': '~0.2.4',
     'crystal/readme': '~0.2.2'
@@ -52,11 +64,31 @@ var project = new Crystal({
 });
 ```
 
+<a name="save-project"></a>
+
+## Save Project
+
+```js
+project.save();
+```
+
+<a name="load-project"></a>
+
+## Load Project
+
+```js
+var project = new Crystal('/path/to/project');
+```
+
+<a name="update-project"></a>
+
 ## Update Project (and its Imports)
 
 ```js
 project.update();
 ```
+
+<a name="build-project"></a>
 
 ## Build Project
 
@@ -66,6 +98,8 @@ project.build({
   force: true
 });
 ```
+
+<a name="run-project"></a>
 
 ## Run Project
 

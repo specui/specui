@@ -6,10 +6,10 @@ module.exports = (opts) ->
 	
 	this.build opts
 	
-	if !this.project.scripts or !this.project.scripts.run
+	if !this.config.scripts or !this.config.scripts.run
 		return 'Nothing to run.'
 	
-	scripts = this.project.scripts
+	scripts = this.config.scripts
 	
 	i = 0
 	runCmd = () ->

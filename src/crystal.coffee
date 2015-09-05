@@ -1,3 +1,5 @@
+path = require 'path'
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 global.ErrorInvalid = (name, type) ->
@@ -34,6 +36,7 @@ crystal = (config) ->
     #'publish'
     #'process'
     'run'
+    'save'
     'search'
     #'signup'
     #'spec'
@@ -62,9 +65,15 @@ crystal = (config) ->
     this.config = {}
     this.path = process.cwd()
   
+  if !this.path.match /^\//
+    this.path = path.normalize "#{process.cwd()}/#{this.path}"
+  
   # invalid config
   if this.config == false
     throw new Error "Unable to load config for (#{path})."
+  
+  if !this.config.host
+    this.config.host = 'github.com'
     
   this
 
