@@ -1,12 +1,28 @@
 # Crystal JS 0.16.1
 
-[![npm version](https://badge.fury.io/js/crystal.svg)](http://badge.fury.io/js/crystal)
-[![Build Status](https://travis-ci.org/crystal/crystal.svg?branch=master)](https://travis-ci.org/crystal/crystal)
-[![Join the chat at https://gitter.im/crystal/crystal](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/crystal/crystal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Crystal API](https://img.shields.io/badge/crystal-api-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-api)
+[![Crystal CLI](https://img.shields.io/badge/crystal-cli-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-cli)
+[![Crystal JS](https://img.shields.io/badge/crystal-js-brightgreen.svg?style=flat-square)](https://github.com/crystal/crystal)
+[![Crystal Hub](https://img.shields.io/badge/crystal-hub-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-hub)
+[![Crystal Studio](https://img.shields.io/badge/crystal-studio-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-studio)
+[![Crystal Web](https://img.shields.io/badge/crystal-web-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-web)
 
 [![Crystal JS](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
 code generator for every language, framework and platform
+
+# Table of Contents
+
+- [Install](#install)
+- [Hello World](#hello-world)
+- [Usage](#usage)
+- [Examples](#examples)
+- [API Reference](#api-ref)
+- [Official Documentation](#docs)
+- [Live Editor](#live-editor)
+- [Top 10 Features](#top-10-features)
+
+<a name="install"></a>
 
 # Install
 
@@ -31,7 +47,94 @@ npm install crystal
 git clone https://github.com/crystal/crystal
 ```
 
-# Examples
+<a name="hello-world"></a>
+
+# Hello World
+
+- [Input](#example-input)
+  - [helloworld.js](#hello-world-js)
+- [Output](#example-output)
+  - [README.md](#readme)
+  - [LICENSE](#license)
+
+## Input
+
+Create a file called `helloworld.js` and add these contents:
+
+```js
+var Crystal = require('crystal');
+var project = new Crystal({
+  name: 'My App',
+  description: 'This is my app.',
+  path: './output/myapp',
+  imports: {
+    'crystal/license': '~0.2.4',
+    'crystal/readme': '~0.2.2'
+  },
+  outputs: [{
+    // generate a LICENSE file
+    generator: 'license.MITGenerator',
+    spec: {
+      copyright: '2015 Crystal'
+    }
+  },{
+    // generate a README.md file
+    generator: 'readme.ReadmeGenerator',
+    spec: {
+      name: '$name',
+      description: '$description'
+    }
+  }]
+});
+```
+
+## Output
+
+Now run your `helloworld.js` script:
+
+```sh
+node helloworld.js
+```
+
+This will create 2 files: README.md and LICENSE
+
+### README.md
+
+```md
+# My API
+
+this is my API
+```
+
+### LICENSE
+
+```md
+The MIT License (MIT)
+
+Copyright (c) 2015 Crystal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+<a name="usage"></a>
+
+# Usage
 
 - [Load Crystal](#load-crystal)
 - [Create Project](#create-project)
@@ -161,55 +264,207 @@ var mod = new Crystal({
 });
 ```
 
-# Output
+<a name="examples"></a>
 
-## README.md
+# Examples
 
-```md
-# My API
+### JavaScript
 
-this is my API
+- [Express](https://crystal.sh/editor/crystal/express)
+- [npm](https://crystal.sh/editor/crystal/npm)
+
+### Python
+
+- [Django](https://crystal.sh/editor/crystal/django)
+- [pip](https://crystal.sh/editor/crystal/pip)
+
+### Ruby
+
+  - [Rails](https://crystal.sh/editor/crystal/rails)
+  
+### Other
+
+  - [Docker](https://crystal.sh/editor/crystal/docker)
+  - [README](https://crystal.sh/editor/crystal/readme)
+
+<a name="api-ref"></a>
+
+# API Reference
+
+- [build()](#api-ref-build)
+- [cache()](#api-ref-cache)
+- [generate()](#api-ref-generate)
+- [init()](#api-ref-init)
+- [install()](#api-ref-install)
+- [load()](#api-ref-load)
+- [run()](#api-ref-run)
+- [search()](#api-ref-search)
+- [test()](#api-ref-test)
+- [update()](#api-ref-update)
+- [validate()](#api-ref-validate)
+
+<a name="api-ref-build"></a>
+
+## build([opts])
+
+Builds your project.
+
+## Options
+
+<table>
+  <tr>
+    <td>Name</d>
+    <td>Type</td>
+  </tr>
+  <tr>
+    <td>`force`</td>
+    <td>boolean</td>
+  </tr>
+</table>
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.build({ force: true });
 ```
 
-## LICENSE
+<a name="api-ref-generate"></a>
 
-```md
-The MIT License (MIT)
+## generate([opts])
 
-Copyright (c) 2015 Crystal
+Generates your project's files.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### Options
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+<table>
+  <tr>
+    <td>Name</d>
+    <td>Type</td>
+  </tr>
+  <tr>
+    <td>`force`</td>
+    <td>boolean</td>
+  </tr>
+</table>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.generate({ force: true });
 ```
 
-# Usage
+<a name="api-ref-init"></a>
 
-- Crystal#build
-- Crystal#cache
-- Crystal#generate
-- Crystal#init
-- Crystal#install
-- Crystal#load
-- Crystal#run
-- Crystal#search
-- Crystal#test
-- Crystal#update
-- Crystal#validate
+## init([opts])
+
+Initializes your project.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.init({
+  name: 'My App',
+  description: 'This is my app.'
+});
+```
+
+<a name="api-ref-install"></a>
+
+## install([opts])
+
+Installs a module.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.install({
+  'crystal/readme': '~0.2.2'
+});
+```
+
+<a name="api-ref-load"></a>
+
+## load([opts])
+
+Loads your project's configuration.
+
+### Example
+
+```js
+var project = new Crystal;
+project.load('/path/to/project');
+```
+
+<a name="api-ref-run"></a>
+
+## run([opts])
+
+Runs your project.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.run({ force: true });
+```
+
+<a name="api-ref-search"></a>
+
+## search([opts])
+
+Search for modules.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.search({ keywords: 'laravel' });
+```
+
+<a name="api-ref-test"></a>
+
+## test([opts])
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.test();
+```
+
+<a name="api-ref-update"></a>
+
+Test your project.
+
+## update([opts])
+
+Updates your project.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.update();
+```
+
+<a name="api-ref-validate"></a>
+
+## validate()
+
+Validates your project.
+
+### Example
+
+```js
+var project = new Crystal('/path/to/project');
+project.validate();
+```
+
+<a name="docs"></a>
 
 # Official Documentation
 
@@ -217,11 +472,15 @@ View Crystal's Official Documentation here:
 
 [https://crystal.readme.io](https://crystal.readme.io)
 
+<a name="live-editor"></a>
+
 # Live Editor
 
 Use Crystal Editor to try Crystal online:
 
 [https://crystal.sh/editor](https://crystal.sh/editor)
+
+<a name="top-10-features"></a>
 
 # Top 10 Features
 
