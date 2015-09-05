@@ -40,6 +40,7 @@ git clone https://github.com/crystal/crystal
 - [Update Project](#update-project)
 - [Build Project](#build-project)
 - [Run Project](#run-project)
+- [Modularize Project](#run-project)
 
 <a name="load-crystal"></a>
 
@@ -120,6 +121,44 @@ project.build({
 
 ```js
 project.run();
+```
+
+<a name="modularize-project"></a>
+
+## Modularize Project
+
+Modularize your project for other projects to use:
+
+```js
+var mod = new Crystal({
+  name: 'My Module',
+  description: 'This is my module.',
+  path: './output/mymod',
+  imports: {
+    'crystal/handlebars': '~0.2.3'
+  },
+  exports: {
+    ReadmeGenerator: {
+      engine: 'handlebars.HandlebarsEngine',
+      filename: 'README.md',
+      schema: {
+        type: 'object',
+        properties: {
+          name: {
+            required: true,
+            type: 'string'
+          },
+          description: {
+            required: true,
+            type: 'string'
+          }
+        }
+      },
+      template: "# {{{name}}}\n\n{{{description}}}",
+      type: 'generator'
+    }
+  }
+});
 ```
 
 # Output
