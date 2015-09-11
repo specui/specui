@@ -10,7 +10,7 @@ spawn      = require 'cross-spawn'
 
 exports.generate = require './generate'
 
-module.exports = (opts, callback) ->
+module.exports = (opts) ->
 	
 	opts = opts || {}
 	
@@ -48,6 +48,8 @@ module.exports = (opts, callback) ->
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build
 		console.log 'Done.'
+		if opts and opts.complete
+			opts.complete()
 		return
 	
 	console.log "\nRunning build scripts...".bold
@@ -59,8 +61,8 @@ module.exports = (opts, callback) ->
 	buildCmd = () ->
 		if !scripts.build[i]
 			console.log "Done!\n".bold
-			if callback
-				callback()
+			if opts and opts.complete
+				opts.complete()
 			return
 		
 		# get build cmd/arg

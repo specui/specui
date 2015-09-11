@@ -40,7 +40,7 @@ crystal = (config) ->
     'search'
     #'signup'
     #'spec'
-    #'stop'
+    'stop'
     'test'
     'update'
     #'url'
