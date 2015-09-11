@@ -9,6 +9,6 @@ validate = (config) ->
   config_schema = yaml.safeLoad fs.readFileSync("#{crystal_path}/.crystal/schema/config.yml")
   
   validate = skeemas.validate config, config_schema
-  validate.valid
+  validate
   
 module.exports = validate

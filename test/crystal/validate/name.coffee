@@ -3,13 +3,13 @@ crystal = require '../../../src/crystal'
 describe 'crystal', () ->
   describe 'validate', () ->
     describe 'name', () ->
-      it 'should be required', () ->
+      it 'should be optional', () ->
         # undefined name
         config = {
           version: '0.1.0'
         }
         (-> new crystal config)
-          .should.throw "'name' is required."
+          .should.not.throw "'name' is required."
         
       it 'should be a string', () ->
         # object name

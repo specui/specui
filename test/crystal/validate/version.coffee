@@ -9,7 +9,7 @@ describe 'crystal', () ->
           name: 'test'
         }
         (-> new crystal config)
-          .should.throw "'version' is required."
+          .should.not.throw "'version' is required."
         
         # null version
         config = {
@@ -17,16 +17,16 @@ describe 'crystal', () ->
           version: null
         }
         (-> new crystal config)
-          .should.throw "'version' is required."
+          .should.not.throw "'version' is required."
       
-      it 'should be a string', () ->
+      it 'should be a number or string', () ->
         # object version
         config = {
           name: 'test'
           version: {}
         }
         (-> new crystal config)
-          .should.throw "'version' must be of type (string)."
+          .should.throw "'version' must be of type (number or string)."
         
         # true version
         config = {
@@ -34,7 +34,7 @@ describe 'crystal', () ->
           version: true
         }
         (-> new crystal config)
-          .should.throw "'version' must be of type (string)."
+          .should.throw "'version' must be of type (number or string)."
         
         # false version
         config = {
@@ -42,37 +42,4 @@ describe 'crystal', () ->
           version: false
         }
         (-> new crystal config)
-          .should.throw "'version' must be of type (string)."
-      
-      it 'should be valid', () ->
-        # major version
-        config = {
-          name: 'test'
-          version: '1.0.0'
-        }
-        (-> new crystal config)
-          .should.not.throw "'version' is invalid."
-        
-        # minor version
-        config = {
-          name: 'test'
-          version: '0.1.0'
-        }
-        (-> new crystal config)
-          .should.not.throw "'version' is invalid."
-        
-        # patch version
-        config = {
-          name: 'test'
-          version: '0.0.1'
-        }
-        (-> new crystal config)
-          .should.not.throw "'version' is invalid."
-        
-        # false version
-        config = {
-          name: 'test'
-          version: 'alpha'
-        }
-        (-> new crystal config)
-          .should.throw "'version' is invalid."
+          .should.throw "'version' must be of type (number or string)."

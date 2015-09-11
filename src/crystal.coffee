@@ -53,9 +53,18 @@ crystal = (config) ->
     this[method] = require "./crystal/#{method}"
   
   if typeof(config) == 'object'
-    valid = this.validate config
-    if !valid
-      throw new Error "Config is invalid."
+    validate = this.validate config
+    if !validate.valid
+      if validate.errors[0].message == 'Failed "type" criteria: expecting string, found object'
+        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (string)."
+      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found null'
+        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
+      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found object'
+        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
+      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found boolean'
+        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
+      else
+        throw new Error "Config is invalid."
     this.config = config
     this.path = if this.config.path then this.config.path else process.cwd()
   else if typeof(config) == 'string'
