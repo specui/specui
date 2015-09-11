@@ -1,4 +1,5 @@
 # load packages
+crystal  = require '../crystal'
 error    = require '../error'
 fs       = require 'fs'
 gunzip   = require 'gunzip-maybe'
@@ -12,8 +13,6 @@ version  = require '../version'
 zlib     = require 'zlib'
 
 update = () ->
-	crystal = this
-	
 	# get module path
 	path = "#{userHome}/.crystal/module/"
 	if !fs.existsSync path
@@ -51,7 +50,7 @@ update = () ->
 			# load submodules if module is local path
 			if module_version_query.match /^(\.|\/)/
 				module_path = module_version_query
-				module_config = crystal.load module_path
+				module_config = new crystal(module_path).config
 				if module_config.imports
 					loadModules module_config.imports
 				else
@@ -132,7 +131,7 @@ update = () ->
 			
 			# get module config and load sub modules
 			submodules.push module_path
-			module_config = crystal.load module_path
+			module_config = new crystal(module_path).config
 			if module_config.imports
 				loadModules module_config.imports
 			else
@@ -141,8 +140,8 @@ update = () ->
 	loadModules modules
 	
 	for submodule in submodules
-		crystal.build {
-			path: submodule
+		project = new crystal submodule
+		project.build {
 			skipGeneration: true
 		}
 	
