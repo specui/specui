@@ -1,4 +1,5 @@
 # load deps
+crystal  = require '../crystal'
 fs       = require 'fs'
 mkdirp   = require 'mkdirp'
 path     = require 'path'
@@ -9,8 +10,6 @@ userHome = require 'user-home'
 zlib     = require 'zlib'
 
 install = (opts) ->
-  crystal = this
-  
   # hardcoded host
   host = 'github.com'
   
@@ -105,29 +104,11 @@ install = (opts) ->
       buffer.writeUInt8 file.fileData[i], i
       i++
     fs.writeFileSync "#{module_path}/#{filename}", buffer
+    
+  project = new crystal module_path
+  project.update()
+  project.build()
   
   console.log "Successfully installed #{module_name} at: #{module_path}".green
   
-  # get module config and load sub modules
-  #submodules.push module_path
-  #module_config = crystal.config module_path
-  #loadModules module_config.modules
-  
-  #process.kill 0
-  
-  #modules = {}
-  #modules[name] = 'latest'
-  
-  #crystal.update {
-  #  modules: modules
-  #}
-  
-  #console.log "Found generator (#{generator.name}).".green
-  #console.log "Successfully installed #{name}@latest generator!"
-  #console.log "Now you can add it to your project's crystal config file like so:"
-  #console.log ""
-  #console.log "modules:"
-  #console.log "  #{name}: latest"
-  #console.log ""
-
 module.exports = install
