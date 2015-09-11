@@ -55,14 +55,11 @@ crystal = (config) ->
   if typeof(config) == 'object'
     validate = this.validate config
     if !validate.valid
-      if validate.errors[0].message == 'Failed "type" criteria: expecting string, found object'
-        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (string)."
-      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found null'
-        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
-      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found object'
-        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
-      else if validate.errors[0].message == 'Failed "type" criteria: expecting number or string, found boolean'
-        throw new Error "'#{validate.errors[0].context.substr(2)}' must be of type (number or string)."
+      match = 'Failed "type" criteria: expecting [^,]'
+      if validate.errors[0].message.match match
+        message = validate.errors[0].message.replace /Failed "type" criteria: expecting (.*?), found (.*?)$/, "`#{validate.errors[0].context.substr(2)}` must be a `$1`, not a `$2`."
+        message = message.replace /\ or\ /, '` or `'
+        throw new Error message
       else
         throw new Error "Config is invalid."
     this.config = config

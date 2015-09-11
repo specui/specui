@@ -4,11 +4,7 @@ describe 'crystal', () ->
   describe 'validate', () ->
     describe 'name', () ->
       it 'should be optional', () ->
-        # undefined name
-        config = {
-          version: '0.1.0'
-        }
-        (-> new crystal config)
+        (-> new crystal {})
           .should.not.throw "'name' is required."
         
       it 'should be a string', () ->
@@ -17,4 +13,4 @@ describe 'crystal', () ->
           name: {}
         }
         (-> new crystal config)
-          .should.throw "'name' must be of type (string)."
+          .should.throw "`name` must be a `string`, not a `object`."

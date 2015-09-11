@@ -4,11 +4,7 @@ describe 'crystal', () ->
   describe 'validate', () ->
     describe 'copyright', () ->
       it 'should be optional', () ->
-        config = {
-          name: 'test'
-          version: '1.0.0'
-        }
-        (-> new crystal config)
+        (-> new crystal {})
           .should.not.throw "'copyright' is required."
           
       it 'should be a string', () ->
@@ -19,4 +15,4 @@ describe 'crystal', () ->
           copyright: {}
         }
         (-> new crystal config)
-          .should.throw "'copyright' must be of type (string)."
+          .should.throw "`copyright` must be a `string`, not a `object`."
