@@ -1,0 +1,44 @@
+crystal = require '../../../src/crystal'
+
+describe 'crystal', () ->
+  describe 'validate', () ->
+    describe 'exports', () ->
+      it 'should be optional', () ->
+        (-> new crystal {})
+          .should.not.throw "`exports` is required."
+        
+      it 'should be a object', () ->
+        # object
+        config = {
+          exports: {
+            ConfigGenerator: {
+              type: 'generator'
+            }
+          }
+        }
+        (-> new crystal config)
+          .should.not.throw "`exports` must be a `object`, not a `object`."
+        
+        # true
+        config = {
+          exports: true
+        }
+        (-> new crystal config)
+          .should.throw "`exports` must be a `object`, not a `boolean`."
+          
+        # false
+        config = {
+          exports: false
+        }
+        (-> new crystal config)
+          .should.throw "`exports` must be a `object`, not a `boolean`."
+    
+      it 'should require a type', () ->
+        # object
+        config = {
+          exports: {
+            ConfigGenerator: {}
+          }
+        }
+        (-> new crystal config)
+          .should.throw "`exports.ConfigGenerator.type` is required."

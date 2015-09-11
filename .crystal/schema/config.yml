@@ -36,6 +36,9 @@ properties:
             - string
         spec:
           type: string
+        type:
+          required: true
+          type: string
   imports:
     type: object
     additionalProperties:

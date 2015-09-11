@@ -55,13 +55,21 @@ crystal = (config) ->
   if typeof(config) == 'object'
     validate = this.validate config
     if !validate.valid
-      match = 'Failed "type" criteria: expecting [^,]'
+      match = 'Failed "type" criteria:'
       if validate.errors[0].message.match match
         message = validate.errors[0].message.replace /Failed "type" criteria: expecting (.*?), found (.*?)$/, "`#{validate.errors[0].context.substr(2)}` must be a `$1`, not a `$2`."
         message = message.replace /\ or\ /, '` or `'
         throw new Error message
-      else
-        throw new Error "Config is invalid."
+      
+      match = 'Failed "required" criteria:'
+      if validate.errors[0].message.match match
+        message = validate.errors[0].message.replace /Failed "required" criteria: missing property \((.*?)\)$/, "`#{validate.errors[0].context.substr(2).replace(/\//, '.')}.$1` is required."
+        message = message.replace /\ or\ /, '` or `'
+        throw new Error message
+      
+      console.log validate
+      throw new Error "Config is invalid."
+      
     this.config = config
     this.path = if this.config.path then this.config.path else process.cwd()
   else if typeof(config) == 'string'
