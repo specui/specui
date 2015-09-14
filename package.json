@@ -72,5 +72,5 @@
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.16.11"
+	"version": "0.16.12"
 }
