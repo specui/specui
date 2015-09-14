@@ -122,7 +122,17 @@ loadModules = (modules, host) ->
 					module_config.exports[export_name].schema = schema
 				
 				# handle spec
-				if typeof(exported.spec) == 'string' && exported.spec.match(/\./)
+				if exported.spec instanceof Array
+					spec = {}
+					for exported_spec in exported.spec
+						export_path = "#{module_path}/.crystal/spec/#{exported_spec}"
+						if fs.existsSync export_path
+							exported_spec = yaml.safeLoad fs.readFileSync(export_path)
+						else
+							exported_spec = exported_spec
+						spec = extend true, true, spec, exported_spec
+					module_config.exports[export_name].spec = spec
+				else if typeof(exported.spec) == 'string' && exported.spec.match(/\./)
 					export_path = "#{module_path}/.crystal/spec/#{exported.spec}"
 					if fs.existsSync export_path
 						spec = yaml.safeLoad fs.readFileSync(export_path)
@@ -376,7 +386,7 @@ loadOutputs = (outputs, imports, config) ->
 				console.log validate.errors
 				console.log("ERROR: Specification failed validation.")
 				for error in validate.errors
-					console.log "- #{error.message} for specification (#{error.context.substr(2)})"
+					console.log "- #{error.message} for specification (#{error.context.substr(2)}) in generator (#{output.generator})"
 				throw new Error "ERROR: Invalid specification."
 		
 		# get engine
