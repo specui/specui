@@ -694,6 +694,17 @@ inject = (template, injectors, remove_injector = true) ->
 			"#{injector_tabs}>>>#{injector}<<<\n"
 		
 parse = (spec, config, processors) ->
+	if spec['$processor']
+		if typeof(spec['$processor']) == 'string'
+			spec['$processor'] = [spec['$processor']]
+		
+		for proc in spec['$processor']
+			for processor in processors
+				if processor.alias == proc
+					spec['$value'] = processor.callback spec['$value']
+		
+		return spec['$value']
+	
 	for i of spec
 		s = spec[i]
 		
