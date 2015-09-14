@@ -18,6 +18,8 @@ properties:
     additionalProperties:
       type: object
       properties:
+        description:
+          type: string
         engine:
           type: string
         helper:
