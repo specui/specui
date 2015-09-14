@@ -337,7 +337,18 @@ loadOutputs = (outputs, imports, config) ->
 		# load spec from file
 		spec = {}
 		if output.spec
-			if typeof(output.spec) == 'object'
+			if output.spec instanceof Array
+				for output_spec in output.spec
+					if typeof(output_spec) == 'string'
+						if imports[output_spec]
+							output_spec = imports[output_spec].spec
+						else
+							spec_filename = ".crystal/spec/#{output_spec}"
+							if !fs.existsSync spec_filename
+								throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
+							output_spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
+					spec = extend true, true, spec, output_spec
+			else if typeof(output.spec) == 'object'
 				spec = output.spec
 			else if typeof(output.spec) == 'string'
 				if imports[output.spec]
