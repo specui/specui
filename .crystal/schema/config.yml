@@ -22,6 +22,8 @@ properties:
           type: string
         engine:
           type: string
+        example:
+          type: string
         helper:
           type:
             - string
