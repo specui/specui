@@ -39,7 +39,9 @@ properties:
             - object
             - string
         spec:
-          type: string
+          type:
+            - object
+            - string
         type:
           required: true
           type: string
