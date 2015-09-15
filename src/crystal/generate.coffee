@@ -310,39 +310,8 @@ loadOutputs = (outputs, imports, config) ->
 		# load processors
 		output_processor = output.processor
 		generator_processor = generator.processor
-		if generator_processor
-			if typeof(output_processor) == 'string'
-				output_processor = [output_processor]
-			if typeof(generator_processor) == 'string'
-				generator_processor = [generator_processor]
-				
-			if output_processor && generator_processor
-				output_processor = extend true, true, output_processor, generator_processor
-			else
-				output_processor = generator_processor
 		
-		if output_processor instanceof Array
-			processors = []
-			
-			for processor in output_processor
-				if !imports[processor]
-					throw new Error "Import does not exist for alias (#{processor})"
-				
-				processors.push {
-					alias: processor
-					callback: imports[processor].processor
-				}
-			
-			output_processor = processors
-			
-		else if typeof(output_processor) == 'string'
-			if !imports[output_processor]
-				throw new Error "Import does not exist for alias (#{output_processor})"
-				
-			output_processor = [{
-				alias: output_processor
-				callback: imports[output_processor].processor
-			}]
+		output_processor = loadProcessor output_processor, generator_processor, imports
 
 		# load spec from file
 		spec = {}
@@ -351,6 +320,7 @@ loadOutputs = (outputs, imports, config) ->
 				for output_spec in output.spec
 					if typeof(output_spec) == 'string'
 						if imports[output_spec]
+							output_processor = loadProcessor imports[output_spec].processor, null, imports
 							output_spec = imports[output_spec].spec
 						else
 							spec_filename = ".crystal/spec/#{output_spec}"
@@ -362,6 +332,7 @@ loadOutputs = (outputs, imports, config) ->
 				spec = output.spec
 			else if typeof(output.spec) == 'string'
 				if imports[output.spec]
+					output_processor = loadProcessor imports[output.spec].processor, null, imports
 					spec = imports[output.spec].spec
 				else
 					spec_filename = ".crystal/spec/#{output.spec}"
@@ -585,6 +556,43 @@ loadOutputs = (outputs, imports, config) ->
 			
 			#if generator.outputs
 				#loadOutputs generator.outputs, generator.imports, config
+
+loadProcessor = (output_processor, generator_processor, imports) ->
+	if generator_processor
+		if typeof(output_processor) == 'string'
+			output_processor = [output_processor]
+		if typeof(generator_processor) == 'string'
+			generator_processor = [generator_processor]
+			
+		if output_processor && generator_processor
+			output_processor = extend true, true, output_processor, generator_processor
+		else
+			output_processor = generator_processor
+	
+	if output_processor instanceof Array
+		processors = []
+		
+		for processor in output_processor
+			if !imports[processor]
+				throw new Error "Import does not exist for alias (#{processor})"
+			
+			processors.push {
+				alias: processor
+				callback: imports[processor].processor
+			}
+		
+		output_processor = processors
+		
+	else if typeof(output_processor) == 'string'
+		if !imports[output_processor]
+			throw new Error "Import does not exist for alias (#{output_processor})"
+			
+		output_processor = [{
+			alias: output_processor
+			callback: imports[output_processor].processor
+		}]
+	
+	output_processor
 
 generate = (opts) ->
 	loaded_modules = {}
