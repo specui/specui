@@ -33,6 +33,18 @@ describe 'crystal', () ->
         (-> new crystal config)
           .should.throw "`exports` must be a `object`, not a `boolean`."
     
+      it 'should not require a description'
+        # object
+        config = {
+          exports: {
+            ConfigGenerator: {
+              type: 'generator'
+            }
+          }
+        }
+        (-> new crystal config)
+          .should.not.throw "`exports.ConfigGenerator.description` is required."
+          
       it 'should require a type', () ->
         # object
         config = {
