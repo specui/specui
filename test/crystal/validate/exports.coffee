@@ -57,6 +57,18 @@ describe 'crystal', () ->
         (-> new crystal config)
           .should.not.throw "`exports.ConfigGenerator.schema` is required."
       
+      it 'should not require a spec', () ->
+        # object
+        config = {
+          exports: {
+            ConfigGenerator: {
+              type: 'generator'
+            }
+          }
+        }
+        (-> new crystal config)
+          .should.not.throw "`exports.ConfigGenerator.spec` is required."
+      
       it 'should require a type', () ->
         # object
         config = {
