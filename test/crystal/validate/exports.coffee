@@ -117,6 +117,22 @@ describe 'crystal', () ->
         (-> new crystal config)
           .should.not.throw "`exports.ConfigGenerator.spec` is required."
       
+      it 'should allow multiple modularized specs', () ->
+        # object
+        config = {
+          exports: {
+            ConfigGenerator: {
+              spec: [
+                'TestSpec2',
+                'TestSpec1'
+              ]
+              type: 'generator'
+            }
+          }
+        }
+        (-> new crystal config)
+          .should.not.throw "`exports.ConfigGenerator.spec` must be a `object` or `string`, not a `array`."
+      
       it 'should not require a transformer', () ->
         # object
         config = {
