@@ -51,7 +51,7 @@ initProject = (crystal, opts, path) ->
 	# create crystal config
 	fs.writeFileSync "#{path}/.autocode/config.yml", config
 	
-	console.log 'Crystal initialization is complete.'.green
+	console.log 'Autocode initialization is complete.'.green
 	
 	crystal.build path
 	
@@ -70,11 +70,11 @@ init = (opts) ->
 		throw new Error "Path does not exist: #{opts.path}"
 	
 	# check if crystal config exists
-	config = this.config opts.path
+	config = this.load opts.path
 	if config != false
-		throw new Error "Crystal has already been initialized in: #{opts.path}"
+		throw new Error "Autocode has already been initialized in: #{opts.path}"
 	
-	console.log "Initializing Crystal in: #{opts.path}".green.bold
+	console.log "Initializing Autocode in: #{opts.path}".green.bold
 	
 	# setup prompt
 	prompt.message = ''
