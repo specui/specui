@@ -61,7 +61,10 @@ init = (opts) ->
 	crystal = this
 	
 	# get path
-	opts.path = opts._[1] || opts.path || this.path || process.cwd()
+	if opts._ and opts._[1]
+		opts.path = opts._[1]
+	else
+		opts.path = opts.path || this.path || process.cwd()
 	
 	# validate path
 	if !opts.path
