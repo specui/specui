@@ -9,6 +9,7 @@ author:
 copyright: 2015 Crystal
 imports:
   crystal/authors: ~0.3.3
+  crystal/bower: ~0.4.1
   crystal/git: ~0.2.0
   crystal/npm: ~0.3.0
   crystal/readme: ~0.5.1
@@ -18,6 +19,12 @@ exports:
     schema: config.yml
     type: schematic
 outputs:
+  - generator: bower.PackageGenerator
+    spec:
+      name: autocode
+      description: $description
+      main: lib/autocode.js
+  
   - generator: git.GitignoreGenerator
     spec:
       items:
