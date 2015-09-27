@@ -1,4 +1,4 @@
-# Crystal JS 0.18.0
+# Autocode JS 0.19.0
 
 [![Crystal API](https://img.shields.io/badge/crystal-api-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-api)
 [![Crystal CLI](https://img.shields.io/badge/crystal-cli-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-cli)
@@ -7,7 +7,7 @@
 [![Crystal Studio](https://img.shields.io/badge/crystal-studio-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-studio)
 [![Crystal Web](https://img.shields.io/badge/crystal-web-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-web)
 
-[![Crystal JS](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
+[![Autocode JS](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
 code generator for every language, framework and platform
 
@@ -526,7 +526,7 @@ Use Crystal Editor to try Crystal online:
 
 (8) You can add/remove modules to/from a project at anytime.
 
-(9) To prevent vendor lock-in and becoming dependent of Crystal, it's kept in its own directory: `.crystal/`. If you wish to no longer use Crystal, simply delete this directory and continue using the generated code (and making changes) without Crystal.
+(9) To prevent vendor lock-in and becoming dependent of Crystal, it's kept in its own directory: `.autocode/`. If you wish to no longer use Crystal, simply delete this directory and continue using the generated code (and making changes) without Crystal.
 
 (10) Crystal makes language integration and/or migration easier.
 

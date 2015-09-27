@@ -1,32 +1,32 @@
-crystal = require '../../../src/crystal'
+autocode = require '../../../src/autocode'
 
-describe 'crystal', () ->
+describe 'autocode', () ->
   describe 'validate', () ->
     describe 'imports', () ->
       it 'should be optional', () ->
-        (-> new crystal {})
+        (-> new autocode {})
           .should.not.throw "`imports` is required."
         
       it 'should be a object', () ->
         # object
         config = {
           imports: {
-            'crystal/readme': 'latest'
+            'autocode/readme': 'latest'
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`imports` must be a `object`, not a `object`."
         
         # true
         config = {
           imports: true
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`imports` must be a `object`, not a `boolean`."
           
         # false
         config = {
           imports: false
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`imports` must be a `object`, not a `boolean`."

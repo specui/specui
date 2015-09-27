@@ -1,10 +1,10 @@
-crystal = require '../../../src/crystal'
+autocode = require '../../../src/autocode'
 
-describe 'crystal', () ->
+describe 'autocode', () ->
   describe 'validate', () ->
     describe 'exports', () ->
       it 'should be optional', () ->
-        (-> new crystal {})
+        (-> new autocode {})
           .should.not.throw "`exports` is required."
         
       it 'should be a object', () ->
@@ -16,21 +16,21 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports` must be a `object`, not a `object`."
         
         # true
         config = {
           exports: true
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`exports` must be a `object`, not a `boolean`."
           
         # false
         config = {
           exports: false
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`exports` must be a `object`, not a `boolean`."
     
       it 'should not require a description', () ->
@@ -42,7 +42,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.description` is required."
       
       it 'should not require a engine', () ->
@@ -54,7 +54,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.engine` is required."
       
       it 'should not require an example', () ->
@@ -66,7 +66,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.example` is required."
       
       it 'should not require a filename', () ->
@@ -78,7 +78,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.filename` is required."
       
       it 'should not require a helper', () ->
@@ -90,7 +90,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.helper` is required."
       
       it 'should not require a schema', () ->
@@ -102,7 +102,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.schema` is required."
       
       it 'should not require a spec', () ->
@@ -114,7 +114,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.spec` is required."
       
       it 'should allow multiple modularized specs', () ->
@@ -130,7 +130,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.spec` must be a `object` or `string`, not a `array`."
       
       it 'should allow multiple mixed specs', () ->
@@ -149,7 +149,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.spec` must be a `object` or `string`, not a `array`."
       
       it 'should not require a transformer', () ->
@@ -161,7 +161,7 @@ describe 'crystal', () ->
             }
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`exports.ConfigGenerator.transformer` is required."
       
       it 'should require a type', () ->
@@ -171,5 +171,5 @@ describe 'crystal', () ->
             ConfigGenerator: {}
           }
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`exports.ConfigGenerator.type` is required."

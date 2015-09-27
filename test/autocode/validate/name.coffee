@@ -1,10 +1,10 @@
-crystal = require '../../../src/crystal'
+autocode = require '../../../src/autocode'
 
-describe 'crystal', () ->
+describe 'autocode', () ->
   describe 'validate', () ->
     describe 'name', () ->
       it 'should be optional', () ->
-        (-> new crystal {})
+        (-> new autocode {})
           .should.not.throw "'name' is required."
         
       it 'should be a string', () ->
@@ -12,5 +12,5 @@ describe 'crystal', () ->
         config = {
           name: {}
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`name` must be a `string`, not a `object`."

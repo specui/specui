@@ -1,10 +1,10 @@
-crystal = require '../../../src/crystal'
+autocode = require '../../../src/autocode'
 
-describe 'crystal', () ->
+describe 'autocode', () ->
   describe 'validate', () ->
     describe 'copyright', () ->
       it 'should be optional', () ->
-        (-> new crystal {})
+        (-> new autocode {})
           .should.not.throw "'copyright' is required."
           
       it 'should be a string', () ->
@@ -14,5 +14,5 @@ describe 'crystal', () ->
           version: '0.0.0'
           copyright: {}
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`copyright` must be a `string`, not a `object`."

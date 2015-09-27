@@ -2,7 +2,7 @@
 	"author": {
 		"name": "Chris Tate",
 		"email": "chris@crystal.sh",
-		"url": "http://crystal.sh"
+		"url": "https://crystal.sh"
 	},
 	"dependencies": {
 		"bluebird": "~2.9.34",
@@ -64,13 +64,13 @@
 	],
 	"license": "mit",
 	"main": "lib/crystal.js",
-	"name": "crystal",
+	"name": "autocode-js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/crystal/crystal"
+		"url": "https://github.com/crystal/autocode-js"
 	},
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "0.18.0"
+	"version": "0.19.0"
 }

@@ -1,6 +1,6 @@
-crystal = require '../../../src/crystal'
+autocode = require '../../../src/autocode'
 
-describe 'crystal', () ->
+describe 'autocode', () ->
   describe 'validate', () ->
     describe 'version', () ->
       it 'should be required', () ->
@@ -8,7 +8,7 @@ describe 'crystal', () ->
         config = {
           name: 'test'
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`version` is required."
         
         # null version
@@ -16,7 +16,7 @@ describe 'crystal', () ->
           name: 'test'
           version: null
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`version` is required."
       
       it 'should be a number or string', () ->
@@ -25,7 +25,7 @@ describe 'crystal', () ->
           name: 'test'
           version: 1.0
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`version` must be a `number` or `string`, not a `number`."
         
         # string version
@@ -33,7 +33,7 @@ describe 'crystal', () ->
           name: 'test'
           version: '1.0.0'
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.not.throw "`version` must be a `number` or `string`, not a `string`."
           
         # object version
@@ -41,7 +41,7 @@ describe 'crystal', () ->
           name: 'test'
           version: {}
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`version` must be a `number` or `string`, not a `object`."
         
         # true version
@@ -49,7 +49,7 @@ describe 'crystal', () ->
           name: 'test'
           version: true
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`version` must be a `number` or `string`, not a `boolean`."
         
         # false version
@@ -57,5 +57,5 @@ describe 'crystal', () ->
           name: 'test'
           version: false
         }
-        (-> new crystal config)
+        (-> new autocode config)
           .should.throw "`version` must be a `number` or `string`, not a `boolean`."
