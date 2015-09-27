@@ -1,5 +1,5 @@
 module.exports = (opts) ->
-	crystal = this
+	autocode = this
 	
 	# load packages
 	spawn = require 'cross-spawn'
@@ -37,9 +37,9 @@ module.exports = (opts) ->
 			console.log('run error', err)
 		
 		runInterval = setInterval (->
-			if crystal.stopped
+			if autocode.stopped
 				console.log 'Project was stopped.'
-				crystal.stopped = false
+				autocode.stopped = false
 				clearInterval runInterval
 				proc.kill()
 		), 1

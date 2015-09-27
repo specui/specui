@@ -53,6 +53,8 @@ init = (project_path, validate = true) ->
 	
 	if !config.host
 		config.host = 'github.com'
+	
+	this.config = config
 		
 	config
 
