@@ -48,7 +48,7 @@ loadModules = (modules, host) ->
 						if model_ver and semver.satisfies(model_ver, modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
 							module_version = model_ver
 		if !module_version
-			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
+			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: autocode update"
 		
 		module_alias = module_name.substr(module_name.lastIndexOf('/') + 1)
 		
@@ -70,7 +70,7 @@ loadModules = (modules, host) ->
 		else
 			module_path = "#{userHome}/.autocode/module/#{host}/#{module_name}/#{module_version}"
 		if !fs.existsSync module_path
-			throw new Error "Unknown module (#{module_name}) at version (#{module_version}). Try: crystal update"
+			throw new Error "Unknown module (#{module_name}) at version (#{module_version}). Try: autocode update"
 		
 		# get/validate module config
 		module_config = crystal.load module_path
@@ -202,7 +202,7 @@ processModules = () ->
 								if model_ver and semver.satisfies(model_ver, submodule_version_query) and (!submodule_version or semver.gt(model_ver, submodule_version))
 									submodule_version = model_ver
 				if !submodule_version
-					throw new Error "No matches for submodule (#{submodule_name}) with version (#{submodule_version_query}). Try: crystal update"
+					throw new Error "No matches for submodule (#{submodule_name}) with version (#{submodule_version_query}). Try: autocode update"
 					
 				submodule_exports = loaded_modules[submodule_name][submodule_version].exports
 				for submodule_export_name of submodule_exports
@@ -368,8 +368,6 @@ loadOutputs = (outputs, imports, config) ->
 			engine = imports[engine].engine
 
 		# get helpers
-		if helpers
-			old_helpers = helpers
 		helpers = if generator.helper then generator.helper else null
 		
 		# get injectors
@@ -392,7 +390,7 @@ loadOutputs = (outputs, imports, config) ->
 						throw new Error "Destination engine is required for copy"
 					if !generator.copy.dest.value
 						throw new Error "Destination value is required for copy"
-					copy_dest = generator.copy.dest.engine spec, generator.copy.dest.value, helpers, old_helpers
+					copy_dest = generator.copy.dest.engine spec, generator.copy.dest.value, helpers
 				else if typeof(generator.copy.dest) == 'string'
 					copy_dest = generator.copy.dest
 				else
@@ -453,7 +451,7 @@ loadOutputs = (outputs, imports, config) ->
 			
 			# pass filename thru engine
 			if generator_filename.engine
-				filename = generator_filename.engine filename_options, generator_filename.value, helpers, old_helpers
+				filename = generator_filename.engine filename_options, generator_filename.value, helpers
 			else
 				filename = generator_filename
 				
@@ -488,7 +486,7 @@ loadOutputs = (outputs, imports, config) ->
 						template = inject template, null, true
 					else
 						template = inject template, injectors, true
-					content = engine content_spec, template, helpers, old_helpers
+					content = engine content_spec, template, helpers
 				else
 					if template
 						template = inject template, injectors, true
@@ -641,7 +639,7 @@ generate = (opts) ->
 						if model_ver and semver.satisfies(model_ver, config.modules[module_name]) and (!module_version or semver.gt(model_ver, module_version))
 							module_version = model_ver
 		if !module_version
-			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: crystal update"
+			throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query}). Try: autocode update"
 		
 		exports = loaded_modules[module_name][module_version].exports
 		for export_name of exports
