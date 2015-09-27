@@ -5,7 +5,7 @@ author: $author
 repository:
   type: git
   url: $repository
-main: lib/crystal.js
+main: lib/autocode.js
 dependencies:
   bluebird: ~2.9.34
   change-case: latest
@@ -49,6 +49,7 @@ devDependencies:
   mocha: latest
   should: latest
 keywords:
+  - autocode
   - crystal
   - codegen
   - code generator
@@ -59,7 +60,7 @@ keywords:
   - php generator
   - javascript generator
   - coffeescript generator
-homepage: "http://crystal.sh"
+homepage: "https://crystal.sh"
 license: mit
 scripts:
   test: mocha

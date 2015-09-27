@@ -36,7 +36,7 @@ Choose your favorite way to install things:
 ## npm
 
 ```sh
-npm install crystal
+npm install autocode-js
 ```
 
 <a name="install-github"></a>
@@ -44,7 +44,7 @@ npm install crystal
 ## GitHub
 
 ```sh
-git clone https://github.com/crystal/crystal
+git clone https://github.com/crystal/autocode-js
 ```
 
 <a name="hello-world"></a>
@@ -62,14 +62,14 @@ git clone https://github.com/crystal/crystal
 Create a file called `helloworld.js` and add these contents:
 
 ```js
-var Crystal = require('crystal');
-var project = new Crystal({
+var Autocode = require('autocode-js');
+var project = new Autocode({
   name: 'My App',
   description: 'This is my app.',
   path: './output/myapp',
   imports: {
-    'crystal/license': '~0.2.4',
-    'crystal/readme': '~0.2.2'
+    'crystal/license': '~0.3.1',
+    'crystal/readme': '~0.5.1'
   },
   outputs: [{
     // generate a LICENSE file
@@ -136,7 +136,7 @@ SOFTWARE.
 
 # Usage
 
-- [Load Crystal](#load-crystal)
+- [Load Autocode](#load-autocode)
 - [Create Project](#create-project)
 - [Save Project](#save-project)
 - [Load Project](#load-project)
@@ -145,12 +145,12 @@ SOFTWARE.
 - [Run Project](#run-project)
 - [Modularize Project](#run-project)
 
-<a name="load-crystal"></a>
+<a name="load-autocode"></a>
 
-## Load Crystal
+## Load Autocode
 
 ```js
-var Crystal = require('crystal');
+var Autocode = require('autocode');
 ```
 
 <a name="create-project"></a>
@@ -158,7 +158,7 @@ var Crystal = require('crystal');
 ## Create Project
 
 ```js
-var project = new Crystal({
+var project = new Autocode({
   name: 'My App',
   description: 'This is my app.',
   path: './output/myapp',
@@ -196,7 +196,7 @@ project.save();
 ## Load Project
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 ```
 
 <a name="update-project"></a>
@@ -233,7 +233,7 @@ project.run();
 Modularize your project for other projects to use:
 
 ```js
-var mod = new Crystal({
+var mod = new Autocode({
   name: 'My Module',
   description: 'This is my module.',
   path: './output/mymod',
@@ -325,7 +325,7 @@ Builds your project.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.build({ force: true });
 ```
 
@@ -351,7 +351,7 @@ Generates your project's files.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.generate({ force: true });
 ```
 
@@ -364,7 +364,7 @@ Initializes your project.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.init({
   name: 'My App',
   description: 'This is my app.'
@@ -380,7 +380,7 @@ Installs a module.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.install({
   'crystal/readme': '~0.2.2'
 });
@@ -395,7 +395,7 @@ Loads your project's configuration.
 ### Example
 
 ```js
-var project = new Crystal;
+var project = new Autocode;
 project.load('/path/to/project');
 ```
 
@@ -408,7 +408,7 @@ Runs your project.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.run({ force: true });
 ```
 
@@ -421,7 +421,7 @@ Search for modules.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.search({ keywords: 'laravel' });
 ```
 
@@ -432,7 +432,7 @@ project.search({ keywords: 'laravel' });
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.test();
 ```
 
@@ -447,7 +447,7 @@ Updates your project.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.update();
 ```
 
@@ -460,7 +460,7 @@ Validates your project.
 ### Example
 
 ```js
-var project = new Crystal('/path/to/project');
+var project = new Autocode('/path/to/project');
 project.validate();
 ```
 

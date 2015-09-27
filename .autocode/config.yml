@@ -70,7 +70,7 @@ outputs:
             ## npm
             
             ```sh
-            npm install crystal
+            npm install autocode-js
             ```
             
             <a name="install-github"></a>
@@ -78,7 +78,7 @@ outputs:
             ## GitHub
             
             ```sh
-            git clone https://github.com/crystal/crystal
+            git clone https://github.com/crystal/autocode-js
             ```
         - name: hello-world
           title: Hello World
@@ -94,14 +94,14 @@ outputs:
             Create a file called `helloworld.js` and add these contents:
             
             ```js
-            var Crystal = require('crystal');
-            var project = new Crystal({
+            var Autocode = require('autocode-js');
+            var project = new Autocode({
               name: 'My App',
               description: 'This is my app.',
               path: './output/myapp',
               imports: {
-                'crystal/license': '~0.2.4',
-                'crystal/readme': '~0.2.2'
+                'crystal/license': '~0.3.1',
+                'crystal/readme': '~0.5.1'
               },
               outputs: [{
                 // generate a LICENSE file
@@ -166,7 +166,7 @@ outputs:
         - name: usage
           title: Usage
           content: |
-            - [Load Crystal](#load-crystal)
+            - [Load Autocode](#load-autocode)
             - [Create Project](#create-project)
             - [Save Project](#save-project)
             - [Load Project](#load-project)
@@ -175,12 +175,12 @@ outputs:
             - [Run Project](#run-project)
             - [Modularize Project](#run-project)
             
-            <a name="load-crystal"></a>
+            <a name="load-autocode"></a>
             
-            ## Load Crystal
+            ## Load Autocode
             
             ```js
-            var Crystal = require('crystal');
+            var Autocode = require('autocode');
             ```
             
             <a name="create-project"></a>
@@ -188,7 +188,7 @@ outputs:
             ## Create Project
             
             ```js
-            var project = new Crystal({
+            var project = new Autocode({
               name: 'My App',
               description: 'This is my app.',
               path: './output/myapp',
@@ -226,7 +226,7 @@ outputs:
             ## Load Project
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             ```
             
             <a name="update-project"></a>
@@ -263,7 +263,7 @@ outputs:
             Modularize your project for other projects to use:
             
             ```js
-            var mod = new Crystal({
+            var mod = new Autocode({
               name: 'My Module',
               description: 'This is my module.',
               path: './output/mymod',
@@ -351,7 +351,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.build({ force: true });
             ```
             
@@ -377,7 +377,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.generate({ force: true });
             ```
             
@@ -390,7 +390,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.init({
               name: 'My App',
               description: 'This is my app.'
@@ -406,7 +406,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.install({
               'crystal/readme': '~0.2.2'
             });
@@ -421,7 +421,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal;
+            var project = new Autocode;
             project.load('/path/to/project');
             ```
             
@@ -434,7 +434,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.run({ force: true });
             ```
             
@@ -447,7 +447,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.search({ keywords: 'laravel' });
             ```
             
@@ -458,7 +458,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.test();
             ```
             
@@ -473,7 +473,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.update();
             ```
             
@@ -486,7 +486,7 @@ outputs:
             ### Example
             
             ```js
-            var project = new Crystal('/path/to/project');
+            var project = new Autocode('/path/to/project');
             project.validate();
             ```
             

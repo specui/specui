@@ -49,8 +49,9 @@
 		"mocha": "latest",
 		"should": "latest"
 	},
-	"homepage": "http://crystal.sh",
+	"homepage": "https://crystal.sh",
 	"keywords": [
+		"autocode",
 		"crystal",
 		"codegen",
 		"code generator",
@@ -63,7 +64,7 @@
 		"coffeescript generator"
 	],
 	"license": "mit",
-	"main": "lib/crystal.js",
+	"main": "lib/autocode.js",
 	"name": "autocode-js",
 	"repository": {
 		"type": "git",
