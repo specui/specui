@@ -1,4 +1,4 @@
-# Autocode JS 0.19.4
+# Autocode JS 0.19.5
 
 [![Crystal API](https://img.shields.io/badge/crystal-api-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-api)
 [![Crystal CLI](https://img.shields.io/badge/crystal-cli-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-cli)
