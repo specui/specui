@@ -1,15 +1,8 @@
-# Autocode JS 0.19.6
+# Autocode 0.19.6
 
-[![Crystal API](https://img.shields.io/badge/crystal-api-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-api)
-[![Crystal CLI](https://img.shields.io/badge/crystal-cli-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-cli)
-[![Crystal JS](https://img.shields.io/badge/crystal-js-brightgreen.svg?style=flat-square)](https://github.com/crystal/crystal)
-[![Crystal Hub](https://img.shields.io/badge/crystal-hub-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-hub)
-[![Crystal Studio](https://img.shields.io/badge/crystal-studio-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-studio)
-[![Crystal Web](https://img.shields.io/badge/crystal-web-lightgrey.svg?style=flat-square)](https://github.com/crystal/crystal-web)
+[![Autocode](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
-[![Autocode JS](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
-
-code generator for every language, framework and platform
+code automation for every language, framework and platform
 
 # Table of Contents
 
@@ -26,40 +19,83 @@ code generator for every language, framework and platform
 
 # Install
 
-Choose your favorite way to install things:
-  
-- [npm](#install-npm)
-- [GitHub](#install-github)
+Choose an Interface:
 
-<a name="install-npm"></a>
+- [Command-Line](#install-cli)
+- [JavaScript (Node.js)](#install-js)
 
-## npm
+<a name="install-cli"></a>
+
+## Command-Line
+
+Use [npm](https://npmjs.com) or [Homebrew](https://brew.sh) to install the Command-Line interface of Autocode:
+
+```sh
+npm install autocode-cli -g # most popular
+brew install autocode # mac only
+```
+
+<a name="install-js"></a>
+
+## JavaScript (Node.js)
+
+Use [npm](https://npmjs.com) to install the JavaScript interface of Autocode:
 
 ```sh
 npm install autocode-js
-```
-
-<a name="install-github"></a>
-
-## GitHub
-
-```sh
-git clone https://github.com/crystal/autocode-js
 ```
 
 <a name="hello-world"></a>
 
 # Hello World
 
+Choose the `Hello World` tutorial for your Autocode installation:
+
 - [Input](#example-input)
-  - [helloworld.js](#hello-world-js)
-- [Output](#example-output)
+  - [Command-Line](#hello-world-cli)
+  - [JavaScript (Node.js)](#hello-world-js)
+- [Output](#output)
   - [README.md](#readme)
   - [LICENSE](#license)
 
 ## Input
 
-Create a file called `helloworld.js` and add these contents:
+<a name="#hello-world-cli"></a>
+
+### Command-Line
+
+If you've installed the Command-Line interface of Autocode, create a file called `.autocode/config.yml` and add these contents:
+
+```yaml
+name: My App
+description: This is my app.
+path: ./output/myapp
+imports:
+  crystal/license: ~0.3.1
+  crystal/readme: ~0.5.1
+outputs:
+  - generator: license.MITGenerator
+    spec:
+      copyright: 2015 Crystal
+  - generator: readme.ReadmeGenerator
+    spec:
+      name: $name
+      description: $description
+```
+
+Then use Autocode to build your project:
+
+```sh
+autocode build
+```
+
+View the output [here](#output).
+
+<a name="#hello-world-js"></a>
+
+### JavaScript (Node.js)
+
+If you've installed the JavaScript interface of Autocode, create a file called `helloworld.js` and add these contents:
 
 ```js
 var Autocode = require('autocode-js');
@@ -88,15 +124,24 @@ var project = new Autocode({
 });
 ```
 
-## Output
-
 Now run your `helloworld.js` script:
 
 ```sh
 node helloworld.js
 ```
 
-This will create 2 files: README.md and LICENSE
+View the output [here](#output).
+
+<a name="output"></a>
+
+## Output
+
+Whether you've chosen the Command-Line interface or JavaScript interface, the output will be the same:
+
+- [README.md](#readme)
+- [LICENSE](#license)
+
+<a name="#readme"></a>
 
 ### README.md
 
@@ -105,6 +150,8 @@ This will create 2 files: README.md and LICENSE
 
 this is my API
 ```
+
+<a name="#license"></a>
 
 ### LICENSE
 
@@ -135,6 +182,28 @@ SOFTWARE.
 <a name="usage"></a>
 
 # Usage
+
+- [Command-Line](#usage-cli)
+- [JavaScript (Node.js)](#usage-js)
+
+## Command-Line
+
+```
+crystal [command]
+
+Commands:
+
+  build             build project
+  config            get project's Crystal Config
+  help              get help
+  init              initialize project
+  install <module>  install module
+  run               run project
+  search <module>   search for modules
+  update            update project's modules
+```
+
+## JavaScript (Node.js)
 
 - [Load Autocode](#load-autocode)
 - [Create Project](#create-project)

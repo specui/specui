@@ -84,7 +84,7 @@ autocode = (config) ->
   
   # invalid config
   if this.config == false
-    throw new Error "Unable to load config for (#{path})."
+    throw new Error "Unable to load config for (#{this.path})."
   
   if !this.config.host
     this.config.host = 'github.com'

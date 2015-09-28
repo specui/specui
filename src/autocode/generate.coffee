@@ -364,7 +364,7 @@ loadOutputs = (outputs, imports, config) ->
 		engine = output.engine or generator.engine
 		if typeof(engine) == 'string'
 			if !imports[engine] or !imports[engine].engine
-				throw new Error "Engine was not imported: #{engine}"
+				throw new Error "Engine was not imported (#{engine}) at path #{config.path}"
 			engine = imports[engine].engine
 
 		# get helpers

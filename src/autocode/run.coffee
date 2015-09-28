@@ -9,12 +9,18 @@ module.exports = (opts) ->
 	if !this.config.scripts or !this.config.scripts.run
 		return 'Nothing to run.'
 	
+	console.log "\nRUN:".bold
+	
 	scripts = this.config.scripts
 	
 	i = 0
 	runCmd = () ->
 		if !scripts.run[i]
-			return 'Done.'
+			console.log "\nDone!"
+			process.kill 0
+			return
+		
+		console.log '- ' + scripts.run[i]
 		
 		# get run cmd/arg
 		run = scripts.run[i]
@@ -29,9 +35,15 @@ module.exports = (opts) ->
 		proc = spawn cmd, arg
 		
 		# handle process events
+		proc.stderr.on 'data', (data) ->
+			console.log data.toString().red
+		proc.stdout.on 'error', (data) ->
+			console.log data.toString()
 		proc.stdout.on 'data', (data) ->
 			console.log data.toString()
-		proc.on 'exit', (err) ->
+		#proc.on 'exit', (err) ->
+		#	runCmd()
+		proc.on 'close', (err) ->
 			runCmd()
 		proc.on 'error', (err) ->
 			console.log('run error', err)

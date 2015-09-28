@@ -52,7 +52,7 @@ module.exports = (opts) ->
 			opts.complete()
 		return
 	
-	console.log "\nRunning build scripts...".bold
+	console.log "\nBUILD:".bold
 	
 	opts = this.opts
 	scripts = this.config.scripts
@@ -60,10 +60,12 @@ module.exports = (opts) ->
 	i = 0
 	buildCmd = () ->
 		if !scripts.build[i]
-			console.log "Done!\n".bold
+			console.log "\nDone!\n".bold
 			if opts and opts.complete
 				opts.complete()
 			return
+		
+		console.log '- ' + scripts.build[i]
 		
 		# get build cmd/arg
 		build = scripts.build[i]

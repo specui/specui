@@ -1,0 +1,46 @@
+build:
+  #opts: '[project]'
+  desc: build project from current directory or specified project's directory
+#cache:
+#  opts: '<key> [value]'
+#  desc: 'read/write value from/to cache'
+#clean:
+#  opts: '[dir]'
+#  desc: clean project from current or specified directory
+config:
+  #opts: '[project]'
+  desc: get project's Autocode Config
+help:
+  desc: get help
+#info:
+#  opts: '<project>'
+#  desc: get info about a project
+init:
+  #opts: '[dir]'
+  desc: initialize a Autocode project
+install:
+  opts: '<module>'
+  desc: install module
+#link:
+#  opts: '<project>@<version> [src]'
+#  desc: link a project
+#publish:
+#  opts: '[dir]'
+#  desc: publish project from current or specified directory
+run:
+  #opts: '[dir]'
+  desc: run project from current or specified directory
+search:
+  opts: '<module>'
+  desc: search for modules
+#signup:
+#  desc: signup for crystal
+#spec:
+#  desc: get code specification by name
+#test:
+#  desc: test project
+update:
+  desc: update project's modules
+#version:
+#  opts: '<version>'
+#  desc: update project's version

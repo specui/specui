@@ -1,5 +1,5 @@
 {
-	"description": "code generator for every language, framework and platform",
+	"description": "code automation for every language, framework and platform",
 	"main": "lib/autocode.js",
 	"name": "autocode"
 }

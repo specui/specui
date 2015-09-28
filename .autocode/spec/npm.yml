@@ -5,12 +5,14 @@ author: $author
 repository:
   type: git
   url: $repository
+bin:
+  autocode: "./bin/autocode"
 main: lib/autocode.js
 dependencies:
   bluebird: ~2.9.34
   change-case: latest
   coffee-script: latest
-  colors: ~1.1.0
+  colors: ~1.1.2
   cross-spawn: ~2.0.0
   cson-parser: 1.0.x
   debug: latest
@@ -25,14 +27,14 @@ dependencies:
   gunzip-maybe: ~1.2.1
   gzip-js: latest
   handlebars: latest
-  js-yaml: latest
+  js-yaml: ~3.3.1
   marked: "~0.3.3"
   merge: 1.2.0
   mkdirp: latest
-  minimist: latest
+  minimist: ~1.1.3
   mustache: latest
   prompt: 0.2.14
-  pad: latest
+  pad: ~0.1.0
   pluralize: latest
   request: latest
   season: latest
@@ -44,7 +46,7 @@ dependencies:
   tar-fs: ~1.7.0
   untar.js: ~0.3.0
   xml-to-jsobj: latest
-  user-home: latest
+  user-home: ~2.0.0
 devDependencies:
   mocha: latest
   should: latest
