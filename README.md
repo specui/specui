@@ -1,4 +1,4 @@
-# Autocode 0.19.6
+# Autocode 0.20.0
 
 [![Autocode](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
 
