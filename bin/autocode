@@ -4,7 +4,7 @@
 require('coffee-script').register();
 
 // load packages
-var ascii = require('./cli/ascii')(),
+var ascii = require('../cli/ascii')(),
 	autocode = require('../lib/autocode'),
 	bluebird = require('bluebird'),
 	colors = require('colors'),
@@ -22,7 +22,7 @@ process.on('uncaughtException', function (e) {
 });
 
 // get commands
-var commands = yaml.safeLoad(fs.readFileSync(__dirname + '/cli/cmd.yml'));
+var commands = yaml.safeLoad(fs.readFileSync(__dirname + '/../cli/cmd.yml'));
 
 // get project
 var project = new autocode();
@@ -85,7 +85,7 @@ bluebird.try(function() {
 			break;
 			
 		case 'help':
-			var output = require(__dirname + '/cli/help')(commands);
+			var output = require(__dirname + '/../cli/help')(commands);
 			console.log(output);
 			break;
 		
