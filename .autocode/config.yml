@@ -39,10 +39,10 @@ outputs:
       name: $name
       description: $description
       version: $version
-      logo:
-        image: http://crystal.sh/images/crystal.svg
-        text: $name
-        url: http://crystal.sh
+      #logo:
+      #  image: http://crystal.sh/images/crystal.svg
+      #  text: $name
+      #  url: http://crystal.sh
       showTableOfContents: true
       sections:
         - name: install
