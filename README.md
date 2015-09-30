@@ -1,7 +1,5 @@
 # Autocode 0.20.3
 
-[![Autocode](http://crystal.sh/images/crystal.svg)](http://crystal.sh)
-
 code automation for every language, framework and platform
 
 # Table of Contents
