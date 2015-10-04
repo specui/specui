@@ -1,4 +1,4 @@
-# Autocode 0.20.4
+# Autocode 0.21.0
 
 [![Autocode](https://cdn.rawgit.com/crystal/autocode/master/.autocode/icon.svg)](http://crystal.sh)
 
