@@ -1,5 +1,7 @@
 # Autocode 0.20.4
 
+[![Autocode](https://cdn.rawgit.com/crystal/autocode/master/.autocode/icon.svg)](http://crystal.sh)
+
 code automation for every language, framework and platform
 
 # Table of Contents

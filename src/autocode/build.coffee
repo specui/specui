@@ -47,7 +47,7 @@ module.exports = (opts) ->
 			throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build or opts.skipScripts
-		console.log 'Done.'
+		console.log "\nDone."
 		if opts and opts.complete
 			opts.complete()
 		return

@@ -15,6 +15,7 @@ mkdirp       = require 'mkdirp'
 mustache     = require 'mustache'
 path         = require 'path'
 readdir      = require 'fs-readdir-recursive'
+request      = require 'sync-request'
 season       = require 'season'
 semver       = require 'semver'
 skeemas      = require 'skeemas'
@@ -295,14 +296,26 @@ loadOutputs = (outputs, imports, config) ->
 	if !imports
 		throw new Error 'No imports available for output'
 	
+	if !(outputs instanceof Array)
+		outputs = sortObject outputs
+	
 	for output_i of outputs
 		output = outputs[output_i]
+		
+		if !(outputs instanceof Array)
+			if output.filename == true
+				delete output.filename
+			else if output.filename and output.filename.engine and imports[output.filename.engine]
+				output.filename = {
+					engine: imports[output.filename.engine]
+					value: output_i
+				}
+			else if !output.filename
+				output.filename = output_i
 		
 		# validate generator
 		if output.generator and !imports[output.generator]
 			throw new Error "Generator (#{output.generator}) does not exist for output in config (#{config.name})"
-		
-		console.log "\nOutput ##{parseInt(output_i)+1}".bold
 		
 		# load generator from imports
 		generator = imports[output.generator] or {}
@@ -341,8 +354,8 @@ loadOutputs = (outputs, imports, config) ->
 					spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
 			
 			# parse spec variables
-			console.log "Processed spec.".blue
 			if config.debug
+				console.log "Processed spec.".blue
 				console.log "    - Before:".green
 				console.log JSON.stringify spec[i], null, "  "
 			spec = parse spec, config, output_processor
@@ -352,7 +365,8 @@ loadOutputs = (outputs, imports, config) ->
 			
 		# validate spec
 		if generator.schema
-			validate = skeemas.validate spec, generator.schema
+			gen_schema = loadSchemaRefs generator.schema
+			validate = skeemas.validate spec, gen_schema
 			if !validate.valid
 				console.log validate.errors
 				console.log("ERROR: Specification failed validation.")
@@ -434,7 +448,7 @@ loadOutputs = (outputs, imports, config) ->
 					files.push name
 		else
 			files = [generator_filename]
-
+		
 		for i of files
 			file = files[i]
 			
@@ -550,7 +564,9 @@ loadOutputs = (outputs, imports, config) ->
 				mkdirp.sync filename.substr(0, file_last_path)
 			fs.writeFileSync filename, content
 			
-			console.log "Generated file: #{filename}".green
+			console.log "- #{filename}"
+			
+			#console.log "Generated file: #{filename}".green
 			
 			#if generator.outputs
 				#loadOutputs generator.outputs, generator.imports, config
@@ -591,6 +607,39 @@ loadProcessor = (output_processor, generator_processor, imports) ->
 		}]
 	
 	output_processor
+
+loadSchemaRefs = (schema) ->
+	if schema['$ref'] and !!schema['$ref'].match(/^http:\/\//)
+		schema_path = path.join userHome, '.autocode/schema/', schema['$ref'].replace(/(^http:\/\/|#)/g, '') + '.json'
+		
+		if !fs.existsSync schema_path
+			console.log "Loading schema for ref: #{schema['$ref']}"
+			resp = request 'get', schema['$ref']
+			if !fs.existsSync path.dirname(schema_path)
+				mkdirp.sync path.dirname(schema_path)
+			fs.writeFileSync schema_path, resp
+			
+		schema = yaml.safeLoad(fs.readFileSync(schema_path))
+			
+		return schema
+	
+	if schema.properties
+		for property_name of schema.properties
+			#console.log schema.properties[property_name]
+			if schema.properties[property_name].properties
+				schema.properties[property_name] = loadSchemaRefs schema.properties[property_name]
+			else	
+				schema.properties[property_name] = loadSchemaRefs schema.properties[property_name]
+	
+	if schema.definitions
+		for property_name of schema.definitions
+			#console.log schema.definitions[property_name]
+			if schema.definitions[property_name].definitions
+				schema.definitions[property_name] = loadSchemaRefs schema.definitions[property_name]
+			else	
+				schema.definitions[property_name] = loadSchemaRefs schema.definitions[property_name]
+			
+	schema
 
 generate = (opts) ->
 	loaded_modules = {}
@@ -714,6 +763,8 @@ parse = (spec, config, processors) ->
 	for i of spec
 		s = spec[i]
 		
+		if s == undefined
+			continue
 		if typeof(s) == 'object' and !s['$processor']
 			spec[i] = parse(spec[i], config, processors)
 		else if typeof(s) == 'string' && s.substr(0, 1) == '$' && config[s.substr(1)]
