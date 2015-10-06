@@ -36,7 +36,6 @@ outputs:
     
   - generator: readme.ReadmeGenerator
     spec:
-      description: $description
       logo:
         image: https://rawgit.com/crystal/autocode/master/.autocode/logo.svg
         text: $name
