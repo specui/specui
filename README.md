@@ -1,5 +1,5 @@
 
-[![Autocode](https://rawgit.com/crystal/autocode/master/.autocode/icon.svg)](http://crystal.sh)
+[![Autocode](https://rawgit.com/crystal/autocode/master/.autocode/logo.svg)](http://crystal.sh)
 
 code automation for every language, framework and platform
 
