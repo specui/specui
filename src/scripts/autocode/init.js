@@ -100,3 +100,5 @@ autocode.init = function() {
   
   autocode.resize();
 };
+
+$(window).load(autocode.init);

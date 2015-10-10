@@ -117,18 +117,17 @@ outputs:
       items:
         - .DS_Store
         - app/components/
+        - app/lib/
         - node_modules/
   
   - generator: grunt.GruntfileGenerator
     spec:
       loadNpmTasks:
         - grunt-contrib-concat
-        - grunt-contrib-uglify
         - grunt-contrib-watch
       registerTask:
         default:
           - concat
-          - uglify
       config:
         pkg: package.json
         concat:
@@ -136,16 +135,16 @@ outputs:
             separator: ;
           dist:
             src:
-              - app/scripts/**/*.js
-            dest:
-              - app/lib/autocode.js
-        uglify:
-          options:
-            banner: '/*! autocode <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-          dist:
-            files:
-              'dist/<%= pkg.name %>.min.js':
-                - '<%= concat.dist.dest %>'
+              - src/scripts/autocode.js
+              - src/scripts/autocode/*.js
+              - src/scripts/*/**
+            dest: app/lib/autocode.js
+        watch:
+          files:
+            - src/scripts/autocode.js
+            - src/scripts/*/**
+          tasks:
+            - concat
   
   - generator: npm.PackageGenerator
     spec: npm.yml

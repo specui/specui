@@ -7,26 +7,19 @@ module.exports = function(grunt) {
                 "separator": ";"
             },
             "dist": {
-                "src": ["./app/scripts/**/*.js"],
-                "dest": ["./app/lib/autocode.js"]
+                "src": ["src/scripts/autocode.js", "src/scripts/autocode/*.js", "src/scripts/*/**"],
+                "dest": "app/lib/autocode.js"
             }
         },
-        "uglify": {
-            "options": {
-                "banner": "/*! autocode <%= grunt.template.today(\"dd-mm-yyyy\") %> */\\n"
-            },
-            "dist": {
-                "files": {
-                    "dist/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]
-                }
-            }
+        "watch": {
+            "files": ["src/scripts/autocode.js", "src/scripts/*/**"],
+            "tasks": ["concat"]
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['concat', 'uglify']);
+    grunt.registerTask('default', ['concat']);
 
 };

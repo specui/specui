@@ -33,3 +33,5 @@ autocode.resize = function() {
     top: ($(window).height() - welcome.outerHeight()) / 2
   });
 };
+
+$(window).load(autocode.resize);

@@ -1,3 +1,4 @@
 .DS_Store
 app/components/
+app/lib/
 node_modules/
