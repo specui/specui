@@ -155,10 +155,9 @@
             <aside id="content-left">
               <div class="table">
                 <a class="file" href="#">
-                  <span class="icon generator-icon"></span>
+                  <span class="icon add-icon"></span>
                   <span class="info">
-                    <span class="name">ConfigGenerator</span>
-                    <span class="generator">Generator</span>
+                    <span class="name">Create Export</span>
                   </span>
                 </a>
                 <a class="file" href="#">
@@ -177,12 +176,31 @@
             </section>
             <aside class="content-right">
               <form>
-                <label>Description</label>
-                <input spellcheck="false" type="text" />
-                <label>Engine</label>
-                <input spellcheck="false" type="text" />
-                <label>Filename</label>
-                <input spellcheck="false" type="text" />
+                <div class="type-field">
+                  <label>Type</label>
+                  <input name="type" spellcheck="false" type="text" />
+                </div>
+                <div class="name-field">
+                  <label>Name</label>
+                  <input name="name" spellcheck="false" type="text" />
+                </div>
+                <div class="description-field">
+                  <label>Description</label>
+                  <input name="description" spellcheck="false" type="text" />
+                </div>
+                <div class="engine-field">
+                  <label>Engine</label>
+                  <input name="engine" spellcheck="false" type="text" />
+                </div>
+                <div class="filename-field">
+                  <label>Filename</label>
+                  <input name="filename" spellcheck="false" type="text" />
+                </div>
+                <div class="schema-field">
+                  <label>Schema</label>
+                  <input name="schema" spellcheck="false" type="text" />
+                </div>
+                <a class="button" href="exports/export/save">Save</a>
               </form>
             </aside>
           </div>

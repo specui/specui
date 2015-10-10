@@ -135,7 +135,8 @@ textarea {
   background-image: url(images/icon/save.svg);
 }
 
-.icon.schema-icon {
+.icon.schema-icon,
+.icon.schematic-icon {
   background-image: url(images/icon/schema.svg);
 }
 
