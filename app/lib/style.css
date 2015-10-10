@@ -344,6 +344,27 @@ textarea {
   vertical-align: middle;
 }
 
+#outputs-content-container {
+  display: none;
+}
+
+#outputs-init {
+  position: fixed;
+  text-align: center;
+}
+
+#outputs-init .button {
+  margin-top: 20px;
+}
+
+#outputs-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
 #overlay {
   background-color: #000;
   left: 0px;

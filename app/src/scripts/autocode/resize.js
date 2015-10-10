@@ -34,6 +34,12 @@ autocode.resize = function() {
     top: (window_height - loader.outerHeight()) / 2
   });
   
+  var outputs_init = $('#outputs-init');
+  outputs_init.css({
+    left: (window_width - outputs_init.outerWidth()) / 2,
+    top: ($(window).height() - outputs_init.outerHeight()) / 2
+  });
+  
   var overlay = $('#overlay');
   overlay.css({
     height: window_height,

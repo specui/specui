@@ -1,0 +1,20 @@
+{
+  "action": "/outputs",
+  "method": "post",
+  "fields": {
+    "generator": {
+      "label": "Generator",
+      "type": "text"
+    },
+    "filename": {
+      "label": "Filename",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Add Output",
+      "type": "submit"
+    }
+  }
+}
