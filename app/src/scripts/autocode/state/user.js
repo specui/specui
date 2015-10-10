@@ -1,13 +1,29 @@
 autocode.state['user'] = function() {
   if (autocode.user.isLoggedIn) {
     autocode.popover.toggle({
-      content:
-        '<div class="table">'
-          + '<a href="user/profile"><span class="name">Edit Profile</span></a>'
-          + '<a href="user/settings"><span class="name">Settings</span></a>'
-          + '<a href="user/logout"><span class="name">Logout</span></a>'
-        + '</div>',
+      rows: [
+        {
+          state: 'user/profile',
+          text: 'Edit Profile'
+        },
+        {
+          state: 'user/settings',
+          text: 'Settings'
+        },
+        {
+          icon: 'login-icon',
+          text: 'View on GitHub',
+          state: 'github/user',
+          style: 'divider'
+        },
+        {
+          state: 'user/logout',
+          style: 'divider',
+          text: 'Logout'
+        }
+      ],
       right: 0,
+      style: 'table',
       top: $('header').outerHeight()
     });
   } else {

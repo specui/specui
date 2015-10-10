@@ -7,5 +7,9 @@ autocode.api.config = {
   get: function(opts) {
     opts = autocode.api.config.init(opts);
     return autocode.api.get(opts);
+  },
+  post: function(opts) {
+    opts = autocode.api.config.init(opts);
+    return autocode.api.post(opts);
   }
 };

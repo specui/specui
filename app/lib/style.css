@@ -37,6 +37,11 @@ header {
   text-align: center;
 }
 
+header .text {
+  color: #FFF;
+  padding: 0px 5px;
+}
+
 input {
   border: 2px #999 solid;
   box-sizing: border-box;
@@ -312,18 +317,30 @@ textarea {
   background-image: url(images/logo.svg);
   background-position: center center;
   background-repeat: no-repeat;
-  display: inline-block;
   height: 32px;
+  left: 50%;
+  margin-left: -91px;
+  position: absolute;
+  top: 10px;
   width: 182px;
 }
 
 #menu {
+  float: left;
+}
+
+#menu .icon {
   background-image: url(images/menu.svg);
   background-position: center center;
   background-repeat: no-repeat;
-  float: left;
+  display: inline-block;
   height: 32px;
   width: 32px;
+}
+
+#menu .icon,
+#menu .text {
+  vertical-align: middle;
 }
 
 #overlay {
@@ -418,15 +435,24 @@ textarea {
 }
 
 #user {
+  float: right;
+}
+
+#user .icon {
   background-image: url(images/user.svg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 32px 32px;
   border-radius: 50%;
   border: 2px #FFF solid;
-  float: right;
+  display: inline-block;
   height: 32px;
   width: 32px;
+}
+
+#user .icon,
+#user .text {
+  vertical-align: middle;
 }
 
 #welcome {

@@ -19,10 +19,10 @@ autocode.state['imports'] = function() {
     
     autocode.initState()
     
-    $('#imports-content-init').hide();
+    $('#imports-init').hide();
     $('#imports-content-container').show();
   } else {
-    $('#imports-content-init').show();
+    $('#imports-init').show();
     $('#imports-content-container').hide();
   }
   

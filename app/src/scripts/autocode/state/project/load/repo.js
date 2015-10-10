@@ -1,8 +1,12 @@
 autocode.state['project/load/repo'] = function(opts) {
+  $('#app, #init').fadeOut();
+  
   $('#popup, #overlay').fadeOut(function() {
     autocode.popup.close();
     
     autocode.repo = opts.name;
+    
+    $('#menu .text').text(opts.name);
     
     autocode.api.config.get({
       data: {
@@ -17,6 +21,8 @@ autocode.state['project/load/repo'] = function(opts) {
         autocode.project = jsyaml.safeLoad(data.config);
         
         $('#welcome').fadeOut(function() {
+          autocode.state['overview']();
+          
           $('#app').fadeIn();
         });
       }

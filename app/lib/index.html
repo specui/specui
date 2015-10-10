@@ -19,8 +19,14 @@
   </div>
   <div id="container">
     <header>
-      <a href="menu" id="menu"></a>
-      <a href="user" id="user"></a>
+      <a href="menu" id="menu">
+        <span class="icon"></span>
+        <span class="text">Choose a Project</span>
+      </a>
+      <a href="user" id="user">
+        <span class="text">Login with GitHub</span>
+        <span class="icon"></span>
+      </a>
       <div id="logo"></div>
     </header>
     <div id="init">
@@ -87,6 +93,7 @@
                 <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
                 <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
                 <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
+                <a class="button" href="overview/author/save">Save</a>
               </form>
             </div>
             <div class="content" id="overview-general-content">
@@ -95,6 +102,7 @@
                 <input name="name" spellcheck="false" type="text" />
                 <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
                 <textarea name="description" spellcheck="false"></textarea>
+                <a class="button" href="overview/general/save">Save</a>
               </form>
             </div>
           </section>

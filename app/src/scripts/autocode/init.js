@@ -28,7 +28,8 @@ autocode.init = function() {
           autocode.user = data;
           autocode.user.isLoggedIn = true;
           
-          $('#user').css('background-image', 'url(' + data.avatar + ')');
+          $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
+          $('#user .text').text(data.username);
         }
       });
       
@@ -98,8 +99,6 @@ autocode.init = function() {
       });
     }
   });
-  
-  autocode.state['overview']();
   
   autocode.resize();
 };
