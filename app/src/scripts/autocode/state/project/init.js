@@ -1,10 +1,13 @@
-autocode.state['project/load'] = function() {
+autocode.state['project/init'] = function() {
   autocode.popup.open({
-    title: 'Loading...'
+    title: 'Initializing Autocode...'
   });
   autocode.popover.close();
   
-  autocode.api.repos.get({
+  autocode.api.init.post({
+    data: {
+      repo: autocode.repo
+    },
     success: function(data) {
       var rows = [];
       

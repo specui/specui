@@ -20,11 +20,15 @@ var autocode = {
       return true;
     }
     
+    var query = href.split('?');
+    href = query[0];
+    query = autocode.query.search(query[1]);
+    
     e.preventDefault();
     
     var action = autocode.state[href];
     if (action) {
-      action();
+      action(query);
       autocode.initState();
     }
     

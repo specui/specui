@@ -1,5 +1,5 @@
 autocode.api.config = {
-  uri: 'config?repo=crystal/autocode&provider=1',
+  uri: 'config?provider=1',
   init: function(opts) {
     opts.uri = autocode.api.config.uri;
     return opts;

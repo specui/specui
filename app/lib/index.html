@@ -8,6 +8,7 @@
   <script src="components/jquery/dist/jquery.min.js"></script>
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
   <script src="components/js-yaml/dist/js-yaml.min.js"></script>
+  <script src="components/marked/marked.min.js"></script>
   <script src="scripts/autocode.js"></script>
   <title>Autocode</title>
 </head>
@@ -22,6 +23,15 @@
       <a href="user" id="user"></a>
       <div id="logo"></div>
     </header>
+    <div id="init">
+      <div class="title">
+        Initilize Autocode
+      </div>
+      <div>
+        Autocode has not been initialized for this repo. Would you like to do that now?
+      </div>
+      <a class="button" href="project/load">No, Load Another Project</a> <a class="button" href="project/init">Yes, Initialize Autocode</a>
+    </div>
     <div id="welcome">
       <img class="splash" src="images/splash.svg" />
       <div class="options">
@@ -70,117 +80,104 @@
             <div class="content" id="overview-author-content">
               <form>
                 <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="Chris Tate" />
+                <input name="name" spellcheck="false" type="text" />
                 <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="chris@crystal.sh" />
+                <input name="email" spellcheck="false" type="text" />
                 <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="https://crystal.sh" />
+                <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
                 <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
+                <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
               </form>
             </div>
             <div class="content" id="overview-general-content">
               <form>
-                <!--
-                <label>Generator</label>
-                <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-                <label>Filename</label>
-                <input spellcheck="false" type="text" value="bower.json" />
-                -->
                 <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="Bower" />
+                <input name="name" spellcheck="false" type="text" />
                 <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <textarea spellcheck="false">[Bower](https://bower.io) generator/schema for `bower.json` and `.bowerrc`.</textarea>
-                <!--
-                <label>Author <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="Chris Tate <chris@crystal.sh> (https://crystal.sh)" />
-                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
-                <a href="#" style="float: right; padding: 10px;">Add</a>
-                -->
+                <textarea name="description" spellcheck="false"></textarea>
               </form>
             </div>
           </section>
         </div>
         <div class="content" id="imports-content">
-          <aside class="content-left">
-            <div class="table">
-              <a class="file" href="#">
-                <span class="icon add-icon"></span>
-                <span class="info">
-                  <span class="name">Import Module</span>
-                </span>
-              </a>
-              <a class="file" href="#">
-                <span class="icon file-bower"></span>
-                <span class="info">
-                  <span class="name">crystal/bower</span>
-                  <span class="generator">v0.3.2</span>
-                </span>
-              </a>
-              <a class="file" href="#">
-                <span class="icon file-js"></span>
-                <span class="info">
-                  <span class="name">crystal/javascript</span>
-                  <span class="generator">v0.2.4</span>
-                </span>
-              </a>
+          <div id="imports-init">
+            <div class="title">
+              Import Modules
             </div>
-          </aside>
-          <section class="content-center">
-            <form>
-              <!--
-              <label>Generator</label>
-              <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-              <label>Filename</label>
-              <input spellcheck="false" type="text" value="bower.json" />
-              -->
-              <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="crystal/bower" />
-              <label>Version <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="~0.3.0" />
-            </form>
-          </section>
+            <div>
+              Importing modules extends the functionality of your Autocode project.
+            </div>
+            <a class="button" href="imports/import">Import Module</a>
+          </div>
+          <div id="imports-content-container">
+            <aside class="content-left">
+              <div class="table">
+                <a class="file" href="imports/import">
+                  <span class="icon add-icon"></span>
+                  <span class="info">
+                    <span class="name">Import Module</span>
+                  </span>
+                </a>
+              </div>
+            </aside>
+            <section class="content-center">
+              <div id="imports-content-readme"></div>
+            </section>
+            <aside class="content-right">
+              <form>
+                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input name="name" spellcheck="false" type="text" />
+                <label>Version <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input name="version" spellcheck="false" type="text" />
+              </form>
+            </aside>
+          </div>
         </div>
         <div class="content" id="exports-content">
-          <aside id="content-left">
-            <div class="table">
-              <a class="file" href="#">
-                <span class="icon generator-icon"></span>
-                <span class="info">
-                  <span class="name">ConfigGenerator</span>
-                  <span class="generator">Generator</span>
-                </span>
-              </a>
-              <a class="file" href="#">
-                <span class="icon schema-icon"></span>
-                <span class="info">
-                  <span class="name">ConfigSchema</span>
-                  <span class="generator">Schema</span>
-                </span>
-              </a>
+          <div id="exports-init">
+            <div class="title">
+              Exports
             </div>
-          </aside>
-          <section class="content-center">
-            <form>
-              <!--
-              <label>Generator</label>
-              <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-              <label>Filename</label>
-              <input spellcheck="false" type="text" value="bower.json" />
-              -->
-              <textarea></textarea>
-            </form>
-          </section>
-          <aside class="content-right">
-            <form>
-              <label>Description</label>
-              <input spellcheck="false" type="text" placeholder="Generates a `bower.json` file." />
-              <label>Engine</label>
-              <input spellcheck="false" type="text" />
-              <label>Filename</label>
-              <input spellcheck="false" type="text" value="bower.json" />
-          </aside>
+            <div>
+              Exports give other projects/modules extended functionality.
+            </div>
+            <a class="button" href="imports/import">Create Export</a>
+          </div>
+          <div id="exports-content-container">
+            <aside id="content-left">
+              <div class="table">
+                <a class="file" href="#">
+                  <span class="icon generator-icon"></span>
+                  <span class="info">
+                    <span class="name">ConfigGenerator</span>
+                    <span class="generator">Generator</span>
+                  </span>
+                </a>
+                <a class="file" href="#">
+                  <span class="icon schema-icon"></span>
+                  <span class="info">
+                    <span class="name">ConfigSchema</span>
+                    <span class="generator">Schema</span>
+                  </span>
+                </a>
+              </div>
+            </aside>
+            <section class="content-center">
+              <form>
+                <textarea></textarea>
+              </form>
+            </section>
+            <aside class="content-right">
+              <form>
+                <label>Description</label>
+                <input spellcheck="false" type="text" />
+                <label>Engine</label>
+                <input spellcheck="false" type="text" />
+                <label>Filename</label>
+                <input spellcheck="false" type="text" />
+              </form>
+            </aside>
+          </div>
         </div>
         <div class="content" id="outputs-content">
           <aside class="content-left">

@@ -17,6 +17,18 @@ body {
   margin: 0px;
 }
 
+button, .button {
+  background-color: #185F96;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 15px;
+}
+
 header {
   background-color: #333;
   color: #FFF;
@@ -35,14 +47,14 @@ input {
 
 label {
   display: block;
-  padding: 10px 5px;
+  padding: 10px 0px;
 }
 
 textarea {
   border: 2px #999 solid;
   box-sizing: border-box;
   font-size: 16px;
-  height: 150px;
+  height: 100px;
   padding: 5px;
   width: 100%;
 }
@@ -213,6 +225,77 @@ textarea {
   display: block;
 }
 
+#content .content-center {
+  overflow: auto;
+}
+
+#content .content-center pre {
+  background-color: #FFF;
+  border-radius: 5px;
+  display: block;
+  padding: 10px;
+}
+
+#exports-content-container {
+  display: none;
+}
+
+#exports-init {
+  position: fixed;
+  text-align: center;
+}
+
+#exports-init .button {
+  margin-top: 20px;
+}
+
+#exports-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
+#imports-content-container {
+  display: none;
+}
+
+#imports-init {
+  position: fixed;
+  text-align: center;
+}
+
+#imports-init .button {
+  margin-top: 20px;
+}
+
+#imports-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
+#init {
+  display: none;
+  position: fixed;
+  text-align: center;
+}
+
+#init .button {
+  margin-top: 20px;
+}
+
+#init .title {
+  border-bottom: 1px #EEE solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
 #loader {
   position: fixed;
 }
@@ -253,12 +336,41 @@ textarea {
 
 #popup {
   background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #999;
+  min-width: 400px;
   position: fixed;
   padding: 20px;
 }
 
+#popup button {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#popup .content {
+  max-height: 200px;
+  overflow: auto;
+}
+
+#popup .table a {
+  display: table-row;
+}
+
+#popup .table a span {
+  display: table-cell;
+  padding: 10px;
+}
+
+#popup .table a span.icon {
+  background-size: 24px 24px;
+  height: 24px;
+  width: 24px;
+}
+
 #popup .title {
   font-size: 24px;
+  padding-bottom: 10px;
 }
 
 #popover {

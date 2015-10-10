@@ -107,10 +107,11 @@ outputs:
       description: $description
       main: lib/autocode.js
       dependencies:
-        formulator: 0.6.1
+        formulator: 0.6.2
         jquery: 2.1.4
         jquery-cookie: 1.4.1
         js-yaml: 3.4.2
+        marked: 0.3.5
   
   - generator: git.GitignoreGenerator
     spec:

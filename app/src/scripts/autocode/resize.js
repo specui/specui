@@ -6,7 +6,26 @@ autocode.resize = function() {
     height: window_height - $('header').outerHeight() - $('#tabs').outerHeight()
   });
   $('.content-center').css({
+    height: window_height - $('header').outerHeight() - $('#tabs').outerHeight(),
     width: window_width - $('.content-left').outerWidth() - $('.content-right').outerWidth()
+  });
+  
+  var exports_init = $('#exports-init');
+  exports_init.css({
+    left: (window_width - exports_init.outerWidth()) / 2,
+    top: ($(window).height() - exports_init.outerHeight()) / 2
+  });
+  
+  var imports_init = $('#imports-init');
+  imports_init.css({
+    left: (window_width - imports_init.outerWidth()) / 2,
+    top: ($(window).height() - imports_init.outerHeight()) / 2
+  });
+  
+  var init = $('#init');
+  init.css({
+    left: (window_width - init.outerWidth()) / 2,
+    top: ($(window).height() - init.outerHeight()) / 2
   });
   
   var loader = $('#loader');
@@ -34,4 +53,4 @@ autocode.resize = function() {
   });
 };
 
-$(window).load(autocode.resize);
+$(window).resize(autocode.resize);

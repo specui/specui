@@ -2,6 +2,10 @@
   "action": "/projects",
   "method": "post",
   "fields": {
+    "repo": {
+      "label": "GitHub Repo",
+      "type": "text"
+    },
     "name": {
       "label": "Name",
       "type": "text"

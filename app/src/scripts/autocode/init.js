@@ -10,6 +10,9 @@ autocode.init = function() {
   });
   
   autocode.api.config.get({
+    data: {
+      repo: 'crystal/autocode'
+    },
     error: function(data) {
       console.log(data);
       alert('Unable to load Autocode. Please contact support.');
