@@ -7,12 +7,12 @@ module.exports = function(grunt) {
                 "separator": ";"
             },
             "dist": {
-                "src": ["src/scripts/autocode.js", "src/scripts/autocode/*.js", "src/scripts/*/**"],
-                "dest": "app/lib/autocode.js"
+                "src": ["app/src/scripts/autocode.js", "app/src/scripts/autocode/*.js", "app/src/scripts/*/**"],
+                "dest": "app/lib/scripts/autocode.js"
             }
         },
         "watch": {
-            "files": ["src/scripts/autocode.js", "src/scripts/*/**"],
+            "files": ["app/src/scripts/autocode.js", "app/src/scripts/*/**"],
             "tasks": ["concat"]
         }
     });

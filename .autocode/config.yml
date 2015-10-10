@@ -99,7 +99,7 @@ exports:
 outputs:
   - generator: bower.ConfigGenerator
     spec:
-      directory: app/components
+      directory: app/lib/components
   
   - generator: bower.PackageGenerator
     spec:
@@ -116,8 +116,8 @@ outputs:
     spec:
       items:
         - .DS_Store
-        - app/components/
-        - app/lib/
+        - app/lib/components/
+        - app/lib/scripts
         - node_modules/
   
   - generator: grunt.GruntfileGenerator
@@ -135,14 +135,14 @@ outputs:
             separator: ;
           dist:
             src:
-              - src/scripts/autocode.js
-              - src/scripts/autocode/*.js
-              - src/scripts/*/**
-            dest: app/lib/autocode.js
+              - app/src/scripts/autocode.js
+              - app/src/scripts/autocode/*.js
+              - app/src/scripts/*/**
+            dest: app/lib/scripts/autocode.js
         watch:
           files:
-            - src/scripts/autocode.js
-            - src/scripts/*/**
+            - app/src/scripts/autocode.js
+            - app/src/scripts/*/**
           tasks:
             - concat
   
