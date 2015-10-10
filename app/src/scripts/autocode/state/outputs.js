@@ -3,15 +3,21 @@ autocode.state['outputs'] = function() {
     $('#outputs-content-container .table a').slice(1).remove();
     
     var outputed;
-    for (var output_name in autocode.project.outputs) {
-      outputed = autocode.project.outputs[output_name];
+    for (var output_i in autocode.project.outputs) {
+      outputed = autocode.project.outputs[output_i];
+      
+      if (autocode.project.outputs instanceof Array) {
+        output_name = outputed.filename;
+      } else {
+        output_name = output_i;
+      }
       
       $('#outputs-content-container .table').append(
-        '<a class="file" href="outputs/output?output=' + output_name + '">'
+        '<a class="file" href="outputs/output?output=' + output_i + '">'
           + '<span class="icon ' + outputed.type + '-icon"></span>'
           + '<span class="info">'
-            + '<span class="name">' + output_name + '</span>'
-            + '<span class="generator">' + outputed.type + '</span>'
+            + '<span class="name">' + autocode.imports['crystal/' + outputed.generator.split('.')[0]].exports[outputed.generator.split('.')[1]].filename + '</span>'
+            + '<span class="generator">' + outputed.generator.split('.')[1] + '</span>'
           + '</span>'
         + '</a>'
       );

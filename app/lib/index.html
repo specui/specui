@@ -230,12 +230,9 @@
             </aside>
             <section class="content-center">
               <form>
+                <label>Spec <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <textarea name="spec" spellcheck="false"></textarea>
                 <!--
-                <label>Generator</label>
-                <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-                <label>Filename</label>
-                <input spellcheck="false" type="text" value="bower.json" />
-                -->
                 <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
                 <input spellcheck="false" type="text" value="my-app" />
                 <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
@@ -252,24 +249,17 @@
                 <input spellcheck="false" type="text" value="latest" style="width: 50%" />
                 <input spellcheck="false" type="text" placeholder="Name" style="width: 49%" />
                 <input spellcheck="false" type="text" placeholder="Version" style="width: 50%" />
+              -->
               </form>
             </section>
             <aside class="content-right">
               <form>
                 <label>Generator</label>
-                <input spellcheck="false" type="text" value="bower.PackageGenerator" />
+                <input name="generator" placeholder="None" spellcheck="false" type="text" />
                 <label>Filename</label>
-                <input spellcheck="false" type="text" placeholder="bower.json" />
+                <input name="filename" spellcheck="false" type="text" />
                 <label>Path</label>
-                <input spellcheck="false" type="text" />
-                <label>Helpers</label>
-                None
-                <label>Processors</label>
-                None
-                <label>Injectors</label>
-                None
-                <label>Iterator</label>
-                False
+                <input name="path" placeholder="Project Root" spellcheck="false" type="text" />
               </form>
             </aside>
           </div>

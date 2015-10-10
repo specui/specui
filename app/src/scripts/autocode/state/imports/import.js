@@ -8,7 +8,7 @@ autocode.state['imports/import'] = function() {
       var rows = [];
       for (var i = 0; i < modules.length; i++) {
         rows.push({
-          icon: 'login-icon',
+          icon: 'https://cdn.rawgit.com/' + modules[i].name + '/master/.autocode/icon.svg',
           state: 'imports/add?repo=' + modules[i].name,
           text: modules[i].name
         });

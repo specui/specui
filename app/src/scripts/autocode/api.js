@@ -6,6 +6,7 @@ autocode.api = {
     var ajax = {
       method: opts.method,
       url: opts.url,
+      complete: opts.complete,
       error: opts.error,
       success: opts.success,
       xhrFields: {

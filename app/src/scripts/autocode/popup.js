@@ -27,7 +27,7 @@ autocode.popup = {
           opts.content = '<div class="table">';
           for (var row_i = 0; row_i < opts.rows.length; row_i++) {
             opts.content += '<a href="' + opts.rows[row_i].state + '">'
-                + '<span class="icon ' + opts.rows[row_i].icon + '"' + (opts.rows[row_i].style == 'divider' ? ' style="border-top: 1px #CCC solid"' : '') + '></span>'
+                + '<span class="icon' + (!opts.rows[row_i].icon.match(/^http/) ? ' ' + opts.rows[row_i].icon : '') + '" style="' + (!!opts.rows[row_i].icon.match(/^http/) ? 'background-image: url(' + opts.rows[row_i].icon + ');' : '') + (opts.rows[row_i].style == 'divider' ? 'border-top: 1px #CCC solid' : '') + '"></span>'
                 + '<span class="text"' + (opts.rows[row_i].style == 'divider' ? ' style="border-top: 1px #CCC solid"' : '') + '>' + opts.rows[row_i].text + '</span>'
               + '</a>';
           }

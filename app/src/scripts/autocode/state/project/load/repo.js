@@ -20,10 +20,31 @@ autocode.state['project/load/repo'] = function(opts) {
       success: function(data) {
         autocode.project = jsyaml.safeLoad(data.config);
         
-        $('#welcome').fadeOut(function() {
-          autocode.state['overview']();
-          
-          $('#app').fadeIn();
+        autocode.imports = {};
+        
+        var requests = [];
+        for (var import_name in autocode.project.imports) {
+          requests.push(
+            autocode.api.config.get({
+              data: {
+                repo: import_name
+              },
+              success: function(data) {
+                var imported = this.url.split('?')[1];
+                imported = autocode.query.search(imported);
+                
+                autocode.imports[imported.repo] = jsyaml.safeLoad(data.config);
+              }
+            })
+          );
+        }
+        
+        $.when(requests).done(function() {
+          $('#welcome').fadeOut(function() {
+            autocode.state['overview']();
+            
+            $('#app').fadeIn();
+          });
         });
       }
     });
