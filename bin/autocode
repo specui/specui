@@ -63,7 +63,7 @@ bluebird.try(function() {
 		process.chdir(cwd);
 	}
 	
-	if (command == 'build' || command == 'config' || command == 'run' || command == 'update') {
+	if (command == 'build' || command == 'config' || command == 'run' || command == 'stop' || command == 'update') {
 		project.load(process.cwd());
 	}
 	

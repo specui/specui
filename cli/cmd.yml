@@ -37,6 +37,8 @@ search:
 #  desc: signup for crystal
 #spec:
 #  desc: get code specification by name
+stop:
+  desc: stop project from current directory
 #test:
 #  desc: test project
 update:
