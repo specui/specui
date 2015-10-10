@@ -1,0 +1,20 @@
+{
+  "action": "/projects",
+  "method": "post",
+  "fields": {
+    "name": {
+      "label": "Name",
+      "type": "text"
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Create Project",
+      "type": "submit"
+    }
+  }
+}

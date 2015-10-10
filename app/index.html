@@ -4,15 +4,16 @@
 
 <head>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="components/formulator/src/formulator.js"></script>
   <script src="components/jquery/dist/jquery.min.js"></script>
+  <script src="components/jquery-cookie/jquery.cookie.js"></script>
   <script src="components/js-yaml/dist/js-yaml.min.js"></script>
-  <script src="script.js" type="text/javascript"></script>
+  <script src="lib/autocode.min.js"></script>
   <title>Autocode</title>
 </head>
 
 <body>
   <div id="loader">
-    <img class="splash" src="images/splash.svg" />
     <img class="icon" src="images/loader.svg" />
   </div>
   <div id="container">
@@ -21,46 +22,112 @@
       <a href="user" id="user"></a>
       <div id="logo"></div>
     </header>
-    <nav id="tabs">
-      <a class="tab" href="overview" id="overview-tab">Overview</a>
-      <a class="tab" href="imports" id="imports-tab">Imports</a>
-      <a class="tab" href="exports" id="exports-tab">Exports</a>
-      <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
-    </nav>
-    <div id="content">
-      <div class="content" id="overview-content">
-        <aside class="content-left">
-          <div class="table">
-            <a class="file" href="overview/general">
-              <span class="icon general-icon"></span>
-              <span class="info">
-                <span class="name">General</span>
-                <span class="generator">Name and description</span>
-              </span>
-            </a>
-            <a class="file" href="overview/author">
-              <span class="icon author-icon"></span>
-              <span class="info">
-                <span class="name">Author</span>
-                <span class="generator">Name, email, url and copyright</span>
-              </span>
-            </a>
-          </div>
-        </aside>
-        <section class="content-center">
-          <div class="content" id="overview-author-content">
-            <form>
-              <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="Chris Tate" />
-              <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="chris@crystal.sh" />
-              <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="https://crystal.sh" />
-              <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
-            </form>
-          </div>
-          <div class="content" id="overview-general-content">
+    <div id="welcome">
+      <img class="splash" src="images/splash.svg" />
+      <div class="options">
+        <a class="option" href="project/new">
+          <span class="icon add-icon"></span>
+          <span class="text">New Project</span>
+        </a>
+        <a class="option" href="project/load">
+          <span class="icon load-icon"></span>
+          <span class="text">Load Project</span>
+        </a>
+        <a class="option" href="user/login">
+          <span class="icon login-icon"></span>
+          <span class="text">Login with GitHub</span>
+        </a>
+      </div>
+    </div>
+    <div id="app">
+      <nav id="tabs">
+        <a class="tab" href="overview" id="overview-tab">Overview</a>
+        <a class="tab" href="imports" id="imports-tab">Imports</a>
+        <a class="tab" href="exports" id="exports-tab">Exports</a>
+        <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
+      </nav>
+      <div id="content">
+        <div class="content" id="overview-content">
+          <aside class="content-left">
+            <div class="table">
+              <a class="file" href="overview/general">
+                <span class="icon general-icon"></span>
+                <span class="info">
+                  <span class="name">General</span>
+                  <span class="generator">Name and description</span>
+                </span>
+              </a>
+              <a class="file" href="overview/author">
+                <span class="icon author-icon"></span>
+                <span class="info">
+                  <span class="name">Author</span>
+                  <span class="generator">Name, email, url and copyright</span>
+                </span>
+              </a>
+            </div>
+          </aside>
+          <section class="content-center">
+            <div class="content" id="overview-author-content">
+              <form>
+                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="Chris Tate" />
+                <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="chris@crystal.sh" />
+                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="https://crystal.sh" />
+                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
+              </form>
+            </div>
+            <div class="content" id="overview-general-content">
+              <form>
+                <!--
+                <label>Generator</label>
+                <input spellcheck="false" type="text" value="bower.PackageGenerator" />
+                <label>Filename</label>
+                <input spellcheck="false" type="text" value="bower.json" />
+                -->
+                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="Bower" />
+                <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <textarea spellcheck="false">[Bower](https://bower.io) generator/schema for `bower.json` and `.bowerrc`.</textarea>
+                <!--
+                <label>Author <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="Chris Tate <chris@crystal.sh> (https://crystal.sh)" />
+                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
+                <a href="#" style="float: right; padding: 10px;">Add</a>
+                -->
+              </form>
+            </div>
+          </section>
+        </div>
+        <div class="content" id="imports-content">
+          <aside class="content-left">
+            <div class="table">
+              <a class="file" href="#">
+                <span class="icon add-icon"></span>
+                <span class="info">
+                  <span class="name">Import Module</span>
+                </span>
+              </a>
+              <a class="file" href="#">
+                <span class="icon file-bower"></span>
+                <span class="info">
+                  <span class="name">crystal/bower</span>
+                  <span class="generator">v0.3.2</span>
+                </span>
+              </a>
+              <a class="file" href="#">
+                <span class="icon file-js"></span>
+                <span class="info">
+                  <span class="name">crystal/javascript</span>
+                  <span class="generator">v0.2.4</span>
+                </span>
+              </a>
+            </div>
+          </aside>
+          <section class="content-center">
             <form>
               <!--
               <label>Generator</label>
@@ -69,170 +136,123 @@
               <input spellcheck="false" type="text" value="bower.json" />
               -->
               <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="Bower" />
-              <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <textarea spellcheck="false">[Bower](https://bower.io) generator/schema for `bower.json` and `.bowerrc`.</textarea>
-              <!--
-              <label>Author <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="Chris Tate <chris@crystal.sh> (https://crystal.sh)" />
-              <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-              <input spellcheck="false" type="text" value="2015 Crystal, Inc." />
-              <a href="#" style="float: right; padding: 10px;">Add</a>
-              -->
+              <input spellcheck="false" type="text" value="crystal/bower" />
+              <label>Version <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+              <input spellcheck="false" type="text" value="~0.3.0" />
             </form>
-          </div>
-        </section>
-      </div>
-      <div class="content" id="imports-content">
-        <aside class="content-left">
-          <div class="table">
-            <a class="file" href="#">
-              <span class="icon add-icon"></span>
-              <span class="info">
-                <span class="name">Import Module</span>
-              </span>
-            </a>
-            <a class="file" href="#">
-              <span class="icon file-bower"></span>
-              <span class="info">
-                <span class="name">crystal/bower</span>
-                <span class="generator">v0.3.2</span>
-              </span>
-            </a>
-            <a class="file" href="#">
-              <span class="icon file-js"></span>
-              <span class="info">
-                <span class="name">crystal/javascript</span>
-                <span class="generator">v0.2.4</span>
-              </span>
-            </a>
-          </div>
-        </aside>
-        <section class="content-center">
-          <form>
-            <!--
-            <label>Generator</label>
-            <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-            <label>Filename</label>
-            <input spellcheck="false" type="text" value="bower.json" />
-            -->
-            <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-            <input spellcheck="false" type="text" value="crystal/bower" />
-            <label>Version <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-            <input spellcheck="false" type="text" value="~0.3.0" />
-          </form>
-        </section>
-      </div>
-      <div class="content" id="exports-content">
-        <aside id="content-left">
-          <div class="table">
-            <a class="file" href="#">
-              <span class="icon generator-icon"></span>
-              <span class="info">
-                <span class="name">ConfigGenerator</span>
-                <span class="generator">Generator</span>
-              </span>
-            </a>
-            <a class="file" href="#">
-              <span class="icon schema-icon"></span>
-              <span class="info">
-                <span class="name">ConfigSchema</span>
-                <span class="generator">Schema</span>
-              </span>
-            </a>
-          </div>
-        </aside>
-        <section class="content-center">
-          <form>
-            <!--
-            <label>Generator</label>
-            <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-            <label>Filename</label>
-            <input spellcheck="false" type="text" value="bower.json" />
-            -->
-            <textarea></textarea>
-          </form>
-        </section>
-        <aside class="content-right">
-          <form>
-            <label>Description</label>
-            <input spellcheck="false" type="text" placeholder="Generates a `bower.json` file." />
-            <label>Engine</label>
-            <input spellcheck="false" type="text" />
-            <label>Filename</label>
-            <input spellcheck="false" type="text" value="bower.json" />
-        </aside>
-      </div>
-      <div class="content" id="outputs-content">
-        <aside class="content-left">
-          <div class="table">
-            <a class="file" href="#">
-              <span class="icon file-bower"></span>
-              <span class="info">
-                <span class="name">.bowerrc</span>
-                <span class="generator">bower.ConfigGenerator</span>
-              </span>
-            </a>
-            <a class="file" href="#">
-              <span class="icon file-bower"></span>
-              <span class="info">
-                <span class="name">bower.json</span>
-                <span class="generator">bower.PackageGenerator</span>
-              </span>
-            </a>
-            <a class="file" href="#">
-              <span class="icon file-js"></span>
-              <span class="info">
-                <span class="name">.jshintrc</span>
-                <span class="generator">jshint.ConfigGenerator</span>
-              </span>
-            </a>
-          </div>
-        </aside>
-        <section class="content-center">
-          <form>
-            <!--
-            <label>Generator</label>
-            <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-            <label>Filename</label>
-            <input spellcheck="false" type="text" value="bower.json" />
-            -->
-            <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-            <input spellcheck="false" type="text" value="my-app" />
-            <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-            <input spellcheck="false" type="text" value="This is my app." />
-            <a href="#" style="float: right; padding: 10px;">Add</a>
-            <label>Dependencies <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-            <input spellcheck="false" type="text" value="braintree-web" style="width: 49%" />
-            <input spellcheck="false" type="text" value="2.14.2" style="width: 50%" />
-            <input spellcheck="false" type="text" value="codemirror" style="width: 49%" />
-            <input spellcheck="false" type="text" value="5.5.0" style="width: 50%" />
-            <input spellcheck="false" type="text" value="js-yaml" style="width: 49%" />
-            <input spellcheck="false" type="text" value="3.3.1" style="width: 50%" />
-            <input spellcheck="false" type="text" value="typed.js" style="width: 49%" />
-            <input spellcheck="false" type="text" value="latest" style="width: 50%" />
-            <input spellcheck="false" type="text" placeholder="Name" style="width: 49%" />
-            <input spellcheck="false" type="text" placeholder="Version" style="width: 50%" />
-          </form>
-        </section>
-        <aside class="content-right">
-          <form>
-            <label>Generator</label>
-            <input spellcheck="false" type="text" value="bower.PackageGenerator" />
-            <label>Filename</label>
-            <input spellcheck="false" type="text" placeholder="bower.json" />
-            <label>Path</label>
-            <input spellcheck="false" type="text" />
-            <label>Helpers</label>
-            None
-            <label>Processors</label>
-            None
-            <label>Injectors</label>
-            None
-            <label>Iterator</label>
-            False
-          </form>
-        </aside>
+          </section>
+        </div>
+        <div class="content" id="exports-content">
+          <aside id="content-left">
+            <div class="table">
+              <a class="file" href="#">
+                <span class="icon generator-icon"></span>
+                <span class="info">
+                  <span class="name">ConfigGenerator</span>
+                  <span class="generator">Generator</span>
+                </span>
+              </a>
+              <a class="file" href="#">
+                <span class="icon schema-icon"></span>
+                <span class="info">
+                  <span class="name">ConfigSchema</span>
+                  <span class="generator">Schema</span>
+                </span>
+              </a>
+            </div>
+          </aside>
+          <section class="content-center">
+            <form>
+              <!--
+              <label>Generator</label>
+              <input spellcheck="false" type="text" value="bower.PackageGenerator" />
+              <label>Filename</label>
+              <input spellcheck="false" type="text" value="bower.json" />
+              -->
+              <textarea></textarea>
+            </form>
+          </section>
+          <aside class="content-right">
+            <form>
+              <label>Description</label>
+              <input spellcheck="false" type="text" placeholder="Generates a `bower.json` file." />
+              <label>Engine</label>
+              <input spellcheck="false" type="text" />
+              <label>Filename</label>
+              <input spellcheck="false" type="text" value="bower.json" />
+          </aside>
+        </div>
+        <div class="content" id="outputs-content">
+          <aside class="content-left">
+            <div class="table">
+              <a class="file" href="#">
+                <span class="icon file-bower"></span>
+                <span class="info">
+                  <span class="name">.bowerrc</span>
+                  <span class="generator">bower.ConfigGenerator</span>
+                </span>
+              </a>
+              <a class="file" href="#">
+                <span class="icon file-bower"></span>
+                <span class="info">
+                  <span class="name">bower.json</span>
+                  <span class="generator">bower.PackageGenerator</span>
+                </span>
+              </a>
+              <a class="file" href="#">
+                <span class="icon file-js"></span>
+                <span class="info">
+                  <span class="name">.jshintrc</span>
+                  <span class="generator">jshint.ConfigGenerator</span>
+                </span>
+              </a>
+            </div>
+          </aside>
+          <section class="content-center">
+            <form>
+              <!--
+              <label>Generator</label>
+              <input spellcheck="false" type="text" value="bower.PackageGenerator" />
+              <label>Filename</label>
+              <input spellcheck="false" type="text" value="bower.json" />
+              -->
+              <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+              <input spellcheck="false" type="text" value="my-app" />
+              <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+              <input spellcheck="false" type="text" value="This is my app." />
+              <a href="#" style="float: right; padding: 10px;">Add</a>
+              <label>Dependencies <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+              <input spellcheck="false" type="text" value="braintree-web" style="width: 49%" />
+              <input spellcheck="false" type="text" value="2.14.2" style="width: 50%" />
+              <input spellcheck="false" type="text" value="codemirror" style="width: 49%" />
+              <input spellcheck="false" type="text" value="5.5.0" style="width: 50%" />
+              <input spellcheck="false" type="text" value="js-yaml" style="width: 49%" />
+              <input spellcheck="false" type="text" value="3.3.1" style="width: 50%" />
+              <input spellcheck="false" type="text" value="typed.js" style="width: 49%" />
+              <input spellcheck="false" type="text" value="latest" style="width: 50%" />
+              <input spellcheck="false" type="text" placeholder="Name" style="width: 49%" />
+              <input spellcheck="false" type="text" placeholder="Version" style="width: 50%" />
+            </form>
+          </section>
+          <aside class="content-right">
+            <form>
+              <label>Generator</label>
+              <input spellcheck="false" type="text" value="bower.PackageGenerator" />
+              <label>Filename</label>
+              <input spellcheck="false" type="text" placeholder="bower.json" />
+              <label>Path</label>
+              <input spellcheck="false" type="text" />
+              <label>Helpers</label>
+              None
+              <label>Processors</label>
+              None
+              <label>Injectors</label>
+              None
+              <label>Iterator</label>
+              False
+            </form>
+          </aside>
+        </div>
       </div>
     </div>
   </div>

@@ -11,6 +11,7 @@ imports:
   crystal/authors: ~0.3.3
   crystal/bower: ~0.4.1
   crystal/git: ~0.2.0
+  crystal/grunt: ~0.3.1
   crystal/npm: ~0.3.0
   crystal/readme: ~0.5.1
   crystal/travis: ~0.3.0
@@ -35,6 +36,7 @@ exports:
           title: Copyright
           type: string
         description:
+          description: This project's description.
           title: Description
           type: string
         exports:
@@ -84,14 +86,16 @@ exports:
               version:
                 type: string
         name:
+          description: This project's name.
           title: Name
           type: string
         version:
+          description: This project's version.
           title: Version
           type:
             - number
             - string
-    type: schematic
+    type: schema
 outputs:
   - generator: bower.ConfigGenerator
     spec:
@@ -103,7 +107,9 @@ outputs:
       description: $description
       main: lib/autocode.js
       dependencies:
+        formulator: 0.6.1
         jquery: 2.1.4
+        jquery-cookie: 1.4.1
         js-yaml: 3.4.2
   
   - generator: git.GitignoreGenerator
@@ -112,7 +118,35 @@ outputs:
         - .DS_Store
         - app/components/
         - node_modules/
-        
+  
+  - generator: grunt.GruntfileGenerator
+    spec:
+      loadNpmTasks:
+        - grunt-contrib-concat
+        - grunt-contrib-uglify
+        - grunt-contrib-watch
+      registerTask:
+        default:
+          - concat
+          - uglify
+      config:
+        pkg: package.json
+        concat:
+          options:
+            separator: ;
+          dist:
+            src:
+              - app/scripts/**/*.js
+            dest:
+              - app/lib/autocode.js
+        uglify:
+          options:
+            banner: '/*! autocode <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+          dist:
+            files:
+              'dist/<%= pkg.name %>.min.js':
+                - '<%= concat.dist.dest %>'
+  
   - generator: npm.PackageGenerator
     spec: npm.yml
     

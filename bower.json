@@ -1,6 +1,8 @@
 {
 	"dependencies": {
+		"formulator": "0.6.1",
 		"jquery": "2.1.4",
+		"jquery-cookie": "1.4.1",
 		"js-yaml": "3.4.2"
 	},
 	"description": "code automation for every language, framework and platform",
