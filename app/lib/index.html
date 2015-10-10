@@ -70,7 +70,7 @@
                 <span class="icon general-icon"></span>
                 <span class="info">
                   <span class="name">General</span>
-                  <span class="generator">Name and description</span>
+                  <span class="generator">Name, description and url</span>
                 </span>
               </a>
               <a class="file" href="overview/author">
@@ -85,24 +85,24 @@
           <section class="content-center">
             <div class="content" id="overview-author-content">
               <form>
-                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your full name." /></label>
                 <input name="name" spellcheck="false" type="text" />
-                <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your email address." /></label>
                 <input name="email" spellcheck="false" type="text" />
-                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your website URL." /></label>
                 <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
-                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your copyright." /></label>
                 <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
                 <a class="button" href="overview/author/save">Save</a>
               </form>
             </div>
             <div class="content" id="overview-general-content">
               <form>
-                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" title="A name for your project." /></label>
                 <input name="name" spellcheck="false" type="text" />
-                <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" title="A description for your project." /></label>
                 <textarea name="description" spellcheck="false"></textarea>
-                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
+                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" title="A URL for your project." /></label>
                 <input name="url" spellcheck="false" type="text" />
                 <a class="button" href="overview/general/save">Save</a>
               </form>
@@ -230,8 +230,12 @@
             </aside>
             <section class="content-center">
               <form>
+                <!--
                 <label>Spec <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
                 <textarea name="spec" spellcheck="false"></textarea>
+                -->
+                <div class="schema">
+                </div>
                 <!--
                 <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
                 <input spellcheck="false" type="text" value="my-app" />
