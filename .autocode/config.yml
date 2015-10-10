@@ -15,20 +15,102 @@ imports:
   crystal/readme: ~0.5.1
   crystal/travis: ~0.3.0
 exports:
-  ConfigSchematic:
-    schema: config.yml
+  ConfigSchema:
+    schema:
+      type: object
+      properties:
+        author:
+          type: object
+          properties:
+            name:
+              title: Name
+              type: string
+            email:
+              title: Email
+              type: string
+            url:
+              title: URL
+              type: string
+        copyright:
+          title: Copyright
+          type: string
+        description:
+          title: Description
+          type: string
+        exports:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              description:
+                type: string
+              engine:
+                type: string
+              example:
+                type: string
+              helper:
+                type:
+                  - string
+                  - object
+                additionalProperties:
+                  type: string
+              processor:
+                type: string
+              generator:
+                type: string
+              schema:
+                type:
+                  - object
+                  - string
+              spec:
+                type:
+                  - array
+                  - object
+                  - string
+              type:
+                required: true
+                type: string
+        imports:
+          type: object
+          additionalProperties:
+            type:
+              - string
+              - object
+            properties:
+              aliases:
+                type: object
+                additionalProperties:
+                  type: string
+              version:
+                type: string
+        name:
+          title: Name
+          type: string
+        version:
+          title: Version
+          type:
+            - number
+            - string
     type: schematic
 outputs:
+  - generator: bower.ConfigGenerator
+    spec:
+      directory: app/components
+  
   - generator: bower.PackageGenerator
     spec:
       name: autocode
       description: $description
       main: lib/autocode.js
+      dependencies:
+        jquery: 2.1.4
+        js-yaml: 3.4.2
   
   - generator: git.GitignoreGenerator
     spec:
       items:
         - .DS_Store
+        - app/components/
         - node_modules/
         
   - generator: npm.PackageGenerator
@@ -620,6 +702,7 @@ outputs:
 scripts:
   build:
     - npm install
+    - bower install
     - coffee --compile --output lib/ src/
   run:
     - npm install

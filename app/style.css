@@ -1,0 +1,265 @@
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+a {
+  color: #185F96;
+  text-decoration: none;
+}
+
+body {
+  font-family: Roboto;
+  margin: 0px;
+}
+
+header {
+  background-color: #333;
+  color: #FFF;
+  height: 32px;
+  padding: 10px;
+  text-align: center;
+}
+
+input {
+  border: 2px #999 solid;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+}
+
+label {
+  display: block;
+  padding: 10px 5px;
+}
+
+textarea {
+  border: 2px #999 solid;
+  box-sizing: border-box;
+  font-size: 16px;
+  height: 150px;
+  padding: 5px;
+  width: 100%;
+}
+
+.file .icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  border-bottom: 1px #EEE solid;
+  height: 50px;
+  padding: 10px;
+  vertical-align: middle;
+  width: 50px;
+}
+
+.file .icon.file-bower {
+  background-image: url(images/file/bower.svg);
+}
+
+.file .icon.file-js {
+  background-image: url(images/file/js.svg);
+}
+
+.file .icon.file-json {
+  background-image: url(images/file/json.svg);
+}
+
+.file .icon.add-icon {
+  background-image: url(images/icon/add.svg);
+}
+
+.file .icon.author-icon {
+  background-image: url(images/icon/author.svg);
+}
+
+.file .icon.general-icon {
+  background-image: url(images/icon/general.svg);
+}
+
+.file .icon.generator-icon {
+  background-image: url(images/icon/generator.svg);
+}
+
+.file .icon.schema-icon {
+  background-image: url(images/icon/schema.svg);
+}
+
+.file .icon.spec-icon {
+  background-image: url(images/icon/spec.svg);
+}
+
+.file .info {
+  border-bottom: 1px #EEE solid;
+  vertical-align: middle;
+}
+
+.file .info .generator {
+  color: #CCC;
+  font-size: 12px;
+}
+
+.file .info .name {
+  font-size: 16px;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.table a {
+  display: table-row;
+}
+
+.table a:hover {
+  background-color: #EEE;
+}
+
+#container {
+  display: none;
+}
+
+#content {
+  background-color: #EEE;
+  clear: both;
+}
+
+#content aside,
+#content section {
+  float: left;
+  height: 100%;
+  overflow: scroll;
+}
+
+#content aside {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 300px;
+}
+
+#content aside form {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
+}
+
+#content aside form,
+#content aside .table {
+  background-color: #FFF;
+  border-radius: 10px;
+}
+
+#content aside .table a {
+  display: table-row;
+}
+
+#content aside .table a span {
+  display: table-cell;
+}
+
+#content aside .table a span.icon {
+  height: 50px;
+  padding: 10px;
+  width: 50px;
+}
+
+#content aside .table a span.info .name {
+  display: block;
+}
+
+#content .content {
+  display: none;
+}
+
+#content .content.selected {
+  display: block;
+}
+
+#loader {
+  position: fixed;
+}
+
+#loader .icon {
+  display: block;
+  height: 50px;
+  margin: 0px auto;
+  width: 50px;
+  -webkit-animation: rotating 2s linear infinite;
+}
+
+#loader .splash {
+  width: 250px;
+}
+
+#logo {
+  background-image: url(images/logo.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 32px;
+  width: 182px;
+}
+
+#menu {
+  background-image: url(images/menu.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: left;
+  height: 32px;
+  width: 32px;
+}
+
+#popover {
+  background-color: #FFF;
+  box-shadow: 0px 5px 10px #CCC;
+  position: fixed;
+  min-width: 200px;
+}
+
+#popover .table a {
+  display: table-row;
+}
+
+#popover .table a span {
+  display: table-cell;
+  padding: 10px;
+}
+
+#tabs {
+  height: 52px;
+}
+
+#tabs a {
+  border-bottom: 3px #CCC solid;
+  box-sizing: border-box;
+  color: #CCC;
+  float: left;
+  padding: 15px 0px;
+  text-align: center;
+  width: 25%;
+}
+
+#tabs a:hover {
+  border-bottom: 3px #999 solid;
+  color: #999;
+}
+
+#tabs a.selected {
+  border-bottom: 3px #185F96 solid;
+  color: #185F96;
+}
+
+#user {
+  background-image: url(images/user.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  float: right;
+  height: 32px;
+  width: 32px;
+}

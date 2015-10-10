@@ -1,4 +1,8 @@
 {
+	"dependencies": {
+		"jquery": "2.1.4",
+		"js-yaml": "3.4.2"
+	},
 	"description": "code automation for every language, framework and platform",
 	"main": "lib/autocode.js",
 	"name": "autocode"

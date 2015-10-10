@@ -41,7 +41,8 @@ init = (project_path, validate = true) ->
 	crystal_path = path.resolve "#{__dirname}/../.."
 	
 	if validate == false
-		return yaml.safeLoad fs.readFileSync("#{crystal_path}/.autocode/schema/#{config.exports.ConfigSchematic.schema}")
+		autocode_config = yaml.safeLoad fs.readFileSync("#{crystal_path}/.autocode/config.yml")
+		return autocode_config.exports.ConfigSchema.schema
 	else
 		config_schema = this.load crystal_path, false
 	
