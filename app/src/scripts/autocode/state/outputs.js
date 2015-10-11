@@ -20,7 +20,7 @@ autocode.state['outputs'] = function() {
       
       $('#outputs-content-container .table').append(
         '<a class="file" href="outputs/output?output=' + output_i + '">'
-          + '<span class="icon ' + output.type + '-icon"></span>'
+          + '<span class="icon" style="background-image: url(https://cdn.rawgit.com/crystal/' + output.generator.split('.')[0] + '/master/.autocode/icon.svg)"></span>'
           + '<span class="info">'
             + '<span class="name">' + output_filename + '</span>'
             + '<span class="generator">' + output.generator.split('.')[1] + '</span>'
