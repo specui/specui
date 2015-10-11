@@ -8,6 +8,7 @@ semver   = require 'semver'
 untar    = require 'untar.js'
 userHome = require 'user-home'
 zlib     = require 'zlib'
+lodash   = require 'lodash'
 
 install = (opts) ->
   # hardcoded host
@@ -59,10 +60,16 @@ install = (opts) ->
     release_url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
     release_resp = request 'get', release_url, { headers: headers }
     if release_resp.statusCode != 200
-      throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
+      throw new Error "Can not connect to github for getting releases."
+
     releases = JSON.parse release_resp.body
-    if !releases
+
+    if util.isPlainObject(releases) and releases.message == 'Not Found'
+      throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
+
+    if !util.isArray releases
       throw new Error "Unable to locate generator (#{name})."
+
     for release in releases
       release_version = semver.clean release.tag_name
       if semver.satisfies release_version, module_version
