@@ -1,4 +1,5 @@
 autocode.init = function() {
+  autocode.hint.init()
   autocode.initState();
   
   $(window).bind('mousedown', function(e) {

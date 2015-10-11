@@ -95,24 +95,59 @@
           <section class="content-center">
             <div class="content" id="overview-author-content">
               <form>
-                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your full name." /></label>
-                <input name="name" spellcheck="false" type="text" />
-                <label>Email <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your email address." /></label>
-                <input name="email" spellcheck="false" type="text" />
-                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your website URL." /></label>
-                <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
-                <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your copyright." /></label>
-                <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
+                <div class="field">
+                  <label>
+                    <span class="text">Name</span>
+                    <span class="icon info-icon" data-hint="Your full name."></span>
+                  </label>
+                  <input name="name" spellcheck="false" type="text" />
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">Email</span>
+                    <span class="icon info-icon" data-hint="Your email address."></span>
+                  </label>
+                  <input name="email" spellcheck="false" type="text" />
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">URL</span>
+                    <span class="icon info-icon" data-hint="Your website URL."></span>
+                  </label>
+                  <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">Copyright</span>
+                    <span class="icon info-icon" data-hint="Your copyright."></span>
+                  </label>
+                  <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
+                </div>
               </form>
             </div>
             <div class="content" id="overview-general-content">
               <form>
-                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" title="A name for your project." /></label>
-                <input name="name" spellcheck="false" type="text" />
-                <label>Description <img height="16" src="images/info.svg" style="vertical-align: middle" title="A description for your project." /></label>
-                <textarea name="description" spellcheck="false"></textarea>
-                <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" title="A URL for your project." /></label>
-                <input name="url" spellcheck="false" type="text" />
+                <div class="field">
+                  <label>
+                    <span class="text">Name</span>
+                    <span class="icon info-icon" data-hint="A name for your project."></span>
+                  </label>
+                  <input name="name" spellcheck="false" type="text" />
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">Description</span>
+                    <span class="icon info-icon" data-hint="A description for your project."></span>
+                  </label>
+                  <textarea name="description" spellcheck="false"></textarea>
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">URL</span>
+                    <span class="icon info-icon" data-hint="A URL for your project."></span>
+                  </label>
+                  <input name="url" spellcheck="false" type="text" />
+                </div>
               </form>
             </div>
           </section>
@@ -143,10 +178,20 @@
             </section>
             <aside class="content-right">
               <form>
-                <label>Name <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input name="name" spellcheck="false" type="text" />
-                <label>Version <img height="16" src="images/info.svg" style="vertical-align: middle" /></label>
-                <input name="version" spellcheck="false" type="text" />
+                <div class="field">
+                  <label>
+                    <span class="text">Name</span>
+                    <span class="icon info-icon" data-hint="The name of the imported module."></span>
+                  </label>
+                  <input name="name" spellcheck="false" type="text" />
+                </div>
+                <div class="field">
+                  <label>
+                    <span class="text">Version</span>
+                    <span class="icon info-icon" data-hint="The version of the module. Supports Semantic Versioning."></span>
+                  </label>
+                  <input name="version" spellcheck="false" type="text" />
+                </div>
               </form>
             </aside>
           </div>
@@ -238,6 +283,12 @@
             </aside>
             <section class="content-center">
               <form>
+                <div class="title">Spec</div>
+                <a class="checkbox" href="outputs/hide/toggle">
+                  <span class="text">Hide Unused Properties</span>
+                  <span class="icon"></span>
+                </a>
+                <a class="button" href="outputs/property/add">Add Property</a>
                 <div class="schema"></div>
               </form>
             </section>

@@ -22,8 +22,8 @@ autocode.state['outputs/output'] = function(opts) {
     return;
   }
   
-  var property, property_title;
-  for (var property_name in schema.properties) {
+  var property, property_html, property_title;
+  for (var property_name in autocode.object.sort(schema.properties)) {
     property = schema.properties[property_name];
     
     if (property.title) {
@@ -32,9 +32,31 @@ autocode.state['outputs/output'] = function(opts) {
       property_title = property_name;
     }
     
-    $('#outputs-content .content-center .schema').append(
-      '<label>' + property_title + ' <img height="16" src="images/info.svg" style="vertical-align: middle" title="' + property.description + '" /></label>'
-      + '<input spellcheck="false" type="text" value="' + (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '') + '" />'
-    );
+    property_html = '<div class="field">'
+      + '<label>'
+        + '<span class="text">' + property_title + '</span> '
+        + (property.description ? '<span class="icon info-icon" data-hint="' + property.description + '"></span>' : '')
+      + '</label>';
+    if (property.type == 'boolean') {
+      property_html += autocode.element.radio.html({
+        name: property_name,
+        options: {
+          true: 'True',
+          false: 'False'
+        }
+      });
+      if (property.default) {
+        property_html += ' <span class="text">(Default: ' + property.default + ')</span>';
+      }
+    } else {
+      property_html += '<input spellcheck="false"' + (property.default ? ' placeholder="' + property.default + '"' : '') + ' type="text" value="' + (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '') + '" />';
+    }
+    property_html += '</div>';
+    
+    $('#outputs-content .content-center .schema').append(property_html);
   }
+  
+  autocode.state['outputs/hide']();
+  
+  autocode.hint.init();
 };

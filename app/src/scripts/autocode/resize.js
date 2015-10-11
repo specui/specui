@@ -21,6 +21,15 @@ autocode.resize = function() {
     top: ($(window).height() - exports_init.outerHeight()) / 2
   });
   
+  var hint = $('#hint'),
+    hint_target = $('#hint').data('target');
+  if (hint.length && hint_target.length) {
+    hint.css({
+      left: hint_target.offset().left - ((hint.outerWidth() - hint_target.outerWidth()) / 2),
+      top: hint_target.outerHeight() + hint_target.offset().top + 10
+    });
+  }
+  
   var imports_init = $('#imports-init');
   imports_init.css({
     left: (window_width - imports_init.outerWidth()) / 2,

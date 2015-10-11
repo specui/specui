@@ -66,6 +66,24 @@ textarea {
   width: 100%;
 }
 
+.checkbox {
+  display: inline-block;
+}
+
+.checkbox .icon {
+  background-color: #185F96;
+  background-size: 1px 1px;
+  border-radius: 5px;
+  height: 16px;
+  transition: background-size .25s; -webkit-transition: background-size .25s;
+  width: 16px;
+}
+
+.checkbox.checked .icon {
+  background-image: url(images/check.svg);
+  background-size: 12px 12px;
+}
+
 .divider {
   border: 1px #CCC solid;
   display: block;
@@ -97,6 +115,15 @@ textarea {
   font-size: 16px;
 }
 
+.icon {
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
+  height: 16px;
+  vertical-align: middle;
+  width: 16px;
+}
+
 .icon.file-bower {
   background-image: url(images/file/bower.svg);
 }
@@ -125,6 +152,11 @@ textarea {
   background-image: url(images/icon/generator.svg);
 }
 
+.icon.info-icon {
+  background-image: url(images/info.svg);
+  cursor: help;
+}
+
 .icon.load-icon {
   background-image: url(images/icon/load.svg);
 }
@@ -150,6 +182,18 @@ textarea {
   background-image: url(images/icon/tour.svg);
 }
 
+.radio {
+  display: inline-block;
+}
+
+.radio button {
+  background-color: #999;
+}
+
+.radio button.selected {
+  background-color: #185F96;
+}
+
 .table {
   display: table;
   width: 100%;
@@ -166,6 +210,10 @@ textarea {
 .table a span.icon {
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+.text {
+  vertical-align: middle;
 }
 
 #app {
@@ -259,6 +307,11 @@ textarea {
   padding: 10px;
 }
 
+#content .content-center .title {
+  font-size: 24px;
+  padding-top: 10px;
+}
+
 #exports-content-container {
   display: none;
 }
@@ -299,6 +352,30 @@ textarea {
   background-size: 24px 24px;
   height: 24px;
   width: 24px;
+}
+
+#hint {
+  background-color: #000;
+  border-radius: 5px;
+  color: #FFF;
+  font-size: 12px;
+  padding: 5px 10px;
+  position: fixed;
+}
+
+#hint:after {
+  border: solid transparent;
+  border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #000;
+	border-width: 7px;
+	bottom: 100%;
+  content: ' ';
+  height: 0;
+	left: 50%;
+	margin-left: -7px;
+  pointer-events: none;
+  position: absolute;
+	width: 0;
 }
 
 #imports-content-container {
