@@ -506,6 +506,11 @@ textarea {
   overflow: auto;
 }
 
+#popup .error {
+  color: #FF0000;
+  display: none;
+}
+
 #popup .table a {
   display: table-row;
 }

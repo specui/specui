@@ -2,6 +2,15 @@ autocode.popup = {
   close: function() {
     $('#popup, #overlay').remove();
   },
+  error: function(msg) {
+    if (msg === false) {
+      $('#popup .error').hide();
+    } else {
+      $('#popup .error').text(msg).show();
+    }
+    
+    autocode.resize();
+  },
   open: function(opts) {
     autocode.popup.close();
     
@@ -21,6 +30,7 @@ autocode.popup = {
     if (opts.title) {
       html += '<div class="title">' + opts.title + '</div>';
     }
+    html += '<div class="error"></div>';
     if (!opts.content) {
       switch (opts.style) {
         case 'table':

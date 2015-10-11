@@ -14,7 +14,10 @@ autocode.fuzzy = {
     var html = '<div class="table">', row;
     for (var i = 0; i < opts.rows.length; i++) {
       row = opts.rows[i];
-      html += '<a href="' + row.state + '"><span class="icon ' + row.icon + '"></span><span class="text">' + row.text + '</span></a>';
+      html += '<a href="' + row.state + '">';
+      html += '<span class="icon ' + row.icon + '"></span>';
+      html += '<span class="text">' + row.text.replace(new RegExp('(' + opts.value + ')', 'i'), '<b>$1</b>') + '</span>';
+      html += '</a>';
     }
     html += '</div>';
     

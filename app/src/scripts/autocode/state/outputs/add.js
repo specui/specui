@@ -27,8 +27,11 @@ autocode.state['outputs/add'] = function() {
         }
         autocode.fuzzy.open({
           rows: generators,
-          target: $('#popup input[name="generator"]')
+          target: $('#popup input[name="generator"]'),
+          value: value
         });
+        
+        $('#popup input[name="filename"]').attr('placeholder', autocode.data.generators[value] && autocode.data.generators[value].filename ? autocode.data.generators[value].filename : '');
       };
       
       autocode.popup.open({
@@ -42,6 +45,13 @@ autocode.state['outputs/add'] = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
+      // validate generator
+      if (!autocode.data.generators[data.generator]) {
+        autocode.popup.error('Generator does not exist.');
+        return false;
+      }
+      
+      // normalize filename
       if (!data.filename) {
         data.filename = autocode.data.generators[data.generator].filename;
       }
@@ -55,7 +65,7 @@ autocode.state['outputs/add'] = function() {
           ||
           (!output.filename && autocode.data.generators[output.generator].filename == data.filename)
         ) {
-          alert('Filename must be unique');
+          autocode.popup.error('Filename must be unique.');
           return false;
         }
       }
