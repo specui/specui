@@ -1,22 +1,19 @@
 autocode.state['user'] = function() {
-  if (autocode.user.isLoggedIn) {
+  if (autocode.data.user.isLoggedIn) {
     autocode.popover.toggle({
       rows: [
         {
-          state: 'user/profile',
-          text: 'Edit Profile'
-        },
-        {
+          icon: 'settings-icon',
           state: 'user/settings',
           text: 'Settings'
         },
         {
           icon: 'login-icon',
           text: 'View on GitHub',
-          state: 'github/user',
-          style: 'divider'
+          state: 'github/user'
         },
         {
+          icon: 'logout-icon',
           state: 'user/logout',
           style: 'divider',
           text: 'Logout'
@@ -28,14 +25,6 @@ autocode.state['user'] = function() {
       top: $('header').outerHeight()
     });
   } else {
-    autocode.popover.toggle({
-      content:
-        '<div class="table">'
-          + '<a href="user/login"><span class="name">Login with GitHub</span></a>'
-        + '</div>',
-      right: 0,
-      target: $('#user'),
-      top: $('header').outerHeight()
-    });
+    autocode.state['user/login']();
   }
 };

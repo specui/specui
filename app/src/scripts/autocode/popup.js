@@ -28,7 +28,7 @@ autocode.popup = {
     
     var html = '';
     if (opts.title) {
-      html += '<div class="title">' + opts.title + '</div>';
+      html += '<div class="title"' + (opts.content ? '' : ' style="padding-bottom: 0px"') + '>' + opts.title + '</div>';
     }
     html += '<div class="error"></div>';
     if (!opts.content) {

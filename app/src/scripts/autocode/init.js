@@ -36,8 +36,8 @@ autocode.init = function() {
           
         },
         success: function(data) {
-          autocode.user = data;
-          autocode.user.isLoggedIn = true;
+          autocode.data.user = data;
+          autocode.data.user.isLoggedIn = true;
           
           $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
           $('#user .text').text(data.username);

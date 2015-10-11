@@ -29,6 +29,10 @@ button, .button {
   padding: 10px 15px;
 }
 
+button.secondary, .button.secondary {
+  background-color: #999;
+}
+
 header {
   background-color: #333;
   color: #FFF;
@@ -144,6 +148,10 @@ textarea {
   background-image: url(images/icon/author.svg);
 }
 
+.icon.close-icon {
+  background-image: url(images/icon/close.svg);
+}
+
 .icon.general-icon {
   background-image: url(images/icon/general.svg);
 }
@@ -165,6 +173,10 @@ textarea {
   background-image: url(images/icon/login.svg);
 }
 
+.icon.logout-icon {
+  background-image: url(images/icon/logout.svg);
+}
+
 .icon.save-icon {
   background-image: url(images/icon/save.svg);
 }
@@ -172,6 +184,10 @@ textarea {
 .icon.schema-icon,
 .icon.schematic-icon {
   background-image: url(images/icon/schema.svg);
+}
+
+.icon.settings-icon {
+  background-image: url(images/icon/settings.svg);
 }
 
 .icon.spec-icon {
