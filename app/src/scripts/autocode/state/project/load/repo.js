@@ -1,4 +1,6 @@
 autocode.state['project/load/repo'] = function(opts) {
+  autocode.unload.enable();
+  
   $('#app, #init').fadeOut();
   
   $('#popup, #overlay').fadeOut(function() {
