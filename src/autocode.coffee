@@ -43,7 +43,7 @@ autocode = (config) ->
     'stop'
     'test'
     'update'
-    #'url'
+    'url'
     'validate'
     #'version'
   ]
