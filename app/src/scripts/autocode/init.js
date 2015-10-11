@@ -5,7 +5,11 @@ autocode.init = function() {
   $(window).bind('mousedown', function(e) {
     var target = $(e.target);
     
-    if (target.attr('id') != 'popover' && !target.parents('#popover').length) {
+    if (
+      target.attr('id') != 'popover' && !target.parents('#popover').length
+      && target.attr('id') != 'menu' && !target.parents('#menu').length
+      && target.attr('id') != 'user' && !target.parents('#user').length
+    ) {
       autocode.popover.close();
     }
     

@@ -26,6 +26,7 @@ autocode.state['menu'] = function() {
     ],
     left: 0,
     style: 'table',
+    target: $('#menu'),
     top: $('header').outerHeight()
   });
 };

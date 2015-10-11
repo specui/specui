@@ -17,6 +17,7 @@ autocode.popover = {
     if (opts.top !== undefined) {
       popover.css('top', opts.top);
     }
+    popover.data('target', opts.target);
     if (!opts.content) {
       switch (opts.style) {
         case 'table':
@@ -38,7 +39,11 @@ autocode.popover = {
   },
   toggle: function(opts) {
     if ($('#popover').length) {
+      var target = $('#popover').data('target')
       $('#popover').remove();
+      if (opts.target.attr('id') != target.attr('id')) {
+        autocode.popover.open(opts);
+      }
     } else {
       autocode.popover.open(opts);
     }
