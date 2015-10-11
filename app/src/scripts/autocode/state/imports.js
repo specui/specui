@@ -3,7 +3,7 @@ autocode.state['imports'] = function() {
     $('#imports-content-container .table a').slice(1).remove();
     
     var import_version;
-    for (var import_name in autocode.project.imports) {
+    for (var import_name in autocode.object.sort(autocode.project.imports)) {
       import_version = autocode.project.imports[import_name];
       
       $('#imports-content-container .table').append(

@@ -22,12 +22,6 @@ autocode.state['menu'] = function() {
         text: 'View on GitHub',
         state: 'github/repo',
         style: 'divider'
-      },
-      {
-        icon: 'tour-icon',
-        text: 'Take a Tour',
-        state: 'tour',
-        style: 'divider'
       }
     ],
     left: 0,
