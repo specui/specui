@@ -263,6 +263,27 @@ textarea {
   font-size: 32px;
 }
 
+#fuzzy {
+  background-color: #FFF;
+  box-shadow: 0px 5px 10px #999;
+  position: fixed;
+}
+
+#fuzzy .table a {
+  display: table-row;
+}
+
+#fuzzy .table a span {
+  display: table-cell;
+  padding: 10px;
+}
+
+#fuzzy .table a span.icon {
+  background-size: 24px 24px;
+  height: 24px;
+  width: 24px;
+}
+
 #imports-content-container {
   display: none;
 }
@@ -388,7 +409,6 @@ textarea {
 }
 
 #popup .content {
-  max-height: 200px;
   overflow: auto;
 }
 

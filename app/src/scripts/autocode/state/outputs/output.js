@@ -1,4 +1,6 @@
 autocode.state['outputs/output'] = function(opts) {
+  autocode.output = opts.output;
+  
   var outputed = autocode.project.outputs[opts.output];
   var generator = autocode.imports['crystal/' + outputed.generator.split('.')[0]].exports[outputed.generator.split('.')[1]];
   
@@ -6,7 +8,11 @@ autocode.state['outputs/output'] = function(opts) {
   $('#outputs-content input[name="filename"]').val(outputed.filename);
   $('#outputs-content input[name="generator"]').val(outputed.generator);
   
-  $('#outputs-content textarea').val(jsyaml.safeDump(outputed.spec));
+  if (outputed.spec) {
+    $('#outputs-content textarea').val(jsyaml.safeDump(outputed.spec));
+  } else {
+    $('#outputs-content textarea').val('');
+  }
   
   $('#outputs-content .content-center .schema').empty();
   
@@ -28,7 +34,7 @@ autocode.state['outputs/output'] = function(opts) {
     
     $('#outputs-content .content-center .schema').append(
       '<label>' + property_title + ' <img height="16" src="images/info.svg" style="vertical-align: middle" title="' + property.description + '" /></label>'
-      + '<input spellcheck="false" type="text" value="' + outputed.spec[property_name] + '" />'
+      + '<input spellcheck="false" type="text" value="' + (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '') + '" />'
     );
   }
 };

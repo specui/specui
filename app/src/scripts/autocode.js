@@ -1,6 +1,7 @@
 var autocode = {
   action: {},
   config: {},
+  data: {},
   state: {},
   user: {},
   initState: function() {

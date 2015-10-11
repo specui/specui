@@ -7,6 +7,10 @@ autocode.init = function() {
     if (target.attr('id') != 'popover' && !target.parents('#popover').length) {
       autocode.popover.close();
     }
+    
+    if (target.attr('id') != 'fuzzy' && !target.parents('#fuzzy').length) {
+      autocode.fuzzy.close();
+    }
   });
   
   autocode.api.config.get({

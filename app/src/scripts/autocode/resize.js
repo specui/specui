@@ -22,6 +22,16 @@ autocode.resize = function() {
     top: ($(window).height() - imports_init.outerHeight()) / 2
   });
   
+  var fuzzy = $('#fuzzy'),
+    fuzzy_target = $('#fuzzy').data('target');
+  if (fuzzy.length && fuzzy_target.length) {
+    fuzzy.css({
+      left: fuzzy_target.offset().left,
+      top: fuzzy_target.outerHeight() + fuzzy_target.offset().top,
+      width: fuzzy_target.outerWidth()
+    });
+  }
+  
   var init = $('#init');
   init.css({
     left: (window_width - init.outerWidth()) / 2,
@@ -47,6 +57,7 @@ autocode.resize = function() {
   });
   
   var popup = $('#popup');
+  $('#popup .content').css('maxHeight', $(window).height() - 100);
   popup.css({
     left: (window_width - popup.outerWidth()) / 2,
     top: ($(window).height() - popup.outerHeight()) / 2

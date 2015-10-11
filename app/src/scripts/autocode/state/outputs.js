@@ -2,22 +2,28 @@ autocode.state['outputs'] = function() {
   if (autocode.project.outputs) {
     $('#outputs-content-container .table a').slice(1).remove();
     
-    var outputed;
+    var output, output_filename;
     for (var output_i in autocode.project.outputs) {
-      outputed = autocode.project.outputs[output_i];
+      output = autocode.project.outputs[output_i];
       
       if (autocode.project.outputs instanceof Array) {
-        output_name = outputed.filename;
+        output_name = output.filename;
       } else {
         output_name = output_i;
       }
       
+      if (output.filename) {
+        output_filename = output.filename;
+      } else {
+        output_filename = autocode.imports['crystal/' + output.generator.split('.')[0]].exports[output.generator.split('.')[1]].filename;
+      }
+      
       $('#outputs-content-container .table').append(
         '<a class="file" href="outputs/output?output=' + output_i + '">'
-          + '<span class="icon ' + outputed.type + '-icon"></span>'
+          + '<span class="icon ' + output.type + '-icon"></span>'
           + '<span class="info">'
-            + '<span class="name">' + autocode.imports['crystal/' + outputed.generator.split('.')[0]].exports[outputed.generator.split('.')[1]].filename + '</span>'
-            + '<span class="generator">' + outputed.generator.split('.')[1] + '</span>'
+            + '<span class="name">' + output_filename + '</span>'
+            + '<span class="generator">' + output.generator.split('.')[1] + '</span>'
           + '</span>'
         + '</a>'
       );

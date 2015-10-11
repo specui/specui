@@ -42,7 +42,11 @@ autocode.popup = {
     
     $('body').append(popup);
     
-    $('#popup, #overlay').fadeIn();
+    $('#overlay').fadeIn();
+    
+    $('#popup').css('opacity', 0.01).show();
+    $('#popup input').first().focus();
+    $('#popup').animate({ opacity: 1 });
     
     autocode.resize();
     

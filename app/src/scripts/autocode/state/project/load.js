@@ -17,6 +17,7 @@ autocode.state['project/load'] = function() {
       }
       
       autocode.popup.open({
+        title: 'Load Project',
         rows: rows,
         style: 'table'
       });
