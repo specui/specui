@@ -1,7 +1,9 @@
 var autocode = {
   action: {},
   config: {},
-  data: {},
+  data: {
+    current: {}
+  },
   state: {},
   user: {},
   initState: function() {

@@ -46,6 +46,7 @@ input {
   border: 2px #999 solid;
   box-sizing: border-box;
   font-size: 16px;
+  outline: none;
   padding: 5px;
   width: 100%;
 }
@@ -60,6 +61,7 @@ textarea {
   box-sizing: border-box;
   font-size: 16px;
   height: 100px;
+  outline: none;
   padding: 5px;
   width: 100%;
 }
@@ -170,6 +172,10 @@ textarea {
   display: none;
 }
 
+#config-content textarea {
+  font-family: 'Courier New';
+}
+
 #container {
   display: none;
   opacity: 0;
@@ -202,11 +208,22 @@ textarea {
 #content aside form,
 #content aside .table {
   background-color: #FFF;
-  border-radius: 10px;
 }
 
 #content aside .table a {
   display: table-row;
+}
+
+#content aside .table a:hover, #content aside .table a.selected {
+  background-color: #E6E5F9;
+}
+
+#content aside .table a:hover span, #content aside .table a.selected span {
+  color: #999;
+}
+
+#content aside .table a:hover span.info .name, #content aside .table a.selected span.info .name {
+  color: #000;
 }
 
 #content aside .table a span {
@@ -437,6 +454,7 @@ textarea {
   box-shadow: 0px 5px 10px #CCC;
   position: fixed;
   min-width: 200px;
+  z-index: 1000;
 }
 
 #popover .table a {
@@ -463,7 +481,7 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 25%;
+  width: 20%;
 }
 
 #tabs a:hover {
@@ -503,13 +521,13 @@ textarea {
 }
 
 #welcome .options {
-  width: 600px;
+  overflow: auto;
 }
 
 #welcome .options .option {
   color: #000;
   float: left;
-  width: 200px;
+  width: 33.3%;
 }
 
 #welcome .options .option .icon {
@@ -524,6 +542,20 @@ textarea {
   display: block;
   font-size: 16px;
   padding-top: 20px;
+}
+
+#welcome .recent {
+  background-color: #EEE;
+  border-radius: 5px;
+  clear: both;
+  display: none;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+#welcome .recent a {
+  display: inline-block;
+  padding: 0px 5px;
 }
 
 #welcome .splash {

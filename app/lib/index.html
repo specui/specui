@@ -3,7 +3,13 @@
 <html>
 
 <head>
+  <link href="components/CodeMirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
+  <link href="components/CodeMirror/addon/merge/merge.css" rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="components/google-diff-match-patch-js/diff_match_patch.js"></script>
+  <script src="components/CodeMirror/lib/codemirror.js"></script>
+  <script src="components/CodeMirror/addon/merge/merge.js"></script>
+  <script src="components/CodeMirror/mode/yaml/yaml.js"></script>
   <script src="components/formulator/src/formulator.js"></script>
   <script src="components/jquery/dist/jquery.min.js"></script>
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
@@ -27,7 +33,7 @@
         <span class="text">Login with GitHub</span>
         <span class="icon"></span>
       </a>
-      <div id="logo"></div>
+      <a href="home" id="logo"></a>
     </header>
     <div id="init">
       <div class="title">
@@ -54,6 +60,9 @@
           <span class="text">Login with GitHub</span>
         </a>
       </div>
+      <div class="recent">
+        Recent: <span class="projects"></span>
+      </div>
     </div>
     <div id="app">
       <nav id="tabs">
@@ -61,19 +70,20 @@
         <a class="tab" href="imports" id="imports-tab">Imports</a>
         <a class="tab" href="exports" id="exports-tab">Exports</a>
         <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
+        <a class="tab" href="config" id="config-tab">Config</a>
       </nav>
       <div id="content">
         <div class="content" id="overview-content">
           <aside class="content-left">
             <div class="table">
-              <a class="file" href="overview/general">
+              <a class="file subtab" href="overview/general" id="overview-general-subtab">
                 <span class="icon general-icon"></span>
                 <span class="info">
                   <span class="name">General</span>
                   <span class="generator">Name, description and url</span>
                 </span>
               </a>
-              <a class="file" href="overview/author">
+              <a class="file subtab" href="overview/author" id="overview-author-subtab">
                 <span class="icon author-icon"></span>
                 <span class="info">
                   <span class="name">Author</span>
@@ -93,7 +103,6 @@
                 <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
                 <label>Copyright <img height="16" src="images/info.svg" style="vertical-align: middle" title="Your copyright." /></label>
                 <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
-                <a class="button" href="overview/author/save">Save</a>
               </form>
             </div>
             <div class="content" id="overview-general-content">
@@ -104,7 +113,6 @@
                 <textarea name="description" spellcheck="false"></textarea>
                 <label>URL <img height="16" src="images/info.svg" style="vertical-align: middle" title="A URL for your project." /></label>
                 <input name="url" spellcheck="false" type="text" />
-                <a class="button" href="overview/general/save">Save</a>
               </form>
             </div>
           </section>
@@ -269,6 +277,9 @@
               </form>
             </aside>
           </div>
+        </div>
+        <div class="content" id="config-content">
+          <textarea name="config"></textarea>
         </div>
       </div>
     </div>

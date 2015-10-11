@@ -13,6 +13,8 @@ autocode.init = function() {
     }
   });
   
+  autocode.action.updateRecent();
+  
   autocode.api.config.get({
     data: {
       repo: 'crystal/autocode'
@@ -43,15 +45,17 @@ autocode.init = function() {
         $('#loader').fadeOut(function() {
           $('#loader').remove();
           $('#container').show();
+          $('#welcome').hide();
           autocode.resize();
-          $('#container').animate({
-            opacity: 1
-          },{
+          $('#container').animate({ opacity: 1 },{
             complete: function() {
-              $('#welcome').fadeIn();
+              $('#welcome').css({ opacity: 0 }).show().animate({ opacity: 1 });
+              autocode.resize();
             }
           });
         });
+        
+        return;
       }
       
       $('#loader').fadeOut(function() {
@@ -66,40 +70,6 @@ autocode.init = function() {
             $('#app').fadeIn();
           }
         });
-      });
-      
-      return;
-      
-      autocode.api.repos.get({
-        error: function(data) {
-          $('#loader').fadeOut(function() {
-            $('#loader').remove();
-            $('#container').show();
-            autocode.resize();
-            $('#container').animate({
-              opacity: 1
-            },{
-              complete: function() {
-                $('#welcome').fadeIn();
-              }
-            });
-          });
-        },
-        success: function(data) {
-          $('#loader').fadeOut(function() {
-            $('#loader').remove();
-            $('#container').show();
-            $('#welcome').hide();
-            autocode.resize();
-            $('#container').animate({
-              opacity: 1
-            },{
-              complete: function() {
-                $('#app').fadeIn();
-              }
-            });
-          });
-        }
       });
     }
   });

@@ -10,6 +10,11 @@ autocode.resize = function() {
     width: window_width - $('.content-left').outerWidth() - $('.content-right').outerWidth()
   });
   
+  var config = $('#config-content .CodeMirror');
+  config.css({
+    height: $(window).height() - $('header').outerHeight() - $('#tabs').outerHeight() - 4
+  });
+  
   var exports_init = $('#exports-init');
   exports_init.css({
     left: (window_width - exports_init.outerWidth()) / 2,
