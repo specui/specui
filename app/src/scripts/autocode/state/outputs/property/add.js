@@ -15,7 +15,7 @@ autocode.state['outputs/property/add'] = function() {
           property = autocode.data.generators[autocode.data.current.generator].schema.properties[property_name];
           if (property_name.match(new RegExp(value, 'i'))) {
             properties.push({
-              state: 'outputs/add/generator?name=' + property_name,
+              state: 'outputs/property/add/choose?name=' + property_name,
               text: property_name
             });
           }
@@ -32,14 +32,28 @@ autocode.state['outputs/property/add'] = function() {
         content: form.toString()
       });
     },
-    success: function(data) {
-      $('#popup, #overlay').fadeOut(function() {
-        autocode.popup.close();
-        
-        $('#welcome').fadeOut(function() {
-          $('#app').fadeIn();
-        });
+    submit: function() {
+      var data = {};
+      $('#popup input, #popup select, #popup textarea').each(function() {
+        data[$(this).attr('name')] = $(this).val();
       });
+      
+      // validate name
+      if (!autocode.data.generators[autocode.data.current.generator].schema.properties[data.property]) {
+        autocode.popup.error('Property does not exist.');
+        return false;
+      }
+      
+      if (!autocode.project.outputs[autocode.data.current.output].spec) {
+        autocode.project.outputs[autocode.data.current.output].spec = {};
+      }
+      autocode.project.outputs[autocode.data.current.output].spec[data.property] = data.value;
+      
+      autocode.popup.close();
+      
+      autocode.state['outputs/output']({ output: autocode.data.current.output });
+      
+      return false;
     }
   });
 };

@@ -2,19 +2,26 @@ autocode.init = function() {
   autocode.hint.init()
   autocode.initState();
   
-  $(window).bind('mousedown', function(e) {
-    var target = $(e.target);
-    
-    if (
-      target.attr('id') != 'popover' && !target.parents('#popover').length
-      && target.attr('id') != 'menu' && !target.parents('#menu').length
-      && target.attr('id') != 'user' && !target.parents('#user').length
-    ) {
-      autocode.popover.close();
-    }
-    
-    if (target.attr('id') != 'fuzzy' && !target.parents('#fuzzy').length) {
-      autocode.fuzzy.close();
+  $(window).bind({
+    keyup: function(e) {
+      if (e.keyCode == 9 || e.keyCode == 27) {
+        autocode.fuzzy.close();
+      }
+    },
+    mousedown: function(e) {
+      var target = $(e.target);
+      
+      if (
+        target.attr('id') != 'popover' && !target.parents('#popover').length
+        && target.attr('id') != 'menu' && !target.parents('#menu').length
+        && target.attr('id') != 'user' && !target.parents('#user').length
+      ) {
+        autocode.popover.close();
+      }
+      
+      if (target.attr('id') != 'fuzzy' && !target.parents('#fuzzy').length) {
+        autocode.fuzzy.close();
+      }
     }
   });
   

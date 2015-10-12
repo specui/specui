@@ -5,6 +5,7 @@ autocode.state['outputs/output'] = function(opts) {
   var generator = autocode.imports['crystal/' + outputed.generator.split('.')[0]].exports[outputed.generator.split('.')[1]];
   
   autocode.data.current.generator = outputed.generator;
+  autocode.data.current.output = opts.output;
   
   $('#outputs-content input[name="filename"]').attr('placeholder', generator.filename);
   $('#outputs-content input[name="filename"]').val(outputed.filename);
