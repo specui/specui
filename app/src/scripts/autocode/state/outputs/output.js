@@ -46,7 +46,8 @@ autocode.state['outputs/output'] = function(opts) {
         options: {
           true: 'True',
           false: 'False'
-        }
+        },
+        value: (outputed.spec && (outputed.spec[property_name] || outputed.spec[property_name] === false) ? outputed.spec[property_name] : null)
       });
       if (property.default) {
         property_html += ' <span class="text">(Default: ' + property.default + ')</span>';

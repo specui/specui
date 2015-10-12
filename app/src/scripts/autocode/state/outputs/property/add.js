@@ -44,6 +44,14 @@ autocode.state['outputs/property/add'] = function() {
         return false;
       }
       
+      if (autocode.data.generators[autocode.data.current.generator].schema.properties[data.property].type == 'boolean') {
+        if (data.value == 'true') {
+          data.value = true;
+        } else {
+          data.value = false;
+        }
+      }
+      
       if (!autocode.project.outputs[autocode.data.current.output].spec) {
         autocode.project.outputs[autocode.data.current.output].spec = {};
       }
