@@ -4,6 +4,8 @@ autocode.api = {
     opts.url = autocode.api.url + '/' + opts.uri;
     
     var ajax = {
+      contentType: 'application/json',
+      dataType: 'json',
       method: opts.method,
       url: opts.url,
       complete: opts.complete,
@@ -25,7 +27,7 @@ autocode.api = {
           ajax.url += name + '=' + opts.data[name];
         }
       } else {
-        ajax.data = opts.data;
+        ajax.data = JSON.stringify(opts.data);
       }
     }
     

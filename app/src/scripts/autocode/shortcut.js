@@ -1,7 +1,7 @@
 autocode.shortcut = {
   init: function() {
     $(window).bind('keydown', function(e) {
-      if (!e.ctrlKey && !e.shiftKey) {
+      if (!e.ctrlKey || !e.shiftKey) {
         return;
       }
       
