@@ -1,5 +1,5 @@
 autocode.state['user'] = function() {
-  if (autocode.data.user.isLoggedIn) {
+  if (autocode.data.user) {
     autocode.popover.toggle({
       rows: [
         {

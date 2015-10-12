@@ -30,4 +30,4 @@ autocode.resize = {
   }
 };
 
-$(window).resize(autocode.resize.all);
+$(window).resize(function() { autocode.resize.all(); });

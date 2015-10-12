@@ -8,7 +8,9 @@ autocode.state['imports/module'] = function(opts) {
       repo: opts.repo
     },
     success: function(data) {
-      $('#imports-content-readme').html(marked(data.readme));
+      var readme = marked(data.readme);
+      readme = readme.replace(/<p><a(.*?)><img(.*?)><\/a><\/p>/, '');
+      $('#imports-content-readme').html(readme);
     }
   });
 };

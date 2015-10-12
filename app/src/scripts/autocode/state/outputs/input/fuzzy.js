@@ -15,7 +15,7 @@ autocode.state['outputs/input/fuzzy'] = function(e) {
     if (variable_name.match(new RegExp(value, 'i'))) {
       variables.push({
         icon: 'variable-icon',
-        state: 'outputs/add/variable?name=' + variable_name,
+        state: 'outputs/input/add?name=' + variable_name,
         text: variable_name
       });
     }
