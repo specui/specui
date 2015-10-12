@@ -59,6 +59,7 @@ input.variable {
   background-color: #185F96;
   border: 2px #185F96 solid;
   color: #FFF;
+  cursor: pointer;
 }
 
 label {
@@ -202,6 +203,10 @@ textarea {
 
 .icon.tour-icon {
   background-image: url(images/icon/tour.svg);
+}
+
+.icon.variable-icon {
+  background-image: url(images/icon/variable.svg);
 }
 
 .radio {
@@ -367,7 +372,7 @@ textarea {
   box-shadow: 0px 5px 10px #999;
   max-height: 300px;
   overflow: auto;
-  position: fixed;
+  position: absolute;
 }
 
 #fuzzy .table a {

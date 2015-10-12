@@ -9,7 +9,7 @@ autocode.popup = {
       $('#popup .error').text(msg).show();
     }
     
-    autocode.resize();
+    autocode.resize.all();
   },
   open: function(opts) {
     autocode.popup.close();
@@ -58,7 +58,7 @@ autocode.popup = {
     $('#popup input').first().focus();
     $('#popup').animate({ opacity: 1 });
     
-    autocode.resize();
+    autocode.resize.all(['overlay', 'popup']);
     
     autocode.initState();
   }

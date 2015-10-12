@@ -11,7 +11,7 @@ autocode.hint = {
             text: $(this).data('hint')
           });
           
-          autocode.resize();
+          autocode.resize.hint();
         },
         mouseleave: function() {
           autocode.hint.close();

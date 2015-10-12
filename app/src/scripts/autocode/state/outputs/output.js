@@ -25,7 +25,15 @@ autocode.state['outputs/output'] = function(opts) {
     return;
   }
   
-  var property, property_html, property_name, property_title, property_variable;
+  var property,
+    property_field,
+    property_icon,
+    property_input,
+    property_label,
+    property_name,
+    property_text,
+    property_title,
+    property_variable;
   for (var property_name in autocode.object.sort(schema.properties)) {
     property = schema.properties[property_name];
     
@@ -39,15 +47,33 @@ autocode.state['outputs/output'] = function(opts) {
       property.description + (property.default || property.default === false ? '<div style="font-weight: bold">Default: ' + property.default + '</div>' : '')
     );
     
-    property_html = '<div class="field">'
-      + '<label>'
-        + '<span class="text">' + property_title + '</span> '
-        + (property.description ? '<span class="icon info-icon" data-hint="' + property_hint + '"></span>' : '')
-      + '</label>';
+    property_field = $(document.createElement('div'));
+    property_field.addClass('field');
+    
+    property_label = $(document.createElement('label'));
+    property_field.append(property_label);
+    
+    property_text = $(document.createElement('span'));
+    property_text.addClass('text');
+    property_text.text(property_title);
+    property_label.append(property_text);
+    
+    if (property.description) {
+      property_icon = $(document.createElement('span'));
+      property_icon.addClass('icon info-icon');
+      property_icon.attr('data-hint', property_hint);
+      property_label.append(property_icon);
+    }
+    
     if (property.type == 'boolean') {
       property_value = (outputed.spec && (outputed.spec[property_name] || outputed.spec[property_name] === false) ? outputed.spec[property_name] : null);
-      property_html += autocode.element.radio.html({
+      property_input = autocode.element.radio.html({
         defaultValue: property.default,
+        event: {
+          mouseup: function() {
+            console.log($(this).find('input').val());
+          }
+        },
         name: property_name,
         options: {
           true: 'True',
@@ -63,11 +89,29 @@ autocode.state['outputs/output'] = function(opts) {
       } else {
         property_variable = false;
       }
-      property_html += '<input' + (property_variable ? ' class="variable"' : '') + ' name="' + property_name + '" onblur="autocode.state[\'outputs/output/variable/blur\']({ name: \'' + property_name + '\' })" onfocus="autocode.state[\'outputs/output/variable\']({ name: \'' + property_name + '\' })" spellcheck="false"' + (property.default ? ' placeholder="' + property.default + '"' : '') + ' type="text" value="' + property_value + '" />';
+      property_input = autocode.element.input.html({
+        autocomplete: false,
+        class: property_variable ? 'variable' : null,
+        event: {
+          blur: autocode.state['outputs/input/blur'],
+          focus: autocode.state['outputs/input/focus'],
+          keydown: function(e) {
+            if (e.keyCode == 27) {
+              $(this).blur();
+              return;
+            }
+          }
+        },
+        name: property_name,
+        placeholder: property.default,
+        spellcheck: false,
+        type: 'text',
+        value: property_value
+      });
     }
-    property_html += '</div>';
+    property_field.append(property_input);
     
-    $('#outputs-content .content-center .schema').append(property_html);
+    $('#outputs-content .content-center .schema').append(property_field);
   }
   
   autocode.state['outputs/hide']();

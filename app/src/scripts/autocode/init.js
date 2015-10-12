@@ -25,6 +25,12 @@ autocode.init = function() {
     }
   });
   
+  $('#content .content-center').bind('scroll', function() {
+    if ($('#fuzzy').length) {
+      autocode.resize.fuzzy();
+    }
+  });
+  
   autocode.action.updateRecent();
   
   autocode.api.config.get({
@@ -58,11 +64,11 @@ autocode.init = function() {
           $('#loader').remove();
           $('#container').show();
           $('#welcome').hide();
-          autocode.resize();
+          autocode.resize.all();
           $('#container').animate({ opacity: 1 },{
             complete: function() {
               $('#welcome').css({ opacity: 0 }).show().animate({ opacity: 1 });
-              autocode.resize();
+              autocode.resize.all();
             }
           });
         });
@@ -74,7 +80,7 @@ autocode.init = function() {
         $('#loader').remove();
         $('#container').show();
         $('#welcome').hide();
-        autocode.resize();
+        autocode.resize.all();
         $('#container').animate({
           opacity: 1
         },{
@@ -86,7 +92,7 @@ autocode.init = function() {
     }
   });
   
-  autocode.resize();
+  autocode.resize.all();
 };
 
 $(window).load(autocode.init);

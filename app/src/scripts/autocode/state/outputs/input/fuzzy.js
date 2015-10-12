@@ -1,7 +1,9 @@
-autocode.state['outputs/output/variable/key'] = function(opts) {
-  var value = $(this).val();
+autocode.state['outputs/input/fuzzy'] = function(e) {
+  var field = $(this);
+  var value = field.val();
   
   if (value.substr(0, 1) != '$') {
+    autocode.fuzzy.close();
     return;
   }
   

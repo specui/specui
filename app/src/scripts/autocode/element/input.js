@@ -1,22 +1,37 @@
 autocode.element.input = {
   html: function(opts) {
-    var html = '<input';
+    var input = $(document.createElement('input'));
     
-    if (opts.autocomplete) {
-      html += ' autocomplete="' + (opts.autocomplete ? 'on' : 'off') + '"';
+    if (opts.autocomplete === true) {
+      input.attr('autocomplete', 'on');
+    } else if (opts.autocomplete === false) {
+      input.attr('autocomplete', 'off');
     }
+    
+    if (opts.class) {
+      input.addClass(opts.class);
+    }
+    
+    if (opts.event) {
+      var e;
+      for (var event_name in opts.event) {
+        e = opts.event[event_name];
+        input.bind(event_name, e);
+      }
+    }
+    
     if (opts.name) {
-      html += ' name="' + opts.name + '"';
+      input.attr('name', opts.name);
     }
+    
     if (opts.placeholder) {
-      html += ' placeholder="' + opts.placeholder + '"';
+      input.attr('placeholder', opts.placeholder);
     }
+    
     if (opts.value) {
-      html += ' value="' + opts.value + '"';
+      input.val(opts.value);
     }
     
-    html += ' />';
-    
-    return html;
+    return input;
   }
 };

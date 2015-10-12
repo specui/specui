@@ -35,7 +35,7 @@ var autocode = {
       autocode.initState();
     }
     
-    autocode.resize();
+    autocode.resize.all();
     
     return false;
   }

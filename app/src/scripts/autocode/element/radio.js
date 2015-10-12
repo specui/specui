@@ -1,35 +1,46 @@
 autocode.element.radio = {
   event: {
-    click: function(o, value) {
-      o = $(o);
-      
+    click: function(o) {
       var selected = o.hasClass('selected');
       
       o.parent().find('button').removeClass('selected');
       
       if (!selected) {
         o.addClass('selected');
-        o.parent().find('input[type="hidden"]').val(value);
+        o.parent().find('input[type="hidden"]').val(o.val());
       } else {
         o.parent().find('input[type="hidden"]').val('');
       }
     }
   },
   html: function(opts) {
-    var html = '<span class="radio">';
+    var span = $(document.createElement('span'));
+    span.addClass('radio');
     
-    var option_text;
+    var button, option_text;
     for (var option_value in opts.options) {
       option_text = opts.options[option_value];
       
-      html += '<button class="' + ((opts.value || opts.value === false) && opts.value.toString() == option_value.toString() ? 'selected' : '') + ' ' + (opts.defaultValue.toString() == option_value.toString() ? ' default' : '') + '" onclick="autocode.element.radio.event.click(this, \'' + option_value + '\')" type="button">'
-      html += option_text;
-      html += '</button>';
+      button = $(document.createElement('button'));
+      if ((opts.value || opts.value === false) && opts.value.toString() == option_value.toString()) {
+        button.addClass('selected');
+      }
+      if ((opts.defaultValue || opts.defaultValue === false) && opts.defaultValue.toString() == option_value.toString()) {
+        button.addClass('default');
+      }
+      button.attr('type', 'button');
+      button.click(autocode.element.radio.event.click);
+      button.text(option_text);
+      button.val(option_value);
+      span.append(button);
     }
     
-    html += '<input name="' + opts.name + '" type="hidden" value="' + (opts.value || opts.value === false ? opts.value : '') + '" />';
-    html += '</span>';
+    var input = $(document.createElement('input'));
+    input.attr('name', opts.name);
+    input.attr('type', 'hidden');
+    input.val(opts.value || opts.value === false ? opts.value : '');
+    span.append(input);
     
-    return html;
+    return span;
   }
 };

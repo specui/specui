@@ -1,17 +1,18 @@
-autocode.state['outputs/output/variable/blur'] = function(opts) {
-  var field = $('#outputs-content .content-center .schema input[name="' + opts.name + '"]');
+autocode.state['outputs/input/blur'] = function() {
+  var field = $(this);
+  var field_name = field.attr('name');
   var output = autocode.project.outputs[autocode.data.current.output];
   var value = field.val();
+  
+  field.unbind('keyup', autocode.state['outputs/input/fuzzy']);
   
   if (!output.spec) {
     output.spec = {};
   }
-  output.spec[opts.name] = value;
+  output.spec[field.attr('name')] = value;
   
   if (value.substr(0, 1) == '$' && autocode.project[value.substr(1)]) {
     value = autocode.project[value.substr(1)];
     field.addClass('variable').val(value);
   }
-  
-  field.unbind('keyup', autocode.state['outputs/output/variable/key']);
 };
