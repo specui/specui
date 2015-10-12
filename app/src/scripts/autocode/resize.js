@@ -36,16 +36,6 @@ autocode.resize = function() {
     top: ($(window).height() - imports_init.outerHeight()) / 2
   });
   
-  var fuzzy = $('#fuzzy'),
-    fuzzy_target = $('#fuzzy').data('target');
-  if (fuzzy.length && fuzzy_target.length) {
-    fuzzy.css({
-      left: fuzzy_target.offset().left,
-      top: fuzzy_target.outerHeight() + fuzzy_target.offset().top,
-      width: fuzzy_target.outerWidth()
-    });
-  }
-  
   var init = $('#init');
   init.css({
     left: (window_width - init.outerWidth()) / 2,
@@ -77,11 +67,30 @@ autocode.resize = function() {
     top: ($(window).height() - popup.outerHeight()) / 2
   });
   
+  var fuzzy = $('#fuzzy'),
+    fuzzy_target = $('#fuzzy').data('target');
+  if (fuzzy.length && fuzzy_target.length) {
+    fuzzy.css({
+      left: fuzzy_target.offset().left,
+      top: fuzzy_target.outerHeight() + fuzzy_target.offset().top,
+      width: fuzzy_target.outerWidth()
+    });
+  }
+  
   var welcome = $('#welcome');
-  welcome.css({
-    left: (window_width - welcome.outerWidth()) / 2,
-    top: ($(window).height() - welcome.outerHeight()) / 2
-  });
+  if (welcome.outerHeight() > $(window).height()) {
+    welcome.css({
+      left: (window_width - welcome.outerWidth()) / 2,
+      position: 'absolute',
+      top: $('header').outerHeight() + 20
+    });
+  } else {
+    welcome.css({
+      left: (window_width - welcome.outerWidth()) / 2,
+      position: '',
+      top: ($(window).height() - welcome.outerHeight()) / 2
+    });
+  }
 };
 
 $(window).resize(autocode.resize);
