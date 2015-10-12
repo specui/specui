@@ -36,7 +36,11 @@ autocode.fuzzy = {
         row_icon = $(document.createElement('span'));
         row_icon.addClass('icon');
         if (row.icon) {
-          row_icon.addClass(row.icon);
+          if (row.icon.match(/^https?:/)) {
+            row_icon.css('background-image', 'url(' + row.icon + ')');
+          } else {
+            row_icon.addClass(row.icon);
+          }
         }
         row_link.append(row_icon);
       }

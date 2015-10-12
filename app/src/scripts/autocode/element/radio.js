@@ -1,15 +1,16 @@
 autocode.element.radio = {
   event: {
-    click: function(o) {
-      var selected = o.hasClass('selected');
+    click: function() {
+      var field = $(this);
+      var selected = $(this).hasClass('selected');
       
-      o.parent().find('button').removeClass('selected');
+      field.parent().find('button').removeClass('selected');
       
       if (!selected) {
-        o.addClass('selected');
-        o.parent().find('input[type="hidden"]').val(o.val());
+        field.addClass('selected');
+        field.parent().find('input[type="hidden"]').val(field.val());
       } else {
-        o.parent().find('input[type="hidden"]').val('');
+        field.parent().find('input[type="hidden"]').val('');
       }
     }
   },

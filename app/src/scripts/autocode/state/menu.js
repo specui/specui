@@ -2,7 +2,7 @@ autocode.state['menu'] = function() {
   var rows = [];
   if (autocode.project) {
     rows.push({
-      text: 'Save Project',
+      text: 'Save Project (Ctrl+Shift+S)',
       icon: 'save-icon',
       state: 'project/save'
     });
@@ -19,13 +19,13 @@ autocode.state['menu'] = function() {
   }
   
   rows.push({
-    text: 'New Project',
+    text: 'New Project (Ctrl+Shift+N)',
     icon: 'add-icon',
     state: 'project/new',
     style: 'divider'
   });
   rows.push({
-    text: 'Load Project',
+    text: 'Load Project (Ctrl+Shift+O)',
     icon: 'load-icon',
     state: 'project/load',
   });

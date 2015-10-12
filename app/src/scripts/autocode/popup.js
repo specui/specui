@@ -55,10 +55,10 @@ autocode.popup = {
     $('#overlay').fadeIn();
     
     $('#popup').css('opacity', 0.01).show();
-    $('#popup input').first().focus();
+    $('#popup input').first().focus().keyup();
     $('#popup').animate({ opacity: 1 });
     
-    autocode.resize.all(['overlay', 'popup']);
+    autocode.resize.all(['fuzzy', 'overlay', 'popup']);
     
     autocode.initState();
   }

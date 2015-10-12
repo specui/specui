@@ -19,7 +19,7 @@ autocode.state['outputs/add'] = function() {
           generator = autocode.data.generators[generator_name];
           if (generator_name.match(new RegExp(value, 'i'))) {
             generators.push({
-              icon: 'generator-icon',
+              icon: 'https://cdn.rawgit.com/crystal/' + generator_name.split('.')[0] + '/master/.autocode/icon.svg',
               state: 'outputs/add/generator?name=' + generator_name,
               text: generator_name
             });
