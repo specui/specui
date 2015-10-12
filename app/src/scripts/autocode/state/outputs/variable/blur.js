@@ -12,4 +12,6 @@ autocode.state['outputs/output/variable/blur'] = function(opts) {
     value = autocode.project[value.substr(1)];
     field.addClass('variable').val(value);
   }
+  
+  field.unbind('keyup', autocode.state['outputs/output/variable/key']);
 };
