@@ -22,7 +22,7 @@ autocode.element.radio = {
     for (var option_value in opts.options) {
       option_text = opts.options[option_value];
       
-      html += '<button' + ((opts.value || opts.value === false) && opts.value.toString() == option_value.toString() ? ' class="selected"' : '') + ' onclick="autocode.element.radio.event.click(this, \'' + option_value + '\')" type="button">'
+      html += '<button class="' + ((opts.value || opts.value === false) && opts.value.toString() == option_value.toString() ? 'selected' : '') + ' ' + (opts.defaultValue.toString() == option_value.toString() ? ' default' : '') + '" onclick="autocode.element.radio.event.click(this, \'' + option_value + '\')" type="button">'
       html += option_text;
       html += '</button>';
     }

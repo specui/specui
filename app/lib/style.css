@@ -204,10 +204,17 @@ textarea {
 
 .radio button {
   background-color: #999;
+  border: 2px #999 solid;
+  padding: 8px 13px;
+}
+
+.radio button.default {
+  border: 2px #185F96 solid;
 }
 
 .radio button.selected {
   background-color: #185F96;
+  border: 2px #185F96 solid;
 }
 
 .table {
@@ -379,6 +386,7 @@ textarea {
   font-size: 12px;
   padding: 5px 10px;
   position: fixed;
+  text-align: center;
 }
 
 #hint:after {

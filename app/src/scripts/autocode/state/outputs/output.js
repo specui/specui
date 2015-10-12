@@ -35,13 +35,18 @@ autocode.state['outputs/output'] = function(opts) {
       property_title = property_name;
     }
     
+    property_hint = autocode.string.escape(
+      property.description + (property.default || property.default === false ? '<div style="font-weight: bold">Default: ' + property.default + '</div>' : '')
+    );
+    
     property_html = '<div class="field">'
       + '<label>'
         + '<span class="text">' + property_title + '</span> '
-        + (property.description ? '<span class="icon info-icon" data-hint="' + property.description + '"></span>' : '')
+        + (property.description ? '<span class="icon info-icon" data-hint="' + property_hint + '"></span>' : '')
       + '</label>';
     if (property.type == 'boolean') {
       property_html += autocode.element.radio.html({
+        defaultValue: property.default,
         name: property_name,
         options: {
           true: 'True',
@@ -49,9 +54,6 @@ autocode.state['outputs/output'] = function(opts) {
         },
         value: (outputed.spec && (outputed.spec[property_name] || outputed.spec[property_name] === false) ? outputed.spec[property_name] : null)
       });
-      if (property.default) {
-        property_html += ' <span class="text">(Default: ' + property.default + ')</span>';
-      }
     } else {
       property_html += '<input spellcheck="false"' + (property.default ? ' placeholder="' + property.default + '"' : '') + ' type="text" value="' + (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '') + '" />';
     }

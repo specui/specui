@@ -28,6 +28,6 @@ autocode.hint = {
     }
     
     hint.data('target', opts.target);
-    hint.text(opts.text);
+    hint.html(opts.text);
   }
 };

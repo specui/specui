@@ -44,6 +44,15 @@ autocode.state['outputs/property/add'] = function() {
         return false;
       }
       
+      // validate value
+      if (autocode.data.generators[autocode.data.current.generator].schema.properties[data.property].type == 'boolean' && data.value != 'true' && data.value != 'false') {
+        autocode.popup.error('Value must be a boolean.');
+        return false;
+      } else if (autocode.data.generators[autocode.data.current.generator].schema.properties[data.property].type == 'number' && !data.value.match(/^\d+$/)) {
+        autocode.popup.error('Value must be a number.');
+        return false;
+      }
+      
       if (autocode.data.generators[autocode.data.current.generator].schema.properties[data.property].type == 'boolean') {
         if (data.value == 'true') {
           data.value = true;
