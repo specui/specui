@@ -1,4 +1,6 @@
 autocode.state['imports'] = function() {
+  autocode.action.toggleSection('imports');
+  
   if (autocode.project.imports) {
     $('#imports-content-container .table a').slice(1).remove();
     
@@ -25,6 +27,4 @@ autocode.state['imports'] = function() {
     $('#imports-init').show();
     $('#imports-content-container').hide();
   }
-  
-  autocode.action.toggleSection('imports');
 };

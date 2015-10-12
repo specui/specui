@@ -8,16 +8,17 @@ autocode.resize.fuzzy = function() {
     
     if (fuzzy_max_height > 300) {
       fuzzy_max_height = 300;
+      fuzzy.css('maxHeight', fuzzy_max_height);
     } else if (fuzzy_max_height < 100) {
       fuzzy_box_shadow = '0px -5px 10px #999';
       fuzzy_max_height = 300;
-      fuzzy_max_top = fuzzy_target.offset().top - fuzzy_max_height;
+      fuzzy.css('maxHeight', fuzzy_max_height);
+      fuzzy_max_top = fuzzy_target.offset().top - fuzzy.outerHeight();
     }
     
     fuzzy.css({
       boxShadow: fuzzy_box_shadow,
       left: fuzzy_target.offset().left,
-      maxHeight: fuzzy_max_height,
       top: fuzzy_max_top,
       width: fuzzy_target.outerWidth()
     });

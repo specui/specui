@@ -3,7 +3,9 @@ autocode.resize.content = function() {
     height: $(window).height() - $('header').outerHeight() - $('#tabs').outerHeight()
   });
   $('.content-center').css({
-    height: $(window).height() - $('header').outerHeight() - $('#tabs').outerHeight(),
     width: $(window).width() - $('.content-left').outerWidth() - $('.content-right').outerWidth()
+  });
+  $('.content-left, .content-center, .content-right').css({
+    height: $(window).height() - $('header').outerHeight() - $('#tabs').outerHeight()
   });
 };

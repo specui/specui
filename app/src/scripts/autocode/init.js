@@ -1,5 +1,9 @@
 autocode.init = function() {
+  autocode.resize.loader();
+  $('#loader').animate({ opacity: 1 });
+  
   autocode.hint.init()
+  autocode.shortcut.init()
   autocode.initState();
   
   $(window).bind({

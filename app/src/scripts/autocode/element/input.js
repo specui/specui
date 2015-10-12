@@ -12,6 +12,10 @@ autocode.element.input = {
       input.addClass(opts.class);
     }
     
+    if (opts.css) {
+      input.css(opts.css);
+    }
+    
     if (opts.event) {
       var e;
       for (var event_name in opts.event) {

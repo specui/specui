@@ -42,6 +42,7 @@ autocode.state['outputs/output'] = function(opts) {
   
   function addProperties(properties, parent) {
     var property,
+      property_add,
       property_field,
       property_icon,
       property_input,
@@ -53,15 +54,16 @@ autocode.state['outputs/output'] = function(opts) {
     for (var property_name in autocode.object.sort(properties)) {
       property = properties[property_name];
       
-      if (property.type == 'object') {
-        addProperties(property.properties, property_name);
-        continue;
-      }
-      
       if (property.title) {
         property_title = property.title;
       } else {
         property_title = property_name;
+      }
+      
+      if (property.type == 'object' && !property.additionalProperties) {
+        $('#outputs-content .content-center .schema').append('<b style="display: block; padding-top: 10px">' + property_title + '</b>');
+        addProperties(property.properties, property_name);
+        continue;
       }
       
       property_hint = autocode.string.escape(
@@ -69,6 +71,9 @@ autocode.state['outputs/output'] = function(opts) {
       );
       
       property_field = $(document.createElement('div'));
+      if (parent) {
+        property_field.css('paddingLeft', 20);
+      }
       property_field.addClass('field');
       
       property_label = $(document.createElement('label'));
@@ -86,7 +91,68 @@ autocode.state['outputs/output'] = function(opts) {
         property_label.append(property_icon);
       }
       
-      if (property.type == 'boolean') {
+      if (property.type == 'object') {
+        property_add = $(document.createElement('button'));
+        property_add.attr('type', 'button');
+        property_add.data('name', property_name);
+        property_add.click(function() {
+          var i = ($(this).parent().parent().children().length - 1) / 2;
+          
+          var input = autocode.element.input.html({
+            autocomplete: false,
+            class: property_variable ? 'variable' : null,
+            css: {
+              borderRight: 'none',
+              width: '50%'
+            },
+            event: {
+              blur: autocode.state['outputs/input/blur'],
+              focus: autocode.state['outputs/input/focus'],
+              keydown: function(e) {
+                if (e.keyCode == 27) {
+                  $(this).blur();
+                  return;
+                }
+              }
+            },
+            name: $(this).data('name') + '[0][key]',
+            placeholder: property.default,
+            spellcheck: false,
+            type: 'text',
+            value: property_value
+          });
+          $(this).parent().parent().append(input);
+          
+          var input = autocode.element.input.html({
+            autocomplete: false,
+            class: property_variable ? 'variable' : null,
+            css: {
+              width: '50%'
+            },
+            event: {
+              blur: autocode.state['outputs/input/blur'],
+              focus: autocode.state['outputs/input/focus'],
+              keydown: function(e) {
+                if (e.keyCode == 27) {
+                  $(this).blur();
+                  return;
+                }
+              }
+            },
+            name: $(this).data('name') + '[0][value]',
+            placeholder: property.default,
+            spellcheck: false,
+            type: 'text',
+            value: property_value
+          });
+          $(this).parent().parent().append(input);
+        });
+        property_add.text('Add');
+        property_label.append(property_add);
+        
+        property_add.click();
+        
+      } else if (property.type == 'boolean') {
         property_value = (output.spec && (output.spec[property_name] || output.spec[property_name] === false) ? output.spec[property_name] : null);
         property_input = autocode.element.radio.html({
           defaultValue: property.default,
@@ -97,6 +163,8 @@ autocode.state['outputs/output'] = function(opts) {
           },
           value: property_value
         });
+        property_field.append(property_input);
+        
       } else {
         property_value = deepFind(output.spec, parent ? parent + '.' + property_name : property_name);
         if (property_value.substr(0, 1) == '$' && autocode.project[property_value.substr(1)]) {
@@ -124,8 +192,8 @@ autocode.state['outputs/output'] = function(opts) {
           type: 'text',
           value: property_value
         });
+        property_field.append(property_input);
       }
-      property_field.append(property_input);
       
       $('#outputs-content .content-center .schema').append(property_field);
     }
