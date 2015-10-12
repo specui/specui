@@ -55,6 +55,12 @@ input {
   width: 100%;
 }
 
+input.variable {
+  background-color: #185F96;
+  border: 2px #185F96 solid;
+  color: #FFF;
+}
+
 label {
   display: block;
   padding: 10px 0px;

@@ -25,7 +25,7 @@ autocode.state['outputs/output'] = function(opts) {
     return;
   }
   
-  var property, property_html, property_title;
+  var property, property_html, property_name, property_title, property_variable;
   for (var property_name in autocode.object.sort(schema.properties)) {
     property = schema.properties[property_name];
     
@@ -45,6 +45,7 @@ autocode.state['outputs/output'] = function(opts) {
         + (property.description ? '<span class="icon info-icon" data-hint="' + property_hint + '"></span>' : '')
       + '</label>';
     if (property.type == 'boolean') {
+      property_value = (outputed.spec && (outputed.spec[property_name] || outputed.spec[property_name] === false) ? outputed.spec[property_name] : null);
       property_html += autocode.element.radio.html({
         defaultValue: property.default,
         name: property_name,
@@ -52,10 +53,17 @@ autocode.state['outputs/output'] = function(opts) {
           true: 'True',
           false: 'False'
         },
-        value: (outputed.spec && (outputed.spec[property_name] || outputed.spec[property_name] === false) ? outputed.spec[property_name] : null)
+        value: property_value
       });
     } else {
-      property_html += '<input spellcheck="false"' + (property.default ? ' placeholder="' + property.default + '"' : '') + ' type="text" value="' + (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '') + '" />';
+      property_value = (outputed.spec && outputed.spec[property_name] ? outputed.spec[property_name] : '');
+      if (property_value.substr(0, 1) == '$' && autocode.project[property_value.substr(1)]) {
+        property_variable = true;
+        property_value = autocode.project[property_value.substr(1)];
+      } else {
+        property_variable = false;
+      }
+      property_html += '<input' + (property_variable ? ' class="variable"' : '') + ' name="' + property_name + '" onblur="autocode.state[\'outputs/output/variable/blur\']({ name: \'' + property_name + '\' })" onfocus="autocode.state[\'outputs/output/variable\']({ name: \'' + property_name + '\' })" spellcheck="false"' + (property.default ? ' placeholder="' + property.default + '"' : '') + ' type="text" value="' + property_value + '" />';
     }
     property_html += '</div>';
     
