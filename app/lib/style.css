@@ -402,6 +402,7 @@ textarea {
   border-radius: 5px;
   color: #FFF;
   font-size: 12px;
+  max-width: 250px;
   padding: 5px 10px;
   position: fixed;
   text-align: center;
@@ -610,7 +611,11 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 25%;
+  width: 33%;
+}
+
+#tabs a:last-of-type {
+  width: 34%;
 }
 
 #tabs a:hover {

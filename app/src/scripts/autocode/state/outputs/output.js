@@ -66,10 +66,6 @@ autocode.state['outputs/output'] = function(opts) {
         continue;
       }
       
-      property_hint = autocode.string.escape(
-        property.description + (property.default || property.default === false ? '<div style="font-weight: bold">Default: ' + property.default + '</div>' : '')
-      );
-      
       property_field = $(document.createElement('div'));
       if (parent) {
         property_field.css('paddingLeft', 20);
@@ -85,6 +81,9 @@ autocode.state['outputs/output'] = function(opts) {
       property_label.append(property_text);
       
       if (property.description) {
+        property_hint = autocode.string.escape(
+          marked(property.description) + (property.default || property.default === false ? '<div style="font-weight: bold">Default: ' + property.default + '</div>' : '')
+        );
         property_icon = $(document.createElement('span'));
         property_icon.addClass('icon info-icon');
         property_icon.attr('data-hint', property_hint);
