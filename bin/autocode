@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
-// load coffeescript
-require('coffee-script').register();
-
 // load packages
-var ascii = require('../cli/ascii')(),
+var ascii = require('../cli/lib/ascii')(),
 	autocode = require('../lib/autocode'),
 	bluebird = require('bluebird'),
 	colors = require('colors'),
@@ -85,7 +82,7 @@ bluebird.try(function() {
 			break;
 			
 		case 'help':
-			var output = require(__dirname + '/../cli/help')(commands);
+			var output = require(__dirname + '/../cli/lib/help')(commands);
 			console.log(output);
 			break;
 		

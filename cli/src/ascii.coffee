@@ -4,7 +4,7 @@ module.exports = () ->
 	fs = require 'fs'
 	
 	# get ascii file
-	file = "#{__dirname}/ascii.txt"
+	file = "#{__dirname}/../ascii.txt"
 	
 	# get ascii text
 	text = fs.readFileSync file

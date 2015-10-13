@@ -12,7 +12,7 @@ imports:
   crystal/bower: ~0.4.1
   crystal/git: ~0.2.0
   crystal/grunt: ~0.3.1
-  crystal/npm: ~0.3.0
+  crystal/npm: ~0.4.0
   crystal/readme: ~0.5.1
   crystal/travis: ~0.3.0
 exports:
@@ -148,6 +148,12 @@ outputs:
             - app/src/scripts/*/**
           tasks:
             - concat
+  
+  - generator: npm.NPMIgnoreGenerator
+    spec:
+      items:
+        - cli/src
+        - src
   
   - generator: npm.PackageGenerator
     spec: npm.yml
@@ -740,6 +746,7 @@ scripts:
     - npm install
     - bower install
     - coffee --compile --output lib/ src/
+    - coffee --compile --output cli/lib/ cli/src/
   run:
     - npm install
   test:

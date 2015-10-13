@@ -44,6 +44,8 @@ install = (opts) ->
     access_token_url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
   
   if module_version == 'latest'
+    module_is_lastest = true
+    
     # get latest release
     release_url = "https://api.github.com/repos/#{module_name}/releases/latest#{access_token_url}"
     release_resp = request 'get', release_url, { headers: headers }
@@ -52,9 +54,12 @@ install = (opts) ->
     release = JSON.parse release_resp.body
     if !release
       throw new Error "Unable to locate generator (#{name})."
+    module_version = semver.clean release.tag_name
     tag_name = release.tag_name
     console.log "Latest version is #{release.tag_name}.".green
   else
+    module_is_lastest = false
+    
     # get releases
     release_url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
     release_resp = request 'get', release_url, { headers: headers }
@@ -63,12 +68,16 @@ install = (opts) ->
     releases = JSON.parse release_resp.body
     if !releases
       throw new Error "Unable to locate generator (#{name})."
+    release_i = 0
     for release in releases
       release_version = semver.clean release.tag_name
       if semver.satisfies release_version, module_version
+        if release_i == 0
+          module_is_lastest = true
         module_version = semver.clean release.tag_name
         tag_name = release.tag_name
         break
+      release_i++
     if !tag_name
       throw new Error "Unable to find version (#{module_version}) for module (#{module_name})."
     console.log "Found version (#{module_version}) with tag (#{tag_name}).".green
@@ -104,6 +113,12 @@ install = (opts) ->
       buffer.writeUInt8 file.fileData[i], i
       i++
     fs.writeFileSync "#{module_path}/#{filename}", buffer
+    
+    if module_is_lastest
+      link_path = path.normalize "#{userHome}/.autocode/module/#{host}/#{module_name}/latest"
+      if fs.existsSync link_path
+        fs.unlinkSync link_path
+      fs.symlinkSync module_path, link_path
     
   project = new autocode module_path
   project.update()
