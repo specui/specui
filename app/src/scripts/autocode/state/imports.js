@@ -10,7 +10,7 @@ autocode.state['imports'] = function() {
       
       $('#imports-content-container .table').append(
         '<a class="file" href="imports/module?repo=' + import_name + '">'
-          + '<span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span>'
+          + '<span class="image"><span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span></span>'
           + '<span class="info">'
             + '<span class="name">' + import_name + '</span>'
             + '<span class="generator">' + import_version + '</span>'

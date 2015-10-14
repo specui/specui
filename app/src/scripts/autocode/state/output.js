@@ -4,15 +4,27 @@ autocode.state['output'] = function() {
   if (autocode.data.output) {
     $('#output-content-container .table a').slice(1).remove();
     
-    var import_version;
-    for (var import_name in autocode.object.sort(autocode.data.output.files)) {
-      import_version = autocode.data.output.files[import_name];
+    var output, output_icon;
+    for (var output_filename in autocode.object.sort(autocode.data.output.files)) {
+      output = autocode.data.output.files[output_filename];
+      
+      output_icon = 'file-icon';
+      switch (true) {
+        case output.format == 'js' || !!output_filename.match(/\.js$/i): {
+          output_icon = 'js-icon';
+          break;
+        }
+        case output.format == 'json' || !!output_filename.match(/\.json$/i): {
+          output_icon = 'json-icon';
+          break;
+        }
+      }
       
       $('#output-content-container .table').append(
-        '<a class="file" href="output/file?file=' + import_name + '">'
-          + '<span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span>'
+        '<a class="file" href="output/file?file=' + output_filename + '">'
+          + '<span class="image"><span class="icon ' + output_icon + '"></span></span>'
           + '<span class="info">'
-            + '<span class="name">' + import_name + '</span>'
+            + '<span class="name">' + output_filename + '</span>'
           + '</span>'
         + '</a>'
       );

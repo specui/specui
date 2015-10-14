@@ -105,15 +105,20 @@ textarea {
   height: 1px;
 }
 
-.file .icon {
+.file .image {
+  border-bottom: 1px #EEE solid;
+  height: 50px;
+  width: 50px;
+}
+
+.file .image .icon {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 50px 50px;
-  border-bottom: 1px #EEE solid;
   height: 50px;
   padding: 10px;
   vertical-align: middle;
-  width: 50px;
+  width: 50px;  
 }
 
 .file .info {
@@ -143,14 +148,6 @@ textarea {
   background-image: url(images/file/bower.svg);
 }
 
-.icon.file-js {
-  background-image: url(images/file/js.svg);
-}
-
-.icon.file-json {
-  background-image: url(images/file/json.svg);
-}
-
 .icon.add-icon {
   background-image: url(images/icon/add.svg);
 }
@@ -161,6 +158,10 @@ textarea {
 
 .icon.close-icon {
   background-image: url(images/icon/close.svg);
+}
+
+.icon.file-icon {
+  background-image: url(images/icon/file.svg);
 }
 
 .icon.general-icon {
@@ -176,12 +177,24 @@ textarea {
   cursor: help;
 }
 
+.icon.js-icon {
+  background-image: url(images/file/js.svg);
+}
+
+.icon.json-icon {
+  background-image: url(images/file/json.svg);
+}
+
 .icon.load-icon {
   background-image: url(images/icon/load.svg);
 }
 
 .icon.loader-icon {
   background-image: url(images/loader.svg);
+}
+
+.icon.loader-icon.loading {
+  -webkit-animation: rotating 2s linear infinite;
 }
 
 .icon.login-icon {
@@ -318,6 +331,10 @@ textarea {
 
 #content aside .table a span {
   display: table-cell;
+}
+
+#content aside .table a span span {
+  display: inline-block;
 }
 
 #content aside .table a span.icon {
@@ -653,6 +670,10 @@ textarea {
 #tabs a.selected {
   border-bottom: 3px #185F96 solid;
   color: #185F96;
+}
+
+#tour-content {
+  text-align: center;
 }
 
 #user {
