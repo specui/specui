@@ -41,6 +41,7 @@ autocode.state['imports/add'] = function(opts) {
         $('#imports-init').fadeOut(function() {
           $('#imports-content-container').fadeIn(function() {
             autocode.state['imports']();
+            autocode.state['imports/module']({ repo: opts.repo });
           });
         });
       }

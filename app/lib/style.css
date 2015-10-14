@@ -95,6 +95,10 @@ textarea {
   background-size: 12px 12px;
 }
 
+.CodeMirror {
+  height: auto;
+}
+
 .divider {
   border: 1px #CCC solid;
   display: block;
@@ -174,6 +178,10 @@ textarea {
 
 .icon.load-icon {
   background-image: url(images/icon/load.svg);
+}
+
+.icon.loader-icon {
+  background-image: url(images/loader.svg);
 }
 
 .icon.login-icon {
@@ -336,12 +344,14 @@ textarea {
   padding-bottom: 10px;
 }
 
+/*
 #content .content-center pre {
   background-color: #FFF;
   border-radius: 5px;
   display: block;
   padding: 10px;
 }
+*/
 
 #content .content-center .info-icon {
   margin-left: 10px;

@@ -26,4 +26,6 @@ autocode.state['output'] = function() {
     $('#output-init').show();
     $('#output-content-container').hide();
   }
+  
+  autocode.resize.all();
 };

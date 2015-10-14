@@ -9,8 +9,32 @@
   <script src="components/google-diff-match-patch-js/diff_match_patch.js"></script>
   <script src="components/CodeMirror/lib/codemirror.js"></script>
   <script src="components/CodeMirror/addon/merge/merge.js"></script>
+  <script src="components/CodeMirror/addon/mode/simple.js"></script>
+  
+  <script src="components/CodeMirror/mode/clike/clike.js"></script>
+  <script src="components/CodeMirror/mode/coffeescript/coffeescript.js"></script>
+  <script src="components/CodeMirror/mode/css/css.js"></script>
+  <script src="components/CodeMirror/mode/django/django.js"></script>
+  <script src="components/CodeMirror/mode/dockerfile/dockerfile.js"></script>
+  <script src="components/CodeMirror/mode/erlang/erlang.js"></script>
+  <script src="components/CodeMirror/mode/go/go.js"></script>
+  <script src="components/CodeMirror/mode/haml/haml.js"></script>
+  <script src="components/CodeMirror/mode/handlebars/handlebars.js"></script>
   <script src="components/CodeMirror/mode/javascript/javascript.js"></script>
+  <script src="components/CodeMirror/mode/markdown/markdown.js"></script>
+  <script src="components/CodeMirror/mode/nginx/nginx.js"></script>
+  <script src="components/CodeMirror/mode/perl/perl.js"></script>
+  <script src="components/CodeMirror/mode/php/php.js"></script>
+  <script src="components/CodeMirror/mode/puppet/puppet.js"></script>
+  <script src="components/CodeMirror/mode/python/python.js"></script>
+  <script src="components/CodeMirror/mode/ruby/ruby.js"></script>
+  <script src="components/CodeMirror/mode/rust/rust.js"></script>
+  <script src="components/CodeMirror/mode/sass/sass.js"></script>
+  <script src="components/CodeMirror/mode/sql/sql.js"></script>
+  <script src="components/CodeMirror/mode/swift/swift.js"></script>
+  <script src="components/CodeMirror/mode/xml/xml.js"></script>
   <script src="components/CodeMirror/mode/yaml/yaml.js"></script>
+  
   <script src="components/formulator/src/formulator.js"></script>
   <script src="components/jquery/dist/jquery.min.js"></script>
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
@@ -46,7 +70,6 @@
       <a class="button" href="project/load">No, Load Another Project</a> <a class="button" href="project/init">Yes, Initialize Autocode</a>
     </div>
     <div id="welcome">
-      <img class="splash" src="images/splash.svg" />
       <div class="options">
         <a class="option" href="project/new" id="new-option">
           <span class="icon add-icon"></span>
@@ -60,7 +83,7 @@
           <span class="icon login-icon"></span>
           <span class="text">Login with GitHub</span>
         </a>
-        <a class="option" href="user/tour" id="tour-option">
+        <a class="option" href="tour" id="tour-option">
           <span class="icon tour-icon"></span>
           <span class="text">Take a Tour</span>
         </a>
@@ -81,6 +104,12 @@
         <a class="tab" href="output" id="output-tab">Output</a>
       </nav>
       <div id="content">
+        <div class="content" id="tour-content">
+          <img height="250" class="splash" src="images/splash.svg" />
+          <div>
+            Welcome to Autocode, an open source code automation platform that generates code for frontends, backends and everything in between. 
+          </div>
+        </div>
         <div class="content" id="overview-content">
           <aside class="content-left">
             <div class="table">
@@ -282,7 +311,7 @@
             <aside class="content-left">
               <div class="table">
                 <a class="file" href="output/generate">
-                  <span class="icon add-icon"></span>
+                  <span class="icon loader-icon"></span>
                   <span class="info">
                     <span class="name">Generate</span>
                   </span>
