@@ -18,6 +18,8 @@ autocode.state['project/new'] = function() {
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();
         
+        autocode.state['project/load/repo']({ name: data.name });
+        
         $('#welcome').fadeOut(function() {
           $('#app').fadeIn();
         });

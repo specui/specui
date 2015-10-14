@@ -1,3 +1,8 @@
 autocode.state['user/login'] = function() {
-  window.location.href = 'https://github.com/login/oauth/authorize?client_id=1a72d9c6a9602772d577&redirect_uri=http://alpha.crystal.sh:8080/accounts/connect/github&scope=user:email,public_repo';
+  var href ='https://github.com/login/oauth/authorize';
+  href += '?client_id=' + autocode.data.auth.client_id;
+  href += '&redirect_uri=' + autocode.data.auth.redirect_uri;
+  href += '&scope=' + autocode.data.auth.scope;
+  
+  window.location.href = href;
 };

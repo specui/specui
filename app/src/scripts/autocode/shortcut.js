@@ -6,6 +6,26 @@ autocode.shortcut = {
       }
       
       switch (e.keyCode) {
+        // 1
+        case 49: {
+          autocode.state['overview']();
+          break;
+        }
+        // 2
+        case 50: {
+          autocode.state['imports']();
+          break;
+        }
+        // 3
+        case 51: {
+          autocode.state['config']();
+          break;
+        }
+        // 4
+        case 52: {
+          autocode.state['output']();
+          break;
+        }
         // n
         case 78: {
           autocode.state['project/new']();
@@ -21,10 +41,14 @@ autocode.shortcut = {
           autocode.state['project/save']();
           break;
         }
+        // w
+        case 87: {
+          autocode.state['project/close']();
+          break;
+        }
       }
       
-      autocode.resize.overlay();
-      autocode.resize.popup();
+      autocode.resize.all();
       
       return false;
     });

@@ -1,3 +1,9 @@
 autocode.state['user/logout'] = function() {
-  window.location.href = 'http://alpha.crystal.sh:8080/logout';
+  autocode.loader.open();
+  
+  autocode.api.logout.get({
+    success: function() {
+      window.location.reload();
+    }
+  });
 };

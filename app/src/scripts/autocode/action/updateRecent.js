@@ -1,4 +1,8 @@
 autocode.action.updateRecent = function() {
+  if (!autocode.data.user) {
+    return;
+  }
+  
   var recent_projects = autocode.storage.get('recent', []).reverse();
   if (recent_projects.length) {
     var html = '';

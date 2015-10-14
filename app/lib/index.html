@@ -9,6 +9,7 @@
   <script src="components/google-diff-match-patch-js/diff_match_patch.js"></script>
   <script src="components/CodeMirror/lib/codemirror.js"></script>
   <script src="components/CodeMirror/addon/merge/merge.js"></script>
+  <script src="components/CodeMirror/mode/javascript/javascript.js"></script>
   <script src="components/CodeMirror/mode/yaml/yaml.js"></script>
   <script src="components/formulator/src/formulator.js"></script>
   <script src="components/jquery/dist/jquery.min.js"></script>
@@ -47,17 +48,21 @@
     <div id="welcome">
       <img class="splash" src="images/splash.svg" />
       <div class="options">
-        <a class="option" href="project/new">
+        <a class="option" href="project/new" id="new-option">
           <span class="icon add-icon"></span>
           <span class="text">New Project</span>
         </a>
-        <a class="option" href="project/load">
+        <a class="option" href="project/load" id="load-option">
           <span class="icon load-icon"></span>
           <span class="text">Load Project</span>
         </a>
-        <a class="option" href="user/login">
+        <a class="option" href="user/login" id="login-option">
           <span class="icon login-icon"></span>
           <span class="text">Login with GitHub</span>
+        </a>
+        <a class="option" href="user/tour" id="tour-option">
+          <span class="icon tour-icon"></span>
+          <span class="text">Take a Tour</span>
         </a>
       </div>
       <div class="recent">
@@ -73,6 +78,7 @@
         <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
         -->
         <a class="tab" href="config" id="config-tab">Config</a>
+        <a class="tab" href="output" id="output-tab">Output</a>
       </nav>
       <div id="content">
         <div class="content" id="overview-content">
@@ -260,6 +266,32 @@
                 <a class="button" href="exports/export/save">Save</a>
               </form>
             </aside>
+          </div>
+        </div>
+        <div class="content" id="output-content">
+          <div id="output-init">
+            <div class="title">
+              Output
+            </div>
+            <div>
+              Add imports and outputs to your Autocode configuration and click the button below to generate code for your project.
+            </div>
+            <a class="button" href="output/generate">Generate Code</a>
+          </div>
+          <div id="output-content-container">
+            <aside class="content-left">
+              <div class="table">
+                <a class="file" href="output/generate">
+                  <span class="icon add-icon"></span>
+                  <span class="info">
+                    <span class="name">Generate</span>
+                  </span>
+                </a>
+              </div>
+            </aside>
+            <div class="content" id="output-content">
+              <textarea name="output"></textarea>
+            </div>
           </div>
         </div>
         <div class="content" id="outputs-content">

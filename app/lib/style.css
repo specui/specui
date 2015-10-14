@@ -505,6 +505,27 @@ textarea {
   vertical-align: middle;
 }
 
+#output-content-container {
+  display: none;
+}
+
+#output-init {
+  position: fixed;
+  text-align: center;
+}
+
+#output-init .button {
+  margin-top: 20px;
+}
+
+#output-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
 #outputs-content-container {
   display: none;
 }
@@ -611,11 +632,7 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 33%;
-}
-
-#tabs a:last-of-type {
-  width: 34%;
+  width: 25%;
 }
 
 #tabs a:hover {
@@ -633,12 +650,11 @@ textarea {
 }
 
 #user .icon {
-  background-image: url(images/user.svg);
+  background-image: url(images/icon/login-white.svg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 32px 32px;
   border-radius: 50%;
-  border: 2px #FFF solid;
   display: inline-block;
   height: 32px;
   width: 32px;
@@ -661,7 +677,7 @@ textarea {
 #welcome .options .option {
   color: #000;
   float: left;
-  width: 33.3%;
+  width: 50%;
 }
 
 #welcome .options .option .icon {

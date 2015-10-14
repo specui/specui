@@ -12,6 +12,8 @@ autocode.resize = {
       'importsInit',
       'init',
       'loader',
+      'output',
+      'outputInit',
       'outputsInit',
       'overlay',
       'popup',

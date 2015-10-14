@@ -35,66 +35,23 @@ autocode.init = function() {
     }
   });
   
-  autocode.action.updateRecent();
-  
-  autocode.api.config.get({
-    data: {
-      repo: 'crystal/autocode'
-    },
-    error: function(data) {
-      console.log(data);
-      alert('Unable to load Autocode. Please contact support.');
-    },
-    success: function(data) {
-      autocode.config = jsyaml.safeLoad(data.config);
-      
-      autocode.api.user.get({
-        error: function() {
-          
-        },
-        success: function(data) {
-          autocode.data.user = data;
-          autocode.data.user.isLoggedIn = true;
-          
-          $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
-          $('#user .text').text(data.username);
-        }
-      });
-      
-      var repo = autocode.storage.get('repo');
-      
-      if (!repo) {
-        $('#loader').fadeOut(function() {
-          $('#loader').remove();
-          $('#container').show();
-          $('#welcome').hide();
-          autocode.resize.all();
-          $('#container').animate({ opacity: 1 },{
-            complete: function() {
-              $('#welcome').css({ opacity: 0 }).show().animate({ opacity: 1 });
-              autocode.resize.all();
-            }
-          });
-        });
-        
-        return;
-      }
-      
-      $('#loader').fadeOut(function() {
-        $('#loader').remove();
-        $('#container').show();
-        $('#welcome').hide();
-        autocode.resize.all();
-        $('#container').animate({
-          opacity: 1
-        },{
-          complete: function() {
-            $('#app').fadeIn();
-          }
-        });
-      });
-    }
-  });
+  var code = autocode.query.get('code');
+  if (code) {
+    history.pushState(null, null, '/');
+    autocode.api.login.post({
+      data: {
+        code: code,
+        provider: 1
+      },
+      error: function(data) {
+        alert('Unable to login.');
+        autocode.load();
+      },
+      success: autocode.load
+    });
+  } else {
+    autocode.load();
+  }
   
   autocode.resize.all();
 };
