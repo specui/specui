@@ -29,6 +29,9 @@ autocode.state['imports'] = function() {
         
         $('#imports-search').keyup(function(e) {
           if (e.keyCode == 13) {
+            if (!$(this).val().length || !$('#fuzzy a').first().find('.text').length) {
+              return false;
+            }
             var text = $('#fuzzy a').first().find('.text').text();
             autocode.state.push('imports/add', { repo: text });
             $(this).val('');
