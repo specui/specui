@@ -1,4 +1,6 @@
 autocode.state['config'] = function() {
+  autocode.popup.close();
+  
   var code_mirror = $('#config-content .CodeMirror');
   var value = jsyaml.safeDump(autocode.project);
   

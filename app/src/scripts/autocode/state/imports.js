@@ -1,4 +1,6 @@
 autocode.state['imports'] = function() {
+  autocode.popup.close();
+  
   autocode.action.toggleSection('imports');
   
   $('#imports-content-container .table a').remove();
