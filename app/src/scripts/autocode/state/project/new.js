@@ -8,7 +8,7 @@ autocode.state['project/new'] = function() {
     formula: 'formulas/forms/NewProject.json',
     xhr: true,
     ready: function(form) {
-      form.action = 'http://alpha.api.crystal.sh:3000/repos';
+      form.action = autocode.url.api('repos');
       autocode.popup.open({
         title: 'New Project',
         content: form.toString()

@@ -7,7 +7,7 @@ autocode.state['user/settings'] = function() {
     formula: 'formulas/forms/Settings.json',
     xhr: true,
     ready: function(form) {
-      form.action = 'http://alpha.api.crystal.sh:3000/repos';
+      form.action = autocode.url.api('repos');
       form.fields.email.placeholder = autocode.data.user.email;
       form.fields.name.placeholder = autocode.data.user.name;
       form.fields.url.placeholder = autocode.data.user.website;

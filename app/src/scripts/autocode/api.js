@@ -1,7 +1,7 @@
 autocode.api = {
-  url: 'http://alpha.api.crystal.sh:3000',
+  url: null,
   ajax: function(opts) {
-    opts.url = autocode.api.url + '/' + opts.uri;
+    opts.url = autocode.api.url + opts.uri;
     
     var ajax = {
       contentType: 'application/json',
