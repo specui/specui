@@ -32,6 +32,8 @@ autocode.state['output'] = function() {
     
     autocode.initState()
     
+    $('#output-content-container .table a').eq(1).click();
+    
     $('#output-init').hide();
     $('#output-content-container').show();
   } else {

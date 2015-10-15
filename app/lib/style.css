@@ -172,6 +172,10 @@ textarea {
   background-image: url(images/icon/generator.svg);
 }
 
+.icon.github-icon {
+  background-image: url(images/github.svg);
+}
+
 .icon.info-icon {
   background-image: url(images/info.svg);
   cursor: help;
@@ -223,7 +227,8 @@ textarea {
 }
 
 .icon.tour-icon {
-  background-image: url(images/icon/tour.svg);
+  background-image: url(images/tour.svg);
+  background-size: 160px 160px;
 }
 
 .icon.variable-icon {
@@ -706,17 +711,18 @@ textarea {
 }
 
 #welcome .options .option {
+  box-sizing: border-box;
   color: #000;
   float: left;
-  width: 50%;
+  padding: 10px;
 }
 
 #welcome .options .option .icon {
-  background-size: 100px 100px;
+  background-size: 200px 200px;
   display: block;
-  height: 100px;
+  height: 200px;
   margin: 0px auto;
-  width: 100px;
+  width: 200px;
 }
 
 #welcome .options .option .text {

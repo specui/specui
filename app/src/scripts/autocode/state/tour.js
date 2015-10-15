@@ -3,11 +3,15 @@ autocode.state['tour'] = function() {
     $(this).unbind('click', imports_click);
     
     autocode.hint.open({
-      target: $('#imports-init a.button'),
-      text: 'Select a module to import into your project.'
+      target: $('#imports-search'),
+      text: 'Select a module to import into your project. For example, try typing "bower".'
     });
     
-    $('#imports-init a.button').click(imports_init_click);
+    $('#imports-search').keyup(imports_init_click);
+    
+    autocode.listener.add('import_listener', 'imports/add', function() {
+      module_click();
+    });
     
     autocode.resize.hint();
   };
@@ -40,21 +44,26 @@ autocode.state['tour'] = function() {
     }, 1000);
   };
   
+  var check_hint;
   var module_click = function() {
-    $(this).unbind('click', module_click);
+    autocode.listener.remove('import_listener');
     
-    setTimeout(function() {
-      alert('test');
-      
-      autocode.hint.open({
-        target: $('#imports-content-readme button'),
-        text: 'Click here to add an example from this module to your Autocode configuration.'
-      });
-      
-      $('#imports-content-readme button').click(example_click);
-      
-      autocode.resize.hint();
-    }, 5000);
+    check_hint = setInterval(function() {
+      if ($('#imports-content-readme button').length) {
+        clearInterval(check_hint);
+        
+        autocode.hint.open({
+          target: $('#imports-content-readme button'),
+          text: 'Click here to add an example from this module to your Autocode configuration.'
+        });
+        
+        $('#imports-content-readme button').click(example_click);
+
+        autocode.resize.hint();
+
+        return;
+      }
+    }, 100);
   };
   
   var example_click = function() {
@@ -75,7 +84,7 @@ autocode.state['tour'] = function() {
     
     autocode.hint.open({
       target: $('#output-init a.button'),
-      text: 'Now let\'s generate some code. Click here.'
+      text: 'One more time.'
     });
     
     $('#output-init a.button').click(generate_click);

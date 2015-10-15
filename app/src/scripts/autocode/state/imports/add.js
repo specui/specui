@@ -1,16 +1,21 @@
 autocode.state['imports/add'] = function(opts) {
-  $('#popup, #overlay').fadeOut(function() {
-    autocode.popup.close();
-    
+  autocode.fuzzy.close();
+  
+  if (!autocode.project.imports) {
+    autocode.project.imports = {};
+  }
+  
+  autocode.project.imports[opts.repo] = 'Loading...';
+  
+  autocode.state['imports']();
+  $('#imports-content-readme').text('');
+  
+  var add = function() {
     autocode.api.releases.get({
       data: {
         repo: opts.repo
       },
       success: function(data) {
-        if (!autocode.project.imports) {
-          autocode.project.imports = {};
-        }
-        
         autocode.project.imports[opts.repo] = '~' + data[0].substr(1);
         
         autocode.api.config.get({
@@ -38,13 +43,19 @@ autocode.state['imports/add'] = function(opts) {
           }
         });
         
+        autocode.state['imports']();
+        autocode.state['imports/module']({ repo: opts.repo });
+        
         $('#imports-init').fadeOut(function() {
-          $('#imports-content-container').fadeIn(function() {
-            autocode.state['imports']();
-            autocode.state['imports/module']({ repo: opts.repo });
-          });
+          $('#imports-content-container').fadeIn();
         });
       }
     });
-  });
+  };
+  
+  if ($('#popup').length) {
+    $('#popup, #overlay').fadeOut(add);
+  } else {
+    add();
+  }
 };

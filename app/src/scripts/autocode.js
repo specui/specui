@@ -35,6 +35,12 @@ var autocode = {
       autocode.initState();
     }
     
+    if (autocode.listener.listeners[href]) {
+      for (var listener_name in autocode.listener.listeners[href]) {
+        autocode.listener.listeners[href][listener_name](query);
+      }
+    }
+    
     autocode.resize.all();
     
     return false;

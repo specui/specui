@@ -9,7 +9,6 @@ autocode.resize = {
       'config',
       'exportsInit',
       'hint',
-      'importsInit',
       'init',
       'loader',
       'output',

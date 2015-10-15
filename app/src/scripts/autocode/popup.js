@@ -14,14 +14,6 @@ autocode.popup = {
   open: function(opts) {
     autocode.popup.close();
     
-    var overlay = $(document.createElement('div'));
-    overlay.attr('id', 'overlay');
-    overlay.click(function() {
-      autocode.popup.close();
-    });
-    overlay.hide();
-    $('body').append(overlay);
-    
     var popup = $(document.createElement('div'));
     popup.attr('id', 'popup');
     popup.hide();
@@ -52,7 +44,16 @@ autocode.popup = {
     
     $('body').append(popup);
     
-    $('#overlay').fadeIn();
+    if (opts.overlay !== false) {
+      var overlay = $(document.createElement('div'));
+      overlay.attr('id', 'overlay');
+      overlay.click(function() {
+        autocode.popup.close();
+      });
+      overlay.hide();
+      $('body').append(overlay);
+      $('#overlay').fadeIn();
+    }
     
     $('#popup').css('opacity', 0.01).show();
     $('#popup input').first().focus().keyup();

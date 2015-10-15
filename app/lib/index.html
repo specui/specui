@@ -80,7 +80,7 @@
           <span class="text">Load Project</span>
         </a>
         <a class="option" href="user/login" id="login-option">
-          <span class="icon login-icon"></span>
+          <span class="icon github-icon"></span>
           <span class="text">Login with GitHub</span>
         </a>
         <a class="option" href="tour" id="tour-option">
@@ -104,12 +104,14 @@
         <a class="tab" href="output" id="output-tab">Output</a>
       </nav>
       <div id="content">
+        <!--
         <div class="content" id="tour-content">
           <img height="250" class="splash" src="images/mascot.svg" />
           <div>
             Welcome to Autocode, an open source code automation platform that generates code for frontends, backends and everything in between. 
           </div>
         </div>
+        -->
         <div class="content" id="overview-content">
           <aside class="content-left">
             <div class="table">
@@ -194,27 +196,10 @@
           </section>
         </div>
         <div class="content" id="imports-content">
-          <div id="imports-init">
-            <div class="title">
-              Import Modules
-            </div>
-            <div>
-              Importing modules extends the functionality of your Autocode project.
-            </div>
-            <a class="button" href="imports/import">Import Module</a>
-          </div>
           <div id="imports-content-container">
             <aside class="content-left">
-              <div class="table">
-                <a class="file" href="imports/import">
-                  <span class="image">
-                    <span class="icon add-icon"></span>
-                  </span>
-                  <span class="info">
-                    <span class="name">Import Module</span>
-                  </span>
-                </a>
-              </div>
+              <input autocomplete="off" placeholder="Add a Module to Your Project" id="imports-search" type="text" />
+              <div class="table"></div>
             </aside>
             <section class="content-center">
               <div id="imports-content-readme"></div>
