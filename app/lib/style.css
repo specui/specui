@@ -228,7 +228,7 @@ textarea {
 
 .icon.tour-icon {
   background-image: url(images/tour.svg);
-  background-size: 160px 160px;
+  background-size: 160px 160px !important;
 }
 
 .icon.variable-icon {
