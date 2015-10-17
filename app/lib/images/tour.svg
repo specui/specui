@@ -7,7 +7,7 @@
 	.st1{clip-path:url(#SVGID_5_);fill:none;}
 	.st2{clip-path:url(#SVGID_7_);}
 	.st3{opacity:0.8;fill:url(#SVGID_8_);enable-background:new    ;}
-	.st4{fill:url(#SVGID_9_);}
+	.st4{opacity:0.8;fill:#FFFFFF;}
 	.st5{fill:#990000;}
 	.st6{fill:#D1D0E0;}
 	.st7{fill:#666666;}
@@ -68,12 +68,6 @@
 							<stop  offset="1" style="stop-color:#F4BB3A"/>
 						</linearGradient>
 						<polygon class="st3" points="-561.3,1029 -722,1152.1 -714.1,1261.2 -598.9,1253.9 -506.7,1077 						"/>
-						
-							<linearGradient id="SVGID_9_" gradientUnits="userSpaceOnUse" x1="-731.5" y1="-146.4829" x2="-355" y2="-146.4829" gradientTransform="matrix(1 0 0 -1 0 1008.2)">
-							<stop  offset="0" style="stop-color:#FEF9ED;stop-opacity:0"/>
-							<stop  offset="0.3255" style="stop-color:#D1D1D2"/>
-							<stop  offset="1" style="stop-color:#A3A3A5;stop-opacity:0.4"/>
-						</linearGradient>
 						<path class="st4" d="M-731.5,1073.8c0,0,39.7-31.8,75.5,8.2l3.9,1.4c0,0,87.9-38.4,116.1,52.8c0,0,44.9-3.3,44.3,38.6
 							c0,0,33.5,0,31.6,25.3c0,0,17.5-31.2,44.8-11.7c0,0,40.6-23.7,60.3,18.9c0,0-93.7,70.8-218.8,24.6
 							C-698,1186.1-731.5,1073.8-731.5,1073.8z"/>
