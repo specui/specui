@@ -1,10 +1,14 @@
 autocode.state['tour'] = function() {
   autocode.popover.close();
   
+  var click_event = navigator.userAgent.match(/mobile/i) ? 'touchend' : 'click';
+  var hint_offset_top = -10;
+  
   var imports_click = function() {
-    $(this).unbind('click', imports_click);
+    $(this).unbind(click_event, imports_click);
     
     autocode.hint.open({
+      offsetTop: 10,
       target: $('#imports-search'),
       text: 'Select a module to import into your project. For example, try typing "bower".'
     });
@@ -16,31 +20,34 @@ autocode.state['tour'] = function() {
     });
     
     autocode.resize.hint();
+    
+    $('#imports-search').focus();
   };
   
   var overview_click = function() {
-    $(this).unbind('click', overview_click);
+    $(this).unbind(click_event, overview_click);
     
     $('#tour-content').hide();
     
     autocode.hint.open({
+      offsetTop: hint_offset_top,
       target: $('#imports-tab'),
       text: 'Once done, click this tab to import modules.'
     });
     
-    $('#imports-tab').click(imports_click);
+    $('#imports-tab').bind(click_event, imports_click);
     
     autocode.resize.hint();
   };
-  $('#overview-tab').click(overview_click);
+  $('#overview-tab').bind(click_event, overview_click);
   
   var imports_init_click = function() {
-    $(this).unbind('click', imports_init_click);
+    $(this).unbind(click_event, imports_init_click);
     
     autocode.hint.close();
     
     setTimeout(function() {
-      $('#popup a').click(module_click);
+      $('#popup a').bind(click_event, module_click);
       
       autocode.resize.hint();
     }, 1000);
@@ -55,11 +62,13 @@ autocode.state['tour'] = function() {
         clearInterval(check_hint);
         
         autocode.hint.open({
+          offsetTop: 10,
+          scrollUp: 'Scroll back up to click the button',
           target: $('#imports-content-readme button'),
           text: 'Click here to add an example from this module to your Autocode configuration.'
         });
         
-        $('#imports-content-readme button').click(example_click);
+        $('#imports-content-readme button').bind(click_event, example_click);
 
         autocode.resize.hint();
 
@@ -69,37 +78,27 @@ autocode.state['tour'] = function() {
   };
   
   var example_click = function() {
-    $(this).unbind('click', example_click);
+    $(this).unbind(click_event, example_click);
     
     autocode.hint.open({
+      offsetTop: hint_offset_top,
       target: $('#output-tab'),
-      text: 'Great! Now let\'s generate some code.'
+      text: 'Great! Now let\'s generate some code.',
+      top: $('header').outerHeight()
     });
     
-    $('#output-tab').click(output_click);
-    
-    autocode.resize.hint();
-  };
-  
-  var output_click = function() {
-    $(this).unbind('click', output_click);
-    
-    autocode.hint.open({
-      target: $('#output-init a.button'),
-      text: 'One more time.'
-    });
-    
-    $('#output-init a.button').click(generate_click);
+    $('#output-tab').bind(click_event, generate_click);
     
     autocode.resize.hint();
   };
   
   var generate_click = function() {
-    $(this).unbind('click', output_click);
+    $(this).unbind(click_event, generate_click);
     
     autocode.hint.open({
       target: $('#user'),
-      text: 'Woohoo! You used Autocode to generate code! Now login with GitHub to signup :)'
+      text: 'Woohoo! You used Autocode to generate code! Now login with GitHub to signup :)',
+      top: 52
     });
     
     setTimeout(function() {
@@ -110,7 +109,7 @@ autocode.state['tour'] = function() {
   };
   
   $('#welcome').fadeOut(function() {
-    $('#app').fadeIn();
+    $('.app').fadeIn();
     
     $('*[data-hint]').hide();
     
@@ -135,6 +134,7 @@ autocode.state['tour'] = function() {
     $('#tour-content').fadeIn();
     
     autocode.hint.open({
+      offsetTop: 0,
       target: $('#overview-tab'),
       text: 'Click here to fill out information about your project.'
     });

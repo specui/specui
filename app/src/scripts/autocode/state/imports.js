@@ -1,6 +1,11 @@
 autocode.state['imports'] = function() {
   autocode.popup.close();
   
+  autocode.action.toggleColumn('imports-content', 1, {
+    animated: autocode.data.current.tab == 'imports'
+      ? true
+      : false
+  });
   autocode.action.toggleSection('imports');
   
   $('#imports-content-container .table a').remove();
@@ -46,6 +51,9 @@ autocode.state['imports'] = function() {
           var mod, modules = [];
           for (var module_i in autocode.data.modules) {
             module_name = autocode.data.modules[module_i].name;
+            if (autocode.project.imports && autocode.project.imports[module_name]) {
+              continue;
+            }
             if (module_name.match(new RegExp(value, 'i'))) {
               modules.push({
                 icon: 'https://cdn.rawgit.com/' + module_name + '/master/.autocode/icon.svg',

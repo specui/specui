@@ -1,7 +1,7 @@
 autocode.state['project/load/repo'] = function(opts) {
   autocode.unload.enable();
   
-  $('#app, #init').fadeOut();
+  $('.app, #init').fadeOut();
   
   $('#popup, #overlay').fadeOut(function() {
     autocode.popup.close();
@@ -78,7 +78,9 @@ autocode.state['project/load/repo'] = function(opts) {
         $('#welcome').fadeOut(function() {
           autocode.state['overview']();
           
-          $('#app').fadeIn();
+          $('.app').fadeIn();
+          
+          autocode.resize.all();
         });
       });
     }

@@ -6,7 +6,7 @@ autocode.state['home/submit'] = function() {
   
   autocode.popup.close();
   
-  $('#app, #init').fadeOut(function() {
+  $('.app, #init').fadeOut(function() {
     $('#menu .text').text('Menu');
     $('#welcome').fadeIn();
   });

@@ -5,9 +5,11 @@ autocode.resize = {
     }
     
     var parts = [
+      'body',
       'content',
       'config',
       'exportsInit',
+      'header',
       'hint',
       'init',
       'loader',

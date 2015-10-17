@@ -3,6 +3,8 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
   <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" type="text/css" />
   <link href="components/CodeMirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
   <link href="components/CodeMirror/addon/merge/merge.css" rel="stylesheet" type="text/css" />
@@ -51,15 +53,27 @@
   </div>
   <div id="container">
     <header>
-      <a href="menu" id="menu">
-        <span class="icon"></span>
-        <span class="text">Menu</span>
-      </a>
-      <a href="user" id="user">
-        <span class="text">Login with GitHub</span>
-        <span class="icon"></span>
-      </a>
-      <a href="home" id="logo"></a>
+      <nav id="main">
+        <a href="menu" id="menu">
+          <span class="icon"></span>
+          <span class="text">Menu</span>
+        </a>
+        <a href="user" id="user">
+          <span class="text">Login with GitHub</span>
+          <span class="icon"></span>
+        </a>
+        <a href="home" id="logo"></a>
+      </nav>
+      <nav class="app" id="tabs">
+        <a class="tab" href="overview" id="overview-tab">Overview</a>
+        <a class="tab" href="imports" id="imports-tab">Imports</a>
+        <!--
+        <a class="tab" href="exports" id="exports-tab">Exports</a>
+        <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
+        -->
+        <a class="tab" href="config" id="config-tab">Config</a>
+        <a class="tab" href="output" id="output-tab">Output</a>
+      </nav>
     </header>
     <div id="init">
       <div class="title">
@@ -93,17 +107,7 @@
         Recent: <span class="projects"></span>
       </div>
     </div>
-    <div id="app">
-      <nav id="tabs">
-        <a class="tab" href="overview" id="overview-tab">Overview</a>
-        <a class="tab" href="imports" id="imports-tab">Imports</a>
-        <!--
-        <a class="tab" href="exports" id="exports-tab">Exports</a>
-        <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
-        -->
-        <a class="tab" href="config" id="config-tab">Config</a>
-        <a class="tab" href="output" id="output-tab">Output</a>
-      </nav>
+    <div class="app">
       <div id="content">
         <!--
         <div class="content" id="tour-content">
@@ -114,7 +118,7 @@
         </div>
         -->
         <div class="content" id="overview-content">
-          <aside class="content-left">
+          <aside class="content-left column">
             <div class="table">
               <a class="file subtab" href="overview/general" id="overview-general-subtab">
                 <span class="image">
@@ -136,8 +140,8 @@
               </a>
             </div>
           </aside>
-          <section class="content-center">
-            <div class="content" id="overview-author-content">
+          <section class="content-center column">
+            <div class="subcontent" id="overview-author-content">
               <form>
                 <div class="field">
                   <label>
@@ -169,7 +173,7 @@
                 </div>
               </form>
             </div>
-            <div class="content" id="overview-general-content">
+            <div class="subcontent" id="overview-general-content">
               <form>
                 <div class="field">
                   <label>
@@ -198,14 +202,16 @@
         </div>
         <div class="content" id="imports-content">
           <div id="imports-content-container">
-            <aside class="content-left">
-              <input autocomplete="off" placeholder="Add a Module to Your Project" id="imports-search" type="text" />
+            <aside class="column content-left">
+              <div class="search">
+                <input autocomplete="off" placeholder="Add a Module to Your Project" id="imports-search" type="text" />
+              </div>
               <div class="table"></div>
             </aside>
-            <section class="content-center">
+            <section class="column content-center">
               <div id="imports-content-readme"></div>
             </section>
-            <aside class="content-right">
+            <aside class="column content-right">
               <form>
                 <div class="field">
                   <label>
@@ -304,7 +310,7 @@
             <a class="button" href="output/generate">Generate Code</a>
           </div>
           <div id="output-content-container">
-            <aside class="content-left">
+            <aside class="column content-left">
               <div class="table">
                 <a class="file" href="output/generate">
                   <span class="image">
@@ -316,7 +322,7 @@
                 </a>
               </div>
             </aside>
-            <div class="content" id="output-content">
+            <div class="column content" id="output-content">
               <textarea name="output"></textarea>
             </div>
           </div>

@@ -1,4 +1,5 @@
 autocode.state['overview/general'] = function() {
+  autocode.action.toggleColumn('overview-content', 2);
   autocode.action.toggleSection('overview', 'general');
   
   $('#overview-general-content input[name="name"]').val(autocode.project.name);

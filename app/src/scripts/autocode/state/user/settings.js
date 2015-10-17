@@ -28,7 +28,7 @@ autocode.state['user/settings'] = function() {
         autocode.popup.close();
         
         $('#welcome').fadeOut(function() {
-          $('#app').fadeIn();
+          $('.app').fadeIn();
         });
       });
     }

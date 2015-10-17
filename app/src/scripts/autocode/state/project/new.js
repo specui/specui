@@ -21,7 +21,7 @@ autocode.state['project/new'] = function() {
         autocode.state['project/load/repo']({ name: data.name });
         
         $('#welcome').fadeOut(function() {
-          $('#app').fadeIn();
+          $('.app').fadeIn();
         });
       });
     }

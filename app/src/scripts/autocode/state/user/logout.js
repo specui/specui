@@ -3,6 +3,7 @@ autocode.state['user/logout'] = function() {
   
   autocode.api.logout.get({
     success: function() {
+      history.pushState(null, null, '/');
       window.location.reload();
     }
   });

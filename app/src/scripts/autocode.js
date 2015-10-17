@@ -14,11 +14,26 @@ var autocode = {
       
       $(this).data('state', true);
       
-      $(this).click(autocode.initStateCallback);
+      if (navigator.userAgent.match(/mobile/i)) {
+        $(this).bind({
+          touchstart: function() {
+            $(window).removeData('scrolled');
+          },
+          touchend: function(e) {
+            if ($(window).data('scrolled')) {
+              return false;
+            }
+            return autocode.initStateCallback(e, $(this));
+          }
+        });
+      } else {
+        $(this).click(autocode.initStateCallback);
+      }
     });
   },
-  initStateCallback: function(e) {
-    var href = $(this).attr('href');
+  initStateCallback: function(e, o) {
+    var o = o || $(this);
+    var href = o.attr('href');
     if (href.match(/^https?:/)) {
       return true;
     }
@@ -31,7 +46,9 @@ var autocode = {
     
     var action = autocode.state[href];
     if (action) {
+      $('input:focus').blur();
       action(query);
+      history.pushState(null, null, '#' + href);
       autocode.initState();
     }
     

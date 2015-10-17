@@ -36,12 +36,13 @@ autocode.state['menu'] = function() {
       icon: 'login-icon',
       state: 'user/login'
     });
-    rows.push({
-      text: 'Take a Tour',
-      icon: 'tour-icon',
-      state: 'tour'
-    });
   }
+  rows.push({
+    text: 'Take a Tour',
+    icon: 'tour-icon',
+    state: 'tour',
+    style: 'divider'
+  });
   
   autocode.popover.toggle({
     rows: rows,

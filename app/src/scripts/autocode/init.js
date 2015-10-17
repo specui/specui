@@ -27,6 +27,15 @@ autocode.init = function() {
       if (target.attr('id') != 'fuzzy' && !target.parents('#fuzzy').length) {
         autocode.fuzzy.close();
       }
+    },
+    popstate: function() {
+      var hash = location.hash.split('#')[1];
+      if (autocode.state[hash]) {
+        autocode.state[hash]();
+      }
+    },
+    scroll: function() {
+      $(this).data('scrolled', true);
     }
   });
   
@@ -34,11 +43,14 @@ autocode.init = function() {
     if ($('#fuzzy').length) {
       autocode.resize.fuzzy();
     }
+    if ($('#hint').length) {
+      autocode.resize.hint();
+    }
   });
   
   var code = autocode.query.get('code');
+  history.pushState(null, null, '/');
   if (code) {
-    history.pushState(null, null, '/');
     autocode.api.login.post({
       data: {
         code: code,

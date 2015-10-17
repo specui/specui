@@ -50,7 +50,7 @@ autocode.load = function() {
                   opacity: 1
                 },{
                   complete: function() {
-                    $('#app').fadeIn();
+                    $('.app').fadeIn();
                   }
                 });
               });
@@ -63,7 +63,6 @@ autocode.load = function() {
               autocode.data.user = data;
               autocode.data.user.isLoggedIn = true;
               
-              $('#new-option, #load-option').css('width', '50%');
               $('#login-option').hide();
               
               $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
