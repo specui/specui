@@ -226,9 +226,13 @@ textarea {
   background-image: url(images/icon/spec.svg);
 }
 
-.icon.tour-icon {
+.icon.tour {
   background-image: url(images/tour.svg);
   background-size: 160px 160px !important;
+}
+
+.icon.tour-icon {
+  background-image: url(images/icon/tour.svg);
 }
 
 .icon.variable-icon {

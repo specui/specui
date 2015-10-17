@@ -1,4 +1,6 @@
 autocode.state['tour'] = function() {
+  autocode.popover.close();
+  
   var imports_click = function() {
     $(this).unbind('click', imports_click);
     
