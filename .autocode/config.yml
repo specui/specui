@@ -161,7 +161,7 @@ outputs:
   - generator: readme.ReadmeGenerator
     spec:
       logo:
-        image: https://rawgit.com/crystal/autocode/master/.autocode/logo.svg
+        image: https://rawgit.com/crystal/autocode/master/.autocode/image.svg
         text: $name
         url: http://crystal.sh
       showTableOfContents: true
