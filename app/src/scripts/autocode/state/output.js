@@ -38,6 +38,7 @@ autocode.state['output'] = function() {
       
       if ($(window).width() > 600) {
         $('#output-content-container .table a').eq(1).click();
+        $('#output-content-container .table a').eq(1).click();
       }
     }
     

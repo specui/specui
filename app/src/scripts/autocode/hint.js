@@ -1,9 +1,14 @@
 autocode.hint = {
   timer: null,
   close: function(opts) {
-    $('#hint, #hint-arrow').fadeOut(function() {
+    opts = opts || {};
+    if (opts.animated === false) {
       $('#hint, #hint-arrow').remove();
-    });
+    } else {
+      $('#hint, #hint-arrow').fadeOut(function() {
+        $('#hint, #hint-arrow').remove();
+      });
+    }
   },
   init: function() {
     $('*[data-hint]').each(function() {
@@ -31,7 +36,12 @@ autocode.hint = {
       hint.attr('id', 'hint');
       $('body').append(hint);
     }
-    if (opts.offsetTop) {
+    if (opts.minTop !== undefined) {
+      hint.data('minTop', opts.minTop);
+    } else {
+      hint.removeData('minTop');
+    }
+    if (opts.offsetTop !== undefined) {
       hint.data('offsetTop', opts.offsetTop);
     } else {
       hint.removeData('offsetTop');
@@ -42,7 +52,7 @@ autocode.hint = {
     } else {
       hint.removeData('scrollUp');
     }
-    if (opts.top) {
+    if (opts.top !== undefined) {
       hint.data('top', opts.top);
     } else {
       hint.removeData('top');

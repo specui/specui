@@ -23,6 +23,7 @@
   <script src="components/CodeMirror/mode/go/go.js"></script>
   <script src="components/CodeMirror/mode/haml/haml.js"></script>
   <script src="components/CodeMirror/mode/handlebars/handlebars.js"></script>
+  <script src="components/CodeMirror/mode/htmlmixed/htmlmixed.js"></script>
   <script src="components/CodeMirror/mode/javascript/javascript.js"></script>
   <script src="components/CodeMirror/mode/markdown/markdown.js"></script>
   <script src="components/CodeMirror/mode/nginx/nginx.js"></script>
@@ -227,6 +228,9 @@
                   </label>
                   <input name="version" spellcheck="false" type="text" />
                 </div>
+                <a class="button" href="imports/remove">
+                  Remove Import
+                </a>
               </form>
             </aside>
           </div>
@@ -290,11 +294,14 @@
                   <label>Filename</label>
                   <input name="filename" spellcheck="false" type="text" />
                 </div>
+                <div class="format-field">
+                  <label>Format</label>
+                  <input name="format" spellcheck="false" type="text" />
+                </div>
                 <div class="schema-field">
                   <label>Schema</label>
                   <input name="schema" spellcheck="false" type="text" />
                 </div>
-                <a class="button" href="exports/export/save">Save</a>
               </form>
             </aside>
           </div>

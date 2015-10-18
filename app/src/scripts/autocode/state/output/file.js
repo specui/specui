@@ -14,6 +14,10 @@ autocode.state['output/file'] = function(opts) {
       mode = 'dockerfile';
       break;
     }
+    case !!opts.file.match(/\.htm$/) || !!opts.file.match(/\.html$/): {
+      mode = 'htmlmixed';
+      break;
+    }
     case !!opts.file.match(/\.ini$/): {
       mode = 'ini';
       break;
@@ -63,4 +67,6 @@ autocode.state['output/file'] = function(opts) {
     code_mirror[0].CodeMirror.setOption('mode', mode);
     code_mirror[0].CodeMirror.setValue(value);
   }
+  
+  autocode.resize.all();
 };

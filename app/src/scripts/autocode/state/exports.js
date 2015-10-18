@@ -21,6 +21,9 @@ autocode.state['exports'] = function() {
     
     $('#exports-init').hide();
     $('#exports-content-container').show();
+    
+    $('#exports-content-container .table a').eq(1).click();
+    
   } else {
     $('#exports-init').show();
     $('#exports-content-container').hide();

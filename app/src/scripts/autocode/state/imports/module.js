@@ -1,6 +1,11 @@
 autocode.state['imports/module'] = function(opts) {
   autocode.action.toggleColumn('imports-content', 2);
   
+  autocode.data.current.import = opts.repo;
+  
+  $('#imports-content-container .table a').removeClass('selected');
+  $('#imports-content-container .table a').eq(opts.index).addClass('selected');
+  
   $('#imports-content input[name="name"]').val(opts.repo);
   $('#imports-content input[name="version"]').val(autocode.project.imports[opts.repo]);
   $('#imports-content-readme').text('');

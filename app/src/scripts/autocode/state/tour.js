@@ -8,7 +8,6 @@ autocode.state['tour'] = function() {
     $(this).unbind(click_event, imports_click);
     
     autocode.hint.open({
-      offsetTop: 10,
       target: $('#imports-search'),
       text: 'Select a module to import into your project. For example, try typing "bower".'
     });
@@ -30,7 +29,8 @@ autocode.state['tour'] = function() {
     $('#tour-content').hide();
     
     autocode.hint.open({
-      offsetTop: hint_offset_top,
+      minTop: 0,
+      offsetTop: -10,
       target: $('#imports-tab'),
       text: 'Once done, click this tab to import modules.'
     });
@@ -42,7 +42,7 @@ autocode.state['tour'] = function() {
   $('#overview-tab').bind(click_event, overview_click);
   
   var imports_init_click = function() {
-    $(this).unbind(click_event, imports_init_click);
+    $(this).unbind('keyup', imports_init_click);
     
     autocode.hint.close();
     
@@ -59,25 +59,26 @@ autocode.state['tour'] = function() {
     
     check_hint = setInterval(function() {
       if ($('#imports-content-readme button').length) {
-        clearInterval(check_hint);
-        
         autocode.hint.open({
-          offsetTop: 10,
           scrollUp: 'Scroll back up to click the button',
-          target: $('#imports-content-readme button'),
+          target: function() {
+            return $('#imports-content-readme button');
+          },
           text: 'Click here to add an example from this module to your Autocode configuration.'
         });
         
         $('#imports-content-readme button').bind(click_event, example_click);
 
         autocode.resize.hint();
-
-        return;
+      } else {
+        autocode.hint.close({ animated: false });
       }
     }, 100);
   };
   
   var example_click = function() {
+    clearInterval(check_hint);
+    
     $(this).unbind(click_event, example_click);
     
     autocode.hint.open({
@@ -88,6 +89,8 @@ autocode.state['tour'] = function() {
     });
     
     $('#output-tab').bind(click_event, generate_click);
+    
+    autocode.state['config']();
     
     autocode.resize.hint();
   };
@@ -134,7 +137,8 @@ autocode.state['tour'] = function() {
     $('#tour-content').fadeIn();
     
     autocode.hint.open({
-      offsetTop: 0,
+      offsetTop: -10,
+      minTop: 0,
       target: $('#overview-tab'),
       text: 'Click here to fill out information about your project.'
     });

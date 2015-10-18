@@ -18,6 +18,19 @@ autocode.state['project/save'] = function() {
     return;
   }
   
+  var output;
+  for (var output_i in autocode.project.outputs) {
+    output = autocode.project.outputs[output_i];
+    
+    if (!autocode.data.generators[output.generator]) {
+      autocode.popup.open({
+        title: 'Validation Error',
+        content: 'Generator does not exist for output: <b>' + output.generator + '</b>'
+      });
+      return;
+    }
+  }
+  
   autocode.popup.open({
     title: 'Save Project',
     content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><a class="button" href="project/save/submit">Save Project</a>'

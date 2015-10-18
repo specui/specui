@@ -1,4 +1,6 @@
-autocode.state['imports'] = function() {
+autocode.state['imports'] = function(opts) {
+  opts = opts || {};
+  
   autocode.popup.close();
   
   autocode.action.toggleColumn('imports-content', 1, {
@@ -10,12 +12,12 @@ autocode.state['imports'] = function() {
   
   $('#imports-content-container .table a').remove();
   
-  var import_version;
+  var import_index = 0, import_version;
   for (var import_name in autocode.object.sort(autocode.project.imports)) {
     import_version = autocode.project.imports[import_name];
     
     $('#imports-content-container .table').append(
-      '<a class="file" href="imports/module?repo=' + import_name + '">'
+      '<a class="file" href="imports/module?repo=' + import_name + '&index=' + import_index + '">'
         + '<span class="image"><span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span></span>'
         + '<span class="info">'
           + '<span class="name">' + import_name + '</span>'
@@ -23,11 +25,17 @@ autocode.state['imports'] = function() {
         + '</span>'
       + '</a>'
     );
+    
+    import_index++;
   }
   
   autocode.initState();
   
   $('#imports-content-container').show();
+  
+  if (opts.disableSelected !== true) {
+    $('#imports-content-container .table a').first().click();
+  }
   
   if (!autocode.data.modules) {
     autocode.api.modules.get({

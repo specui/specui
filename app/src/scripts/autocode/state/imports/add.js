@@ -7,7 +7,7 @@ autocode.state['imports/add'] = function(opts) {
   
   autocode.project.imports[opts.repo] = 'Loading...';
   
-  autocode.state['imports']();
+  autocode.state['imports']({ disableSelected: true });
   $('#imports-search').val('');
   $('#imports-content-readme').text('');
   
@@ -44,7 +44,7 @@ autocode.state['imports/add'] = function(opts) {
           }
         });
         
-        autocode.state['imports']();
+        autocode.state['imports']({ disableSelected: true });
         if ($(window).width() > 600) {
           autocode.state['imports/module']({ repo: opts.repo });
         }

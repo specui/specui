@@ -25,7 +25,9 @@ autocode.state['output/generate'] = function() {
       $('span span.icon.loader-icon').removeClass('loading');
     },
     error: function(data) {
-      alert('Unable to generate code.');
+      autocode.popup.open({
+        title: 'Unable to Generate Code'
+      });
     },
     success: function(data) {
       autocode.data.output = data;

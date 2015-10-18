@@ -21,4 +21,6 @@ autocode.state['config'] = function() {
   } else {
     code_mirror[0].CodeMirror.setValue(value);
   }
+  
+  autocode.resize.all();
 };

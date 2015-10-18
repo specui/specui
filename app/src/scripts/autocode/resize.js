@@ -8,6 +8,7 @@ autocode.resize = {
       'body',
       'content',
       'config',
+      'exports',
       'exportsInit',
       'header',
       'hint',
