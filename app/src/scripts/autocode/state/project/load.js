@@ -1,7 +1,7 @@
 autocode.state['project/load'] = function() {
   autocode.popover.close();
   
-  if (autocode.data.originalConfig && autocode.project && jsyaml.safeDump(autocode.data.originalConfig) != jsyaml.safeDump(autocode.project)) {
+  if (autocode.data.originalConfig && autocode.project && autocode.data.originalConfig != jsyaml.safeDump(autocode.project)) {
     autocode.popup.open({
       title: 'Close Project',
       content: '<div style="padding-bottom: 15px">Are you sure you want to close this project and load another? <b>You will lose all unsaved changes.</b></div>'

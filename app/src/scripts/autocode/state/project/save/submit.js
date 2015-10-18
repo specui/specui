@@ -19,7 +19,7 @@ autocode.state['project/save/submit'] = function() {
       });
     },
     success: function(data) {
-      autocode.data.originalConfig = autocode.object.clone(autocode.project);
+      autocode.data.originalConfig = jsyaml.safeDump(autocode.project);
       autocode.popup.close();
     }
   });

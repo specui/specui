@@ -37,7 +37,7 @@ autocode.state['project/load/repo'] = function(opts) {
       autocode.action.updateRecent();
       
       autocode.project = jsyaml.safeLoad(data.config);
-      autocode.data.originalConfig = autocode.object.clone(autocode.project);
+      autocode.data.originalConfig = data.config;
       
       autocode.data.generators = {};
       autocode.imports = {};

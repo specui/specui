@@ -6,7 +6,7 @@ autocode.state['project/diff'] = function() {
   
   CodeMirror.MergeView($('#popup .diff')[0], {
     value: jsyaml.safeDump(autocode.project),
-    orig: jsyaml.safeDump(autocode.data.originalConfig),
+    orig: autocode.data.originalConfig,
     lineNumbers: true,
     mode: 'yaml',
     readOnly: true,

@@ -18,7 +18,7 @@ autocode.resize.hint = function() {
     if (hint.data('top')) {
       hint_top = hint.data('top');
     } else {
-      hint_top = hint_target.offset().top + hint_target.outerHeight() + hint_offsetTop + $(window).scrollTop();
+      hint_top = hint_target.offset().top + hint_target.outerHeight() + hint_offsetTop + $(window).scrollTop() + 10;
       if (hint_top < $('header').outerHeight() + 10) {
         hint_top = $('header').outerHeight() + 10;
         if (hint.data('scrollUp')) {

@@ -127,7 +127,7 @@ autocode.state['tour'] = function() {
         copyright: '2015 My Co.'
       }
     };
-    autocode.data.originalConfig = {};
+    autocode.data.originalConfig = '';
     
     //autocode.state['overview']();
     

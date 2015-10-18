@@ -10,7 +10,7 @@ autocode.state['project/save'] = function() {
     autocode.project = jsyaml.safeLoad(value);
   }
   
-  if (jsyaml.safeDump(autocode.data.originalConfig) == jsyaml.safeDump(autocode.project)) {
+  if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project)) {
     autocode.popup.open({
       title: 'No Changes',
       content: 'There are no changes to your Autocode configuration.'
@@ -25,7 +25,7 @@ autocode.state['project/save'] = function() {
   
   CodeMirror.MergeView($('#popup .diff')[0], {
     value: jsyaml.safeDump(autocode.project),
-    orig: jsyaml.safeDump(autocode.data.originalConfig),
+    orig: autocode.data.originalConfig,
     showDifferences: true,
     lineNumbers: true,
     mode: 'yaml',

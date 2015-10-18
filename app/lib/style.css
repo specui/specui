@@ -411,7 +411,7 @@ textarea {
 
 #fuzzy {
   background-color: #FFF;
-  box-shadow: 0px 5px 10px #999;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   max-height: 300px;
   overflow: auto;
   position: absolute;
@@ -454,6 +454,7 @@ textarea {
   pointer-events: none;
   position: fixed;
 	width: 0px;
+  z-index: 1000;
 }
 
 #imports-content-container {
@@ -602,7 +603,7 @@ textarea {
 #popup {
   background-color: #FFF;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px #999;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   min-width: 400px;
   position: fixed;
   padding: 20px;

@@ -1,7 +1,7 @@
 autocode.state['home'] = function() {
   autocode.popover.close();
   
-  if (jsyaml.safeDump(autocode.data.originalConfig) != jsyaml.safeDump(autocode.project)) {
+  if (autocode.data.originalConfig != jsyaml.safeDump(autocode.project)) {
     autocode.popup.open({
       title: 'Close Project',
       content: '<div style="padding-bottom: 15px">Are you sure you want to close this project? <b>You will lose all unsaved changes.</b></div>'

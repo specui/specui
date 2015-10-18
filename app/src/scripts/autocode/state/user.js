@@ -22,7 +22,7 @@ autocode.state['user'] = function() {
       right: 0,
       style: 'table',
       target: $('#user'),
-      top: $('header').outerHeight()
+      top: $('#main').outerHeight()
     });
   } else {
     autocode.state['user/login']();
