@@ -2,11 +2,13 @@ autocode.action.toggleUser = function() {
   if (autocode.data.user) {
     autocode.popover.toggle({
       rows: [
+        /*
         {
           icon: 'settings-icon',
           state: 'user/settings',
           text: 'Settings'
         },
+        */
         {
           icon: 'login-icon',
           text: 'View on GitHub',
