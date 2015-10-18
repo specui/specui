@@ -1,12 +1,17 @@
 autocode.loader = {
-  close: function(opts) {
-    autocode.popup.close();
+  close: function() {
+    $('#loader').remove();
   },
   open: function(opts) {
-    opts = opts || {};
+    autocode.loader.close();
     
-    var title = opts.title || 'Loading...';
+    var loader = $(document.createElement('div'));
+    loader.attr('id', 'loader');
+    loader.html('<img class="icon" src="images/loader.svg" />');
+    $('body').append(loader);
     
-    autocode.popup.open({ title: title });
+    autocode.resize.all(['loader']);
+    
+    loader.animate({ opacity: 1 });
   }
 };

@@ -17,7 +17,7 @@ autocode.state['imports'] = function(opts) {
     import_version = autocode.project.imports[import_name];
     
     $('#imports-content-container .table').append(
-      '<a class="file" href="imports/module?repo=' + import_name + '&index=' + import_index + '">'
+      '<a class="file' + (autocode.data.current.import == import_name ? ' selected' : '') + '" href="imports/module?repo=' + import_name + '&index=' + import_index + '">'
         + '<span class="image"><span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span></span>'
         + '<span class="info">'
           + '<span class="name">' + import_name + '</span>'
@@ -39,7 +39,7 @@ autocode.state['imports'] = function(opts) {
   
   $('#imports-content-container').show();
   
-  if (opts.disableSelected !== true) {
+  if (opts.disableSelected !== true && $(window).width() > 600) {
     $('#imports-content-container .table a').first().click();
   }
   

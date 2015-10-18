@@ -10,11 +10,15 @@ autocode.state['imports/module'] = function(opts) {
   $('#imports-version .value').text(autocode.project.imports[opts.repo]);
   $('#imports-content-readme').text('');
   
+  autocode.loader.open();
+  
   autocode.api.readme.get({
     data: {
       repo: opts.repo
     },
     success: function(data) {
+      autocode.loader.close();
+      
       var button = $(document.createElement('button'));
       button.attr('type', 'button');
       button.click(function() {
