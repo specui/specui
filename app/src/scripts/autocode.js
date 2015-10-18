@@ -1,3 +1,14 @@
+jQuery.fn.extend({
+  visibleWidth: function() {
+    var o = $(this);
+    if (o.is(':hidden')) {
+      return 0;
+    } else {
+      return o.outerWidth();
+    }
+  }
+});
+
 var autocode = {
   action: {},
   config: {},

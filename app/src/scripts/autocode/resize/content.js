@@ -26,8 +26,10 @@ autocode.resize.content = function() {
     $('#content .column').css({
       width: ''
     });
-    $('.content-center').css({
-      width: $(window).width() - $('.content-left').outerWidth() - $('.content-right').outerWidth()
+    $('.content-center').each(function() {
+      $(this).css({
+        width: $(window).width() - $(this).prev().visibleWidth() - $(this).next().visibleWidth()
+      });
     });
     $('#content .column').each(function() {
       $(this).css({

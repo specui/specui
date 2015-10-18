@@ -31,6 +31,12 @@ autocode.state['imports'] = function(opts) {
   
   autocode.initState();
   
+  if (autocode.project.imports) {
+    $('#imports-content-container .content-right').show();
+  } else {
+    $('#imports-content-container .content-right').hide();
+  }
+  
   $('#imports-content-container').show();
   
   if (opts.disableSelected !== true) {
