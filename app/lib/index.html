@@ -211,25 +211,23 @@
               <div id="imports-content-readme"></div>
             </section>
             <aside class="column content-right">
-              <form>
-                <div class="field">
-                  <label>
-                    <span class="text">Name</span>
-                    <span class="icon info-icon" data-hint="The name of the imported module."></span>
-                  </label>
-                  <input name="name" spellcheck="false" type="text" />
-                </div>
-                <div class="field">
-                  <label>
-                    <span class="text">Version</span>
-                    <span class="icon info-icon" data-hint="The version of the module. Supports Semantic Versioning."></span>
-                  </label>
-                  <input name="version" spellcheck="false" type="text" />
-                </div>
-                <a class="button" href="imports/remove">
-                  Remove Import
-                </a>
-              </form>
+              <div class="field" id="imports-name">
+                <label>
+                  <span class="text">Name</span>
+                  <span class="icon info-icon" data-hint="The name of the imported module."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editImportName()"></div>
+              </div>
+              <div class="field" id="imports-version">
+                <label>
+                  <span class="text">Version</span>
+                  <span class="icon info-icon" data-hint="The version of the module. Supports Semantic Versioning."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editImportVersion()"></div>
+              </div>
+              <a class="button" href="imports/remove">
+                Remove Import
+              </a>
             </aside>
           </div>
         </div>

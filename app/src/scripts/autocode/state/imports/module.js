@@ -6,8 +6,8 @@ autocode.state['imports/module'] = function(opts) {
   $('#imports-content-container .table a').removeClass('selected');
   $('#imports-content-container .table a').eq(opts.index).addClass('selected');
   
-  $('#imports-content input[name="name"]').val(opts.repo);
-  $('#imports-content input[name="version"]').val(autocode.project.imports[opts.repo]);
+  $('#imports-name .value').text(opts.repo);
+  $('#imports-version .value').text(autocode.project.imports[opts.repo]);
   $('#imports-content-readme').text('');
   
   autocode.api.readme.get({

@@ -27,4 +27,6 @@ autocode.action.toggleUser = function() {
   } else {
     autocode.state['user/login']();
   }
+  
+  autocode.initState();
 };

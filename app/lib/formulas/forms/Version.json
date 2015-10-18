@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "version": {
+      "label": "Version",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Version",
+      "type": "submit"
+    }
+  }
+}

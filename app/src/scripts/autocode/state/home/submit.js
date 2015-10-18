@@ -1,7 +1,7 @@
 autocode.state['home/submit'] = function() {
   autocode.unload.disable();
   
-  delete(autocode.current);
+  autocode.data.current = {};
   delete(autocode.project);
   
   autocode.popup.close();

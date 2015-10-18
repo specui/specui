@@ -51,4 +51,6 @@ autocode.action.toggleMenu = function() {
     target: $('#menu'),
     top: $('#main').outerHeight()
   });
+  
+  autocode.initState();
 };

@@ -10,6 +10,8 @@ autocode.popup = {
     }
     
     autocode.resize.all();
+    
+    return false;
   },
   open: function(opts) {
     autocode.popup.close();
