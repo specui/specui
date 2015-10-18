@@ -198,6 +198,14 @@ autocode.state['imports/module'] = function(opts) {
           viewportMargin: Infinity
         });
       });
+      
+      if (autocode.project.imports) {
+        $('#imports-content-container .content-right').show();
+      } else {
+        $('#imports-content-container .content-right').hide();
+      }
+      
+      autocode.resize.content();
     }
   });
 };
