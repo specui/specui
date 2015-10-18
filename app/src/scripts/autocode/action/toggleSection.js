@@ -1,4 +1,5 @@
 autocode.action.toggleSection = function(name, section) {
+  /*
   if (autocode.data.current.tab != name || autocode.data.current.subtab != section) {
     switch (true) {
       case autocode.data.current.tab == 'config': {
@@ -80,6 +81,7 @@ autocode.action.toggleSection = function(name, section) {
       }
     }
   }
+  */
   
   autocode.data.current.tab = name;
   autocode.data.current.subtab = section;

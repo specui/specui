@@ -1,4 +1,4 @@
-autocode.state['menu'] = function() {
+autocode.action.toggleMenu = function() {
   var rows = [];
   if (autocode.data.user) {
     if (autocode.project) {

@@ -1,4 +1,4 @@
-autocode.state['user'] = function() {
+autocode.action.toggleUser = function() {
   if (autocode.data.user) {
     autocode.popover.toggle({
       rows: [

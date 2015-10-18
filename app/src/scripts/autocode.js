@@ -34,7 +34,9 @@ var autocode = {
   initStateCallback: function(e, o) {
     var o = o || $(this);
     var href = o.attr('href');
-    if (href.match(/^https?:/)) {
+    if (!href) {
+      return false;
+    } else if (href.match(/^https?:/)) {
       return true;
     }
     

@@ -9,6 +9,7 @@
 
 a {
   color: #185F96;
+  cursor: pointer;
   text-decoration: none;
 }
 
@@ -66,6 +67,7 @@ input.variable {
 
 label {
   display: block;
+  font-size: 18px;
   padding: 10px 0px;
 }
 
@@ -286,6 +288,26 @@ textarea {
 
 .text {
   vertical-align: middle;
+}
+
+.value {
+  cursor: pointer;
+  display: block;
+  margin: 0px -10px;
+  padding: 10px;
+}
+
+.value:hover {
+  background-color: #eef8ff;
+  background-image: url(images/icon/edit.svg);
+  background-position: right 10px top 50%;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+.value p {
+  margin: 0px;
+  padding: 0px;
 }
 
 #app {

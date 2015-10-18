@@ -55,11 +55,11 @@
   <div id="container">
     <header>
       <nav id="main">
-        <a href="menu" id="menu">
+        <a onclick="autocode.action.toggleMenu()" id="menu">
           <span class="icon"></span>
           <span class="text">Menu</span>
         </a>
-        <a href="user" id="user">
+        <a onclick="autocode.action.toggleUser()" id="user">
           <span class="text">Login with GitHub</span>
           <span class="icon"></span>
         </a>
@@ -126,7 +126,7 @@
                   <span class="icon general-icon"></span>
                 </span>
                 <span class="info">
-                  <span class="name">General</span>
+                  <span class="name">Project</span>
                   <span class="generator">Name, description and url</span>
                 </span>
               </a>
@@ -143,59 +143,57 @@
           </aside>
           <section class="content-center column">
             <div class="subcontent" id="overview-author-content">
-              <form>
-                <div class="field">
-                  <label>
-                    <span class="text">Name</span>
-                    <span class="icon info-icon" data-hint="Your full name."></span>
-                  </label>
-                  <input name="name" spellcheck="false" type="text" />
-                </div>
-                <div class="field">
-                  <label>
-                    <span class="text">Email</span>
-                    <span class="icon info-icon" data-hint="Your email address."></span>
-                  </label>
-                  <input name="email" spellcheck="false" type="text" />
-                </div>
-                <div class="field">
-                  <label>
-                    <span class="text">URL</span>
-                    <span class="icon info-icon" data-hint="Your website URL."></span>
-                  </label>
-                  <input name="url" spellcheck="false" type="text" value="https://crystal.sh" />
-                </div>
-                <div class="field">
-                  <label>
-                    <span class="text">Copyright</span>
-                    <span class="icon info-icon" data-hint="Your copyright."></span>
-                  </label>
-                  <input name="copyright" spellcheck="false" type="text" value="2015 Crystal, Inc." />
-                </div>
-              </form>
+              <div class="field" id="overview-author-name">
+                <label>
+                  <span class="text">Name</span>
+                  <span class="icon info-icon" data-hint="Your full name."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editAuthorName()"></div>
+              </div>
+              <div class="field" id="overview-author-email">
+                <label>
+                  <span class="text">Email</span>
+                  <span class="icon info-icon" data-hint="Your email address."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editAuthorEmail()"></div>
+              </div>
+              <div class="field" id="overview-author-url">
+                <label>
+                  <span class="text">URL</span>
+                  <span class="icon info-icon" data-hint="Your website URL."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editAuthorURL()"></div>
+              </div>
             </div>
             <div class="subcontent" id="overview-general-content">
               <form>
-                <div class="field">
+                <div class="field" id="overview-general-name">
                   <label>
                     <span class="text">Name</span>
                     <span class="icon info-icon" data-hint="A name for your project."></span>
                   </label>
-                  <input name="name" spellcheck="false" type="text" />
+                  <div class="value" onclick="autocode.action.editName()"></div>
                 </div>
-                <div class="field">
+                <div class="field" id="overview-general-description">
                   <label>
                     <span class="text">Description</span>
                     <span class="icon info-icon" data-hint="A description for your project."></span>
                   </label>
-                  <textarea name="description" spellcheck="false"></textarea>
+                  <div class="value" onclick="autocode.action.editDescription()"></div>
                 </div>
-                <div class="field">
+                <div class="field" id="overview-general-url">
                   <label>
                     <span class="text">URL</span>
                     <span class="icon info-icon" data-hint="A URL for your project."></span>
                   </label>
-                  <input name="url" spellcheck="false" type="text" />
+                  <div class="value" onclick="autocode.action.editURL()"></div>
+                </div>
+                <div class="field" id="overview-general-copyright">
+                  <label>
+                    <span class="text">Copyright</span>
+                    <span class="icon info-icon" data-hint="Your copyright."></span>
+                  </label>
+                  <div class="value" onclick="autocode.action.editProjectCopyright()"></div>
                 </div>
               </form>
             </div>

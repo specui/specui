@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "email": {
+      "label": "Email",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Email",
+      "type": "submit"
+    }
+  }
+}

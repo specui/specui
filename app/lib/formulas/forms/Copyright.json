@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "copyright": {
+      "label": "Copyright",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Copyright",
+      "type": "submit"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "description": {
+      "label": "Description (supports Markdown)",
+      "type": "textarea"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Description",
+      "type": "submit"
+    }
+  }
+}

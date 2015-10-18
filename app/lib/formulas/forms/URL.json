@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "url": {
+      "label": "URL",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit URL",
+      "type": "submit"
+    }
+  }
+}
