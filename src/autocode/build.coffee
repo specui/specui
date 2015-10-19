@@ -65,10 +65,13 @@ module.exports = (opts) ->
 				opts.complete()
 			return
 		
-		console.log '- ' + scripts.build[i]
+		description = scripts.build[i].description or scripts.build[i]
+		command = scripts.build[i].command or scripts.build[i]
+		
+		console.log ' BUILD SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
 		# get build cmd/arg
-		build = scripts.build[i]
+		build = command
 		build = [
 			build.substr(0, build.indexOf(' ')),
 			build.substr(build.indexOf(' ') + 1)
@@ -87,7 +90,8 @@ module.exports = (opts) ->
 			buildCmd()
 			
 		proc.on 'error', (err) ->
-			console.log 'build error', err
+			console.log ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
+			console.log JSON.stringify(err, null, '  ').red
 		
 		i++
 	

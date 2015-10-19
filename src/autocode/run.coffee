@@ -20,10 +20,13 @@ module.exports = (opts) ->
 			process.kill 0
 			return
 		
-		console.log '- ' + scripts.run[i]
+		description = scripts.run[i].description or scripts.run[i]
+		command = scripts.run[i].command or scripts.run[i]
+		
+		console.log ' RUN SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
 		# get run cmd/arg
-		run = scripts.run[i]
+		run = command
 		run = [
 			run.substr(0, run.indexOf(' ')),
 			run.substr(run.indexOf(' ') + 1)
@@ -46,7 +49,7 @@ module.exports = (opts) ->
 		proc.on 'close', (err) ->
 			runCmd()
 		proc.on 'error', (err) ->
-			console.log('run error', err)
+			console.log ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
 		
 		runInterval = setInterval (->
 			if autocode.stopped

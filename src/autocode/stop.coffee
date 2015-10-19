@@ -18,10 +18,13 @@ module.exports = () ->
       process.kill 0
       return
     
-    console.log '- ' + scripts.stop[i]
+    description = scripts.stop[i].description or scripts.stop[i]
+    command = scripts.stop[i].command or scripts.stop[i]
+    
+    console.log ' STOP SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
     
     # get stop cmd/arg
-    stop = scripts.stop[i]
+    stop = command
     stop = [
       stop.substr(0, stop.indexOf(' ')),
       stop.substr(stop.indexOf(' ') + 1)
@@ -44,7 +47,7 @@ module.exports = () ->
     proc.on 'close', (err) ->
       stopCmd()
     proc.on 'error', (err) ->
-      console.log('stop error', err)
+      console.log ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
     
     i++
   
