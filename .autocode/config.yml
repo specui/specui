@@ -1,5 +1,5 @@
 name: Autocode
-version: 0.21.2
+version: 0.22.0
 description: code automation for every language, framework and platform
 repository: https://github.com/crystal/autocode
 author:
@@ -749,6 +749,8 @@ scripts:
       command: npm install bower -g
     - description: Install CoffeeScript via npm.
       command: npm install coffee-script -g
+    - description: Install Forever via npm.
+      command: npm install forever -g
     - description: Install http-server via npm.
       command: npm install http-server -g
     - description: Install Grunt CLI via npm.
