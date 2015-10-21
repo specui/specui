@@ -57,7 +57,7 @@ update = () ->
 					loadModules module_config.modules
 				continue
 			
-			console.log "Loading module (#{module_name}) with version (#{module_version_query})...".blue
+			console.log "\n" + ' UPDATE '.bgBlue.white + " #{module_name} #{module_version_query} ".bgWhite.black
 			
 			# set headers for github
 			headers = {
@@ -96,7 +96,7 @@ update = () ->
 				if !module_version
 					throw new Error "No matches for Module (#{module_name}) with version (#{module_version_query})"
 			
-			console.log "Found version (#{module_version}) for module (#{module_name}).".green
+			console.log ' DOWNLOAD '.bgGreen.white + " #{module_version} ".bgWhite.black
 			
 			module_path = "#{path}#{config.host}/#{module_path_name}/#{module_version}"
 			#if fs.existsSync module_path
@@ -145,6 +145,6 @@ update = () ->
 			skipGeneration: true
 		}
 	
-	console.log 'Done'
+	console.log "\n" + ' DONE! '.bgGreen.white
 
 module.exports = update

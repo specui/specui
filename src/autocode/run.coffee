@@ -7,23 +7,27 @@ module.exports = (opts) ->
 	this.build opts
 	
 	if !this.config.scripts or !this.config.scripts.run
-		return 'Nothing to run.'
+		return "\n" + ' DONE! '.bgGreen.white
 	
 	console.log "\nRUN:".bold
 	
 	scripts = this.config.scripts
 	
 	i = 0
+	runInterval = null
+	
 	runCmd = () ->
+		clearInterval runInterval
+		runInterval = null
+
 		if !scripts.run[i]
-			console.log "\nDone!"
-			process.kill 0
+			console.log "\n" + ' DONE! '.bgGreen.white
 			return
 		
 		description = scripts.run[i].description or scripts.run[i]
 		command = scripts.run[i].command or scripts.run[i]
 		
-		console.log ' RUN SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
+		console.log ' RUN SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
 		# get run cmd/arg
 		run = command
@@ -35,21 +39,12 @@ module.exports = (opts) ->
 		arg = run[1].split ' '
 		
 		# spawn process
-		proc = spawn cmd, arg
+		proc = spawn cmd, arg, { stdio: 'inherit' }
 		
-		# handle process events
-		proc.stderr.on 'data', (data) ->
-			console.log data.toString().red
-		proc.stdout.on 'error', (data) ->
-			console.log data.toString()
-		proc.stdout.on 'data', (data) ->
-			console.log data.toString()
-		#proc.on 'exit', (err) ->
-		#	runCmd()
 		proc.on 'close', (err) ->
 			runCmd()
 		proc.on 'error', (err) ->
-			console.log ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
+			console.log "\n" + ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
 		
 		runInterval = setInterval (->
 			if autocode.stopped

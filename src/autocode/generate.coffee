@@ -654,6 +654,8 @@ generate = (opts) ->
 	# reassign imports
 	if config.imports
 		config.modules = config.imports
+		if config.name
+			config.modules[config.name] = process.cwd()
 		delete config.imports
 	
 	# load modules
@@ -693,6 +695,8 @@ generate = (opts) ->
 		exports = loaded_modules[module_name][module_version].exports
 		for export_name of exports
 			exported = exports[export_name]
+			if module_alias == config.name
+				imports["#{export_name}"] = exported
 			imports["#{module_alias}.#{export_name}"] = exported
 	
 	#imports = {}

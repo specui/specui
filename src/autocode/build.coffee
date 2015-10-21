@@ -47,7 +47,7 @@ module.exports = (opts) ->
 			throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build or opts.skipScripts
-		console.log "\nDone."
+		console.log "\n" + ' DONE! '.bgGreen.white
 		if opts and opts.complete
 			opts.complete()
 		return
@@ -60,7 +60,7 @@ module.exports = (opts) ->
 	i = 0
 	buildCmd = () ->
 		if !scripts.build[i]
-			console.log "\nDone!\n".bold
+			console.log "\n" + ' DONE! '.bgGreen.white
 			if opts and opts.complete
 				opts.complete()
 			return
@@ -68,7 +68,7 @@ module.exports = (opts) ->
 		description = scripts.build[i].description or scripts.build[i]
 		command = scripts.build[i].command or scripts.build[i]
 		
-		console.log ' BUILD SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
+		console.log ' BUILD SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
 		# get build cmd/arg
 		build = command
@@ -90,7 +90,7 @@ module.exports = (opts) ->
 			buildCmd()
 			
 		proc.on 'error', (err) ->
-			console.log ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
+			console.log "\n" + ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
 			console.log JSON.stringify(err, null, '  ').red
 		
 		i++
