@@ -34,6 +34,32 @@ button.secondary, .button.secondary {
   background-color: #999;
 }
 
+footer {
+  background-color: #FFF;
+  bottom: 0px;
+  border-top: 1px #DDD solid;
+  box-sizing: border-box;
+  left: 0px;
+  padding: 10px;
+  position: fixed;
+  text-align: right;
+  width: 100%;
+}
+
+footer .icon {
+  height: 24px;
+  margin-left: 10px;
+  width: 24px;
+}
+
+footer .icon.github-icon {
+  background-image: url(images/icon/github.svg);
+}
+
+footer .icon.github-icon:hover {
+  background-image: url(images/icon/github-hover.svg);
+}
+
 header {
   background-color: #333;
   color: #FFF;
@@ -170,6 +196,14 @@ textarea {
   background-image: url(images/icon/close.svg);
 }
 
+.icon.facebook-icon {
+  background-image: url(images/icon/facebook.svg);
+}
+
+.icon.facebook-icon:hover {
+  background-image: url(images/icon/facebook-hover.svg);
+}
+
 .icon.file-icon {
   background-image: url(images/icon/file.svg);
 }
@@ -184,6 +218,14 @@ textarea {
 
 .icon.github-icon {
   background-image: url(images/github.svg);
+}
+
+.icon.gitter-icon {
+  background-image: url(images/icon/gitter.svg);
+}
+
+.icon.gitter-icon:hover {
+  background-image: url(images/icon/gitter-hover.svg);
 }
 
 .icon.info-icon {
@@ -243,6 +285,14 @@ textarea {
 
 .icon.tour-icon {
   background-image: url(images/icon/tour.svg);
+}
+
+.icon.twitter-icon {
+  background-image: url(images/icon/twitter.svg);
+}
+
+.icon.twitter-icon:hover {
+  background-image: url(images/icon/twitter-hover.svg);
 }
 
 .icon.variable-icon {
@@ -685,6 +735,16 @@ textarea {
 
 #popover .table a span.icon {
   background-size: 24px 24px;
+}
+
+#support {
+  float: left;
+  padding-top: 2px;
+}
+
+#support a {
+  display: inline-block;
+  margin-right: 10px;
 }
 
 #tabs {
