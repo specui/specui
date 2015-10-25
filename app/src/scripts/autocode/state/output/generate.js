@@ -25,9 +25,22 @@ autocode.state['output/generate'] = function() {
       $('span span.icon.loader-icon').removeClass('loading');
     },
     error: function(data) {
-      autocode.popup.open({
-        title: 'Unable to Generate Code'
-      });
+      if (data.errors) {
+        var content = '<ul>';
+        for (var i = 0; i < data.errors.length; i++) {
+          content += '<li>' + data.errors[i].message + (data.errors[i].context ? ' (in <b>' + data.errors[i].context.substr(2) + '</b>)' : '') + '</li>';
+        }
+        content += '</ul>';
+        
+        autocode.popup.open({
+          title: 'Autocode Configuration Failed Validation',
+          content: content
+        });
+      } else {
+        autocode.popup.open({
+          title: 'Unable to Generate Code'
+        });
+      }
     },
     success: function(data) {
       autocode.data.output = data;

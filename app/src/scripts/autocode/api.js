@@ -9,7 +9,11 @@ autocode.api = {
       method: opts.method,
       url: opts.url,
       complete: opts.complete,
-      error: opts.error,
+      error: function(data) {
+        if (opts.error) {
+          opts.error(data.responseJSON);
+        }
+      },
       success: opts.success,
       xhrFields: {
         withCredentials: true
