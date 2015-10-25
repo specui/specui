@@ -18,6 +18,17 @@ body {
   margin: 104px 0px 0px 0px;
 }
 
+body:after
+{
+	content: url(images/icon/facebook-hover.svg)
+    url(images/icon/github-hover.svg)
+    url(images/icon/gitter-hover.svg)
+    url(images/icon/twitter-hover.svg);
+	position: absolute;
+	top: -999px;
+	visibility: hidden;
+}
+
 button, .button {
   background-color: #185F96;
   border: none;
