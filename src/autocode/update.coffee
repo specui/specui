@@ -61,7 +61,7 @@ update = () ->
 			
 			# set headers for github
 			headers = {
-				'User-Agent': 'Crystal Autocode <support@crystal.sh> (https://crystal.sh/autocode)'
+				'User-Agent': 'Crystal Autocode <support@autocode.run> (https://autocode.run/autocode)'
 			}
 			
 			# get access token url

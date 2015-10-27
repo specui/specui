@@ -2,8 +2,8 @@
 # process.coffee
 # processes crystal spec
 #
-# @author Chris Tate <chris@crystal.sh>
-# @copyright 2015 Crystal
+# @author Chris Tate <chris@autocode.run>
+# @copyright 2015 Autocode
 # @license MIT
 #
 

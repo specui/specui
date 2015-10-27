@@ -32,9 +32,9 @@
       var detail, detail_length, detail_max, detail_name, details, output;
       output = "\nInfo:\n\n";
       details = {
-        Author: 'Chris Tate <chris@crystal.sh>',
+        Author: 'Chris Tate <chris@autocode.run>',
         License: 'MIT',
-        Website: 'https://crystal.sh',
+        Website: 'https://autocode.run',
         Repository: 'https://github.com/crystal/autocode'
       };
       detail_max = 0;

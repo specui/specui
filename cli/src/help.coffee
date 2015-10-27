@@ -36,9 +36,9 @@ module.exports = (commands) ->
 		
 		# define details
 		details = {
-			Author: 'Chris Tate <chris@crystal.sh>'
+			Author: 'Chris Tate <chris@autocode.run>'
 			License: 'MIT'
-			Website: 'https://crystal.sh'
+			Website: 'https://autocode.run'
 			Repository: 'https://github.com/crystal/autocode'
 		}
 		
