@@ -66,7 +66,7 @@ keywords:
   - php generator
   - javascript generator
   - coffeescript generator
-homepage: "https://crystal.sh"
+homepage: "https://autocode.run"
 license: mit
 scripts:
   test: mocha

@@ -15,7 +15,7 @@ autocode.state['project/save/submit'] = function() {
     error: function(data) {
       autocode.popup.open({
         title: 'Unable to Save Project',
-        content: 'Please try again or contact us at <a href="mailto:support@crystal.sh">support@crystal.sh</a>.'
+        content: 'Please try again or contact us at <a href="mailto:support@autocode.run">support@autocode.run</a>.'
       });
     },
     success: function(data) {
