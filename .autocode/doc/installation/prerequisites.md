@@ -1,1 +1,0 @@
-Crystal requires [Node.js](http://nodejs.com) and [npm](http://npmjs.com).

@@ -1,1 +1,0 @@
-Adding `crystal` to an existing project is as easy as adding it to a new project.
