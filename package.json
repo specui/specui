@@ -51,7 +51,7 @@
 		"xml-to-jsobj": "latest",
 		"user-home": "~2.0.0"
 	},
-	"description": "code automation for every language, framework and platform",
+	"description": "the ultimate developer platform",
 	"devDependencies": {
 		"mocha": "latest",
 		"should": "latest"
@@ -80,5 +80,5 @@
 	"scripts": {
 		"test": "mocha"
 	},
-	"version": "1.0.0"
+	"version": "1.0.1"
 }

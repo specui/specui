@@ -8,7 +8,7 @@
 		"js-yaml": "3.4.2",
 		"marked": "0.3.5"
 	},
-	"description": "code automation for every language, framework and platform",
+	"description": "the ultimate developer platform",
 	"main": "lib/autocode.js",
 	"name": "autocode"
 }
