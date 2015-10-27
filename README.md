@@ -61,7 +61,7 @@ npm install autocode
 
 Try Autocode online here:
 
-http://autocode.crystal.sh/#tour
+[http://autocode.crystal.sh/#tour](http://autocode.crystal.sh/#tour)
 
 <a name="docs"></a>
 

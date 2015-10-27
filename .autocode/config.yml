@@ -1,5 +1,5 @@
 name: Autocode
-version: 1.0.1
+version: 1.0.2
 description: the ultimate developer platform
 repository: https://github.com/crystal/autocode
 author:
@@ -212,7 +212,7 @@ outputs:
           content: |
             Try Autocode online here:
             
-            http://autocode.crystal.sh/#tour
+            [http://autocode.crystal.sh/#tour](http://autocode.crystal.sh/#tour)
 
         - name: docs
           title: Documentation
