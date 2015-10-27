@@ -4,8 +4,8 @@ description: the ultimate developer platform
 repository: https://github.com/crystal/autocode
 author:
   name: Chris Tate
-  email: chris@crystal.sh
-  url: https://crystal.sh
+  email: chris@autocode.run
+  url: https://autocode.run
 copyright: 2015 Crystal
 imports:
   crystal/authors: ~0.3.3
@@ -163,7 +163,7 @@ outputs:
       logo:
         image: https://rawgit.com/crystal/autocode/master/.autocode/image.svg
         text: $name
-        url: http://crystal.sh
+        url: https://autocode.run
       showTableOfContents: true
       sections:
         - name: intro
@@ -171,14 +171,14 @@ outputs:
           content: |
             Autocode is the ultimate developer platform.
             
-            It combines **metaprogramming**, **code generation**, **code automation** and a **[powerful user interface](http://autocode.crystal.sh)** to help you:
+            It combines **metaprogramming**, **code generation**, **code automation** and a **[powerful user interface](https://app.autocode.run)** to help you:
             
             - Quickly build full stacks: frontends, backends and everything in between.
             - Instantly add **anything** to your stack: frameworks, package managers, build tools, scripts and more.
             - Go **beyond project scaffolding** - Autocode is with you through the life of your projects to help you innovate with every iteration.
             - Generate code for **any language and framework** and automate the development of apps, websites, APIs and any other software.
             
-            Learn more [here](https://crystal.sh).
+            Learn more [here](https://autocode.run).
         - name: install
           title: Install
           content: |
@@ -212,7 +212,7 @@ outputs:
           content: |
             Try Autocode online here:
             
-            [http://autocode.crystal.sh/#tour](http://autocode.crystal.sh/#tour)
+            [https://app.autocode.run/#tour](https://app.autocode.run/#tour)
 
         - name: docs
           title: Documentation

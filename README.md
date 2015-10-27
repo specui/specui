@@ -1,5 +1,5 @@
 
-[![Autocode](https://rawgit.com/crystal/autocode/master/.autocode/image.svg)](http://crystal.sh)
+[![Autocode](https://rawgit.com/crystal/autocode/master/.autocode/image.svg)](https://autocode.run)
 
 
 
@@ -16,14 +16,14 @@
 
 Autocode is the ultimate developer platform.
 
-It combines **metaprogramming**, **code generation**, **code automation** and a **[powerful user interface](http://autocode.crystal.sh)** to help you:
+It combines **metaprogramming**, **code generation**, **code automation** and a **[powerful user interface](https://app.autocode.run)** to help you:
 
 - Quickly build full stacks: frontends, backends and everything in between.
 - Instantly add **anything** to your stack: frameworks, package managers, build tools, scripts and more.
 - Go **beyond project scaffolding** - Autocode is with you through the life of your projects to help you innovate with every iteration.
 - Generate code for **any language and framework** and automate the development of apps, websites, APIs and any other software.
 
-Learn more [here](https://crystal.sh).
+Learn more [here](https://autocode.run).
 
 <a name="install"></a>
 
@@ -61,7 +61,7 @@ npm install autocode
 
 Try Autocode online here:
 
-[http://autocode.crystal.sh/#tour](http://autocode.crystal.sh/#tour)
+[https://app.autocode.run/#tour](https://app.autocode.run/#tour)
 
 <a name="docs"></a>
 

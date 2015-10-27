@@ -1,8 +1,8 @@
 {
 	"author": {
 		"name": "Chris Tate",
-		"email": "chris@crystal.sh",
-		"url": "https://crystal.sh"
+		"email": "chris@autocode.run",
+		"url": "https://autocode.run"
 	},
 	"bin": {
 		"autocode": "./bin/autocode"
@@ -56,7 +56,7 @@
 		"mocha": "latest",
 		"should": "latest"
 	},
-	"homepage": "https://crystal.sh",
+	"homepage": "https://autocode.run",
 	"keywords": [
 		"autocode",
 		"crystal",
