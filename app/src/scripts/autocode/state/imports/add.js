@@ -45,7 +45,7 @@ autocode.state['imports/add'] = function(opts) {
         });
         
         autocode.state['imports']({ disableSelected: true });
-        if ($(window).width() > 600) {
+        if ($(window).width() > autocode.mobile.minWidth) {
           autocode.state['imports/module']({ repo: opts.repo });
         }
         

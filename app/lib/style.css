@@ -55,6 +55,7 @@ footer {
   position: fixed;
   text-align: right;
   width: 100%;
+  z-index: 10;
 }
 
 footer .icon {
@@ -865,7 +866,7 @@ textarea {
   font-size: 32px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .app {
     overflow: hidden;
     width: 100%;
@@ -897,6 +898,7 @@ textarea {
   }
   
   #welcome {
+    padding-bottom: 65px;
     position: static;
   }
   

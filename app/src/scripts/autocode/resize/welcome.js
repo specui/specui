@@ -1,6 +1,6 @@
 autocode.resize.welcome = function() {
   var welcome = $('#welcome');
-  if (welcome.outerHeight() > $(window).height() && welcome.outerWidth() > 600) {
+  if (welcome.outerHeight() > $(window).height() && welcome.outerWidth() > autocode.mobile.minWidth) {
     welcome.css({
       left: ($(window).width() - welcome.outerWidth()) / 2,
       position: 'absolute',

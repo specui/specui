@@ -1,7 +1,7 @@
 autocode.action.toggleColumn = function(id, column, opts) {
   opts = opts || {};
   autocode.data.current.column = column;
-  if ($(window).width() > 600) {
+  if ($(window).width() > autocode.mobile.minWidth) {
     $('#content').css({
       marginLeft: ''
     });

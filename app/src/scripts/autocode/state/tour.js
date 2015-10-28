@@ -67,7 +67,7 @@ autocode.state['tour'] = function() {
           text: 'Click here to add an example from this module to your Autocode configuration.'
         });
         
-        $('#imports-content-readme button').bind(click_event, example_click);
+        $('#imports-content-readme button').bind('click', example_click);
 
         autocode.resize.hint();
       } else {
@@ -79,7 +79,7 @@ autocode.state['tour'] = function() {
   var example_click = function() {
     clearInterval(check_hint);
     
-    $(this).unbind(click_event, example_click);
+    $(this).unbind('click', example_click);
     
     autocode.hint.open({
       offsetTop: hint_offset_top,
@@ -89,8 +89,6 @@ autocode.state['tour'] = function() {
     });
     
     $('#output-tab').bind(click_event, generate_click);
-    
-    autocode.state['config']();
     
     autocode.resize.hint();
   };

@@ -39,7 +39,7 @@ autocode.state['imports'] = function(opts) {
   
   $('#imports-content-container').show();
   
-  if (opts.disableSelected !== true && $(window).width() > 600) {
+  if (opts.disableSelected !== true && $(window).width() > autocode.mobile.minWidth) {
     $('#imports-content-container .table a').first().click();
   }
   

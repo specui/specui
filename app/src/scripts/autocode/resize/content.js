@@ -1,5 +1,5 @@
 autocode.resize.content = function() {
-  if ($(window).width() > 600) {
+  if ($(window).width() > autocode.mobile.minWidth) {
     $('#content').css({
       height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight(),
       width: $(window).width()
@@ -10,7 +10,7 @@ autocode.resize.content = function() {
       width: $(window).width() * ($('.column:visible').length ? $('.column:visible').length : 1)
     });
   }
-  if ($(window).outerWidth() < 600) {
+  if ($(window).outerWidth() < autocode.mobile.minWidth) {
     $('#content .column').css({
       width: $(window).width()
     });
@@ -37,7 +37,7 @@ autocode.resize.content = function() {
       })
     });
   }
-  if ($(window).width() > 600) {
+  if ($(window).width() > autocode.mobile.minWidth) {
     $('.content-left, .content-center, .content-right').css({
       height: $(window).height() - $('header').outerHeight() -  $('footer').outerHeight()
     });

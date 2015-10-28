@@ -36,7 +36,7 @@ autocode.state['output'] = function() {
       
       autocode.initState();
       
-      if ($(window).width() > 600) {
+      if ($(window).width() > autocode.mobile.minWidth) {
         $('#output-content-container .table a').eq(1).click();
         $('#output-content-container .table a').eq(1).click();
       }
