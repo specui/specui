@@ -5,9 +5,12 @@ autocode.hint = {
     if (opts.animated === false) {
       $('#hint, #hint-arrow').remove();
     } else {
+      $('#hint, #hint-arrow').remove();
+      /*
       $('#hint, #hint-arrow').fadeOut(function() {
         $('#hint, #hint-arrow').remove();
       });
+      */
     }
   },
   init: function() {

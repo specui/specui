@@ -2,7 +2,11 @@ autocode.shortcut = {
   init: function() {
     $(window).bind('keydown', function(e) {
       if (e.keyCode == 27) {
-        autocode.action.closeProject();
+        if ($('#popup').length) {
+          autocode.action.closePopup();
+        } else {
+          autocode.action.closeProject();
+        }
         return;
       } else if (!e.ctrlKey || !e.shiftKey) {
         return;
@@ -29,24 +33,34 @@ autocode.shortcut = {
           autocode.state['output']();
           break;
         }
+        // b
+        case 66: {
+          autocode.action.build();
+          break;
+        }
         // n
         case 78: {
-          autocode.state['project/new']();
+          autocode.action.newProject();
           break;
         }
         // o
         case 79: {
-          autocode.state['project/load']();
+          autocode.action.loadProject();
+          break;
+        }
+        // r
+        case 82: {
+          autocode.action.run();
           break;
         }
         // s
         case 83: {
-          autocode.state['project/save']();
+          autocode.action.saveProject();
           break;
         }
         // w
         case 87: {
-          autocode.state['project/close']();
+          autocode.action.closeProject();
           break;
         }
       }

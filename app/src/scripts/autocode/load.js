@@ -31,11 +31,20 @@ autocode.load = function() {
                 $('#loader').fadeOut(function() {
                   $('#loader').remove();
                   $('#container').show();
-                  $('#welcome').hide();
+                  $('#build-icon, #run-icon, #welcome').hide();
                   autocode.resize.all();
                   $('#container').animate({ opacity: 1 },{
                     complete: function() {
-                      $('#welcome').css({ opacity: 0 }).show().animate({ opacity: 1 });
+                      var config = jsyaml.safeLoad(atob(autocode.query.get('config')));
+                      if (config) {
+                        autocode.action.loadProject({
+                          name: '(Untitled)',
+                          config: config
+                        });
+                      } else {
+                        $('#welcome').css({ opacity: 0 }).show().animate({ opacity: 1 });
+                      }
+                      
                       autocode.resize.all();
                     }
                   });

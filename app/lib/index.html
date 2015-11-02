@@ -46,6 +46,7 @@
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
   <script src="components/js-yaml/dist/js-yaml.min.js"></script>
   <script src="components/marked/marked.min.js"></script>
+  <script src="components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
   <script src="scripts/autocode.js"></script>
   <title>Autocode</title>
 </head>
@@ -57,12 +58,14 @@
   <div id="container">
     <header>
       <nav id="main">
-        <a onclick="autocode.action.toggleMenu()" id="menu">
-          <span class="icon menu-icon"></span>
-          <span class="text">Menu</span>
-          <span class="icon build-icon"></span>
-          <span class="icon run-icon"></span>
-        </a>
+        <div id="menu">
+          <a class="icon menu-icon" onclick="autocode.action.toggleMenu()"></a>
+          <a class="text" onclick="autocode.action.toggleMenu()">Menu</a>
+          <a class="icon generate-icon" data-hint="Sync Project" id="generate-icon" onclick="autocode.action.generate()"></a>
+          <a class="icon build-icon" data-hint="Build Project" id="build-icon" onclick="autocode.action.build()"></a>
+          <a class="icon run-icon" data-hint="Run Project" id="run-icon" onclick="autocode.action.run()"></a>
+          <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
+        </div>
         <a onclick="autocode.action.toggleUser()" id="user">
           <span class="text">Login with GitHub</span>
           <span class="icon"></span>

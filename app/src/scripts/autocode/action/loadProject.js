@@ -54,6 +54,72 @@ autocode.action.loadProject = function(opts) {
   
   $('#menu .text').text(opts.name);
   
+  if (opts.config) {
+    autocode.project = opts.config;
+    autocode.data.originalConfig = opts.config;
+    
+    autocode.data.generators = {};
+    autocode.imports = {};
+    
+    var requests = [];
+    for (var import_name in autocode.project.imports) {
+      requests.push(
+        autocode.api.config.get({
+          data: {
+            repo: import_name
+          },
+          success: function(data) {
+            var imported = this.url.split('?')[1];
+            imported = autocode.query.search(imported);
+            
+            data.config = jsyaml.safeLoad(data.config)
+            
+            autocode.imports[imported.repo] = data.config;
+            
+            if (data.config.exports) {
+              for (var export_name in data.config.exports) {
+                switch (data.config.exports[export_name].type) {
+                  case 'generator': {
+                    autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                    break;
+                  }
+                }
+              }
+            }
+          }
+        })
+      );
+    }
+    
+    $.when(requests).done(function() {
+      autocode.data.generators = autocode.object.sort(autocode.data.generators);
+      
+      $('#welcome').fadeOut(function() {
+        $('#overview-tab').prop('href', 'overview');
+        $('#imports-tab').prop('href', 'imports');
+        $('#config-tab').prop('href', 'config');
+        $('#output-tab').prop('href', 'output');
+        
+        $('#overview-general-subtab').prop('href', 'overview/general');
+        $('#overview-author-subtab').prop('href', 'overview/author');
+        
+        $('#build-icon, #run-icon').show();
+        
+        autocode.state['overview']();
+        
+        $('.app').fadeIn();
+        
+        if (opts.callback) {
+          opts.callback();
+        }
+        
+        autocode.resize.all();
+      });
+    });
+    
+    return;
+  }
+  
   autocode.api.config.get({
     data: {
       repo: opts.name
@@ -126,6 +192,8 @@ autocode.action.loadProject = function(opts) {
           
           $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
           $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
+          
+          $('#build-icon, #run-icon').show();
           
           autocode.state['overview']();
           
