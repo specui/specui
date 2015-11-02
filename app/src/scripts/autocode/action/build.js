@@ -1,16 +1,16 @@
-autocode.state['output/generate'] = function() {
+autocode.action.build = function() {
   if (!autocode.project.outputs || !autocode.project.imports) {
     if (!autocode.project.imports) {
       autocode.popup.open({
         title: 'Unable to Generate Code',
         content: '<div style="padding-bottom: 10px">You haven\'t imported any modules yet.</div>'
-          + '<a class="button" href="imports">Import a Module</a> <a class="button secondary" href="popup/close">Cancel</a>'
+          + '<a class="button" href="imports">Import a Module</a> <button class="secondary" onclick="autocode.action.closePopup()">Cancel</button>'
       });
     } else {
       autocode.popup.open({
         title: 'Unable to Generate Code',
         content: '<div style="padding-bottom: 10px">You haven\'t added any outputs to your Autocode configuration.</div>'
-          + '<a class="button" href="config">Add an Output</a> <a class="button secondary" href="popup/close">Cancel</a>'
+          + '<a class="button" href="config">Add an Output</a> <button class="secondary" onclick="autocode.action.closePopup()">Cancel</button>'
       });
     }
     

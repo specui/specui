@@ -1,4 +1,4 @@
-autocode.state['imports/import'] = function() {
+autocode.action.import = function() {
   autocode.popup.open({
     title: 'Loading Modules...'
   });
@@ -8,8 +8,13 @@ autocode.state['imports/import'] = function() {
       var rows = [];
       for (var i = 0; i < modules.length; i++) {
         rows.push({
+          action: {
+            name: 'addImport',
+            data: {
+              repo: modules[i].name
+            }
+          },
           icon: 'https://cdn.rawgit.com/' + modules[i].name + '/master/.autocode/icon.svg',
-          state: 'imports/add?repo=' + modules[i].name,
           text: modules[i].name
         });
       }

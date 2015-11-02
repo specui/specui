@@ -1,4 +1,4 @@
-autocode.state['output/file'] = function(opts) {
+autocode.action.loadFile = function(opts) {
   autocode.action.toggleColumn('output-content', 2);
   
   var code_mirror = $('#output-content .CodeMirror');

@@ -1,4 +1,4 @@
-autocode.state['imports/add'] = function(opts) {
+autocode.action.addImport = function(opts) {
   autocode.fuzzy.close();
   
   if (!autocode.project.imports) {
@@ -46,7 +46,7 @@ autocode.state['imports/add'] = function(opts) {
         
         autocode.state['imports']({ disableSelected: true });
         if ($(window).width() > autocode.mobile.minWidth) {
-          autocode.state['imports/module']({ repo: opts.repo });
+          autocode.action.loadImport({ repo: opts.repo });
         }
         
         $('#imports-init').fadeOut(function() {

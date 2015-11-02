@@ -249,7 +249,7 @@ scripts:
       command: coffee --compile --output cli/lib/ cli/src/
   run:
     - description: Run web server for Autocode app.
-      command: nohup cd app/lib http-server -p 8080 &
+      command: node app/app
   stop:
     - description: Stop web server for Autocode app.
       command: lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9

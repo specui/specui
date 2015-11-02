@@ -3,6 +3,8 @@
 <html>
 
 <head>
+  <base href="/" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   
   <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" type="text/css" />
@@ -56,14 +58,16 @@
     <header>
       <nav id="main">
         <a onclick="autocode.action.toggleMenu()" id="menu">
-          <span class="icon"></span>
+          <span class="icon menu-icon"></span>
           <span class="text">Menu</span>
+          <span class="icon build-icon"></span>
+          <span class="icon run-icon"></span>
         </a>
         <a onclick="autocode.action.toggleUser()" id="user">
           <span class="text">Login with GitHub</span>
           <span class="icon"></span>
         </a>
-        <a href="home" id="logo"></a>
+        <a href="https://autocode.run" id="logo" target="_blank"></a>
       </nav>
       <nav class="app" id="tabs">
         <a class="tab" href="overview" id="overview-tab">Overview</a>
@@ -83,19 +87,19 @@
       <div>
         Autocode has not been initialized for this repo. Would you like to do that now?
       </div>
-      <a class="button" href="project/load">No, Load Another Project</a> <a class="button" href="project/init">Yes, Initialize Autocode</a>
+      <a class="button" onclick="autocode.action.loadProject()">No, Load Another Project</a> <a class="button" onclick="initAutocode()">Yes, Initialize Autocode</a>
     </div>
     <div id="welcome">
       <div class="options">
-        <a class="option" href="project/new" id="new-option">
+        <a class="option" id="new-option" onclick="autocode.action.newProject()">
           <span class="icon add-icon"></span>
           <span class="text">New Project</span>
         </a>
-        <a class="option" href="project/load" id="load-option">
+        <a class="option" id="load-option" onclick="autocode.action.loadProject()">
           <span class="icon load-icon"></span>
           <span class="text">Load Project</span>
         </a>
-        <a class="option" href="user/login" id="login-option">
+        <a class="option" id="login-option" onclick="autocode.action.login()">
           <span class="icon github-icon"></span>
           <span class="text">Login with GitHub</span>
         </a>
@@ -225,7 +229,7 @@
                 </label>
                 <div class="value" onclick="autocode.action.editImportVersion()"></div>
               </div>
-              <a class="button" href="imports/remove">
+              <a class="button" onclick="autocode.action.removeImport()">
                 Remove Import
               </a>
             </aside>
@@ -310,20 +314,11 @@
             <div>
               Add imports and outputs to your Autocode configuration and click the button below to generate code for your project.
             </div>
-            <a class="button" href="output/generate">Generate Code</a>
+            <a class="button" onclick="autocode.action.build()">Generate Code</a>
           </div>
           <div id="output-content-container">
             <aside class="column content-left">
-              <div class="table">
-                <a class="file" href="output/generate">
-                  <span class="image">
-                    <span class="icon loader-icon"></span>
-                  </span>
-                  <span class="info">
-                    <span class="name">Generate</span>
-                  </span>
-                </a>
-              </div>
+              <div class="table"></div>
             </aside>
             <div class="column content" id="output-content">
               <textarea name="output"></textarea>

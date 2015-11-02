@@ -3,10 +3,10 @@ autocode.state['output'] = function() {
   autocode.action.toggleSection('output');
   
   if (autocode.data.output || (autocode.project.outputs && autocode.project.imports)) {
-    $('#output-content-container .table a').slice(1).remove();
+    $('#output-content-container .table').empty();
     
     if (!autocode.data.output) {
-      autocode.state['output/generate']();
+      autocode.action.build();
     } else {
       var output, output_icon;
       for (var output_filename in autocode.object.sort(autocode.data.output.files)) {
@@ -25,7 +25,7 @@ autocode.state['output'] = function() {
         }
         
         $('#output-content-container .table').append(
-          '<a class="file" href="output/file?file=' + output_filename + '">'
+          '<a class="file" onclick="autocode.action.loadFile({ file: \'' + output_filename + '\' })">'
             + '<span class="image"><span class="icon ' + output_icon + '"></span></span>'
             + '<span class="info">'
               + '<span class="name">' + output_filename + '</span>'
@@ -37,8 +37,8 @@ autocode.state['output'] = function() {
       autocode.initState();
       
       if ($(window).width() > autocode.mobile.minWidth) {
-        $('#output-content-container .table a').eq(1).click();
-        $('#output-content-container .table a').eq(1).click();
+        $('#output-content-container .table a').first().click();
+        $('#output-content-container .table a').first().click();
       }
     }
     

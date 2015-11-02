@@ -49,8 +49,8 @@ autocode.init = function() {
   });
   
   var code = autocode.query.get('code');
-  history.pushState(null, null, '/');
   if (code) {
+    history.pushState(null, null, '/');
     autocode.api.login.post({
       data: {
         code: code,

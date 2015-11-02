@@ -13,6 +13,7 @@ dependencies:
   change-case: latest
   coffee-script: latest
   colors: ~1.1.2
+  connect-history-api-fallback: ~1.1.0
   cross-spawn: ~2.0.0
   cson-parser: 1.0.x
   debug: latest
@@ -52,6 +53,7 @@ dependencies:
   xml-to-jsobj: latest
   user-home: ~2.0.0
 devDependencies:
+  browser-sync: ~2.9.11
   mocha: latest
   should: latest
 keywords:

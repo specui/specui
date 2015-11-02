@@ -10,13 +10,13 @@ autocode.action.toggleUser = function() {
         },
         */
         {
+          action: 'githubUser',
           icon: 'login-icon',
-          text: 'View on GitHub',
-          state: 'github/user'
+          text: 'View on GitHub'
         },
         {
+          action: 'logout',
           icon: 'logout-icon',
-          state: 'user/logout',
           style: 'divider',
           text: 'Logout'
         }

@@ -1,4 +1,47 @@
-autocode.state['project/load/repo'] = function(opts) {
+autocode.action.loadProject = function(opts) {
+  opts = opts || {};
+  
+  autocode.popover.close();
+  
+  // ask to close project before loading another
+  if (opts.force !== true && autocode.data.originalConfig && autocode.project && autocode.data.originalConfig != jsyaml.safeDump(autocode.project)) {
+    autocode.popup.open({
+      title: 'Close Project',
+      content: '<div style="padding-bottom: 15px">Are you sure you want to close this project and load another? <b>You will lose all unsaved changes.</b></div>'
+        + '<button onclick="autocode.action.closePopup()">No, Keep It Open</button> <a class="button secondary" onclick="autocode.action.loadProject({ force: true })">Yes, Close Project</a> <a class="button secondary" href="project/diff">View Unsaved Changes</a>'
+    });
+    return;
+  }
+  
+  // get projects to load
+  if (!opts.name) {
+    autocode.popup.open({
+      title: 'Loading...'
+    });
+    
+    autocode.api.repos.get({
+      success: function(data) {
+        var rows = [];
+        
+        for (var i = 0; i < data.length; i++) {
+          rows.push({
+            icon: 'login-icon',
+            state: data[i].name,
+            text: data[i].name
+          });
+        }
+        
+        autocode.popup.open({
+          title: 'Load Project',
+          rows: rows,
+          style: 'table'
+        });
+      }
+    });
+    
+    return;
+  }
+  
   autocode.unload.enable();
   
   $('.app, #init').fadeOut();
@@ -76,9 +119,21 @@ autocode.state['project/load/repo'] = function(opts) {
         autocode.data.generators = autocode.object.sort(autocode.data.generators);
         
         $('#welcome').fadeOut(function() {
+          $('#overview-tab').prop('href', opts.name + '/overview');
+          $('#imports-tab').prop('href', opts.name + '/imports');
+          $('#config-tab').prop('href', opts.name + '/config');
+          $('#output-tab').prop('href', opts.name + '/output');
+          
+          $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
+          $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
+          
           autocode.state['overview']();
           
           $('.app').fadeIn();
+          
+          if (opts.callback) {
+            opts.callback();
+          }
           
           autocode.resize.all();
         });

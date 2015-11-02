@@ -51,23 +51,36 @@ var autocode = {
       return true;
     }
     
+    e.preventDefault();
+    
+    // get query
     var query = href.split('?');
     href = query[0];
     query = autocode.query.search(query[1]);
     
-    e.preventDefault();
     
-    var action = autocode.state[href];
-    if (action) {
+    // get name
+    var name = href.split('/').splice(0, 2).join('/');
+    
+    // get state name
+    var state_name = href;
+    if (name == autocode.repo) {
+      state_name = state_name.split('/').splice(2).join('/');
+    }
+    var state = autocode.state[state_name];
+    if (state) {
       $('input:focus').blur();
-      action(query);
-      history.pushState(null, null, '#' + href);
+      state(query);
       autocode.initState();
+    } else if (!state) {
+      autocode.action.loadProject({ name: name });
     }
     
-    if (autocode.listener.listeners[href]) {
-      for (var listener_name in autocode.listener.listeners[href]) {
-        autocode.listener.listeners[href][listener_name](query);
+    history.pushState(null, null, href);
+    
+    if (autocode.listener.listeners[state_name]) {
+      for (var listener_name in autocode.listener.listeners[state_name]) {
+        autocode.listener.listeners[state_name][listener_name](query);
       }
     }
     

@@ -23,6 +23,9 @@ autocode.load = function() {
               autocode.action.updateRecent();
               
               var repo = autocode.storage.get('repo');
+              if (!repo) {
+                repo = location.pathname.substr(1);
+              }
               
               if (!repo) {
                 $('#loader').fadeOut(function() {
@@ -50,7 +53,13 @@ autocode.load = function() {
                   opacity: 1
                 },{
                   complete: function() {
-                    $('.app').fadeIn();
+                    var name = repo.split('/').splice(0, 2).join('/');
+                    var state = repo.split('/').splice(2).join('/');
+                    
+                    autocode.action.loadProject({
+                      name: name,
+                      callback: state ? autocode.state[state] : null
+                    });
                   }
                 });
               });

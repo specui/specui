@@ -1,9 +1,13 @@
-autocode.state['project/load/submit'] = function() {
+autocode.action.initProject = function() {
   autocode.popup.open({
-    title: 'Loading...'
+    title: 'Initializing Autocode...'
   });
+  autocode.popover.close();
   
-  autocode.api.repos.get({
+  autocode.api.init.post({
+    data: {
+      repo: autocode.repo
+    },
     success: function(data) {
       var rows = [];
       
@@ -16,7 +20,6 @@ autocode.state['project/load/submit'] = function() {
       }
       
       autocode.popup.open({
-        title: 'Load Project',
         rows: rows,
         style: 'table'
       });

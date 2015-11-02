@@ -1,4 +1,4 @@
-autocode.state['user/logout'] = function() {
+autocode.action.logout = function() {
   autocode.loader.open();
   
   autocode.api.logout.get({

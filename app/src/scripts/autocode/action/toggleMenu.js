@@ -3,38 +3,38 @@ autocode.action.toggleMenu = function() {
   if (autocode.data.user) {
     if (autocode.project) {
       rows.push({
+        action: 'saveProject',
         text: 'Save Project (Ctrl+Shift+S)',
-        icon: 'save-icon',
-        state: 'project/save'
+        icon: 'save-icon'
       });
       rows.push({
         text: 'Close Project',
         icon: 'close-icon',
-        state: 'home'
+        state: '/'
       });
       rows.push({
+        action: 'githubRepo',
         icon: 'login-icon',
-        text: 'View on GitHub',
-        state: 'github/repo'
+        text: 'View on GitHub'
       });
     }
     
     rows.push({
+      action: 'newProject',
       text: 'New Project (Ctrl+Shift+N)',
       icon: 'add-icon',
-      state: 'project/new',
       style: 'divider'
     });
     rows.push({
+      action: 'loadProject',
       text: 'Load Project (Ctrl+Shift+O)',
-      icon: 'load-icon',
-      state: 'project/load',
+      icon: 'load-icon'
     });
   } else {
     rows.push({
+      action: 'githubLogin',
       text: 'Login with GitHub',
-      icon: 'login-icon',
-      state: 'user/login'
+      icon: 'login-icon'
     });
   }
   rows.push({

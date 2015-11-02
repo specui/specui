@@ -31,7 +31,7 @@ autocode.action.editImportVersion = function() {
       autocode.popup.close();
       
       autocode.state['imports']({ disableSelected: true });
-      autocode.state['imports/module']({ repo: autocode.data.current.import });
+      autocode.action.loadImport({ repo: autocode.data.current.import });
       
       return false;
     }

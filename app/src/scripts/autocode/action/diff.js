@@ -1,7 +1,7 @@
-autocode.state['project/diff'] = function() {
+autocode.action.diff = function() {
   autocode.popup.open({
     title: 'Review Changes',
-    content: '<div class="diff"></div><a class="button" href="project/save">Save Project</a> <a class="button secondary" href="popup/close">Close</a>'
+    content: '<div class="diff"></div><a class="button" href="project/save">Save Project</a> <button class="secondary" onclick="autocode.action.closePopup()">Close</button>'
   });
   
   CodeMirror.MergeView($('#popup .diff')[0], {
@@ -12,4 +12,6 @@ autocode.state['project/diff'] = function() {
     readOnly: true,
     revertButtons: false
   });
+  
+  autocode.resize.popup();
 };

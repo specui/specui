@@ -1,4 +1,4 @@
-autocode.state['project/new'] = function() {
+autocode.action.newProject = function() {
   autocode.popup.open({
     title: 'Loading...'
   });

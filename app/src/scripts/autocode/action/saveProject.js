@@ -1,15 +1,15 @@
-autocode.state['project/save'] = function() {
+autocode.action.saveProject = function() {
   if (!autocode.project) {
     return;
   }
-  
+
   autocode.popover.close();
-  
+
   if (autocode.data.current.tab == 'config') {
     var value = $('#config-content .CodeMirror')[0].CodeMirror.getValue();
     autocode.project = jsyaml.safeLoad(value);
   }
-  
+
   if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project)) {
     autocode.popup.open({
       title: 'No Changes',
@@ -17,7 +17,7 @@ autocode.state['project/save'] = function() {
     });
     return;
   }
-  
+
   var output;
   for (var output_i in autocode.project.outputs) {
     output = autocode.project.outputs[output_i];
@@ -30,12 +30,12 @@ autocode.state['project/save'] = function() {
       return;
     }
   }
-  
+
   autocode.popup.open({
     title: 'Save Project',
     content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><a class="button" href="project/save/submit">Save Project</a>'
   });
-  
+
   CodeMirror.MergeView($('#popup .diff')[0], {
     value: jsyaml.safeDump(autocode.project),
     orig: autocode.data.originalConfig,
@@ -45,4 +45,6 @@ autocode.state['project/save'] = function() {
     readOnly: true,
     revertButtons: false
   });
+  
+  autocode.resize.popup();
 };

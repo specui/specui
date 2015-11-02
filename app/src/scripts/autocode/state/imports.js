@@ -17,7 +17,7 @@ autocode.state['imports'] = function(opts) {
     import_version = autocode.project.imports[import_name];
     
     $('#imports-content-container .table').append(
-      '<a class="file' + (autocode.data.current.import == import_name ? ' selected' : '') + '" href="imports/module?repo=' + import_name + '&index=' + import_index + '">'
+      '<a class="file' + (autocode.data.current.import == import_name ? ' selected' : '') + '" onclick="autocode.action.loadImport({ repo: \'' + import_name + '\', index: ' + import_index + ' })">'
         + '<span class="image"><span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span></span>'
         + '<span class="info">'
           + '<span class="name">' + import_name + '</span>'
@@ -54,7 +54,7 @@ autocode.state['imports'] = function(opts) {
               return false;
             }
             var text = $('#fuzzy a').first().find('.text').text();
-            autocode.state.push('imports/add', { repo: text });
+            autocode.action.addImport({ repo: text });
             $(this).val('');
             autocode.fuzzy.close();
             return false;
@@ -70,8 +70,13 @@ autocode.state['imports'] = function(opts) {
             }
             if (module_name.match(new RegExp(value, 'i'))) {
               modules.push({
+                action: {
+                  name: 'addImport',
+                  data: {
+                    repo: module_name
+                  }
+                },
                 icon: 'https://cdn.rawgit.com/' + module_name + '/master/.autocode/icon.svg',
-                state: 'imports/add?repo=' + module_name,
                 text: module_name
               });
             }

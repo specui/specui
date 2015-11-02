@@ -1,4 +1,4 @@
-autocode.state['user/settings'] = function() {
+autocode.action.settings = function() {
   autocode.popover.close();
   
   autocode.loader.open({ title: 'Loading Settings...' });

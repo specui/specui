@@ -30,7 +30,7 @@ autocode.action.editImportName = function() {
       autocode.popup.close();
       
       autocode.state['imports']({ disableSelected: true });
-      autocode.state['imports/module']({ repo: data.name });
+      autocode.action.loadImport({ repo: data.name });
       
       return false;
     }

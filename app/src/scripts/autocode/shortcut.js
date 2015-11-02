@@ -1,7 +1,10 @@
 autocode.shortcut = {
   init: function() {
     $(window).bind('keydown', function(e) {
-      if (!e.ctrlKey || !e.shiftKey) {
+      if (e.keyCode == 27) {
+        autocode.action.closeProject();
+        return;
+      } else if (!e.ctrlKey || !e.shiftKey) {
         return;
       }
       

@@ -1,4 +1,4 @@
-autocode.state['imports/module'] = function(opts) {
+autocode.action.loadImport = function(opts) {
   autocode.action.toggleColumn('imports-content', 2);
   
   autocode.data.current.import = opts.repo;

@@ -59,6 +59,7 @@ footer {
 }
 
 footer .icon {
+  background-size: 24px 24px;
   height: 24px;
   margin-left: 10px;
   width: 24px;
@@ -73,7 +74,6 @@ footer .icon.github-icon:hover {
 }
 
 header {
-  background-color: #333;
   color: #FFF;
   left: 0px;
   position: fixed;
@@ -186,10 +186,15 @@ textarea {
 .icon {
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: 32px 32px;
   display: inline-block;
   height: 16px;
   vertical-align: middle;
   width: 16px;
+}
+
+.icon.build-icon {
+  background-image: url(images/icon/build.svg);
 }
 
 .icon.file-bower {
@@ -271,6 +276,14 @@ textarea {
 
 .icon.logout-icon {
   background-image: url(images/icon/logout.svg);
+}
+
+.icon.menu-icon {
+  background-image: url(images/menu.svg);
+}
+
+.icon.run-icon {
+  background-image: url(images/icon/run.svg);
 }
 
 .icon.save-icon {
@@ -440,6 +453,14 @@ textarea {
   display: block;
 }
 
+#content aside.content-right .icon {
+  background-size: 16px 16px;
+}
+
+#content section .icon {
+  background-size: 16px 16px;
+}
+
 #content .content, #content .subcontent {
   display: none;
 }
@@ -606,6 +627,7 @@ textarea {
 }
 
 #main {
+  background-color: #333;
   height: 32px;
   padding: 10px;
 }
@@ -620,7 +642,6 @@ textarea {
 }
 
 #menu .icon {
-  background-image: url(images/menu.svg);
   background-position: center center;
   background-repeat: no-repeat;
   display: inline-block;
@@ -631,6 +652,15 @@ textarea {
 #menu .icon,
 #menu .text {
   vertical-align: middle;
+}
+
+#menu .icon.build-icon {
+  display: none;
+  margin: 0px 5px;
+}
+
+#menu .icon.run-icon {
+  display: none;
 }
 
 #output-content-container {
@@ -688,15 +718,12 @@ textarea {
   background-color: #FFF;
   border-radius: 5px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
   min-width: 400px;
+  max-width: 95%;
   position: fixed;
   padding: 20px;
   z-index: 2000;
-}
-
-#popup button {
-  margin-top: 10px;
-  width: 100%;
 }
 
 #popup .content {

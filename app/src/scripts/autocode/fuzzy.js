@@ -29,7 +29,13 @@ autocode.fuzzy = {
       row = opts.rows[i];
       
       row_link = $(document.createElement('a'));
-      row_link.attr('href', row.state);
+      if (row.state) {
+        row_link.attr('href', row.state);
+      } else if (typeof(row.action) == 'object') {
+        row_link.attr('onclick', 'autocode.action[\'' + row.action.name + '\'](' + JSON.stringify(row.action.data) + ')');
+      } else if (typeof(row.action) == 'string') {
+        row_link.attr('onclick', 'autocode.action[\'' + row.action + '\']()');
+      }
       table.append(row_link);
       
       if (icons_exist) {
