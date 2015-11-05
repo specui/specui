@@ -1,4 +1,4 @@
-autocode.state['outputs/add'] = function() {
+autocode.action.addOutput = function() {
   autocode.popup.open({
     title: 'Loading...'
   });
@@ -74,6 +74,9 @@ autocode.state['outputs/add'] = function() {
         delete(data.filename);
       }
       
+      if (!autocode.project.outputs) {
+        autocode.project.outputs = [];
+      }
       autocode.project.outputs.push(data);
       
       $('#popup, #overlay').fadeOut(function() {

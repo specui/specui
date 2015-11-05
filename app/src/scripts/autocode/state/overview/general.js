@@ -3,6 +3,7 @@ autocode.state['overview/general'] = function() {
   autocode.action.toggleSection('overview', 'general');
   
   $('#overview-general-name .value').text(autocode.project.name || '[ Click to Add ]');
+  $('#overview-general-version .value').text(autocode.project.version || '[ Click to Add ]');
   $('#overview-general-description .value').html(marked(autocode.project.description) || '[ Click to Add ]');
   $('#overview-general-url .value').html(
     autocode.project.url

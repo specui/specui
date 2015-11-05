@@ -1,10 +1,16 @@
-autocode.action.saveProject = function() {
+autocode.action.saveProject = function(opts) {
+  opts = opts || {};
+  
   if (!autocode.project) {
     return;
   }
 
   autocode.popover.close();
-
+  
+  if (opts.confirm) {
+    return;
+  }
+  
   if (autocode.data.current.tab == 'config') {
     var value = $('#config-content .CodeMirror')[0].CodeMirror.getValue();
     autocode.project = jsyaml.safeLoad(value);
@@ -33,7 +39,7 @@ autocode.action.saveProject = function() {
 
   autocode.popup.open({
     title: 'Save Project',
-    content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><a class="button" href="project/save/submit">Save Project</a>'
+    content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><button onclick="autocode.action.saveProject({ confirm: true })">Save Project</button>'
   });
 
   CodeMirror.MergeView($('#popup .diff')[0], {

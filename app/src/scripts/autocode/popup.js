@@ -29,8 +29,19 @@ autocode.popup = {
       switch (opts.style) {
         case 'table':
           opts.content = '<div class="table">';
+          var row_action;
           for (var row_i = 0; row_i < opts.rows.length; row_i++) {
-            opts.content += '<a href="' + opts.rows[row_i].state + '">'
+            if (opts.rows[row_i].state) {
+              row_action = ' href="' + opts.rows[row_i].state + '"';
+            } else if (typeof(opts.rows[row_i].action) == 'object') {
+              row_action = ' onclick="autocode.action.' + opts.rows[row_i].action.name + '(' + JSON.stringify(opts.rows[row_i].action.data) + ')"';
+            } else if (typeof(opts.rows[row_i].action) == 'string') {
+              row_action = ' onclick="autocode.action.' + opts.rows[row_i].action + '()"';
+            } else {
+              row_action = '';
+            }
+            
+            opts.content += '<a' + row_action + '>'
                 + '<span class="icon' + (!opts.rows[row_i].icon.match(/^http/) ? ' ' + opts.rows[row_i].icon : '') + '" style="' + (!!opts.rows[row_i].icon.match(/^http/) ? 'background-image: url(' + opts.rows[row_i].icon + ');' : '') + (opts.rows[row_i].style == 'divider' ? 'border-top: 1px #CCC solid' : '') + '"></span>'
                 + '<span class="text"' + (opts.rows[row_i].style == 'divider' ? ' style="border-top: 1px #CCC solid"' : '') + '>' + opts.rows[row_i].text + '</span>'
               + '</a>';

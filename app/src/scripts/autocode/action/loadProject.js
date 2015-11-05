@@ -103,7 +103,7 @@ autocode.action.loadProject = function(opts) {
         $('#overview-general-subtab').prop('href', 'overview/general');
         $('#overview-author-subtab').prop('href', 'overview/author');
         
-        $('#build-icon, #run-icon').show();
+        $('#menu-project').show();
         
         autocode.state['overview']();
         
@@ -187,13 +187,16 @@ autocode.action.loadProject = function(opts) {
         $('#welcome').fadeOut(function() {
           $('#overview-tab').prop('href', opts.name + '/overview');
           $('#imports-tab').prop('href', opts.name + '/imports');
+          $('#exports-tab').prop('href', opts.name + '/exports');
+          $('#outputs-tab').prop('href', opts.name + '/outputs');
+          $('#scripts-tab').prop('href', opts.name + '/scripts');
           $('#config-tab').prop('href', opts.name + '/config');
           $('#output-tab').prop('href', opts.name + '/output');
           
           $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
           $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
           
-          $('#build-icon, #run-icon').show();
+          $('#menu-project').show();
           
           autocode.state['overview']();
           

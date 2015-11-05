@@ -19,7 +19,7 @@ autocode.action.closeProject = function(opts) {
   
   autocode.popup.close();
   
-  $('#build-icon, #run-icon').hide();
+  $('#menu-project').hide();
   
   $('.app, #init').fadeOut(function() {
     $('#menu .text').text('Menu');

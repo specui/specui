@@ -18,7 +18,7 @@ autocode.action.newProject = function() {
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();
         
-        autocode.state['project/load/repo']({ name: data.name });
+        autocode.action.loadProject({ name: data.name });
         
         $('#welcome').fadeOut(function() {
           $('.app').fadeIn();

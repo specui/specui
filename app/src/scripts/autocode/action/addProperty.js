@@ -1,6 +1,4 @@
-autocode.state['outputs/property/add'] = function() {
-  autocode.loader.open();
-  
+autocode.action.addProperty = function() {
   new formulator({
     formula: 'formulas/forms/AddProperty.json',
     xhr: true,

@@ -31,12 +31,13 @@ autocode.load = function() {
                 $('#loader').fadeOut(function() {
                   $('#loader').remove();
                   $('#container').show();
-                  $('#build-icon, #run-icon, #welcome').hide();
+                  $('#menu-project, #welcome').hide();
                   autocode.resize.all();
                   $('#container').animate({ opacity: 1 },{
                     complete: function() {
-                      var config = jsyaml.safeLoad(atob(autocode.query.get('config')));
+                      var config = autocode.query.get('config');
                       if (config) {
+                        config = jsyaml.safeLoad(atob(config));
                         autocode.action.loadProject({
                           name: '(Untitled)',
                           config: config

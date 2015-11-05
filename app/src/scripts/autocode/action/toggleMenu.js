@@ -32,7 +32,7 @@ autocode.action.toggleMenu = function() {
     });
   } else {
     rows.push({
-      action: 'githubLogin',
+      action: 'login',
       text: 'Login with GitHub',
       icon: 'login-icon'
     });

@@ -250,10 +250,10 @@ scripts:
       command: coffee --compile --output cli/lib/ cli/src/
   run:
     - description: Run web server for Autocode app.
-      command: node app/app
+      command: forever start app/app.js
   stop:
     - description: Stop web server for Autocode app.
-      command: lsof -P | grep ':8080' | awk '{print $2}' | xargs kill -9
+      command: forever stopall
   test:
     - description: Test Autocode.
       command: npm test

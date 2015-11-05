@@ -9,12 +9,17 @@ autocode.action.initProject = function() {
       repo: autocode.repo
     },
     success: function(data) {
-      var rows = [];
+      var rows = [], row_action;
       
       for (var i = 0; i < data.length; i++) {
         rows.push({
+          action: {
+            name: 'loadProject',
+            data: {
+              name: data[i].name
+            }
+          },
           icon: 'login-icon',
-          state: 'project/load/repo?name=' + data[i].name,
           text: data[i].name
         });
       }
