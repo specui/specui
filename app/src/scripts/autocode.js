@@ -58,6 +58,7 @@ var autocode = {
     href = query[0];
     query = autocode.query.search(query[1]);
     
+    console.log(href);
     
     // get name
     var name = href.split('/').splice(0, 2).join('/');

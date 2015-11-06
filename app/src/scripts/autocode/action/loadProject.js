@@ -52,7 +52,7 @@ autocode.action.loadProject = function(opts) {
   
   autocode.repo = opts.name;
   
-  $('#menu .text').text(opts.name);
+  $('#project .text').text(opts.name.split('/')[1]);
   
   if (opts.config) {
     autocode.project = opts.config;
@@ -145,7 +145,12 @@ autocode.action.loadProject = function(opts) {
       
       autocode.action.updateRecent();
       
-      autocode.project = jsyaml.safeLoad(data.config);
+      var config = autocode.storage.get('config');
+      if (config) {
+        autocode.project = jsyaml.safeLoad(config);
+      } else {
+        autocode.project = jsyaml.safeLoad(data.config);
+      }
       autocode.data.originalConfig = data.config;
       
       autocode.data.generators = {};

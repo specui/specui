@@ -1,7 +1,12 @@
 autocode.api = {
   url: null,
   ajax: function(opts) {
-    opts.url = autocode.api.url + opts.uri;
+    opts = opts || {};
+    
+    if (!opts.url) {
+      opts.url = autocode.api.url;
+    }
+    opts.url += opts.uri;
     
     var ajax = {
       contentType: 'application/json',

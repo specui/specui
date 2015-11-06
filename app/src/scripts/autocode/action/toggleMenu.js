@@ -46,9 +46,9 @@ autocode.action.toggleMenu = function() {
   
   autocode.popover.toggle({
     rows: rows,
-    left: 0,
+    left: $('#project').offset().left,
     style: 'table',
-    target: $('#menu'),
+    target: $('#project'),
     top: $('#main').outerHeight()
   });
   

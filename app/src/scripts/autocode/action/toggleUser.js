@@ -21,13 +21,13 @@ autocode.action.toggleUser = function() {
           text: 'Logout'
         }
       ],
-      right: 0,
+      left: 0,
       style: 'table',
       target: $('#user'),
       top: $('#main').outerHeight()
     });
   } else {
-    autocode.state['user/login']();
+    autocode.action.login();
   }
   
   autocode.initState();

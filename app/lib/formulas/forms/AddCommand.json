@@ -1,0 +1,24 @@
+{
+  "action": "/commands",
+  "method": "post",
+  "fields": {
+    "title": {
+      "label": "Title",
+      "type": "text"
+    },
+    "command": {
+      "label": "Command",
+      "type": "text"
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Add Command",
+      "type": "submit"
+    }
+  }
+}

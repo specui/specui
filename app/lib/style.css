@@ -75,6 +75,7 @@ footer .icon.github-icon:hover {
 
 header {
   color: #FFF;
+  display: none;
   left: 0px;
   position: fixed;
   text-align: center;
@@ -197,6 +198,10 @@ textarea {
   background-image: url(images/icon/build.svg);
 }
 
+.icon.build-icon.black {
+  background-image: url(images/icon/build-black.svg);
+}
+
 .icon.file-bower {
   background-image: url(images/file/bower.svg);
 }
@@ -267,7 +272,7 @@ textarea {
 }
 
 .icon.loader-icon {
-  background-image: url(images/loader.svg);
+  background-image: url(images/icon/loader.svg);
 }
 
 .icon.loader-icon.loading {
@@ -286,8 +291,16 @@ textarea {
   background-image: url(images/menu.svg);
 }
 
+.icon.project-icon {
+  background-image: url(images/icon/project.svg);
+}
+
 .icon.run-icon {
   background-image: url(images/icon/run.svg);
+}
+
+.icon.run-icon.black {
+  background-image: url(images/icon/run-black.svg);
 }
 
 .icon.run-icon.stop {
@@ -313,6 +326,10 @@ textarea {
 
 .icon.spec-icon {
   background-image: url(images/icon/spec.svg);
+}
+
+.icon.stop-icon.black {
+  background-image: url(images/icon/stop-black.svg);
 }
 
 .icon.tour {
@@ -378,6 +395,7 @@ textarea {
 }
 
 .value {
+  color: #185F96;
   cursor: pointer;
   display: block;
   margin: 0px -10px;
@@ -514,7 +532,7 @@ textarea {
   text-align: center;
 }
 
-#exports-init .button {
+#exports-init button {
   margin-top: 20px;
 }
 
@@ -827,7 +845,7 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 14.28%;
+  width: 25%;
 }
 
 #tabs a:hover {
@@ -844,8 +862,28 @@ textarea {
   text-align: center;
 }
 
-#user {
+#usage {
   float: right;
+}
+
+#usage .icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  display: inline-block;
+  height: 32px;
+  margin-left: 10px;
+  width: 32px;
+}
+
+#usage .icon,
+#usage .text {
+  padding: 0px;
+  vertical-align: middle;
+}
+
+#usage-on {
+  display: none;
 }
 
 #user .icon {
@@ -853,7 +891,6 @@ textarea {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 32px 32px;
-  border-radius: 50%;
   display: inline-block;
   height: 32px;
   width: 32px;

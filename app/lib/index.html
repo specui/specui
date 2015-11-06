@@ -47,7 +47,11 @@
   <script src="components/js-yaml/dist/js-yaml.min.js"></script>
   <script src="components/marked/marked.min.js"></script>
   <script src="components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+  
+  <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+  
   <script src="scripts/autocode.js"></script>
+  
   <title>Autocode</title>
 </head>
 
@@ -59,27 +63,43 @@
     <header>
       <nav id="main">
         <div id="menu">
-          <a class="icon menu-icon" onclick="autocode.action.toggleMenu()"></a>
-          <a class="text" onclick="autocode.action.toggleMenu()">Menu</a>
-          <span id="menu-project">
-            <a class="icon generate-icon" data-hint="Sync Project" id="generate-icon" onclick="autocode.action.generate()"></a>
+          <a id="user" onclick="autocode.action.toggleUser()">
+            <span class="icon user-icon"></span>
+            <span class="text"></span>
+          </a>
+          <a id="project" onclick="autocode.action.toggleMenu()">
+            <span class="icon project-icon"></span>
+            <span class="text"></span>
+          </a>
+        </div>
+        <div id="usage">
+          <div id="usage-off">
+            <a data-hint="Booting Test Box" id="loader-icon" onclick="autocode.action.share()">
+              <span class="text">Booting Test Box...</span>
+              <span class="icon loader-icon loading"></span>
+            </a>
+            <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
+          </div>
+          <div id="usage-on">
+            <a data-hint="Configure Test Box" id="box-icon" onclick="autocode.action.box()">
+              <span class="text"></span>
+              <span class="icon loader-icon"></span>
+            </a>
+            <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
+            <a class="icon generate-icon" data-hint="Update Project" id="generate-icon" onclick="autocode.action.update()"></a>
             <a class="icon build-icon" data-hint="Build Project" id="build-icon" onclick="autocode.action.build()"></a>
             <a class="icon run-icon" data-hint="Run Project" id="run-icon" onclick="autocode.action.run()"></a>
-            <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
-          </span>
+          </div>
         </div>
-        <a onclick="autocode.action.toggleUser()" id="user">
-          <span class="text">Login with GitHub</span>
-          <span class="icon"></span>
-        </a>
-        <a href="https://autocode.run" id="logo" target="_blank"></a>
       </nav>
       <nav class="app" id="tabs">
-        <a class="tab" href="overview" id="overview-tab">Overview</a>
+        <a class="tab" href="overview" id="overview-tab">Globals</a>
         <a class="tab" href="imports" id="imports-tab">Imports</a>
+        <!--
         <a class="tab" href="exports" id="exports-tab">Exports</a>
         <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
         <a class="tab" href="scripts" id="scripts-tab">Scripts</a>
+        -->
         <a class="tab" href="config" id="config-tab">Config</a>
         <a class="tab" href="output" id="output-tab">Files</a>
       </nav>
@@ -349,7 +369,7 @@
           <div id="outputs-content-container">
             <aside class="content-left">
               <div class="table">
-                <a class="file" href="outputs/add">
+                <a class="file" onclick="autocode.action.addOutput()">
                   <span class="image">
                     <span class="icon add-icon"></span>
                   </span>
@@ -392,48 +412,30 @@
               Scripts
             </div>
             <div>
-              Scripts run you code for BUILD, RUN and other events.
+              Run Scripts for BUILD, RUN and STOP events.
             </div>
-            <button action="autocode.action.addScript()">Add Script</button>
+            <button onclick="autocode.action.addScript()">Add Script</button>
           </div>
           <div id="scripts-content-container">
             <aside class="content-left">
               <div class="table">
-                <a class="file" href="scripts/add">
+                <a class="file" onclick="autocode.action.addScript()">
                   <span class="image">
                     <span class="icon add-icon"></span>
                   </span>
                   <span class="info">
-                    <span class="name">Add Output</span>
+                    <span class="name">Add Script</span>
                   </span>
                 </a>
               </div>
             </aside>
             <section class="content-center">
-              <form>
-                <button onclick="autocode.action.addProperty()" style="float: right; margin-top: 10px">
-                  Add Property
-                </button>
-                <div class="title">Spec</div>
-                <a class="checkbox checked" href="scripts/hide/toggle">
-                  <span class="text">Hide Unused Properties</span>
-                  <span class="icon"></span>
-                </a>
-                <div class="schema"></div>
-              </form>
+              <button onclick="autocode.action.addCommand()" style="float: right; margin-top: 10px">
+                Add Command
+              </button>
+              <div class="title">Commands</div>
+              <div class="commands"></div>
             </section>
-            <aside class="content-right">
-              <form>
-                <label>Generator</label>
-                <input name="generator" placeholder="None" spellcheck="false" type="text" />
-                <label>Filename</label>
-                <input name="filename" spellcheck="false" type="text" />
-                <label>Path</label>
-                <input name="path" placeholder="Project Root" spellcheck="false" type="text" />
-                <label>Delete Output</label>
-                <a class="button" href="scripts/delete">Delete</a>
-              </form>
-            </aside>
           </div>
         </div>
         <div class="content" id="config-content">

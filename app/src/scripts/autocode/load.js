@@ -27,6 +27,8 @@ autocode.load = function() {
                 repo = location.pathname.substr(1);
               }
               
+              $('header').fadeIn();
+              
               if (!repo) {
                 $('#loader').fadeOut(function() {
                   $('#loader').remove();
@@ -86,6 +88,34 @@ autocode.load = function() {
               
               $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
               $('#user .text').text(data.username);
+              
+              var initBox = function() {
+                autocode.api.box.post({
+                  error: function(data) {
+                    console.log(data);
+                    $('#loader-icon .text').text('Box not found');
+                  },
+                  success: function(data) {
+                    if (data.ready) {
+                      if (!autocode.ws.ip) {
+                        autocode.ws.ip = data.ip;
+                        autocode.ws.init();
+                      }
+                      
+                      $('#box-icon .text').text(data.ip);
+                      $('#usage-on').show();
+                      $('#usage-off').hide();
+                    } else {
+                      $('#usage-on').hide();
+                      $('#usage-off').show();
+                    }
+                  }
+                });
+              };
+              
+              initBox();
+              
+              setInterval(initBox, 10 * 1000);
             }
           });
         }
