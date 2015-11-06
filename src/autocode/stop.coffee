@@ -15,7 +15,6 @@ module.exports = () ->
   stopCmd = () ->
     if !scripts.stop[i]
       console.log "\nDone!"
-      process.kill 0
       return
     
     description = scripts.stop[i].description or scripts.stop[i]

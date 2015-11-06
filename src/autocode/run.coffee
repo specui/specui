@@ -14,12 +14,8 @@ module.exports = (opts) ->
 	scripts = this.config.scripts
 	
 	i = 0
-	runInterval = null
 	
 	runCmd = () ->
-		clearInterval runInterval
-		runInterval = null
-
 		if !scripts.run[i]
 			console.log "\n" + ' DONE! '.bgGreen.white
 			return
@@ -45,14 +41,6 @@ module.exports = (opts) ->
 			runCmd()
 		proc.on 'error', (err) ->
 			console.log "\n" + ' ERROR '.bgRed.white + (' ' + err.message + ' ').bgWhite
-		
-		runInterval = setInterval (->
-			if autocode.stopped
-				console.log 'Project was stopped.'
-				autocode.stopped = false
-				clearInterval runInterval
-				proc.kill()
-		), 1
 		
 		i++
 	

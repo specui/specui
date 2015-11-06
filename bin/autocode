@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 
+// load minimist
+var minimist = require('minimist')(process.argv.slice(2));
+
+if (minimist.debug) {
+	require('coffee-script').register();
+}
+
 // load packages
 var ascii = require('../cli/lib/ascii')(),
-	autocode = require('../lib/autocode'),
+	autocode = require('../' + (minimist.debug ? 'src' : 'lib') + '/autocode'),
 	bluebird = require('bluebird'),
 	colors = require('colors'),
 	fs = require('fs'),
-	minimist = require('minimist')(process.argv.slice(2)),
 	userHome = require('user-home'),
 	yaml = require('js-yaml');
 	

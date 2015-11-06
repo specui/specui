@@ -54,7 +54,6 @@ module.exports = (opts) ->
 	
 	console.log "\nBUILD:".bold
 	
-	opts = this.opts
 	scripts = this.config.scripts
 	
 	i = 0
@@ -95,7 +94,7 @@ module.exports = (opts) ->
 		
 		i++
 	
-	if opts and opts.skipScripts = true
+	if opts and opts.skipScripts == true
 		return
 		
 	buildCmd()

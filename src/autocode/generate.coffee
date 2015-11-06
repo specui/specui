@@ -24,6 +24,7 @@ yaml         = require 'js-yaml'
 
 force = false
 loaded_modules = {}
+imports = {}
 
 loadModules = (modules, host) ->
 	# load each module
@@ -134,12 +135,16 @@ loadModules = (modules, host) ->
 						spec = extend true, true, spec, exported_spec
 					module_config.exports[export_name].spec = spec
 				else if typeof(exported.spec) == 'string' && exported.spec.match(/\./)
-					export_path = "#{module_path}/.autocode/spec/#{exported.spec}"
-					if fs.existsSync export_path
-						spec = yaml.safeLoad fs.readFileSync(export_path)
+					if exported.spec.match(/^https?:\/\//)
+						spec = request 'get', exported.spec
+						module_config.exports[export_name].spec = yaml.safeLoad spec.body
 					else
-						spec = exported.spec
-					module_config.exports[export_name].spec = spec
+						export_path = "#{module_path}/.autocode/spec/#{exported.spec}"
+						if fs.existsSync export_path
+							spec = yaml.safeLoad fs.readFileSync(export_path)
+						else
+							spec = exported.spec
+						module_config.exports[export_name].spec = spec
 				
 				# handle template
 				if typeof(exported.template) == 'string' && exported.template.match(/\./)
@@ -335,34 +340,35 @@ loadOutputs = (outputs, imports, config) ->
 						if imports[output_spec]
 							output_processor = loadProcessor imports[output_spec].processor, null, imports
 							output_spec = imports[output_spec].spec
+						else if output_spec.match(/^https?:\/\//)
+							output_spec = request 'get', output_spec
+							output_spec = yaml.safeLoad spec.body
 						else
 							spec_filename = ".autocode/spec/#{output_spec}"
 							if !fs.existsSync spec_filename
 								throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
 							output_spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
+					output_spec = parse output_spec, config, output_processor
 					spec = extend true, true, spec, output_spec
-			else if typeof(output.spec) == 'object'
-				spec = output.spec
-			else if typeof(output.spec) == 'string'
-				if imports[output.spec]
-					output_processor = loadProcessor imports[output.spec].processor, null, imports
-					spec = imports[output.spec].spec
-				else
-					spec_filename = ".autocode/spec/#{output.spec}"
-					if !fs.existsSync spec_filename
-						throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
-					spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
-			
-			# parse spec variables
-			if config.debug
-				console.log "Processed spec.".blue
-				console.log "    - Before:".green
-				console.log JSON.stringify spec[i], null, "  "
-			spec = parse spec, config, output_processor
-			if config.debug
-				console.log "    - After:".green
-				console.log JSON.stringify spec[i], null, "  "
-			
+			else
+				if typeof(output.spec) == 'object'
+					spec = output.spec
+				else if typeof(output.spec) == 'string'
+					if imports[output.spec]
+						output_processor = loadProcessor imports[output.spec].processor, null, imports
+						spec = imports[output.spec].spec
+					else if output.spec.match(/^https?:\/\//)
+						spec = request 'get', output.spec
+						spec = yaml.safeLoad spec.body
+					else
+						spec_filename = ".autocode/spec/#{output.spec}"
+						if !fs.existsSync spec_filename
+							throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
+						spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
+				spec = parse spec, config, output_processor
+		
+		#console.log spec
+		
 		# validate spec
 		if generator.schema
 			gen_schema = loadSchemaRefs generator.schema
@@ -664,7 +670,6 @@ generate = (opts) ->
 		loadModules config.modules, config.host
 		processModules()
 	
-	imports = {}
 	for module_name of config.modules
 		module_alias = module_name.substr(module_name.lastIndexOf('/') + 1)
 		module_version_query = config.modules[module_name]
@@ -779,9 +784,16 @@ parse = (spec, config, processors) ->
 				spec[i]['$processor'] = [spec[i]['$processor']]
 				
 			for proc in spec[i]['$processor']
-				for processor in processors
-					if processor.alias == proc
-						spec[i]['$value'] = processor.callback spec[i]['$value']
+				if processors
+					for processor in processors
+						if processor.alias == proc
+							if typeof(spec[i]['$value']) == 'string'
+								if imports[spec[i]['$value']]
+									spec[i]['$value'] = imports[spec[i]['$value']].spec
+								else if spec[i]['$value'].match(/^https?:\/\//)
+									spec[i]['$value'] = request 'get', spec[i]['$value']
+									spec[i]['$value'] = yaml.safeLoad spec[i]['$value'].body
+							spec[i]['$value'] = processor.callback spec[i]['$value']
 						
 			spec[i] = spec[i]['$value']
 					
