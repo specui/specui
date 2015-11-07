@@ -1,3 +1,12 @@
+@-moz-keyframes rotating {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
 @-webkit-keyframes rotating {
   from {
     -webkit-transform: rotate(0deg);
@@ -218,6 +227,18 @@ textarea {
   background-image: url(images/icon/close.svg);
 }
 
+.icon.close-icon.white {
+  background-image: url(images/icon/close-white.svg);
+}
+
+.icon.console-icon {
+  background-image: url(images/icon/console.svg);
+}
+
+.icon.console-icon.white {
+  background-image: url(images/icon/console-white.svg);
+}
+
 .icon.facebook-icon {
   background-image: url(images/icon/facebook.svg);
 }
@@ -276,6 +297,8 @@ textarea {
 }
 
 .icon.loader-icon.loading {
+  animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
   -webkit-animation: rotating 2s linear infinite;
 }
 
@@ -291,8 +314,20 @@ textarea {
   background-image: url(images/menu.svg);
 }
 
+.icon.more-icon {
+  background-image: url(images/icon/more.svg);
+}
+
 .icon.project-icon {
   background-image: url(images/icon/project.svg);
+}
+
+.icon.reboot-icon {
+  background-image: url(images/icon/reboot.svg);
+}
+
+.icon.reimage-icon {
+  background-image: url(images/icon/reimage.svg);
 }
 
 .icon.run-icon {
@@ -330,6 +365,10 @@ textarea {
 
 .icon.stop-icon.black {
   background-image: url(images/icon/stop-black.svg);
+}
+
+.icon.target-icon {
+  background-image: url(images/icon/target.svg);
 }
 
 .icon.tour {
@@ -421,6 +460,40 @@ textarea {
 
 #config-content textarea {
   font-family: 'Courier New';
+}
+
+#console {
+  bottom: 0px;
+  box-sizing: border-box;
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+}
+
+#console .left {
+  float: left;
+}
+
+#console .right {
+  float: right;
+}
+
+#console .title {
+  background-color: #000;
+  color: #FFF;
+  overflow: auto;
+  padding: 10px;
+}
+
+#console .content {
+  background-color: #333;
+  color: #CCC;
+  height: 150px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  overflow: auto;
+  padding: 10px;
 }
 
 #container {
@@ -576,7 +649,6 @@ textarea {
   padding: 5px 10px;
   position: fixed;
   text-align: center;
-  width: 200px;
   z-index: 1000;
 }
 
@@ -641,6 +713,8 @@ textarea {
   height: 100px;
   margin: 0px auto;
   width: 100px;
+  animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
   -webkit-animation: rotating 2s linear infinite;
 }
 
@@ -820,6 +894,26 @@ textarea {
   margin-bottom: 20px;
   padding-bottom: 20px;
   font-size: 32px;
+}
+
+#status-icon {
+  background-color: #FF0000;
+  border-radius: 50%;
+  display: inline-block;
+  height: 16px;
+  margin-right: 10px;
+  width: 16px;
+  vertical-align: middle;
+}
+
+#status-icon.pending {
+  background-color: #ffcc33;
+  border-radius: 50%;
+}
+
+#status-icon.online {
+  background-color: #33ff33;
+  border-radius: 50%;
 }
 
 #support {

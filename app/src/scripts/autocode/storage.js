@@ -6,6 +6,9 @@ autocode.storage = {
     }
     return item || default_item;
   },
+  remove: function(name, item) {
+    return localStorage.removeItem(name);
+  },
   set: function(name, item) {
     if (typeof(item) == 'object') {
       item = 'json://' + JSON.stringify(item);

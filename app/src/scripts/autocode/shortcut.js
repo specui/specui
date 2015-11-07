@@ -38,6 +38,11 @@ autocode.shortcut = {
           autocode.action.build();
           break;
         }
+        // c
+        case 67: {
+          autocode.action.toggleConsole();
+          break;
+        }
         // n
         case 78: {
           autocode.action.newProject();

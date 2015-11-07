@@ -63,14 +63,19 @@
     <header>
       <nav id="main">
         <div id="menu">
-          <a id="user" onclick="autocode.action.toggleUser()">
+          <a data-hint="Login with GitHub" data-hint-min-top="62" id="user" onclick="autocode.action.toggleUser()">
             <span class="icon user-icon"></span>
             <span class="text"></span>
           </a>
-          <a id="project" onclick="autocode.action.toggleMenu()">
+          <a data-hint="Choose Project" data-hint-min-top="62" id="project" onclick="autocode.action.toggleMenu()">
             <span class="icon project-icon"></span>
             <span class="text"></span>
           </a>
+          <a data-hint="Choose Target" data-hint-min-top="62" id="target-icon" onclick="autocode.action.toggleTarget()">
+            <span class="icon target-icon"></span>
+            <span class="text">Starting Test Server...</span>
+          </a>
+          <span data-hint="Offline" data-hint-min-top="62" id="status-icon"></span>
         </div>
         <div id="usage">
           <div id="usage-off">
@@ -81,14 +86,11 @@
             <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
           </div>
           <div id="usage-on">
-            <a data-hint="Configure Test Box" id="box-icon" onclick="autocode.action.box()">
-              <span class="text"></span>
-              <span class="icon loader-icon"></span>
-            </a>
-            <a class="icon share-icon" data-hint="Share Project" id="share-icon" onclick="autocode.action.share()"></a>
-            <a class="icon generate-icon" data-hint="Update Project" id="generate-icon" onclick="autocode.action.update()"></a>
-            <a class="icon build-icon" data-hint="Build Project" id="build-icon" onclick="autocode.action.build()"></a>
-            <a class="icon run-icon" data-hint="Run Project" id="run-icon" onclick="autocode.action.run()"></a>
+            <a class="icon more-icon" data-hint="More" data-hint-min-top="62" id="more-icon" onclick="autocode.action.toggleMore()"></a>
+            <a class="icon share-icon" data-hint="Share Project" data-hint-min-top="62" id="share-icon" onclick="autocode.action.share()"></a>
+            <a class="icon generate-icon" data-hint="Update Project" data-hint-min-top="62" id="generate-icon" onclick="autocode.action.update()"></a>
+            <a class="icon build-icon" data-hint="Build Project" data-hint-min-top="62" id="build-icon" onclick="autocode.action.build()"></a>
+            <a class="icon run-icon" data-hint="Run Project" data-hint-min-top="62" id="run-icon" onclick="autocode.action.run()"></a>
           </div>
         </div>
       </nav>
@@ -457,6 +459,18 @@
       <a class="icon facebook-icon" href="https://facebook.com/crystalcodegen" target="_blank"></a>
     </nav>
   </footer>
+  <div id="console">
+    <div class="title">
+      <div class="left">
+        <span class="icon console-icon white"></span>
+        <span class="text">Console</span>
+      </div>
+      <div class="right">
+        <a class="icon close-icon white" data-hint="Close Console" onclick="autocode.action.toggleConsole()"></a>
+      </div>
+    </div>
+    <div class="content"></div>
+  </div>
   <script>
     if (!location.hostname.match(/alpha/)) {
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

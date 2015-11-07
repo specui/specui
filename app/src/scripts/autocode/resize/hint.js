@@ -42,7 +42,7 @@ autocode.resize.hint = function() {
   hint.text(hint_text);
   
   hint_arrow.css({
-    left: hint_target.offset().left + (hint_target.outerWidth() - hint_arrow.outerWidth()) / 2,
+    left: hint_target.offset().left + ((hint_target.outerWidth() - hint_arrow.outerWidth()) / 2),
     top: hint_top - 14
   });
 };

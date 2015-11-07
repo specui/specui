@@ -10,6 +10,7 @@ autocode.resize = {
       'config',
       'exports',
       'exportsInit',
+      'footer',
       'header',
       'hint',
       'init',

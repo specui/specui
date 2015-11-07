@@ -27,8 +27,6 @@ autocode.load = function() {
                 repo = location.pathname.substr(1);
               }
               
-              $('header').fadeIn();
-              
               if (!repo) {
                 $('#loader').fadeOut(function() {
                   $('#loader').remove();
@@ -93,16 +91,18 @@ autocode.load = function() {
                 autocode.api.box.post({
                   error: function(data) {
                     console.log(data);
-                    $('#loader-icon .text').text('Box not found');
+                    $('#target-icon .text').text('Target not found');
                   },
                   success: function(data) {
                     if (data.ready) {
                       if (!autocode.ws.ip) {
+                        autocode.status.pending();
+
                         autocode.ws.ip = data.ip;
                         autocode.ws.init();
                       }
                       
-                      $('#box-icon .text').text(data.ip);
+                      $('#target-icon .text').text(data.ip);
                       $('#usage-on').show();
                       $('#usage-off').hide();
                     } else {

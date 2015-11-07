@@ -103,6 +103,7 @@ autocode.action.loadProject = function(opts) {
         $('#overview-general-subtab').prop('href', 'overview/general');
         $('#overview-author-subtab').prop('href', 'overview/author');
         
+        $('header').fadeIn();
         $('#menu-project').show();
         
         autocode.state['overview']();
@@ -201,6 +202,7 @@ autocode.action.loadProject = function(opts) {
           $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
           $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
           
+          $('header').fadeIn();
           $('#menu-project').show();
           
           autocode.state['overview']();

@@ -3,7 +3,7 @@ var bs = require('browser-sync').create(),
 
 bs.init({
   host: 'alpha.app.autocode.run',
-  files: '*/**',
+  files: ['app/lib/*/**'],
   server: {
     baseDir: './app/lib',
     index: 'index.html'

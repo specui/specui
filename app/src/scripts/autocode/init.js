@@ -3,7 +3,8 @@ autocode.init = function() {
   autocode.resize.loader();
   $('#loader').animate({ opacity: 1 });
   
-  autocode.hint.init()
+  autocode.console.init();
+  autocode.hint.init();
   autocode.shortcut.init()
   autocode.initState();
   
@@ -19,6 +20,7 @@ autocode.init = function() {
       if (
         target.attr('id') != 'popover' && !target.parents('#popover').length
         && target.attr('id') != 'menu' && !target.parents('#menu').length
+        && target.attr('id') != 'more-icon' && !target.parents('#more-icon').length
         && target.attr('id') != 'user' && !target.parents('#user').length
       ) {
         autocode.popover.close();

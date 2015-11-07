@@ -18,6 +18,7 @@ autocode.hint = {
       $(this).bind({
         mouseenter: function() {
           autocode.hint.open({
+            minTop: $(this).data('hint-min-top'),
             target: $(this),
             text: $(this).data('hint')
           });

@@ -1,4 +1,12 @@
 jQuery.fn.extend({
+  visibleHeight: function() {
+    var o = $(this);
+    if (o.is(':hidden')) {
+      return 0;
+    } else {
+      return o.outerHeight();
+    }
+  },
   visibleWidth: function() {
     var o = $(this);
     if (o.is(':hidden')) {

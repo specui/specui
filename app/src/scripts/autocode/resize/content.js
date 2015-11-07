@@ -1,12 +1,12 @@
 autocode.resize.content = function() {
   if ($(window).width() > autocode.mobile.minWidth) {
     $('#content').css({
-      height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight(),
+      height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight() - $('#console').visibleHeight(),
       width: $(window).width()
     });
   } else {
     $('#content').css({
-      height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight(),
+      height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight() - $('#console').visibleHeight(),
       width: $(window).width() * ($('.column:visible').length ? $('.column:visible').length : 1)
     });
   }
@@ -39,7 +39,7 @@ autocode.resize.content = function() {
   }
   if ($(window).width() > autocode.mobile.minWidth) {
     $('.content-left, .content-center, .content-right').css({
-      height: $(window).height() - $('header').outerHeight() -  $('footer').outerHeight()
+      height: $(window).height() - $('header').outerHeight() -  $('footer').outerHeight() - $('#console').visibleHeight()
     });
   } else {
     $('.content-left, .content-center, .content-right').css({
