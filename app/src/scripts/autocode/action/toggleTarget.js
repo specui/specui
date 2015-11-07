@@ -7,12 +7,12 @@ autocode.action.toggleTarget = function() {
   
   var rows = [];
   
-  if (autocode.project.launches && autocode.project.launches.length) {
-    for (var i = 0; i < autocode.project.launches.length; i++) {
+  if (autocode.project.services && autocode.project.services.length) {
+    for (var i = 0; i < autocode.project.services.length; i++) {
       rows.push({
-        icon: 'launch-icon',
-        state: 'http://' + autocode.ws.ip + ':' + autocode.project.launches[i].port,
-        text: autocode.project.launches[i].title
+        icon: 'service-icon',
+        state: 'http://' + autocode.ws.ip + ':' + autocode.project.services[i].port,
+        text: autocode.project.services[i].title
       });
     }
   }

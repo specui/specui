@@ -351,6 +351,10 @@ textarea {
   background-image: url(images/icon/schema.svg);
 }
 
+.icon.service-icon {
+  background-image: url(images/icon/service.svg);
+}
+
 .icon.settings-icon {
   background-image: url(images/icon/settings.svg);
 }
