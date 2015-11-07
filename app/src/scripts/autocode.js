@@ -56,7 +56,8 @@ var autocode = {
     if (!href) {
       return false;
     } else if (href.match(/^https?:/)) {
-      return true;
+      window.open(href, '_blank');
+      return false;
     }
     
     e.preventDefault();
