@@ -6,11 +6,17 @@ autocode.ws = {
       return;
     }
     
-    $('#console .content').append('<div>Connecting...</div>').scrollTop($('#console .content')[0].scrollHeight);
+    $('#console .content').append('<div>Connecting...</div>');
+    if (autocode.data.current.pin) {
+      $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
+    }
     
     autocode.ws.io = io('http://' + autocode.ws.ip + ':12345');
     autocode.ws.io.on('connect', function(socket) {
-      $('#console .content').append('<div>Connected.</div>').scrollTop($('#console .content')[0].scrollHeight);
+      $('#console .content').append('<div>Connected.</div>');
+      if (autocode.data.current.pin) {
+        $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
+      }
       autocode.status.online();
       
       $('#usage-on').show();
@@ -22,11 +28,17 @@ autocode.ws = {
       }
       data = data.data.split("\n");
       for (var i = 0; i < data.length; i++) {
-        $('#console .content').append('<div>' + data[i] + '</div>').scrollTop($('#console .content')[0].scrollHeight);
+        $('#console .content').append('<div>' + (data[i].length ? data[i] : ' ') + '</div>');
+        if (autocode.data.current.pin) {
+          $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
+        }
       }
     });
     autocode.ws.io.on('disconnect', function(data) {
-      $('#console .content').append('<div>Disconnected.</div>').scrollTop($('#console .content')[0].scrollHeight);
+      $('#console .content').append('<div>Disconnected.</div>');
+      if (autocode.data.current.pin) {
+        $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
+      }
       autocode.status.pending();
       
       $('#usage-on').hide();

@@ -63,6 +63,11 @@ autocode.shortcut = {
           autocode.action.saveProject();
           break;
         }
+        // u
+        case 85: {
+          autocode.action.update();
+          break;
+        }
         // w
         case 87: {
           autocode.action.closeProject();

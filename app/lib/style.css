@@ -239,6 +239,10 @@ textarea {
   background-image: url(images/icon/console-white.svg);
 }
 
+.icon.delete-icon {
+  background-image: url(images/icon/delete.svg);
+}
+
 .icon.facebook-icon {
   background-image: url(images/icon/facebook.svg);
 }
@@ -316,6 +320,14 @@ textarea {
 
 .icon.more-icon {
   background-image: url(images/icon/more.svg);
+}
+
+.icon.pin-icon {
+  background-image: url(images/icon/pin.svg);
+}
+
+.icon.pin-icon.active {
+  background-image: url(images/icon/pin-active.svg);
 }
 
 .icon.project-icon {
@@ -488,6 +500,11 @@ textarea {
   color: #FFF;
   overflow: auto;
   padding: 10px;
+}
+
+#console .title .icon {
+  background-size: 16px 16px;
+  margin-left: 5px;
 }
 
 #console .content {

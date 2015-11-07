@@ -21,7 +21,9 @@ var autocode = {
   action: {},
   config: {},
   data: {
-    current: {}
+    current: {
+      pin: true
+    }
   },
   state: {},
   user: {},
@@ -56,7 +58,12 @@ var autocode = {
     if (!href) {
       return false;
     } else if (href.match(/^https?:/)) {
+      // open new window
       window.open(href, '_blank');
+      
+      // close popover
+      autocode.popover.close();
+      
       return false;
     }
     
