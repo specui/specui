@@ -103,11 +103,6 @@ autocode.load = function() {
                       }
                       
                       $('#target-icon .text').text(data.ip);
-                      $('#usage-on').show();
-                      $('#usage-off').hide();
-                    } else {
-                      $('#usage-on').hide();
-                      $('#usage-off').show();
                     }
                   }
                 });

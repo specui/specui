@@ -12,6 +12,9 @@ autocode.ws = {
     autocode.ws.io.on('connect', function(socket) {
       $('#console .content').append('<div>Connected.</div>').scrollTop($('#console .content')[0].scrollHeight);
       autocode.status.online();
+      
+      $('#usage-on').show();
+      $('#usage-off').hide();
     });
     autocode.ws.io.on('message', function(data) {
       if (!data.data) {
@@ -25,6 +28,9 @@ autocode.ws = {
     autocode.ws.io.on('disconnect', function(data) {
       $('#console .content').append('<div>Disconnected.</div>').scrollTop($('#console .content')[0].scrollHeight);
       autocode.status.pending();
+      
+      $('#usage-on').hide();
+      $('#usage-off').show();
     });
   }
 };

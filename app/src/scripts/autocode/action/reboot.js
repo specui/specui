@@ -5,6 +5,10 @@ autocode.action.reboot = function() {
   // update status
   autocode.status.offline();
   
+  // hide usage
+  $('#usage-on').hide();
+  $('#usage-off').show();
+  
   $('span span.icon.loader-icon').addClass('loading');
   $('#target-icon .text').text('Rebooting...');
   

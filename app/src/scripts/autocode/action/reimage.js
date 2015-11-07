@@ -5,6 +5,13 @@ autocode.action.reimage = function() {
   // update status
   autocode.status.offline();
   
+  // hide usage
+  $('#usage-on').hide();
+  $('#usage-off').show();
+  
+  // reset ip
+  delete(autocode.ws.ip);
+  
   $('span span.icon.loader-icon').addClass('loading');
   $('#target-icon .text').text('Reimaging...');
   
