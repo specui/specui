@@ -10,7 +10,7 @@ autocode.resize.welcome = function() {
     welcome.css({
       left: ($(window).width() - welcome.outerWidth()) / 2,
       position: '',
-      top: ($(window).height() - welcome.outerHeight()) / 2
+      top: (($(window).height() - $('footer').visibleHeight() - $('#console').visibleHeight()) - welcome.outerHeight()) / 2
     });
   }
 };

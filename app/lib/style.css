@@ -293,6 +293,10 @@ textarea {
   cursor: help;
 }
 
+.icon.interface-icon {
+  background-image: url(images/icon/interface.svg);
+}
+
 .icon.js-icon {
   background-image: url(images/file/js.svg);
 }
@@ -370,10 +374,6 @@ textarea {
 .icon.schema-icon,
 .icon.schematic-icon {
   background-image: url(images/icon/schema.svg);
-}
-
-.icon.service-icon {
-  background-image: url(images/icon/service.svg);
 }
 
 .icon.settings-icon {
