@@ -143,6 +143,9 @@ bluebird.try(function() {
 			if (minimist.f === true) {
 				minimist.force = true;
 			}
+			if (minimist['skip-scripts'] === true) {
+				minimist.skipScripts = true;
+			}
 			project[command](minimist);
 			break;
 	}	
