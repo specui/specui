@@ -9,7 +9,6 @@ autocode.action.reboot = function() {
   $('#usage-on').hide();
   $('#usage-off').show();
   
-  $('span span.icon.loader-icon').addClass('loading');
   $('#target-icon .text').text('Rebooting...');
   
   autocode.api.reboot.post({

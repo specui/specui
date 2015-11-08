@@ -17,17 +17,12 @@ autocode.action.generate = function() {
     return;
   }
   
-  $('span span.icon.loader-icon').addClass('loading');
-  
   if (autocode.data.current.tab == 'config') {
     autocode.project = jsyaml.safeLoad($('#config-content .CodeMirror')[0].CodeMirror.getValue());
   }
   
   autocode.api.generate.post({
     data: autocode.project,
-    complete: function() {
-      $('span span.icon.loader-icon').removeClass('loading');
-    },
     error: function(data) {
       if (data.errors) {
         var content = '<ul>';

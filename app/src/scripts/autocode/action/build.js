@@ -23,8 +23,6 @@ autocode.action.build = function() {
     return;
   }
   
-  $('span span.icon.loader-icon').addClass('loading');
-  
   autocode.ws.io.emit('build', {
     config: autocode.project,
     project: autocode.repo.split('/')[1],

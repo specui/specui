@@ -17,8 +17,6 @@ autocode.action.update = function() {
     return;
   }
   
-  $('span span.icon.loader-icon').addClass('loading');
-  
   if (autocode.data.current.tab == 'config') {
     autocode.project = jsyaml.safeLoad($('#config-content .CodeMirror')[0].CodeMirror.getValue());
   }

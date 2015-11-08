@@ -157,6 +157,11 @@ textarea {
   overflow-y: hidden;
 }
 
+.disabled {
+  opacity: .25 !important;
+  pointer-events: none !important;
+}
+
 .divider {
   border: 1px #CCC solid;
   display: block;
@@ -223,6 +228,10 @@ textarea {
   background-image: url(images/icon/author.svg);
 }
 
+.icon.clean-icon {
+  background-image: url(images/icon/clean.svg);
+}
+
 .icon.close-icon {
   background-image: url(images/icon/close.svg);
 }
@@ -259,10 +268,6 @@ textarea {
   background-image: url(images/icon/general.svg);
 }
 
-.icon.generate-icon {
-  background-image: url(images/icon/generate.svg);
-}
-
 .icon.generator-icon {
   background-image: url(images/icon/generator.svg);
 }
@@ -277,6 +282,10 @@ textarea {
 
 .icon.gitter-icon:hover {
   background-image: url(images/icon/gitter-hover.svg);
+}
+
+.icon.halt-icon {
+  background-image: url(images/icon/halt.svg);
 }
 
 .icon.info-icon {
@@ -387,6 +396,13 @@ textarea {
   background-image: url(images/icon/target.svg);
 }
 
+.icon.target-icon.loading {
+  background-image: url(images/icon/loader.svg);
+  animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -webkit-animation: rotating 2s linear infinite;
+}
+
 .icon.tour {
   background-image: url(images/tour.svg);
   background-size: 160px 160px !important;
@@ -402,6 +418,14 @@ textarea {
 
 .icon.twitter-icon:hover {
   background-image: url(images/icon/twitter-hover.svg);
+}
+
+.icon.update-icon {
+  background-image: url(images/icon/generate.svg);
+}
+
+.icon.upgrade-icon {
+  background-image: url(images/icon/upgrade.svg);
 }
 
 .icon.variable-icon {
@@ -929,7 +953,10 @@ textarea {
 
 #status-icon.pending {
   background-color: #ffcc33;
-  border-radius: 50%;
+}
+
+#status-icon.processing {
+  background-color: #66CCFF;
 }
 
 #status-icon.online {

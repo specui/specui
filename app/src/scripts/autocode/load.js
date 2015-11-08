@@ -87,6 +87,9 @@ autocode.load = function() {
               $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
               $('#user .text').text(data.username);
               
+              clearInterval(autocode.data.current.timer);
+              delete(autocode.data.current.timer);
+              
               var initBox = function() {
                 autocode.api.box.post({
                   error: function(data) {
@@ -110,7 +113,7 @@ autocode.load = function() {
               
               initBox();
               
-              setInterval(initBox, 10 * 1000);
+              autocode.data.current.timer = setInterval(initBox, 10 * 1000);
             }
           });
         }

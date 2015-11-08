@@ -2,8 +2,14 @@ autocode.action.toggleMore = function() {
   autocode.popover.toggle({
     rows: [
       {
-        action: 'launch',
-        icon: 'launch-icon',
+        action: 'halt',
+        icon: 'halt-icon',
+        text: 'Halt Process'
+      },
+      {
+        action: 'clean',
+        icon: 'clean-icon',
+        style: 'divider',
         text: 'Clean Project'
       },
       {

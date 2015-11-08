@@ -12,7 +12,6 @@ autocode.action.reimage = function() {
   // reset ip
   delete(autocode.ws.ip);
   
-  $('span span.icon.loader-icon').addClass('loading');
   $('#target-icon .text').text('Reimaging...');
   
   autocode.api.reimage.post({
