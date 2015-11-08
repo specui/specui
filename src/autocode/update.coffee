@@ -71,10 +71,10 @@ update = () ->
 			
 			# get latest release
 			if module_version_query == 'latest'
-				url = "https://api.github.com/repos/#{module_name}/releases/latest#{access_token_url}"
+				url = "https://api.autocode.run/repos/#{module_name}/releases/latest"
 			# get all releases
 			else
-				url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
+				url = "https://api.autocode.run/repos/#{module_name}/releases"
 			resp = request 'get', url, { headers: headers }
 			if resp.statusCode != 200
 				throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
