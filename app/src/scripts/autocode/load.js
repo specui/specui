@@ -66,7 +66,7 @@ autocode.load = function() {
                     var name = repo.split('/').splice(0, 2).join('/');
                     var state = repo.split('/').splice(2).join('/');
                     
-                    if (autocode.state['tour']) {
+                    if (autocode.state[name]) {
                       autocode.state['tour']();
                       return;
                     }
