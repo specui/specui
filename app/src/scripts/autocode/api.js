@@ -40,7 +40,7 @@ autocode.api = {
       }
     }
     
-    $.ajax(ajax);
+    return $.ajax(ajax);
   },
   get: function(opts) {
     opts.method = 'get';

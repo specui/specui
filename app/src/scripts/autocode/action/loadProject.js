@@ -91,7 +91,7 @@ autocode.action.loadProject = function(opts) {
       );
     }
     
-    $.when(requests).done(function() {
+    $.when.apply(undefined, requests).done(function() {
       autocode.data.generators = autocode.object.sort(autocode.data.generators);
       
       $('#welcome').fadeOut(function() {
@@ -187,7 +187,7 @@ autocode.action.loadProject = function(opts) {
         );
       }
       
-      $.when(requests).done(function() {
+      $.when.apply(undefined, requests).done(function() {
         autocode.data.generators = autocode.object.sort(autocode.data.generators);
         
         $('#welcome').fadeOut(function() {
