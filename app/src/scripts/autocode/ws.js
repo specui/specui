@@ -22,6 +22,12 @@ autocode.ws = {
       $('#usage-on').show();
       $('#usage-off').hide();
     });
+    autocode.ws.io.on('contents', function(data) {
+      autocode.action.loadFile({
+        file: data.file,
+        value: data.contents
+      });
+    });
     autocode.ws.io.on('error', function(data) {
       alert(data.error);
     });
@@ -51,7 +57,7 @@ autocode.ws = {
       }
       data = data.data.split("\n");
       for (var i = 0; i < data.length; i++) {
-        $('#console .content').append('<div>' + (data[i].length ? data[i] : ' ') + '</div>');
+        $('#console .content').append('<div>' + (data[i].length ? data[i] : '&nbsp;') + '</div>');
         if (autocode.data.current.pin) {
           $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
         }

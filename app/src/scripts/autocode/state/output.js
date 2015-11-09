@@ -15,9 +15,11 @@ autocode.state['output'] = function() {
           return;
         }
         
-        autocode.action.loadFile({
-          file: data.node.original.text,
-          value: data.node.original.content
+        autocode.ws.io.emit('contents', {
+          config: autocode.project,
+          project: autocode.repo.split('/')[1],
+          user: autocode.repo.split('/')[0],
+          file: data.instance.get_path(data.node,'/')
         });
       });
       $('#output-content-container .content-left').on("ready.jstree", function (e, data) {

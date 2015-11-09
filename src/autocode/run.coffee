@@ -1,3 +1,5 @@
+path = require 'path'
+
 module.exports = (opts) ->
 	autocode = this
 	
@@ -8,6 +10,8 @@ module.exports = (opts) ->
 	
 	if !this.config.scripts or !this.config.scripts.run
 		return "\n" + ' DONE! '.bgGreen.white
+	
+	cwd = this.path
 	
 	console.log "\nRUN:".bold
 	
@@ -22,6 +26,14 @@ module.exports = (opts) ->
 		
 		description = scripts.run[i].description or scripts.run[i]
 		command = scripts.run[i].command or scripts.run[i]
+		if scripts.run[i].path
+			if scripts.run[i].path.match /^\//
+				dir = scripts.run[i].path
+			else
+				dir = "#{cwd}/#{scripts.run[i].path}"
+			dir = path.normalize dir
+		else
+			dir = cwd
 		
 		console.log ' RUN SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
@@ -35,7 +47,7 @@ module.exports = (opts) ->
 		arg = run[1].split ' '
 		
 		# spawn process
-		proc = spawn cmd, arg, { stdio: 'inherit' }
+		proc = spawn cmd, arg, { cwd: dir, stdio: 'inherit' }
 		
 		proc.on 'close', (err) ->
 			runCmd()

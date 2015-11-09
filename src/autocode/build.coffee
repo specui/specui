@@ -5,6 +5,7 @@ cson       = require 'season'
 fs         = require 'fs'
 mkdirp     = require 'mkdirp'
 mustache   = require 'mustache'
+path       = require 'path'
 pluralize  = require 'pluralize'
 spawn      = require 'cross-spawn'
 
@@ -24,7 +25,7 @@ module.exports = (opts) ->
 	if !fs.existsSync this.path
 		mkdirp.sync this.path
 	
-	process.chdir this.path
+	cwd = this.path
 	
 	# clean project
 	#this.clean()
@@ -66,6 +67,14 @@ module.exports = (opts) ->
 		
 		description = scripts.build[i].description or scripts.build[i]
 		command = scripts.build[i].command or scripts.build[i]
+		if scripts.build[i].path
+			if scripts.build[i].path.match /^\//
+				dir = scripts.build[i].path
+			else
+				dir = "#{cwd}/#{scripts.build[i].path}"
+			dir = path.normalize dir
+		else
+			dir = cwd
 		
 		console.log ' BUILD SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
@@ -79,7 +88,7 @@ module.exports = (opts) ->
 		arg = build[1].split(' ')
 		
 		# spawn process
-		proc = spawn cmd, arg
+		proc = spawn cmd, arg, { cwd: dir }
 		
 		# handle process events
 		proc.stdout.on 'data', (data) ->
