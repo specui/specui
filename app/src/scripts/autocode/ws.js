@@ -38,6 +38,14 @@ autocode.ws = {
         $('#build-icon, #generate-icon, #run-icon, #update-icon').removeClass('disabled');
       }
       
+      if (data.running === true) {
+        autocode.data.current.running = true;
+        $('#run-icon').addClass('stop');
+      } else if (data.running === false) {
+        autocode.data.current.running = false;
+        $('#run-icon').removeClass('stop');
+      }
+      
       if (!data.data) {
         return;
       }

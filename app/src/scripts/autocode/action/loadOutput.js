@@ -1,4 +1,4 @@
-autocode.state['outputs/output'] = function(opts) {
+autocode.action.loadOutput = function(opts) {
   autocode.output = opts.output;
   
   var output = autocode.project.outputs[opts.output];

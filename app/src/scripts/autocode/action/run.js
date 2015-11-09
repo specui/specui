@@ -8,8 +8,6 @@ autocode.action.run = function() {
       user: autocode.repo.split('/')[0]
     });
     
-    $('#run-icon').removeClass('stop');
-    
     return;
   }
   
@@ -42,6 +40,4 @@ autocode.action.run = function() {
     project: autocode.repo.split('/')[1],
     user: autocode.repo.split('/')[0]
   });
-  
-  $('#run-icon').addClass('stop');
 };

@@ -66,7 +66,7 @@ autocode.action.addProperty = function() {
       
       autocode.popup.close();
       
-      autocode.state['outputs/output']({ output: autocode.data.current.output });
+      autocode.action.loadOutput({ output: autocode.data.current.output });
       
       return false;
     }

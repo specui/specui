@@ -98,7 +98,9 @@
         <a class="tab" href="imports" id="imports-tab">Imports</a>
         <!--
         <a class="tab" href="exports" id="exports-tab">Exports</a>
+        -->
         <a class="tab" href="outputs" id="outputs-tab">Outputs</a>
+        <!--
         <a class="tab" href="scripts" id="scripts-tab">Scripts</a>
         -->
         <a class="tab" href="config" id="config-tab">Config</a>
@@ -195,43 +197,41 @@
               </div>
             </div>
             <div class="subcontent" id="overview-general-content">
-              <form>
-                <div class="field" id="overview-general-name">
-                  <label>
-                    <span class="text">Name</span>
-                    <span class="icon info-icon" data-hint="A name for your project."></span>
-                  </label>
-                  <div class="value" onclick="autocode.action.editName()"></div>
-                </div>
-                <div class="field" id="overview-general-version">
-                  <label>
-                    <span class="text">Version</span>
-                    <span class="icon info-icon" data-hint="A version for your project."></span>
-                  </label>
-                  <div class="value" onclick="autocode.action.editVersion()"></div>
-                </div>
-                <div class="field" id="overview-general-description">
-                  <label>
-                    <span class="text">Description</span>
-                    <span class="icon info-icon" data-hint="A description for your project."></span>
-                  </label>
-                  <div class="value" onclick="autocode.action.editDescription()"></div>
-                </div>
-                <div class="field" id="overview-general-url">
-                  <label>
-                    <span class="text">URL</span>
-                    <span class="icon info-icon" data-hint="A URL for your project."></span>
-                  </label>
-                  <div class="value" onclick="autocode.action.editURL()"></div>
-                </div>
-                <div class="field" id="overview-general-copyright">
-                  <label>
-                    <span class="text">Copyright</span>
-                    <span class="icon info-icon" data-hint="Your copyright."></span>
-                  </label>
-                  <div class="value" onclick="autocode.action.editProjectCopyright()"></div>
-                </div>
-              </form>
+              <div class="field" id="overview-general-name">
+                <label>
+                  <span class="text">Name</span>
+                  <span class="icon info-icon" data-hint="A name for your project."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editName()"></div>
+              </div>
+              <div class="field" id="overview-general-version">
+                <label>
+                  <span class="text">Version</span>
+                  <span class="icon info-icon" data-hint="A version for your project."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editVersion()"></div>
+              </div>
+              <div class="field" id="overview-general-description">
+                <label>
+                  <span class="text">Description</span>
+                  <span class="icon info-icon" data-hint="A description for your project."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editDescription()"></div>
+              </div>
+              <div class="field" id="overview-general-url">
+                <label>
+                  <span class="text">URL</span>
+                  <span class="icon info-icon" data-hint="A URL for your project."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editURL()"></div>
+              </div>
+              <div class="field" id="overview-general-copyright">
+                <label>
+                  <span class="text">Copyright</span>
+                  <span class="icon info-icon" data-hint="Your copyright."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editProjectCopyright()"></div>
+              </div>
             </div>
           </section>
         </div>
@@ -381,17 +381,15 @@
               </div>
             </aside>
             <section class="content-center">
-              <form>
-                <button onclick="autocode.action.addProperty()" style="float: right; margin-top: 10px">
-                  Add Property
-                </button>
-                <div class="title">Spec</div>
-                <a class="checkbox checked" href="outputs/hide/toggle">
-                  <span class="text">Hide Unused Properties</span>
-                  <span class="icon"></span>
-                </a>
-                <div class="schema"></div>
-              </form>
+              <button onclick="autocode.action.addProperty()" style="float: right; margin-top: 10px">
+                Add Property
+              </button>
+              <div class="title">Spec</div>
+              <a class="checkbox checked" href="outputs/hide/toggle">
+                <span class="text">Hide Unused Properties</span>
+                <span class="icon"></span>
+              </a>
+              <div class="schema"></div>
             </section>
             <aside class="content-right">
               <form>
