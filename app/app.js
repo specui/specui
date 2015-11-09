@@ -8,6 +8,8 @@ bs.init({
     baseDir: './app/lib',
     index: 'index.html'
   },
+  ghostMode: false,
   port: 3001,
+  notify: false,
   middleware: [ historyApiFallback() ]
 });

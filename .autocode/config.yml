@@ -249,12 +249,14 @@ scripts:
       command: coffee --compile --output lib/ src/
     - description: Compile CLI Library.
       command: coffee --compile --output cli/lib/ cli/src/
+    - description: Run Grunt.
+      command: grunt
   run:
     - description: Run web server for Autocode app.
-      command: forever start app/app.js
+      command: forever start -a --uid autocode-app app/app.js
   stop:
     - description: Stop web server for Autocode app.
-      command: forever stopall
+      command: forever stop autocode-app
   test:
     - description: Test Autocode.
       command: npm test
