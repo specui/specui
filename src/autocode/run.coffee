@@ -37,17 +37,8 @@ module.exports = (opts) ->
 		
 		console.log ' RUN SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
-		# get run cmd/arg
-		run = command
-		run = [
-			run.substr(0, run.indexOf(' ')),
-			run.substr(run.indexOf(' ') + 1)
-		]
-		cmd = run[0]
-		arg = run[1].split ' '
-		
 		# spawn process
-		proc = spawn cmd, arg, { cwd: dir, stdio: 'inherit' }
+		proc = spawn 'bash', ['-c', command], { cwd: dir, stdio: 'inherit' }
 		
 		proc.on 'close', (err) ->
 			runCmd()

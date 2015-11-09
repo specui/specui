@@ -78,17 +78,8 @@ module.exports = (opts) ->
 		
 		console.log ' BUILD SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
-		# get build cmd/arg
-		build = command
-		build = [
-			build.substr(0, build.indexOf(' ')),
-			build.substr(build.indexOf(' ') + 1)
-		]
-		cmd = build[0]
-		arg = build[1].split(' ')
-		
 		# spawn process
-		proc = spawn cmd, arg, { cwd: dir }
+		proc = spawn 'bash', ['-c', command], { cwd: dir }
 		
 		# handle process events
 		proc.stdout.on 'data', (data) ->
