@@ -2,7 +2,7 @@ var bs = require('browser-sync').create(),
   historyApiFallback = require('connect-history-api-fallback');
 
 bs.init({
-  host: 'alpha.app.autocode.run',
+  host: process.env.AUTOCODE_APP_HOST,
   files: ['app/lib/*/**'],
   server: {
     baseDir: './app/lib',
