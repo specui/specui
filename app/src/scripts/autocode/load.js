@@ -108,7 +108,7 @@ autocode.load = function() {
                     },
                     success: function(data) {
                       if (data.ready) {
-                        if (!autocode.ws.ip) {
+                        if (!autocode.ws.ip || autocode.ws.ip == '127.0.0.1') {
                           autocode.status.pending();
 
                           autocode.ws.ip = data.ip;
