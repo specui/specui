@@ -87,33 +87,39 @@ autocode.load = function() {
               $('#user .icon').css('background-image', 'url(' + data.avatar + ')');
               $('#user .text').text(data.username);
               
-              clearInterval(autocode.data.current.timer);
-              delete(autocode.data.current.timer);
-              
-              var initBox = function() {
-                autocode.api.box.post({
-                  error: function(data) {
-                    console.log(data);
-                    $('#target-icon .text').text('Target not found');
-                  },
-                  success: function(data) {
-                    if (data.ready) {
-                      if (!autocode.ws.ip) {
-                        autocode.status.pending();
+              if (location.hostname.match(/^alpha\./)) {
+                autocode.ws.init();
+                $('#target-icon .text').text(autocode.ws.ip);
+                
+              } else {
+                clearInterval(autocode.data.current.timer);
+                delete(autocode.data.current.timer);
+                
+                var initBox = function() {
+                  autocode.api.box.post({
+                    error: function(data) {
+                      console.log(data);
+                      $('#target-icon .text').text('Target not found');
+                    },
+                    success: function(data) {
+                      if (data.ready) {
+                        if (!autocode.ws.ip) {
+                          autocode.status.pending();
 
-                        autocode.ws.ip = data.ip;
-                        autocode.ws.init();
+                          autocode.ws.ip = data.ip;
+                          autocode.ws.init();
+                        }
+                        
+                        $('#target-icon .text').text(data.ip);
                       }
-                      
-                      $('#target-icon .text').text(data.ip);
                     }
-                  }
-                });
-              };
-              
-              initBox();
-              
-              autocode.data.current.timer = setInterval(initBox, 10 * 1000);
+                  });
+                };
+                
+                initBox();
+                
+                autocode.data.current.timer = setInterval(initBox, 10 * 1000);
+              }
             }
           });
         }

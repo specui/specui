@@ -240,6 +240,10 @@ textarea {
   background-image: url(images/icon/close-white.svg);
 }
 
+.icon.coffeescript-icon {
+  background-image: url(images/icon/coffeescript.svg);
+}
+
 .icon.console-icon {
   background-image: url(images/icon/console.svg);
 }
@@ -250,6 +254,14 @@ textarea {
 
 .icon.delete-icon {
   background-image: url(images/icon/delete.svg);
+}
+
+.icon.docker-icon {
+  background-image: url(images/icon/docker.svg);
+}
+
+.icon.eslint-icon {
+  background-image: url(images/icon/eslint.svg);
 }
 
 .icon.facebook-icon {
@@ -268,8 +280,16 @@ textarea {
   background-image: url(images/icon/general.svg);
 }
 
+.icon.generate-icon {
+  background-image: url(images/icon/generate.svg);
+}
+
 .icon.generator-icon {
   background-image: url(images/icon/generator.svg);
+}
+
+.icon.git-icon {
+  background-image: url(images/icon/git.svg);
 }
 
 .icon.github-icon {
@@ -286,6 +306,10 @@ textarea {
 
 .icon.halt-icon {
   background-image: url(images/icon/halt.svg);
+}
+
+.icon.html-icon {
+  background-image: url(images/icon/html.svg);
 }
 
 .icon.info-icon {
@@ -327,12 +351,20 @@ textarea {
   background-image: url(images/icon/logout.svg);
 }
 
+.icon.markdown-icon {
+  background-image: url(images/icon/markdown.svg);
+}
+
 .icon.menu-icon {
   background-image: url(images/menu.svg);
 }
 
 .icon.more-icon {
   background-image: url(images/icon/more.svg);
+}
+
+.icon.npm-icon {
+  background-image: url(images/icon/npm.svg);
 }
 
 .icon.pin-icon {
@@ -421,7 +453,7 @@ textarea {
 }
 
 .icon.update-icon {
-  background-image: url(images/icon/generate.svg);
+  background-image: url(images/icon/update.svg);
 }
 
 .icon.upgrade-icon {
@@ -430,6 +462,19 @@ textarea {
 
 .icon.variable-icon {
   background-image: url(images/icon/variable.svg);
+}
+
+.icon.yaml-icon {
+  background-image: url(images/icon/yaml.svg);
+}
+
+.jstree .icon {
+  background-position: center;
+  background-size: 20px 20px;
+}
+
+.jstreenode {
+  padding-bottom: 5px;
 }
 
 .radio {

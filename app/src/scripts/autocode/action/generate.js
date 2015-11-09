@@ -1,4 +1,10 @@
 autocode.action.generate = function() {
+  if (autocode.data.current.tab == 'config') {
+    var config = $('#config-content .CodeMirror')[0].CodeMirror.getValue();
+    autocode.project = jsyaml.safeLoad(config);
+    autocode.storage.set('config', config)
+  }
+  
   if (!autocode.project.outputs || !autocode.project.imports) {
     if (!autocode.project.imports) {
       autocode.popup.open({
@@ -17,38 +23,9 @@ autocode.action.generate = function() {
     return;
   }
   
-  if (autocode.data.current.tab == 'config') {
-    autocode.project = jsyaml.safeLoad($('#config-content .CodeMirror')[0].CodeMirror.getValue());
-  }
-  
-  autocode.api.generate.post({
-    data: autocode.project,
-    error: function(data) {
-      if (data.errors) {
-        var content = '<ul>';
-        for (var i = 0; i < data.errors.length; i++) {
-          content += '<li>' + data.errors[i].message + (data.errors[i].context ? ' (in <b>' + data.errors[i].context.substr(2) + '</b>)' : '') + '</li>';
-        }
-        content += '</ul>';
-        
-        autocode.popup.open({
-          title: 'Autocode Configuration Failed Validation',
-          content: content
-        });
-      } else {
-        autocode.popup.open({
-          title: 'Unable to Build Project'
-        });
-      }
-    },
-    success: function(data) {
-      autocode.data.output = data;
-      
-      $('#output-init').fadeOut(function() {
-        $('#output-content-container').fadeIn(function() {
-          autocode.state['output']();
-        });
-      });
-    }
+  autocode.ws.io.emit('generate', {
+    config: autocode.project,
+    project: autocode.repo.split('/')[1],
+    user: autocode.repo.split('/')[0]
   });
 };

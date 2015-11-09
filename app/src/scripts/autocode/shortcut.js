@@ -43,6 +43,16 @@ autocode.shortcut = {
           autocode.action.toggleConsole();
           break;
         }
+        // g
+        case 71: {
+          autocode.action.generate();
+          break;
+        }
+        // l
+        case 76: {
+          autocode.action.clean();
+          break;
+        }
         // n
         case 78: {
           autocode.action.newProject();

@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" type="text/css" />
   <link href="components/CodeMirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
   <link href="components/CodeMirror/addon/merge/merge.css" rel="stylesheet" type="text/css" />
+  <link href="components/jstree/dist/themes/default/style.min.css" rel="stylesheet" style="text/css" />
   <link href="style.css" rel="stylesheet" type="text/css" />
   <script src="components/google-diff-match-patch-js/diff_match_patch.js"></script>
   <script src="components/CodeMirror/lib/codemirror.js"></script>
@@ -44,6 +45,7 @@
   <script src="components/formulator/src/formulator.js"></script>
   <script src="components/jquery/dist/jquery.min.js"></script>
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
+  <script src="components/jstree/dist/jstree.min.js"></script>
   <script src="components/js-yaml/dist/js-yaml.min.js"></script>
   <script src="components/marked/marked.min.js"></script>
   <script src="components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
@@ -83,10 +85,11 @@
           </div>
           <div id="usage-on">
             <a class="icon more-icon" data-hint="More" data-hint-min-top="62" id="more-icon" onclick="autocode.action.toggleMore()"></a>
-            <a class="icon share-icon" data-hint="Share Project" data-hint-min-top="62" id="share-icon" onclick="autocode.action.share()"></a>
-            <a class="icon update-icon" data-hint="Update Project" data-hint-min-top="62" id="update-icon" onclick="autocode.action.update()"></a>
-            <a class="icon build-icon" data-hint="Build Project" data-hint-min-top="62" id="build-icon" onclick="autocode.action.build()"></a>
-            <a class="icon run-icon" data-hint="Run Project" data-hint-min-top="62" id="run-icon" onclick="autocode.action.run()"></a>
+            <a class="icon share-icon" data-hint="Share" data-hint-min-top="62" id="share-icon" onclick="autocode.action.share()"></a>
+            <a class="icon generate-icon" data-hint="Generate" data-hint-min-top="62" id="generate-icon" onclick="autocode.action.generate()"></a>
+            <a class="icon update-icon" data-hint="Update" data-hint-min-top="62" id="update-icon" onclick="autocode.action.update()"></a>
+            <a class="icon build-icon" data-hint="Build" data-hint-min-top="62" id="build-icon" onclick="autocode.action.build()"></a>
+            <a class="icon run-icon" data-hint="Run" data-hint-min-top="62" id="run-icon" onclick="autocode.action.run()"></a>
           </div>
         </div>
       </nav>

@@ -13,4 +13,6 @@ autocode.action.toggleConsole = function() {
   }
   
   autocode.resize.all(['config','content','footer']);
+  
+  $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
 };

@@ -6,40 +6,50 @@ autocode.state['output'] = function() {
     $('#output-content-container .table').empty();
     
     if (!autocode.data.output) {
-      autocode.action.build();
+      autocode.action.generate();
     } else {
-      var output, output_icon;
-      for (var output_filename in autocode.object.sort(autocode.data.output.files)) {
-        output = autocode.data.output.files[output_filename];
+      $('#output-content-container .content-left').replaceWith('<aside class="column content-left"></aside>');
+      
+      $('#output-content-container .content-left').on("changed.jstree", function (e, data) {
+        console.log("The selected nodes are:");
+        console.log(data);
         
-        output_icon = 'file-icon';
-        switch (true) {
-          case output.format == 'js' || !!output_filename.match(/\.js$/i): {
-            output_icon = 'js-icon';
-            break;
-          }
-          case output.format == 'json' || !!output_filename.match(/\.json$/i): {
-            output_icon = 'json-icon';
-            break;
-          }
+        if (data.node.children && data.node.children.length) {
+          return;
         }
         
-        $('#output-content-container .table').append(
-          '<a class="file" onclick="autocode.action.loadFile({ file: \'' + output_filename + '\' })">'
-            + '<span class="image"><span class="icon ' + output_icon + '"></span></span>'
-            + '<span class="info">'
-              + '<span class="name">' + output_filename + '</span>'
-            + '</span>'
-          + '</a>'
-        );
-      }
+        autocode.action.loadFile({
+          file: data.node.original.text,
+          value: data.node.original.content
+        });
+      });
+      $('#output-content-container .content-left').on("ready.jstree", function (e, data) {
+        $('#output-content-container .icon').each(function() {
+          var filename = $(this).parent().text();
+          var icon = autocode.file.icon(filename);
+          console.log(icon);
+          $(this).addClass(icon + '-icon');
+        });
+      });
       
-      autocode.initState();
+      $('#output-content-container .content-left').on("before_open.jstree", function (e, data) {
+        $('#output-content-container .icon').each(function() {
+          var filename = $(this).parent().text();
+          var icon = autocode.file.icon(filename);
+          console.log(icon);
+          $(this).addClass(icon + '-icon');
+        });
+      });
       
-      if ($(window).width() > autocode.mobile.minWidth) {
-        $('#output-content-container .table a').first().click();
-        $('#output-content-container .table a').first().click();
-      }
+      $('#output-content-container .content-left').jstree({
+        core: {
+          data: autocode.data.output.files,
+          multiple: false,
+          themes: {
+            dots: false
+          }
+        }
+      });
     }
     
     $('#output-init').hide();

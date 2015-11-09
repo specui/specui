@@ -1,5 +1,5 @@
 autocode.ws = {
-  ip: null,
+  ip: '127.0.0.1',
   io: null,
   init: function() {
     if (!autocode.ws.ip) {
@@ -22,16 +22,20 @@ autocode.ws = {
       $('#usage-on').show();
       $('#usage-off').hide();
     });
-    autocode.ws.io.on('close', function(data) {
-      
+    autocode.ws.io.on('error', function(data) {
+      alert(data.error);
+    });
+    autocode.ws.io.on('files', function(data) {
+      autocode.data.output = data;
+      autocode.state['output']();
     });
     autocode.ws.io.on('message', function(data) {
       if (data.processing === true) {
         autocode.status.processing();
-        $('#build-icon, #run-icon, #update-icon').addClass('disabled');
+        $('#build-icon, #generate-icon, #run-icon, #update-icon').addClass('disabled');
       } else if (data.processing === false) {
         autocode.status.online();
-        $('#build-icon, #run-icon, #update-icon').removeClass('disabled');
+        $('#build-icon, #generate-icon, #run-icon, #update-icon').removeClass('disabled');
       }
       
       if (!data.data) {

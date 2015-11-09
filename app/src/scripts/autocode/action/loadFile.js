@@ -2,7 +2,7 @@ autocode.action.loadFile = function(opts) {
   autocode.action.toggleColumn('output-content', 2);
   
   var code_mirror = $('#output-content .CodeMirror');
-  var value = autocode.data.output.files[opts.file];
+  var value = opts.value;
   
   var mode = 'text';
   switch (true) {
