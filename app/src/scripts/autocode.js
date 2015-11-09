@@ -78,6 +78,10 @@ var autocode = {
     href = query[0];
     query = autocode.query.search(query[1]);
     
+    if (ga) {
+      ga('send', 'pageview', href);
+    }
+    
     console.log(href);
     
     // get name
