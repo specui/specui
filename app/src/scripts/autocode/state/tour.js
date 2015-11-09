@@ -1,9 +1,12 @@
 autocode.state['tour'] = function() {
   autocode.popover.close();
   
+  autocode.hint.locked = true;
+  
   var click_event = navigator.userAgent.match(/mobile/i) ? 'touchend' : 'click';
   var hint_offset_top = -10;
   
+  var import_check;
   var imports_click = function() {
     $(this).unbind(click_event, imports_click);
     
@@ -14,9 +17,14 @@ autocode.state['tour'] = function() {
     
     $('#imports-search').keyup(imports_init_click);
     
-    autocode.listener.add('import_listener', 'imports/add', function() {
-      module_click();
-    });
+    import_check = setInterval(function() {
+      if ($('#imports-content-readme button').length) {
+        clearInterval(import_check);
+        delete(import_check);
+        
+        module_click();
+      }
+    }, 1000);
     
     autocode.resize.hint();
     
@@ -83,12 +91,12 @@ autocode.state['tour'] = function() {
     
     autocode.hint.open({
       offsetTop: hint_offset_top,
-      target: $('#output-tab'),
+      target: $('#generate-icon'),
       text: 'Great! Now let\'s generate some code.',
-      top: $('header').outerHeight()
+      top: $('#main').outerHeight()
     });
     
-    $('#output-tab').bind(click_event, generate_click);
+    $('#generate-icon').bind(click_event, generate_click);
     
     autocode.resize.hint();
   };
@@ -112,13 +120,20 @@ autocode.state['tour'] = function() {
   $('#welcome').fadeOut(function() {
     $('.app').fadeIn();
     
-    $('*[data-hint]').hide();
+    $('header').fadeIn();
     
+    $('.info-icon').hide();
+    
+    autocode.ws.ip = '52.9.49.123';
+    autocode.ws.init();
+    
+    autocode.repo = 'tour/autocode-' + Math.random();
     autocode.imports = {};
     autocode.data.generators = {};
     
     autocode.project = {
       name: 'My App',
+      version: '1.0.0',
       description: 'My amazing new app.',
       url: 'https://example.org',
       author: {

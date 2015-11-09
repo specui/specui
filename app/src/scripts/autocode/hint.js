@@ -1,4 +1,5 @@
 autocode.hint = {
+  locked: false,
   timer: null,
   close: function(opts) {
     opts = opts || {};
@@ -17,6 +18,10 @@ autocode.hint = {
     $('*[data-hint]').each(function() {
       $(this).bind({
         mouseenter: function() {
+          if (autocode.hint.locked) {
+            return;
+          }
+          
           autocode.hint.open({
             minTop: $(this).data('hint-min-top'),
             target: $(this),
@@ -26,6 +31,10 @@ autocode.hint = {
           autocode.resize.hint();
         },
         mouseleave: function() {
+          if (autocode.hint.locked) {
+            return;
+          }
+          
           autocode.hint.close();
         }
       });

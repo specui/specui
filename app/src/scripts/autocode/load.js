@@ -66,6 +66,11 @@ autocode.load = function() {
                     var name = repo.split('/').splice(0, 2).join('/');
                     var state = repo.split('/').splice(2).join('/');
                     
+                    if (autocode.state['tour']) {
+                      autocode.state['tour']();
+                      return;
+                    }
+                    
                     autocode.action.loadProject({
                       name: name,
                       callback: state ? autocode.state[state] : null
