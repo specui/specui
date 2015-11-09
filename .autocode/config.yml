@@ -237,8 +237,6 @@ scripts:
       command: npm install coffee-script -g
     - description: Install Forever via npm.
       command: npm install forever -g
-    - description: Install http-server via npm.
-      command: npm install http-server -g
     - description: Install Grunt CLI via npm.
       command: npm install grunt-cli -g
     - description: Install npm Modules.
