@@ -9,25 +9,7 @@ autocode.action.initProject = function() {
       repo: autocode.repo
     },
     success: function(data) {
-      var rows = [], row_action;
-      
-      for (var i = 0; i < data.length; i++) {
-        rows.push({
-          action: {
-            name: 'loadProject',
-            data: {
-              name: data[i].name
-            }
-          },
-          icon: 'login-icon',
-          text: data[i].name
-        });
-      }
-      
-      autocode.popup.open({
-        rows: rows,
-        style: 'table'
-      });
+      autocode.action.loadProject({ name: autocode.repo });
     }
   });
 };
