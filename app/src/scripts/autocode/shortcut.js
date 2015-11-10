@@ -48,6 +48,11 @@ autocode.shortcut = {
           autocode.action.generate();
           break;
         }
+        // h
+        case 72: {
+          autocode.action.halt();
+          break;
+        }
         // l
         case 76: {
           autocode.action.clean();

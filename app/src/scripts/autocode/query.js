@@ -1,4 +1,7 @@
 autocode.query = {
+  build: function(params) {
+    return $.param(params);
+  },
   get: function(variable, search) {
     var query = search ? search : window.location.search.substring(1);
     var vars = query.split('&');
