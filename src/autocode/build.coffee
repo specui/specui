@@ -66,13 +66,11 @@ module.exports = (opts) ->
 				opts.complete()
 			return
 		
-		if typeof scripts.build[i].script == 'string'
-			script_import = code.imports[scripts.build[i].script]
-			if !script_import or !script_import.script
-				throw new Error "Script does not exist: #{scripts.build[i]}"
-			if script_import.engine
-				script_import.script.command = script_import.engine scripts.build[i].spec, script_import.script.command
-			scripts.build[i] = script_import.script
+		if scripts.build[i].title and !scripts.build[i].command
+			console.log ' BUILD TITLE '.bgGreen.white + (' ' + scripts.build[i].title + ' ').bgWhite + " \n"
+			i++
+			buildCmd()
+			return
 		
 		description = scripts.build[i].description or scripts.build[i]
 		command = scripts.build[i].command or scripts.build[i]

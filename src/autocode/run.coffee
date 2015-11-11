@@ -24,6 +24,12 @@ module.exports = (opts) ->
 			console.log "\n" + ' DONE! '.bgGreen.white
 			return
 		
+		if scripts.run[i].title and !scripts.run[i].command
+			console.log ' RUN TITLE '.bgGreen.white + (' ' + scripts.run[i].title + ' ').bgWhite + " \n"
+			i++
+			runCmd()
+			return
+		
 		description = scripts.run[i].description or scripts.run[i]
 		command = scripts.run[i].command or scripts.run[i]
 		if scripts.run[i].path
@@ -38,7 +44,7 @@ module.exports = (opts) ->
 		console.log ' RUN SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
 		
 		# spawn process
-		proc = spawn 'bash', ['-c', command], { cwd: dir, stdio: 'inherit' }
+		proc = spawn 'bash', ['-c', command], { cwd: dir }
 		
 		proc.on 'close', (err) ->
 			runCmd()

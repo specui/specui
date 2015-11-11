@@ -7,6 +7,8 @@ module.exports = () ->
   if !this.config.scripts or !this.config.scripts.stop
     return 'No scripts for: stop'
   
+  cwd = this.path
+  
   console.log "\nSTOP:".bold
   
   scripts = this.config.scripts
@@ -17,22 +19,27 @@ module.exports = () ->
       console.log "\nDone!"
       return
     
+    if scripts.stop[i].title and !scripts.stop[i].command
+      console.log ' STOP TITLE '.bgGreen.white + (' ' + scripts.stop[i].title + ' ').bgWhite + " \n"
+      i++
+      stopCmd()
+      return
+    
     description = scripts.stop[i].description or scripts.stop[i]
     command = scripts.stop[i].command or scripts.stop[i]
+    if scripts.stop[i].path
+      if scripts.stop[i].path.match /^\//
+        dir = scripts.stop[i].path
+      else
+        dir = "#{cwd}/#{scripts.stop[i].path}"
+      dir = path.normalize dir
+    else
+      dir = cwd
     
-    console.log ' STOP SCRIPT '.bgBlack.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
-    
-    # get stop cmd/arg
-    stop = command
-    stop = [
-      stop.substr(0, stop.indexOf(' ')),
-      stop.substr(stop.indexOf(' ') + 1)
-    ]
-    cmd = stop[0]
-    arg = stop[1].split ' '
+    console.log ' STOP SCRIPT '.bgGreen.white + (' ' + description + ' ').bgWhite + " \n" + command.gray
     
     # spawn process
-    proc = spawn cmd, arg
+    proc = spawn 'bash', ['-c', command], { cwd: dir }
     
     # handle process events
     proc.stderr.on 'data', (data) ->
