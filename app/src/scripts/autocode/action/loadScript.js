@@ -5,7 +5,7 @@ autocode.action.loadScript = function(opts) {
   delete(autocode.data.current.commands);
   
   $('#scripts-content-container .table a').removeClass('selected');
-  $('#scripts-' + opts.name).addClass('selected');
+  $('#scripts-' + autocode.data.current.script).addClass('selected');
   
   if (!autocode.project.scripts || !autocode.project.scripts[autocode.data.current.script]) {
     $('#scripts-commands').html('<h3>There are no commands for ' + autocode.data.current.script.toUpperCase() + '. <a onclick="autocode.action.addCommand()">Click here</a> to add one.</h3>');
