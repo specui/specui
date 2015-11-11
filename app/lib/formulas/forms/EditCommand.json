@@ -17,7 +17,7 @@
   },
   "buttons": {
     "submit": {
-      "label": "Add Command",
+      "label": "Edit Command",
       "type": "submit"
     }
   }

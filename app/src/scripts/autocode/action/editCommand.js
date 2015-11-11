@@ -1,13 +1,18 @@
-autocode.action.addCommand = function() {
+autocode.action.editCommand = function(opts) {
+  opts = opts || {};
+  
+  autocode.data.current.command = opts.index;
+  
   autocode.popup.open({
     title: 'Loading...'
   });
   autocode.popover.close();
   
   new formulator({
-    formula: 'formulas/forms/AddCommand.json',
+    formula: 'formulas/forms/EditCommand.json',
     xhr: true,
     ready: function(form) {
+      form.data = autocode.data.current.commands[opts.index];
       form.fields.command.autocomplete = false;
       
       form.fields.command.keyup = function() {
@@ -51,11 +56,11 @@ autocode.action.addCommand = function() {
         autocode.project.scripts[autocode.data.current.script] = [];
       }
       
-      autocode.project.scripts[autocode.data.current.script].push({
+      autocode.project.scripts[autocode.data.current.script][autocode.data.current.command] = {
         name: data.name,
         description: data.description,
         command: data.command
-      });
+      };
       
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();

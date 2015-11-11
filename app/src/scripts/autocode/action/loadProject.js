@@ -201,7 +201,7 @@ autocode.action.loadProject = function(opts) {
           
           $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
           $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
-          
+                    
           $('header').fadeIn();
           $('#menu-project').show();
           

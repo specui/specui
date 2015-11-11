@@ -682,8 +682,9 @@ textarea {
 }
 
 #content .content-center .title {
+  border-bottom: 1px #EEE solid;
   font-size: 24px;
-  padding-top: 10px;
+  padding: 21px 0px 20px;
 }
 
 #exports-content-container {
@@ -970,23 +971,6 @@ textarea {
   display: none;
 }
 
-#scripts-init {
-  position: fixed;
-  text-align: center;
-}
-
-#scripts-init button {
-  margin-top: 20px;
-}
-
-#scripts-init .title {
-  border-bottom: 1px #CCC solid;
-  color: #185F96;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  font-size: 32px;
-}
-
 #status-icon {
   background-color: #FF0000;
   border-radius: 50%;
@@ -1033,7 +1017,7 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 25%;
+  width: 20%;
 }
 
 #tabs a:hover {

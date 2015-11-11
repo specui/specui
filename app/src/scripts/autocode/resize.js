@@ -20,7 +20,6 @@ autocode.resize = {
       'outputsInit',
       'overlay',
       'popup',
-      'scriptsInit',
       'fuzzy',
       'welcome'
     ];

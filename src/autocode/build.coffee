@@ -44,7 +44,8 @@ module.exports = (opts) ->
 	
 	# generate code
 	if opts.skipGeneration != true
-		if this.generate(opts) == false
+		code = this.generate opts
+		if opts == false
 			throw new Error 'Unable to generate code.'
 	
 	if (opts._ and (opts._[0] == 'publish' or opts._[0] == 'run')) or !this.config.scripts or !this.config.scripts.build or opts.skipScripts
@@ -64,6 +65,14 @@ module.exports = (opts) ->
 			if opts and opts.complete
 				opts.complete()
 			return
+		
+		if typeof scripts.build[i].script == 'string'
+			script_import = code.imports[scripts.build[i].script]
+			if !script_import or !script_import.script
+				throw new Error "Script does not exist: #{scripts.build[i]}"
+			if script_import.engine
+				script_import.script.command = script_import.engine scripts.build[i].spec, script_import.script.command
+			scripts.build[i] = script_import.script
 		
 		description = scripts.build[i].description or scripts.build[i]
 		command = scripts.build[i].command or scripts.build[i]

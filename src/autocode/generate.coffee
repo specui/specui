@@ -728,6 +728,10 @@ generate = (opts) ->
 	if config.outputs
 		console.log "Loading outputs...".bold
 		loadOutputs config.outputs, imports, config
+	
+	{
+		imports: imports
+	}
 
 inject = (template, injectors, remove_injector = true) ->
 	template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
