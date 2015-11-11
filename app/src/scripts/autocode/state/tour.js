@@ -117,6 +117,8 @@ autocode.state['tour'] = function() {
     autocode.resize.hint();
   };
   
+  $('#target-icon .text').text('Demo Server');
+  
   $('#welcome').fadeOut(function() {
     $('.app').fadeIn();
     
