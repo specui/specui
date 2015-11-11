@@ -1,5 +1,7 @@
-if (window.location.protocol == "https:") {
-  window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
+if (window.location.protocol == 'https:') {
+  window.location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
+} else if (window.location.hostname == 'autocode.crystal.sh') {
+  window.location.href = 'http://app.autocode.run';
 }
 
 jQuery.fn.extend({
