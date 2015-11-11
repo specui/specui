@@ -23,7 +23,7 @@ autocode.action.loadScript = function(opts) {
   for (var i in commands) {
     command = commands[i];
     
-    command_html = '<div class="field">';
+    command_html = '<div class="field move">';
     if (command.command) {
       command_html += '<code class="value" onclick="autocode.action.editCommand({ index: ' + i + ' })">';
       if (command.description) {

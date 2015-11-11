@@ -186,6 +186,19 @@ textarea {
   color: #CCC;
 }
 
+.field.move .value {
+  cursor: move !important;
+  cursor: grab !important;
+  cursor: -moz-grab !important;
+  cursor: -webkit-grab !important;
+}
+
+.field.move.gu-mirror .value {
+  cursor: grabbing !important;
+  cursor: -moz-grabbin !importantg;
+  cursor: -webkit-grabbing !important;
+}
+
 .file .image {
   border-bottom: 1px #EEE solid;
   height: 50px;
@@ -559,6 +572,11 @@ textarea {
 .value p {
   margin: 0px;
   padding: 0px;
+}
+
+.value .icon {
+  background-size: 16px 16px;
+  margin: 0px !important;
 }
 
 #app {
