@@ -63,6 +63,7 @@ autocode.action.loadScript = function(opts) {
       }
       autocode.project.scripts[autocode.data.current.script].push(script);
     });
+    autocode.action.loadScript();
   });
   
   autocode.hint.init();
