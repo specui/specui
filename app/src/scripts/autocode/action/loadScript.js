@@ -2,7 +2,7 @@ autocode.action.loadScript = function(opts) {
   opts = opts || {};
   
   autocode.data.current.script = opts.name || autocode.data.current.script;
-  autocode.data.current.commands = autocode.project.scripts[autocode.data.current.script];
+  delete(autocode.data.current.commands);
   
   $('#scripts-content-container .table a').removeClass('selected');
   $('#scripts-' + opts.name).addClass('selected');
@@ -12,6 +12,8 @@ autocode.action.loadScript = function(opts) {
     autocode.resize.all();
     return;
   }
+  
+  autocode.data.current.commands = autocode.project.scripts[autocode.data.current.script];
   
   $('#scripts-commands').replaceWith('<div id="scripts-commands"></div>');
   
