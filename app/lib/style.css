@@ -54,6 +54,10 @@ button.secondary, .button.secondary {
   background-color: #999;
 }
 
+code {
+  background-color: #FFF;
+}
+
 footer {
   background-color: #FFF;
   bottom: 0px;
@@ -95,6 +99,11 @@ header {
 h1 {
   margin: 0px;
   padding: 0px 0px 10px 0px;
+}
+
+h3 {
+  margin: 0px;
+  padding: 20px 0px;
 }
 
 input {
@@ -166,6 +175,15 @@ textarea {
   border: 1px #CCC solid;
   display: block;
   height: 1px;
+}
+
+.drop {
+  border-bottom: 3px #000 solid;
+}
+
+.drop:hover {
+  background: none;
+  color: #CCC;
 }
 
 .file .image {
@@ -518,6 +536,10 @@ textarea {
   vertical-align: middle;
 }
 
+.top {
+  z-index: 1000000;
+}
+
 .value {
   color: #185F96;
   cursor: pointer;
@@ -679,6 +701,10 @@ textarea {
 
 #content .content-center .info-icon {
   margin-left: 10px;
+}
+
+#content .content-center .path {
+  color: #CCC;
 }
 
 #content .content-center .title {

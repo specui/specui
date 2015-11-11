@@ -15,31 +15,8 @@ autocode.action.editCommand = function(opts) {
       form.data = autocode.data.current.commands[opts.index];
       form.fields.command.autocomplete = false;
       
-      form.fields.command.keyup = function() {
-        var rows = [], command_name, commands = ['build','run','stop'];
-        for (var i in commands) {
-          command_name = commands[i];
-          if (command_name.match(new RegExp(value, 'i'))) {
-            rows.push({
-              action: {
-                name: 'addCommandName',
-                data: { name: command_name }
-              },
-              icon: command_name + '-icon black',
-              text: command_name
-            });
-          }
-        }
-        
-        autocode.fuzzy.open({
-          rows: rows,
-          target: $('#popup input[name="command"]'),
-          value: value
-        });
-      };
-      
       autocode.popup.open({
-        title: 'Add Command',
+        title: 'Edit Command',
         content: form.toString()
       });
     },
@@ -56,11 +33,15 @@ autocode.action.editCommand = function(opts) {
         autocode.project.scripts[autocode.data.current.script] = [];
       }
       
-      autocode.project.scripts[autocode.data.current.script][autocode.data.current.command] = {
-        name: data.name,
+      var script = {
         description: data.description,
         command: data.command
       };
+      if (data.path.length) {
+        script.path = data.path;
+      }
+      
+      autocode.project.scripts[autocode.data.current.script][autocode.data.current.command] = script;
       
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();

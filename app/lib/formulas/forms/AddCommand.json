@@ -2,17 +2,19 @@
   "action": "/commands",
   "method": "post",
   "fields": {
-    "name": {
-      "label": "Name",
-      "type": "text"
-    },
     "command": {
       "label": "Command",
+      "placeholder": "echo hello world",
       "type": "text"
     },
     "description": {
       "label": "Description",
       "type": "textarea"
+    },
+    "path": {
+      "label": "Path",
+      "placeholder": "Project Root Folder",
+      "type": "text"
     }
   },
   "buttons": {

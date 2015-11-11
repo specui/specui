@@ -1,17 +1,15 @@
-autocode.action.addCommand = function() {
+autocode.action.addCommandTitle = function() {
   autocode.popup.open({
     title: 'Loading...'
   });
   autocode.popover.close();
   
   new formulator({
-    formula: 'formulas/forms/AddCommand.json',
+    formula: 'formulas/forms/AddCommandTitle.json',
     xhr: true,
     ready: function(form) {
-      form.fields.command.autocomplete = false;
-      
       autocode.popup.open({
-        title: 'Add Command',
+        title: 'Add Title',
         content: form.toString()
       });
     },
@@ -29,12 +27,8 @@ autocode.action.addCommand = function() {
       }
       
       var script = {
-        description: data.description,
-        command: data.command
+        title: data.title
       };
-      if (data.path.length) {
-        script.path = data.path;
-      }
       
       autocode.project.scripts[autocode.data.current.script].push(script);
       

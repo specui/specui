@@ -1,0 +1,16 @@
+{
+  "action": "/commands",
+  "method": "post",
+  "fields": {
+    "title": {
+      "label": "Title",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Title",
+      "type": "submit"
+    }
+  }
+}
