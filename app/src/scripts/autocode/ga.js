@@ -1,7 +1,7 @@
 autocode.ga = {
-  send: function() {
+  send: function(type, href) {
     if (typeof ga !== 'undefined') {
-      ga('send', 'pageview', href);
+      ga('send', type, href);
     }
   }
 };
