@@ -99,6 +99,7 @@ autocode.action.loadProject = function(opts) {
         $('#imports-tab').prop('href', 'imports');
         $('#config-tab').prop('href', 'config');
         $('#output-tab').prop('href', 'output');
+        $('#interfaces-tab').prop('href', 'interfaces');
         
         $('#overview-general-subtab').prop('href', 'overview/general');
         $('#overview-author-subtab').prop('href', 'overview/author');
@@ -195,6 +196,7 @@ autocode.action.loadProject = function(opts) {
           $('#imports-tab').prop('href', opts.name + '/imports');
           $('#exports-tab').prop('href', opts.name + '/exports');
           $('#outputs-tab').prop('href', opts.name + '/outputs');
+          $('#interfaces-tab').prop('href', opts.name + '/interfaces');
           $('#scripts-tab').prop('href', opts.name + '/scripts');
           $('#config-tab').prop('href', opts.name + '/config');
           $('#output-tab').prop('href', opts.name + '/output');

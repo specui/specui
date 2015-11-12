@@ -195,7 +195,7 @@ textarea {
 
 .field.move.gu-mirror .value {
   cursor: grabbing !important;
-  cursor: -moz-grabbin !importantg;
+  cursor: -moz-grabbing !important;
   cursor: -webkit-grabbing !important;
 }
 
@@ -1061,7 +1061,7 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 20%;
+  width: 12.5%;
 }
 
 #tabs a:hover {

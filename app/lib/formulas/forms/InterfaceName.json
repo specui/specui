@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "name": {
+      "label": "Interface Name",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Interface Name",
+      "type": "submit"
+    }
+  }
+}

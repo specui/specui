@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "port": {
+      "label": "Interface Port",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Interface Port",
+      "type": "submit"
+    }
+  }
+}
