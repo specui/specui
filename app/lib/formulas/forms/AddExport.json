@@ -1,0 +1,40 @@
+{
+  "action": "/exports",
+  "method": "post",
+  "fields": {
+    "name": {
+      "label": "Name",
+      "type": "text"
+    },
+    "type": {
+      "label": "Type",
+      "type": "text"
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
+    },
+    "engine": {
+      "label": "Engine",
+      "type": "text"
+    },
+    "filename": {
+      "label": "Filename",
+      "type": "text"
+    },
+    "format": {
+      "label": "Format",
+      "type": "text"
+    },
+    "Schema": {
+      "label": "Schema",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Add Export",
+      "type": "submit"
+    }
+  }
+}

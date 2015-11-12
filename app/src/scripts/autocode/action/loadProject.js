@@ -58,6 +58,7 @@ autocode.action.loadProject = function(opts) {
     autocode.project = opts.config;
     autocode.data.originalConfig = opts.config;
     
+    autocode.data.engines = {};
     autocode.data.generators = {};
     autocode.imports = {};
     
@@ -79,6 +80,10 @@ autocode.action.loadProject = function(opts) {
             if (data.config.exports) {
               for (var export_name in data.config.exports) {
                 switch (data.config.exports[export_name].type) {
+                  case 'engine': {
+                    autocode.data.engines[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                    break;
+                  }
                   case 'generator': {
                     autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
                     break;
@@ -93,6 +98,7 @@ autocode.action.loadProject = function(opts) {
     
     $.when.apply(undefined, requests).done(function() {
       autocode.data.generators = autocode.object.sort(autocode.data.generators);
+      autocode.data.engines = autocode.object.sort(autocode.data.engines);
       
       $('#welcome').fadeOut(function() {
         $('#overview-tab').prop('href', 'overview');
@@ -148,13 +154,14 @@ autocode.action.loadProject = function(opts) {
       autocode.action.updateRecent();
       
       var config = autocode.storage.get('config');
-      if (config) {
-        autocode.project = jsyaml.safeLoad(config);
+      if (config && config[autocode.repo]) {
+        autocode.project = jsyaml.safeLoad(config[autocode.repo]);
       } else {
         autocode.project = jsyaml.safeLoad(data.config);
       }
       autocode.data.originalConfig = data.config;
       
+      autocode.data.engines = {};
       autocode.data.generators = {};
       autocode.imports = {};
       
@@ -176,6 +183,10 @@ autocode.action.loadProject = function(opts) {
               if (data.config.exports) {
                 for (var export_name in data.config.exports) {
                   switch (data.config.exports[export_name].type) {
+                    case 'engine': {
+                      autocode.data.engines[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                      break;
+                    }
                     case 'generator': {
                       autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
                       break;

@@ -8,6 +8,11 @@ autocode.action.toggleMenu = function() {
         icon: 'save-icon'
       });
       rows.push({
+        action: 'commitProject',
+        text: 'Commit Project (Ctrl+Shift+M)',
+        icon: 'commit-icon'
+      });
+      rows.push({
         text: 'Close Project',
         icon: 'close-icon',
         state: '/'

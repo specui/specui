@@ -1,4 +1,4 @@
-autocode.state.saveProjectSubmit = function() {
+autocode.state.commitProjectSubmit = function() {
   var data = {
     config: autocode.project,
     message: $('#popup textarea[name="message"]').val(),

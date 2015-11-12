@@ -6,8 +6,8 @@ autocode.state['exports'] = function() {
     exported = autocode.project.exports[export_name];
     
     $('#exports-content-container .table').append(
-      '<a class="file" onclick="autocode.action.loadExport({ name: ' + export_name + ' })">'
-        + '<span class="icon ' + exported.type + '-icon"></span>'
+      '<a class="file" id="exports-' + export_name + '" onclick="autocode.action.loadExport({ name: \'' + export_name + '\' })">'
+        + '<span class="icon ' + exported.type.toLowerCase() + '-icon"></span>'
         + '<span class="info">'
           + '<span class="name">' + export_name + '</span>'
           + '<span class="generator">' + exported.type + '</span>'

@@ -58,6 +58,11 @@ autocode.shortcut = {
           autocode.action.clean();
           break;
         }
+        // m
+        case 77: {
+          autocode.action.commitProject();
+          break;
+        }
         // n
         case 78: {
           autocode.action.newProject();

@@ -2,7 +2,6 @@ autocode.action.build = function() {
   if (autocode.data.current.tab == 'config') {
     var config = $('#config-content .CodeMirror')[0].CodeMirror.getValue();
     autocode.project = jsyaml.safeLoad(config);
-    autocode.storage.set('config', config)
   }
   
   if (!autocode.project.outputs || !autocode.project.imports) {

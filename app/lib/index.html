@@ -68,15 +68,15 @@
     <header>
       <nav id="main">
         <div id="menu">
-          <a data-hint="Login with GitHub" data-hint-min-top="62" id="user" onclick="autocode.action.toggleUser()">
+          <a data-hint="User Menu" data-hint-min-top="62" id="user" onclick="autocode.action.toggleUser()">
             <span class="icon user-icon"></span>
             <span class="text">Login</span>
           </a>
-          <a data-hint="Choose Project" data-hint-min-top="62" id="project" onclick="autocode.action.toggleMenu()">
+          <a data-hint="Project Menu" data-hint-min-top="62" id="project" onclick="autocode.action.toggleMenu()">
             <span class="icon project-icon"></span>
             <span class="text">Tour</span>
           </a>
-          <a data-hint="Choose Target" data-hint-min-top="62" id="target-icon" onclick="autocode.action.toggleTarget()">
+          <a data-hint="Target Menu" data-hint-min-top="62" id="target-icon" onclick="autocode.action.toggleTarget()">
             <span class="icon target-icon"></span>
             <span class="text">Loading Test Server...</span>
           </a>
@@ -280,7 +280,7 @@
           <div id="exports-content-container">
             <aside id="content-left">
               <div class="table">
-                <a class="file" href="#">
+                <a class="file" onclick="autocode.action.addExport()">
                   <span class="image">
                     <span class="icon add-icon"></span>
                   </span>
@@ -305,36 +305,55 @@
               </form>
             </section>
             <aside class="content-right">
-              <form>
-                <div class="type-field">
-                  <label>Type</label>
-                  <input name="type" spellcheck="false" type="text" />
-                </div>
-                <div class="name-field">
-                  <label>Name</label>
-                  <input name="name" spellcheck="false" type="text" />
-                </div>
-                <div class="description-field">
-                  <label>Description</label>
-                  <input name="description" spellcheck="false" type="text" />
-                </div>
-                <div class="engine-field">
-                  <label>Engine</label>
-                  <input name="engine" spellcheck="false" type="text" />
-                </div>
-                <div class="filename-field">
-                  <label>Filename</label>
-                  <input name="filename" spellcheck="false" type="text" />
-                </div>
-                <div class="format-field">
-                  <label>Format</label>
-                  <input name="format" spellcheck="false" type="text" />
-                </div>
-                <div class="schema-field">
-                  <label>Schema</label>
-                  <input name="schema" spellcheck="false" type="text" />
-                </div>
-              </form>
+              <div class="field" id="exports-type">
+                <label>
+                  <span class="text">Type</span>
+                  <span class="icon info-icon" data-hint="The type of export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportType()"></div>
+              </div>
+              <div class="field" id="exports-version">
+                <label>
+                  <span class="text">Name</span>
+                  <span class="icon info-icon" data-hint="The name for your export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportName()"></div>
+              </div>
+              <div class="field" id="exports-description">
+                <label>
+                  <span class="text">Description</span>
+                  <span class="icon info-icon" data-hint="The export's description."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportDescription()"></div>
+              </div>
+              <div class="field" id="exports-engine">
+                <label>
+                  <span class="text">Engine</span>
+                  <span class="icon info-icon" data-hint="Engine(s) used by the export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportVersion()"></div>
+              </div>
+              <div class="field" id="exports-name">
+                <label>
+                  <span class="text">Filename</span>
+                  <span class="icon info-icon" data-hint="The filename of the export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportName()"></div>
+              </div>
+              <div class="field" id="exports-format">
+                <label>
+                  <span class="text">Format</span>
+                  <span class="icon info-icon" data-hint="The format of the export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportFormat()"></div>
+              </div>
+              <div class="field" id="exports-schema">
+                <label>
+                  <span class="text">Schema</span>
+                  <span class="icon info-icon" data-hint="A schema for the export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportSchema()"></div>
+              </div>
             </aside>
           </div>
         </div>

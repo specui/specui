@@ -3,7 +3,16 @@ autocode.action.closeProject = function(opts) {
   
   autocode.popover.close();
   
-  if (opts.confirm !== true && autocode.data.originalConfig != jsyaml.safeDump(autocode.project)) {
+  var config = autocode.storage.get('config');
+  if (
+    opts.confirm !== true
+    &&
+    (
+      (config && config[autocode.repo] && config[autocode.repo] != jsyaml.safeDump(autocode.project))
+      ||
+      ((!config || !config[autocode.repo]) && autocode.data.originalConfig != jsyaml.safeDump(autocode.project))
+    )
+  ) {
     autocode.popup.open({
       title: 'Close Project',
       content: '<div style="padding-bottom: 15px">Are you sure you want to close this project? <b>You will lose all unsaved changes.</b></div>'
@@ -21,8 +30,7 @@ autocode.action.closeProject = function(opts) {
   
   $('#menu-project').hide();
   
-  $('.app, #init').fadeOut(function() {
-    $('#menu .text').text('Menu');
+  $('.app, #init, header').fadeOut(function() {
     $('#welcome').fadeIn();
   });
 };
