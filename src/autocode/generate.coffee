@@ -371,7 +371,13 @@ loadOutputs = (outputs, imports, config) ->
 		
 		# validate spec
 		if generator.schema
-			gen_schema = loadSchemaRefs generator.schema
+			gen_schema = generator.schema
+			if typeof(gen_schema) == 'string'
+				gen_prefix = output.generator.split('.')[0]
+				if !imports["#{gen_prefix}.#{gen_schema}"]
+					throw new Error "Schema does not exist for: #{gen_prefix}.#{gen_schema}"
+				gen_schema = imports["#{gen_prefix}.#{gen_schema}"].schema
+			gen_schema = loadSchemaRefs gen_schema
 			validate = skeemas.validate spec, gen_schema
 			if !validate.valid
 				console.log validate.errors

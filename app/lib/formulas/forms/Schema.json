@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "schema": {
+      "label": "Schema",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Schema",
+      "type": "submit"
+    }
+  }
+}

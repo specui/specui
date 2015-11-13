@@ -69,7 +69,7 @@ autocode.popup = {
     }
     
     $('#popup').css('opacity', 0.01).show();
-    $('#popup input').first().focus().keyup();
+    $('#popup input, #popup textarea').first().focus().keyup();
     $('#popup').animate({ opacity: 1 });
     
     autocode.resize.all(['fuzzy', 'overlay', 'popup']);

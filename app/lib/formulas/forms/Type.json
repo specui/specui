@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "type": {
+      "label": "Type",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Type",
+      "type": "submit"
+    }
+  }
+}

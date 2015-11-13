@@ -14,7 +14,17 @@ autocode.action.saveProject = function() {
       break;
     }
     case 'exports': {
-      autocode.project.exports[autocode.data.current.export].template = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+      var Export = autocode.project.exports[autocode.data.current.export];
+      switch (Exports.type) {
+        case 'generator': {
+          autocode.project.exports[autocode.data.current.export].template = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+          break;
+        }
+        case 'schema': {
+          autocode.project.exports[autocode.data.current.export].schema = jsyaml.safeLoad($('#exports-content .CodeMirror')[0].CodeMirror.getValue());
+          break;
+        }
+      }
       break;
     }
   }

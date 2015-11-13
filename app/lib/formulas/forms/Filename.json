@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "filename": {
+      "label": "Filename",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Filename",
+      "type": "submit"
+    }
+  }
+}
