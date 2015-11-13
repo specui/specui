@@ -19,15 +19,14 @@ autocode.action.addInterface = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
-      if (!autocode.project.interfaces) {
-        autocode.project.interfaces = {};
-      }
-      
       var interface_data = {
         name: data.name,
         port: data.port
       };
       
+      if (!autocode.project.interfaces) {
+        autocode.project.interfaces = [];
+      }
       autocode.project.interfaces.push(interface_data);
       
       $('#popup, #overlay').fadeOut(function() {

@@ -8,8 +8,15 @@ autocode.action.saveProject = function() {
     config = {};
   }
   
-  if (autocode.data.current.tab == 'config') {
-    autocode.project = jsyaml.safeLoad($('#config-content .CodeMirror')[0].CodeMirror.getValue());
+  switch (autocode.data.current.tab) {
+    case 'config': {
+      autocode.project = jsyaml.safeLoad($('#config-content .CodeMirror')[0].CodeMirror.getValue());
+      break;
+    }
+    case 'exports': {
+      autocode.project.exports[autocode.data.current.export].template = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+      break;
+    }
   }
   
   config[autocode.repo] = jsyaml.safeDump(autocode.project);

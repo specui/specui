@@ -52,7 +52,12 @@ autocode.action.loadProject = function(opts) {
   
   autocode.repo = opts.name;
   
-  $('#project .text').text(opts.name.split('/')[1]);
+  var user = opts.name.split('/')[0];
+  if (user == autocode.data.user.username) {
+    $('#project .text').text(opts.name.split('/')[1]);
+  } else {
+    $('#project .text').text(opts.name);
+  }
   
   if (opts.config) {
     autocode.project = opts.config;

@@ -8,6 +8,30 @@ autocode.action.commitProject = function(opts) {
   autocode.popover.close();
   
   if (opts.confirm) {
+    var data = {
+      config: autocode.project,
+      message: $('#popup textarea[name="message"]').val(),
+      repo: autocode.repo
+    };
+    
+    autocode.popup.open({
+      title: 'Saving Project...'
+    });
+    autocode.popover.close();
+    
+    autocode.api.config.post({
+      data: data,
+      error: function(data) {
+        autocode.popup.open({
+          title: 'Unable to Commit Project',
+          content: 'Please try again or contact us at <a href="mailto:support@autocode.run">support@autocode.run</a>.'
+        });
+      },
+      success: function(data) {
+        autocode.data.originalConfig = jsyaml.safeDump(autocode.project);
+        autocode.popup.close();
+      }
+    });
     return;
   }
   
@@ -38,8 +62,8 @@ autocode.action.commitProject = function(opts) {
   }
 
   autocode.popup.open({
-    title: 'Save Project',
-    content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><button onclick="autocode.action.commitProject({ confirm: true })">Save Project</button>'
+    title: 'Commit Project',
+    content: '<div>Review your Autocode Configuration changes below before committing/pushing them to GitHub:</div><div class="diff"></div><textarea name="message" placeholder="Your commit message"></textarea><button onclick="autocode.action.commitProject({ confirm: true })">Commit Project</button>'
   });
 
   CodeMirror.MergeView($('#popup .diff')[0], {

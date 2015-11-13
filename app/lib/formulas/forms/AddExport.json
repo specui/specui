@@ -29,6 +29,10 @@
     "Schema": {
       "label": "Schema",
       "type": "text"
+    },
+    "Template": {
+      "label": "Template",
+      "type": "textarea"
     }
   },
   "buttons": {

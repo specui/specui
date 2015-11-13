@@ -124,7 +124,7 @@
         </a>
         <a class="option" id="load-option" onclick="autocode.action.loadProject()">
           <span class="icon load-icon"></span>
-          <span class="text">Load Project</span>
+          <span class="text">Open Project</span>
         </a>
         <a class="option" id="login-option" onclick="autocode.action.login()">
           <span class="icon github-icon"></span>
@@ -278,7 +278,7 @@
             <button onclick="autocode.action.addExport()">Create Export</button>
           </div>
           <div id="exports-content-container">
-            <aside id="content-left">
+            <aside class="column" id="content-left">
               <div class="table">
                 <a class="file" onclick="autocode.action.addExport()">
                   <span class="image">
@@ -299,25 +299,23 @@
                 </a>
               </div>
             </aside>
-            <section class="content-center">
-              <form>
-                <textarea></textarea>
-              </form>
+            <section class="column content-center">
+              <textarea></textarea>
             </section>
-            <aside class="content-right">
+            <aside class="column content-right">
+              <div class="field" id="exports-name">
+                <label>
+                  <span class="text">Name</span>
+                  <span class="icon info-icon" data-hint="The name for your export."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editExportName()"></div>
+              </div>
               <div class="field" id="exports-type">
                 <label>
                   <span class="text">Type</span>
                   <span class="icon info-icon" data-hint="The type of export."></span>
                 </label>
                 <div class="value" onclick="autocode.action.editExportType()"></div>
-              </div>
-              <div class="field" id="exports-version">
-                <label>
-                  <span class="text">Name</span>
-                  <span class="icon info-icon" data-hint="The name for your export."></span>
-                </label>
-                <div class="value" onclick="autocode.action.editExportName()"></div>
               </div>
               <div class="field" id="exports-description">
                 <label>
@@ -333,7 +331,7 @@
                 </label>
                 <div class="value" onclick="autocode.action.editExportVersion()"></div>
               </div>
-              <div class="field" id="exports-name">
+              <div class="field" id="exports-filename">
                 <label>
                   <span class="text">Filename</span>
                   <span class="icon info-icon" data-hint="The filename of the export."></span>

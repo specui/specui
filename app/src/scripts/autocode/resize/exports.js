@@ -1,6 +1,6 @@
 autocode.resize.exports = function() {
   var exports = $('#exports-content .CodeMirror');
   exports.css({
-    height: $(window).height() - $('header').outerHeight() - 20
+    height: $(window).height() - $('header').outerHeight() - $('footer').outerHeight() - 20
   });
 };

@@ -275,6 +275,10 @@ textarea {
   background-image: url(images/icon/coffeescript.svg);
 }
 
+.icon.commit-icon {
+  background-image: url(images/icon/commit.svg);
+}
+
 .icon.console-icon {
   background-image: url(images/icon/console.svg);
 }

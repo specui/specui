@@ -8,14 +8,15 @@ autocode.action.toggleMenu = function() {
         icon: 'save-icon'
       });
       rows.push({
-        action: 'commitProject',
-        text: 'Commit Project (Ctrl+Shift+M)',
-        icon: 'commit-icon'
-      });
-      rows.push({
-        text: 'Close Project',
+        text: 'Close Project (Ctrl+Shift+W)',
         icon: 'close-icon',
         state: '/'
+      });
+      rows.push({
+        action: 'commitProject',
+        text: 'Commit Project (Ctrl+Shift+M)',
+        style: 'divider',
+        icon: 'commit-icon'
       });
       rows.push({
         action: 'githubRepo',
@@ -32,7 +33,7 @@ autocode.action.toggleMenu = function() {
     });
     rows.push({
       action: 'loadProject',
-      text: 'Load Project (Ctrl+Shift+O)',
+      text: 'Open Project (Ctrl+Shift+O)',
       icon: 'load-icon'
     });
   } else {

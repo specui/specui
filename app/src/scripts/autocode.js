@@ -98,7 +98,7 @@ var autocode = {
       state(query);
       autocode.initState();
     } else if (!state) {
-      autocode.action.loadProject({ name: name });
+      autocode.action.loadProject({ force: true, name: name });
     }
     
     history.pushState(null, null, href);
