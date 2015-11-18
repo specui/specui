@@ -24,4 +24,5 @@ autocode.state['exports'] = function() {
   $('#exports-content-container .table a').eq(1).click();
 
   autocode.action.toggleSection('exports');
+  autocode.action.loadExport();
 };

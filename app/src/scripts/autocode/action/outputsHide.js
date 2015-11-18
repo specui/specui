@@ -1,4 +1,4 @@
-autocode.state['outputs/hide'] = function() {
+autocode.action.outputsHide = function() {
   var checkbox = $('#outputs-content-container .checkbox');
   
   if (checkbox.hasClass('checked')) {

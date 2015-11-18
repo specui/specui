@@ -50,6 +50,10 @@ button, .button {
   padding: 10px 15px;
 }
 
+button.delete, .button.delete {
+  background-color: #FF9999;
+}
+
 button.secondary, .button.secondary {
   background-color: #999;
 }
@@ -343,6 +347,10 @@ textarea {
   background-image: url(images/icon/halt.svg);
 }
 
+.icon.helper-icon {
+  background-image: url(images/icon/helper.svg);
+}
+
 .icon.html-icon {
   background-image: url(images/icon/html.svg);
 }
@@ -396,6 +404,10 @@ textarea {
 
 .icon.more-icon {
   background-image: url(images/icon/more.svg);
+}
+
+.icon.processor-icon {
+  background-image: url(images/icon/processor.svg);
 }
 
 .icon.npm-icon {
@@ -843,6 +855,23 @@ textarea {
   font-size: 32px;
 }
 
+#interfaces-init {
+  position: fixed;
+  text-align: center;
+}
+
+#interfaces-init button {
+  margin-top: 20px;
+}
+
+#interfaces-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
+}
+
 #loader {
   opacity: 0;
   position: fixed;
@@ -1016,6 +1045,10 @@ textarea {
 }
 
 #scripts-content-container {
+  display: none;
+}
+
+#spec-form {
   display: none;
 }
 

@@ -17,7 +17,7 @@ autocode.action.loadExport = function(opts) {
   $('#exports-schema .value').text(export_data.schema || ' [ Click to Add ]');
   
   var code_mirror = $('#exports-content .CodeMirror');
-  var mode = 'text', value = jsyaml.safeDump(autocode.project);
+  var mode = 'text', tabs = [], value = jsyaml.safeDump(autocode.project);
   switch (export_data.type) {
     case 'engine': {
       value = export_data.engine || "\n";
@@ -29,14 +29,37 @@ autocode.action.loadExport = function(opts) {
       $('#exports-format').show();
       $('#exports-schema').show();
       
+      tabs = ['template'];
+      
       mode = export_data.format;
       value = export_data.template || "\n";
       
       break;
     }
     case 'helper': {
+      $('#exports-engine').hide();
+      $('#exports-filename').hide();
+      $('#exports-format').hide();
+      $('#exports-schema').hide();
+      
+      tabs = ['helper'];
+      
       mode = 'javascript';
       value = export_data.helper || "\n";
+      
+      break;
+    }
+    case 'processor': {
+      $('#exports-engine').hide();
+      $('#exports-filename').hide();
+      $('#exports-format').hide();
+      $('#exports-schema').hide();
+      
+      tabs = ['processor'];
+      
+      mode = 'javascript';
+      value = export_data.processor || "\n";
+      
       break;
     }
     case 'schema': {
@@ -45,22 +68,21 @@ autocode.action.loadExport = function(opts) {
       $('#exports-format').hide();
       $('#exports-schema').hide();
       
+      tabs = ['schema'];
+      
       mode = 'yaml';
-      value = jsyaml.safeDump(export_data.schema) || "\n";
+      value = export_data.schema ? jsyaml.safeDump(export_data.schema) : "\n";
       
       break;
     }
-    case 'script': {
-      $('#exports-engine').hide();
-      $('#exports-filename').hide();
-      $('#exports-format').hide();
-      $('#exports-schema').hide();
-      
-      mode = 'yaml';
-      value = jsyaml.safeDump(export_data.script) || "\n";
-      
-      break;
-    }
+  }
+  
+  $('#exports-tabs').text('');
+  
+  var tab;
+  for (var i = 0; i < tabs.length; i++) {
+    tab = tabs[i];
+    $('#exports-tabs').append('<a id="exports-' + tab + '-tab" onclick="autocode.action.exportsTab({ tab: \'' + tab + '\' })">' + tab.substr(0,1).toUpperCase() + tab.substr(1) + '</a>')
   }
   
   if (!code_mirror.length) {

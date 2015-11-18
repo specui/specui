@@ -181,9 +181,16 @@ autocode.action.loadProject = function(opts) {
               var imported = this.url.split('?')[1];
               imported = autocode.query.search(imported);
               
+              var import_name = imported.repo.split('/');
+              if (import_name.length > 1) {
+                import_name = import_name[1];
+              } else {
+                import_name = import_name[0];
+              }
+              
               data.config = jsyaml.safeLoad(data.config)
               
-              autocode.imports[imported.repo] = data.config;
+              autocode.imports[import_name] = data.config;
               
               if (data.config.exports) {
                 for (var export_name in data.config.exports) {

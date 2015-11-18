@@ -15,7 +15,15 @@ autocode.action.saveProject = function() {
     }
     case 'exports': {
       var Export = autocode.project.exports[autocode.data.current.export];
-      switch (Exports.type) {
+      switch (Export.type) {
+        case 'helper': {
+          autocode.project.exports[autocode.data.current.export].helper = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+          break;
+        }
+        case 'processor': {
+          autocode.project.exports[autocode.data.current.export].processor = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+          break;
+        }
         case 'generator': {
           autocode.project.exports[autocode.data.current.export].template = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
           break;

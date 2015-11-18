@@ -11,6 +11,27 @@ autocode.action.editExportSchema = function() {
     formula: 'formulas/forms/Schema.json',
     xhr: true,
     ready: function(form) {
+      form.fields.schema.autocomplete = false;
+      form.fields.schema.focus = function(o) {
+        $(o).trigger('keyup');
+      };
+      form.fields.schema.keyup = function() {
+        var schema, schemas = [];
+        for (var schema_name in autocode.data.schemas) {
+          schema = autocode.data.schemas[schema_name];
+          if (schema_name.match(new RegExp(value, 'i'))) {
+            schemas.push({
+              action: {
+                name: 'addExportSchema',
+                data: { name: schema_name }
+              },
+              icon: 'https://cdn.rawgit.com/crystal/' + schema_name.split('.')[0] + '/master/.autocode/icon.svg',
+              text: schema_name
+            });
+          }
+        }
+      };
+        
       autocode.popup.open({
         title: 'Edit Export Schema',
         content: form.toString()

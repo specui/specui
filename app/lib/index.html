@@ -300,6 +300,7 @@
               </div>
             </aside>
             <section class="column content-center">
+              <div class="title" id="exports-tabs"></div>
               <textarea></textarea>
             </section>
             <aside class="column content-right">
@@ -329,14 +330,14 @@
                   <span class="text">Engine</span>
                   <span class="icon info-icon" data-hint="Engine(s) used by the export."></span>
                 </label>
-                <div class="value" onclick="autocode.action.editExportVersion()"></div>
+                <div class="value" onclick="autocode.action.editExportEngine()"></div>
               </div>
               <div class="field" id="exports-filename">
                 <label>
                   <span class="text">Filename</span>
                   <span class="icon info-icon" data-hint="The filename of the export."></span>
                 </label>
-                <div class="value" onclick="autocode.action.editExportName()"></div>
+                <div class="value" onclick="autocode.action.editExportFilename()"></div>
               </div>
               <div class="field" id="exports-format">
                 <label>
@@ -398,31 +399,65 @@
               </div>
             </aside>
             <section class="content-center">
-              <button onclick="autocode.action.addProperty()" style="float: right; margin-top: 10px">
-                Add Property
-              </button>
+              <div class="options">
+                <button onclick="autocode.action.addProperty()">
+                  Add Property
+                </button>
+              </div>
               <div class="title">Spec</div>
-              <a class="checkbox checked" href="outputs/hide/toggle">
-                <span class="text">Hide Unused Properties</span>
-                <span class="icon"></span>
-              </a>
-              <div class="schema"></div>
+              <div class="formats">
+                <a href="#">Form</a>
+                <a href="#">YAML</a>
+              </div>
+              <div id="spec-yaml">
+                <textarea></textarea>
+              </div>
+              <div id="spec-form">
+                <a class="checkbox checked" onclick="autocode.action.outputsToggle()">
+                  <span class="text">Hide Unused Properties</span>
+                  <span class="icon"></span>
+                </a>
+                <div class="schema"></div>
+              </div>
             </section>
             <aside class="content-right">
-              <form>
-                <label>Generator</label>
-                <input name="generator" placeholder="None" spellcheck="false" type="text" />
-                <label>Filename</label>
-                <input name="filename" spellcheck="false" type="text" />
-                <label>Path</label>
-                <input name="path" placeholder="Project Root" spellcheck="false" type="text" />
-                <label>Delete Output</label>
-                <a class="button" href="outputs/delete">Delete</a>
-              </form>
+              <div class="field" id="outputs-generator">
+                <label>
+                  <span class="text">Generator</span>
+                  <span class="icon info-icon" data-hint="A Generator for your output."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editOutputGenerator()"></div>
+              </div>
+              <div class="field" id="outputs-filename">
+                <label>
+                  <span class="text">Filename</span>
+                  <span class="icon info-icon" data-hint="A Filename for your output."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editOutputFilename()"></div>
+              </div>
+              <div class="field" id="outputs-path">
+                <label>
+                  <span class="text">Path</span>
+                  <span class="icon info-icon" data-hint="A path for your output."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editOutputPath()"></div>
+              </div>
+              <a class="button delete" onclick="autocode.action.removeOutput()">
+                Remove Output
+              </a>
             </aside>
           </div>
         </div>
         <div class="content" id="interfaces-content">
+          <div id="interfaces-init">
+            <div class="title">
+              Interfaces
+            </div>
+            <div>
+              Create a new API, app or website.
+            </div>
+            <button onclick="autocode.action.addInterface()">Create Interface</button>
+          </div>
           <div id="interfaces-content-container">
             <aside class="content-left">
               <div class="table">
@@ -443,7 +478,13 @@
               <div class="field">
                 <div class="title value" id="interfaces-title" onclick="autocode.action.editInterfaceName()"></div>
               </div>
-              <div id="interfaces-interface"></div>
+              <div class="field" id="interfaces-port">
+                <label>
+                  <span class="text">Port</span>
+                  <span class="icon info-icon" data-hint="Your app's port."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editInterfacePort()"></div>
+              </div>
             </section>
           </div>
         </div>

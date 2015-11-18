@@ -1,4 +1,4 @@
-autocode.state['outputs/hide/toggle'] = function() {
+autocode.action.outputsToggle = function() {
   var checkbox = $('#outputs-content-container .checkbox');
   
   if (checkbox.hasClass('checked')) {
@@ -7,5 +7,5 @@ autocode.state['outputs/hide/toggle'] = function() {
     checkbox.addClass('checked');
   }
   
-  autocode.state['outputs/hide']();
+  autocode.action.outputsHide();
 };

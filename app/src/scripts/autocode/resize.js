@@ -14,6 +14,7 @@ autocode.resize = {
       'header',
       'hint',
       'init',
+      'interfacesInit',
       'loader',
       'output',
       'outputInit',

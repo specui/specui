@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "engine": {
+      "label": "Engine",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Engine",
+      "type": "submit"
+    }
+  }
+}

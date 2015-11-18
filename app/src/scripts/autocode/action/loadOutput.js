@@ -1,15 +1,21 @@
 autocode.action.loadOutput = function(opts) {
-  autocode.output = opts.output;
+  opts = opts || {};
+  autocode.data.current.output = opts.output || autocode.data.current.output;
   
-  var output = autocode.project.outputs[opts.output];
-  var generator = autocode.imports['crystal/' + output.generator.split('.')[0]].exports[output.generator.split('.')[1]];
+  var output = autocode.project.outputs[autocode.data.current.output];
+  var generator = autocode.project.exports[output.generator];
+  if (!generator && autocode.imports[output.generator.split('.')[0]]) {
+    var imported = autocode.imports[output.generator.split('.')[0]];
+    if (imported && imported.exports && imported.exports[output.generator.split('.')[1]]) {
+      generator = generator.exports[output.generator.split('.')[1]];
+    }
+  }
   
   autocode.data.current.generator = output.generator;
-  autocode.data.current.output = opts.output;
   
-  $('#outputs-content input[name="filename"]').attr('placeholder', generator.filename);
-  $('#outputs-content input[name="filename"]').val(output.filename);
-  $('#outputs-content input[name="generator"]').val(output.generator);
+  $('#outputs-filename .value').text(output.filename || '(' + generator.filename + ')');
+  $('#outputs-generator .value').text(output.generator);
+  $('#outputs-path .value').text(output.path || '(Project Root)');
   
   if (output.spec) {
     $('#outputs-content textarea').val(jsyaml.safeDump(output.spec));
@@ -19,7 +25,21 @@ autocode.action.loadOutput = function(opts) {
   
   $('#outputs-content .content-center .schema').empty();
   
-  var schema = generator.schema;
+  var schema = generator.schema.split('.');
+  if (schema.length > 1) {
+    var schema_prefix = schema[0];
+    var schema_suffix = schema[1];
+    if (!autocode.imports[schema_prefix] || !autocode.imports[schema_prefix].exports[schema_suffix].schema) {
+      return;
+    }
+    schema = autocode.imports[schema_prefix].exports[schema_suffix].schema;
+  } else {
+    schema = schema[0];
+    if (!autocode.project.exports[schema] || !autocode.project.exports[schema].schema) {
+      return;
+    }
+    schema = autocode.project.exports[schema].schema;
+  }
   
   if (!schema || !schema.properties) {
     return;
@@ -115,7 +135,7 @@ autocode.action.loadOutput = function(opts) {
               }
             },
             name: $(this).data('name') + '[0][key]',
-            placeholder: property.default,
+            placeholder: property.default + '(' + property.type + ')',
             spellcheck: false,
             type: 'text',
             value: property_value
@@ -200,7 +220,7 @@ autocode.action.loadOutput = function(opts) {
   
   addProperties(schema.properties);
   
-  autocode.state['outputs/hide']();
+  autocode.action.outputsHide();
   
   autocode.hint.init();
 };

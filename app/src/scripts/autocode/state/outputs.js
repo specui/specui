@@ -14,8 +14,12 @@ autocode.state['outputs'] = function() {
       
       if (output.filename) {
         output_filename = output.filename;
+      } else if (autocode.project.exports[output.generator.split('.')[0]]) {
+        output_filename = autocode.project.exports[output.generator.split('.')[0]].filename;
+      } else if (autocode.imports[output.generator.split('.')[0]] && autocode.imports[output.generator.split('.')[0]].exports) {
+        output_filename = autocode.imports[output.generator.split('.')[0]].exports[output.generator.split('.')[1]].filename;
       } else {
-        output_filename = autocode.imports['crystal/' + output.generator.split('.')[0]].exports[output.generator.split('.')[1]].filename;
+        output_filename = '[ Untitled ]';
       }
       
       $('#outputs-content-container .table').append(
@@ -25,7 +29,7 @@ autocode.state['outputs'] = function() {
           + '</span>'
           + '<span class="info">'
             + '<span class="name">' + output_filename + '</span>'
-            + '<span class="generator">' + output.generator.split('.')[1] + '</span>'
+            + '<span class="generator">' + (output.generator.split('.')[1] || output.generator.split('.')[0]) + '</span>'
           + '</span>'
         + '</a>'
       );
