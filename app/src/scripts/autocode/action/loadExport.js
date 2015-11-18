@@ -82,7 +82,7 @@ autocode.action.loadExport = function(opts) {
   var tab;
   for (var i = 0; i < tabs.length; i++) {
     tab = tabs[i];
-    $('#exports-tabs').append('<a id="exports-' + tab + '-tab" onclick="autocode.action.exportsTab({ tab: \'' + tab + '\' })">' + tab.substr(0,1).toUpperCase() + tab.substr(1) + '</a>')
+    $('#exports-tabs').append('<a' + (i == 0 ? ' class="selected"' : '') + ' id="exports-' + tab + '-tab" onclick="autocode.action.exportsTab({ tab: \'' + tab + '\' })">' + tab.substr(0,1).toUpperCase() + tab.substr(1) + '</a>')
   }
   
   if (!code_mirror.length) {

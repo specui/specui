@@ -68,7 +68,7 @@ autocode.action.addOutput = function() {
         if (
           (output.filename && output.filename == data.filename)
           ||
-          (!output.filename && autocode.data.generators[output.generator].filename == data.filename)
+          (!output.filename && autocode.data.generators[output.generator] && autocode.data.generators[output.generator].filename == data.filename)
         ) {
           autocode.popup.error('Filename must be unique.');
           return false;

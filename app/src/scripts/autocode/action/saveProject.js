@@ -35,6 +35,10 @@ autocode.action.saveProject = function() {
       }
       break;
     }
+    case 'outputs': {
+      autocode.project.outputs[autocode.data.current.output].spec = jsyaml.safeLoad($('#outputs-content .CodeMirror')[0].CodeMirror.getValue());
+      break;
+    }
   }
   
   config[autocode.repo] = jsyaml.safeDump(autocode.project);

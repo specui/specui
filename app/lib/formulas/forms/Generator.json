@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "generator": {
+      "label": "Generator",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Output Generator",
+      "type": "submit"
+    }
+  }
+}

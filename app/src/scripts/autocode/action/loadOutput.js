@@ -7,15 +7,22 @@ autocode.action.loadOutput = function(opts) {
   if (!generator && autocode.imports[output.generator.split('.')[0]]) {
     var imported = autocode.imports[output.generator.split('.')[0]];
     if (imported && imported.exports && imported.exports[output.generator.split('.')[1]]) {
-      generator = generator.exports[output.generator.split('.')[1]];
+      generator = imported.exports[output.generator.split('.')[1]];
     }
   }
   
   autocode.data.current.generator = output.generator;
   
-  $('#outputs-filename .value').text(output.filename || '(' + generator.filename + ')');
+  var filename = output.filename;
+  if (!filename && generator.filename) {
+    filename = '[ ' + generator.filename + ' ]';
+  } else if (!filename) {
+    filename = '[ Click to Add ]';
+  }
+  
+  $('#outputs-filename .value').text(filename);
   $('#outputs-generator .value').text(output.generator);
-  $('#outputs-path .value').text(output.path || '(Project Root)');
+  $('#outputs-path .value').text(output.path || '[ Project Root ]');
   
   if (output.spec) {
     $('#outputs-content textarea').val(jsyaml.safeDump(output.spec));
@@ -25,26 +32,30 @@ autocode.action.loadOutput = function(opts) {
   
   $('#outputs-content .content-center .schema').empty();
   
-  var schema = generator.schema.split('.');
-  if (schema.length > 1) {
-    var schema_prefix = schema[0];
-    var schema_suffix = schema[1];
-    if (!autocode.imports[schema_prefix] || !autocode.imports[schema_prefix].exports[schema_suffix].schema) {
-      return;
+  var schema = generator.schema;
+  if (typeof(schema) == 'string') {
+    schema = schema.split('.');
+    if (schema.length > 1) {
+      var schema_prefix = schema[0];
+      var schema_suffix = schema[1];
+      if (!autocode.imports[schema_prefix] || !autocode.imports[schema_prefix].exports[schema_suffix].schema) {
+        return;
+      }
+      schema = autocode.imports[schema_prefix].exports[schema_suffix].schema;
+    } else {
+      schema = schema[0];
+      if (!autocode.project.exports[schema] || !autocode.project.exports[schema].schema) {
+        return;
+      }
+      schema = autocode.project.exports[schema].schema;
     }
-    schema = autocode.imports[schema_prefix].exports[schema_suffix].schema;
-  } else {
-    schema = schema[0];
-    if (!autocode.project.exports[schema] || !autocode.project.exports[schema].schema) {
-      return;
-    }
-    schema = autocode.project.exports[schema].schema;
   }
   
   if (!schema || !schema.properties) {
     return;
   }
   
+  /*
   function deepFind(obj, path) {
     var paths = path.split('.')
       , current = obj
@@ -219,6 +230,31 @@ autocode.action.loadOutput = function(opts) {
   };
   
   addProperties(schema.properties);
+  */
+  
+  var code_mirror = $('#outputs-content .CodeMirror');
+  var mode = 'yaml';
+  var value = autocode.project.outputs[autocode.data.current.output].spec
+    ? jsyaml.safeDump(autocode.project.outputs[autocode.data.current.output].spec)
+    : '';
+  if (!code_mirror.length) {
+    var editor = CodeMirror.fromTextArea($('#outputs-content textarea')[0], {
+      lineNumbers: true,
+      mode: mode
+    });
+    
+    code_mirror = $('#outputs-content .CodeMirror')
+    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    code_mirror[0].CodeMirror.setValue(value);
+    
+    $('.CodeMirror-scroll').scrollTop(2);
+    
+  } else {
+    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    code_mirror[0].CodeMirror.setValue(value);
+  }
+  
+  code_mirror[0].CodeMirror.setOption('mode', mode);
   
   autocode.action.outputsHide();
   

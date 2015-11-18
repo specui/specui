@@ -561,6 +561,14 @@ textarea {
   background-repeat: no-repeat;
 }
 
+.tabs a {
+  margin-right: 10px;
+}
+
+.tabs a.selected {
+  color: #000;
+}
+
 .text {
   vertical-align: middle;
 }

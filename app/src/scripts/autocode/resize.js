@@ -17,6 +17,7 @@ autocode.resize = {
       'interfacesInit',
       'loader',
       'output',
+      'outputs',
       'outputInit',
       'outputsInit',
       'overlay',

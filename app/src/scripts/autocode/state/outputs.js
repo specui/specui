@@ -45,4 +45,5 @@ autocode.state['outputs'] = function() {
   }
   
   autocode.action.toggleSection('outputs');
+  autocode.action.loadOutput({ output: autocode.data.current.output || autocode.object.firstKey(autocode.project.outputs) });
 };

@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "path": {
+      "label": "Path",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Output Path",
+      "type": "submit"
+    }
+  }
+}

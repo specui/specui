@@ -9,11 +9,11 @@ autocode.action.removeOutput = function(opts) {
     return;
   }
   
-  autocode.project.outputs.splice(autocode.output, 1);
+  autocode.project.outputs.splice(autocode.data.current.output, 1);
 
-  delete(autocode.output);
+  delete(autocode.data.current.output);
 
   autocode.popup.close();
 
-  autocode.state['outputs']();
+  autocode.state['outputs']({ output: autocode.object.firstKey(autocode.project.outputs) });
 };
