@@ -31,6 +31,9 @@ autocode.action.addImport = function(opts) {
             
             autocode.imports[imported.repo] = data.config;
             
+            // sort imports
+            autocode.project.imports = autocode.object.sort(autocode.project.imports);
+            
             if (data.config.exports) {
               for (var export_name in data.config.exports) {
                 switch (data.config.exports[export_name].type) {

@@ -13,17 +13,17 @@ autocode.action.addExport = function() {
         $(o).trigger('keyup');
       };
       form.fields.type.keyup = function() {
-        var rows = [], type_name, types = ['Engine','Generator','Helper','Schema','Script','Spec'];
+        var rows = [], type_name, types = autocode.data.exportTypes;
         for (var i in types) {
           type_name = types[i];
           if (type_name.match(new RegExp(value, 'i'))) {
             rows.push({
               action: {
                 name: 'addExportName',
-                data: { name: type_name }
+                data: { name: autocode.string.capitalize(type_name) }
               },
-              icon: type_name + '-icon black',
-              text: type_name
+              icon: type_name.toLowerCase() + '-icon black',
+              text: autocode.string.capitalize(type_name)
             });
           }
         }
@@ -83,7 +83,7 @@ autocode.action.addExport = function() {
                 name: 'addExportName',
                 data: { name: type_name }
               },
-              icon: type_name + '-icon black',
+              icon: type_name.toLowerCase() + '-icon black',
               text: type_name
             });
           }
@@ -110,12 +110,19 @@ autocode.action.addExport = function() {
         }
       });
       
+      if (data.type) {
+        data.type = data.type.toLowerCase();
+      }
+      
       var name = data.name;
       delete(data.name);
       if (!autocode.project.exports) {
         autocode.project.exports = {};
       }
       autocode.project.exports[name] = data;
+      
+      // sort exports
+      autocode.project.exports = autocode.object.sort(autocode.project.exports);
       
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();

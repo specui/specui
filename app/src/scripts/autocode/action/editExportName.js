@@ -26,6 +26,7 @@ autocode.action.editExportName = function() {
         autocode.project.exports[data.name] = autocode.object.clone(autocode.project.exports[autocode.data.current.export]);
         delete(autocode.project.exports[autocode.data.current.export]);
       }
+      autocode.project.exports = autocode.object.sort(autocode.project.exports);
       
       autocode.data.current.export = data.name;
       

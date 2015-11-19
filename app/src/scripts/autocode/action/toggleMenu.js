@@ -19,6 +19,11 @@ autocode.action.toggleMenu = function() {
         icon: 'commit-icon'
       });
       rows.push({
+        text: 'Reset Project (Ctrl+Shift+T)',
+        icon: 'close-icon',
+        state: '/'
+      });
+      rows.push({
         action: 'githubRepo',
         icon: 'login-icon',
         text: 'View on GitHub'

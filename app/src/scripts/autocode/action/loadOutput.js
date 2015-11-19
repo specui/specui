@@ -20,6 +20,9 @@ autocode.action.loadOutput = function(opts) {
     filename = '[ Click to Add ]';
   }
   
+  $('#outputs-content-container .table a').removeClass('selected');
+  $('#outputs-' + autocode.data.current.output).addClass('selected');
+  
   $('#outputs-filename .value').text(filename);
   $('#outputs-generator .value').text(output.generator);
   $('#outputs-path .value').text(output.path || '[ Project Root ]');
@@ -31,6 +34,38 @@ autocode.action.loadOutput = function(opts) {
   }
   
   $('#outputs-content .content-center .schema').empty();
+  
+  var code_mirror = $('#outputs-content .CodeMirror');
+  var mode = 'yaml';
+  var value = autocode.project.outputs[autocode.data.current.output].spec
+    ? jsyaml.safeDump(autocode.project.outputs[autocode.data.current.output].spec)
+    : '';
+  if (!code_mirror.length) {
+    var editor = CodeMirror.fromTextArea($('#outputs-content textarea')[0], {
+      lineNumbers: true,
+      mode: mode
+    });
+    
+    code_mirror = $('#outputs-content .CodeMirror')
+    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    code_mirror[0].CodeMirror.setValue(value);
+    
+    $('.CodeMirror-scroll').scrollTop(2);
+    
+  } else {
+    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    code_mirror[0].CodeMirror.setValue(value);
+  }
+  
+  code_mirror[0].CodeMirror.setOption('mode', mode);
+  
+  autocode.action.outputsHide();
+  
+  autocode.hint.init();
+  
+  // prepare forms
+  
+  /*
   
   var schema = generator.schema;
   if (typeof(schema) == 'string') {
@@ -55,7 +90,6 @@ autocode.action.loadOutput = function(opts) {
     return;
   }
   
-  /*
   function deepFind(obj, path) {
     var paths = path.split('.')
       , current = obj
@@ -231,32 +265,4 @@ autocode.action.loadOutput = function(opts) {
   
   addProperties(schema.properties);
   */
-  
-  var code_mirror = $('#outputs-content .CodeMirror');
-  var mode = 'yaml';
-  var value = autocode.project.outputs[autocode.data.current.output].spec
-    ? jsyaml.safeDump(autocode.project.outputs[autocode.data.current.output].spec)
-    : '';
-  if (!code_mirror.length) {
-    var editor = CodeMirror.fromTextArea($('#outputs-content textarea')[0], {
-      lineNumbers: true,
-      mode: mode
-    });
-    
-    code_mirror = $('#outputs-content .CodeMirror')
-    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    code_mirror[0].CodeMirror.setValue(value);
-    
-    $('.CodeMirror-scroll').scrollTop(2);
-    
-  } else {
-    code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    code_mirror[0].CodeMirror.setValue(value);
-  }
-  
-  code_mirror[0].CodeMirror.setOption('mode', mode);
-  
-  autocode.action.outputsHide();
-  
-  autocode.hint.init();
 };

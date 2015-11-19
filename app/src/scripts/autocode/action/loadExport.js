@@ -20,7 +20,16 @@ autocode.action.loadExport = function(opts) {
   var mode = 'text', tabs = [], value = jsyaml.safeDump(autocode.project);
   switch (export_data.type) {
     case 'engine': {
+      $('#exports-engine').hide();
+      $('#exports-filename').hide();
+      $('#exports-format').hide();
+      $('#exports-schema').hide();
+      
+      tabs = ['engine'];
+      
+      mode = 'javascript';
       value = export_data.engine || "\n";
+      
       break;
     }
     case 'generator': {
@@ -75,8 +84,33 @@ autocode.action.loadExport = function(opts) {
       
       break;
     }
+    case 'spec': {
+      $('#exports-engine').hide();
+      $('#exports-filename').hide();
+      $('#exports-format').hide();
+      $('#exports-schema').hide();
+      
+      tabs = ['spec'];
+      
+      mode = 'yaml';
+      value = export_data.spec ? jsyaml.safeDump(export_data.spec) : "\n";
+      
+      break;
+    }
+    case 'transformer': {
+      $('#exports-engine').hide();
+      $('#exports-filename').hide();
+      $('#exports-format').hide();
+      $('#exports-schema').hide();
+      
+      tabs = ['transformer'];
+      
+      mode = 'javascript';
+      value = export_data.transformer || "\n";
+      
+      break;
+    }
   }
-  
   $('#exports-tabs').text('');
   
   var tab;

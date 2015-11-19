@@ -117,6 +117,9 @@
       <a class="button" onclick="autocode.action.loadProject()">No, Load Another Project</a> <a class="button" onclick="autocode.action.initProject()">Yes, Initialize Autocode</a>
     </div>
     <div id="welcome">
+      <div>
+        <img height="200" src="images/splash.svg" />
+      </div>
       <div class="options">
         <a class="option" id="new-option" onclick="autocode.action.newProject()">
           <span class="icon add-icon"></span>
@@ -239,13 +242,12 @@
           <div id="imports-content-container">
             <aside class="column content-left">
               <div class="search">
-                <input autocomplete="off" placeholder="Add a Module to Your Project" id="imports-search" type="text" />
+                <input autocomplete="off" placeholder="Import a Project" id="imports-search" type="text" />
               </div>
               <div class="table"></div>
             </aside>
             <section class="column content-center">
               <div class="title tabs" id="imports-tabs"></div>
-              <div id="imports-content-readme"></div>
             </section>
             <aside class="column content-right">
               <div class="field" id="imports-name">
@@ -400,13 +402,11 @@
               </div>
             </aside>
             <section class="content-center">
-              <!--
               <div class="options">
                 <button onclick="autocode.action.addProperty()">
                   Add Property
                 </button>
               </div>
-              -->
               <div class="title" id="outputs-tabs">Spec</div>
               <!--
               <div class="formats">
@@ -479,6 +479,9 @@
             <section class="content-center">
               <button onclick="autocode.action.launchInterface()" style="float: right; margin-top: 10px">
                 Launch
+              </button>
+              <button onclick="autocode.action.removeInterface()" style="float: right; margin-top: 10px">
+                Delete
               </button>
               <div class="field">
                 <div class="title value" id="interfaces-title" onclick="autocode.action.editInterfaceName()"></div>

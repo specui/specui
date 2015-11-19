@@ -52,7 +52,7 @@ autocode.action.commitProject = function(opts) {
   for (var output_i in autocode.project.outputs) {
     output = autocode.project.outputs[output_i];
     
-    if (!autocode.data.generators[output.generator]) {
+    if (!autocode.data.generators[output.generator] && !autocode.project.exports[output.generator]) {
       autocode.popup.open({
         title: 'Validation Error',
         content: 'Generator does not exist for output: <b>' + output.generator + '</b>'

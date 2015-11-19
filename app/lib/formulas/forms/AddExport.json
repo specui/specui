@@ -26,11 +26,11 @@
       "label": "Format",
       "type": "text"
     },
-    "Schema": {
+    "schema": {
       "label": "Schema",
       "type": "text"
     },
-    "Template": {
+    "template": {
       "label": "Template",
       "type": "textarea"
     }

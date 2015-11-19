@@ -29,7 +29,8 @@ var autocode = {
   data: {
     current: {
       pin: true
-    }
+    },
+    exportTypes: ['engine','generator','helper','processor','schema','spec','transformer']
   },
   state: {},
   user: {},

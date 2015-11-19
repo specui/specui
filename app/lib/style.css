@@ -299,6 +299,10 @@ textarea {
   background-image: url(images/icon/docker.svg);
 }
 
+.icon.engine-icon {
+  background-image: url(images/icon/engine.svg);
+}
+
 .icon.eslint-icon {
   background-image: url(images/icon/eslint.svg);
 }
@@ -489,6 +493,10 @@ textarea {
 
 .icon.tour-icon {
   background-image: url(images/icon/tour.svg);
+}
+
+.icon.transformer-icon {
+  background-image: url(images/icon/transformer.svg);
 }
 
 .icon.twitter-icon {

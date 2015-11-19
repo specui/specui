@@ -215,6 +215,8 @@ autocode.action.loadProject = function(opts) {
         autocode.data.generators = autocode.object.sort(autocode.data.generators);
         
         $('#welcome').fadeOut(function() {
+          document.title = autocode.repo + ' | Autocode';
+          
           $('#overview-tab').prop('href', opts.name + '/overview');
           $('#imports-tab').prop('href', opts.name + '/imports');
           $('#exports-tab').prop('href', opts.name + '/exports');

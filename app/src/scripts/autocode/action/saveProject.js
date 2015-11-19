@@ -16,6 +16,10 @@ autocode.action.saveProject = function() {
     case 'exports': {
       var Export = autocode.project.exports[autocode.data.current.export];
       switch (Export.type) {
+        case 'engine': {
+          autocode.project.exports[autocode.data.current.export].engine = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
+          break;
+        }
         case 'helper': {
           autocode.project.exports[autocode.data.current.export].helper = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
           break;
@@ -30,6 +34,14 @@ autocode.action.saveProject = function() {
         }
         case 'schema': {
           autocode.project.exports[autocode.data.current.export].schema = jsyaml.safeLoad($('#exports-content .CodeMirror')[0].CodeMirror.getValue());
+          break;
+        }
+        case 'spec': {
+          autocode.project.exports[autocode.data.current.export].spec = jsyaml.safeLoad($('#exports-content .CodeMirror')[0].CodeMirror.getValue());
+          break;
+        }
+        case 'transformer': {
+          autocode.project.exports[autocode.data.current.export].transformer = $('#exports-content .CodeMirror')[0].CodeMirror.getValue();
           break;
         }
       }

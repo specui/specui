@@ -23,13 +23,13 @@ autocode.state['outputs'] = function() {
       }
       
       $('#outputs-content-container .table').append(
-        '<a class="file" onclick="autocode.action.loadOutput({ output: \'' + output_i + '\' })">'
+        '<a class="file" id="outputs-' + output_i + '" onclick="autocode.action.loadOutput({ output: \'' + output_i + '\' })">'
           + '<span class="image">'
             + '<span class="icon" style="background-image: url(https://cdn.rawgit.com/crystal/' + output.generator.split('.')[0] + '/master/.autocode/icon.svg)"></span>'
           + '</span>'
           + '<span class="info">'
             + '<span class="name">' + output_filename + '</span>'
-            + '<span class="generator">' + (output.generator.split('.')[1] || output.generator.split('.')[0]) + '</span>'
+            + '<span class="generator">' + output.generator + '</span>'
           + '</span>'
         + '</a>'
       );
