@@ -48,12 +48,18 @@ autocode.fuzzy = {
             row_icon.addClass(row.icon);
           }
         }
+        if (row.style == 'divider') {
+          row_icon.css('border-top', '1px #CCC solid');
+        }
         row_link.append(row_icon);
       }
       
       row_text = $(document.createElement('span'));
       row_text.addClass('text');
       row_text.html(row.text.replace(new RegExp('(' + opts.value + ')', 'i'), '<b>$1</b>'));
+      if (row.style == 'divider') {
+        row_text.css('border-top', '1px #CCC solid');
+      }
       row_link.append(row_text);
     }
     

@@ -1,7 +1,7 @@
 autocode.action.loadExport = function(opts) {
   opts = opts || {};
   
-  autocode.data.current.export = opts.name || autocode.data.current.export;
+  autocode.data.current.export = opts.name || autocode.data.current.export || autocode.object.firstKey(autocode.project.exports);
   
   var export_data = autocode.project.exports[autocode.data.current.export];
   
@@ -10,7 +10,7 @@ autocode.action.loadExport = function(opts) {
   
   $('#exports-name .value').text(autocode.data.current.export || ' [ Click to Add ]');
   $('#exports-type .value').text(export_data.type.substr(0, 1).toUpperCase() + export_data.type.substr(1) || ' [ Click to Add ]');
-  $('#exports-description .value').text(export_data.description || ' [ Click to Add ]');
+  $('#exports-description .value').html(marked(export_data.description) || ' [ Click to Add ]');
   $('#exports-engine .value').text(export_data.engine || ' [ Click to Add ]');
   $('#exports-filename .value').text(export_data.filename || ' [ Click to Add ]');
   $('#exports-format .value').text(export_data.format || ' [ Click to Add ]');
@@ -121,7 +121,7 @@ autocode.action.loadExport = function(opts) {
   
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#exports-content textarea')[0], {
-      lineNumbers: true,
+      lineNumbers: autocode.editor.lineNumbersEnabled(),
       mode: mode
     });
     
@@ -137,6 +137,7 @@ autocode.action.loadExport = function(opts) {
   }
   
   code_mirror[0].CodeMirror.setOption('mode', mode);
+  code_mirror[0].CodeMirror.setOption('theme', autocode.editor.getTheme());
   
   autocode.hint.init();
   

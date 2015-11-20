@@ -3,7 +3,9 @@ autocode.action.loadOutput = function(opts) {
   autocode.data.current.output = opts.output || autocode.data.current.output;
   
   var output = autocode.project.outputs[autocode.data.current.output];
-  var generator = autocode.project.exports[output.generator];
+  var generator = autocode.project.exports && autocode.project.exports[output.generator]
+    ? autocode.project.exports[output.generator]
+    : null;
   if (!generator && autocode.imports[output.generator.split('.')[0]]) {
     var imported = autocode.imports[output.generator.split('.')[0]];
     if (imported && imported.exports && imported.exports[output.generator.split('.')[1]]) {
@@ -42,8 +44,9 @@ autocode.action.loadOutput = function(opts) {
     : '';
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#outputs-content textarea')[0], {
-      lineNumbers: true,
-      mode: mode
+      lineNumbers: autocode.editor.lineNumbersEnabled(),
+      mode: mode,
+      theme: autocode.editor.getTheme()
     });
     
     code_mirror = $('#outputs-content .CodeMirror')
@@ -58,6 +61,19 @@ autocode.action.loadOutput = function(opts) {
   }
   
   code_mirror[0].CodeMirror.setOption('mode', mode);
+  code_mirror[0].CodeMirror.setOption('extraKeys', {
+    Tab: function(cm) {
+      if (cm.somethingSelected()) {
+        cm.indentSelection("add");
+        return;
+      }
+      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+      cm.replaceSelection(spaces);
+    },
+    'Shift-Tab': function(cm) {
+      cm.indentSelection("subtract");
+    }
+  });
   
   autocode.action.outputsHide();
   

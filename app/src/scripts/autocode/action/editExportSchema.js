@@ -16,20 +16,39 @@ autocode.action.editExportSchema = function() {
         $(o).trigger('keyup');
       };
       form.fields.schema.keyup = function() {
-        var schema, schemas = [];
-        for (var schema_name in autocode.data.schemas) {
-          schema = autocode.data.schemas[schema_name];
+        var current_schemas = autocode.current.schemas();
+        var schema, schema_icon, schema_style, schemas = [];
+        for (var schema_name in current_schemas) {
+          schema = current_schemas[schema_name];
           if (schema_name.match(new RegExp(value, 'i'))) {
+            if (schema_name.split('.').length > 1) {
+              schema_icon = 'https://cdn.rawgit.com/crystal/' + schema_name.split('.')[0] + '/master/.autocode/icon.svg';
+              if (!schema_style && schema_style !== false) {
+                schema_style = true;
+              }
+            } else {
+              schema_icon = 'project-icon black';
+            }
             schemas.push({
               action: {
                 name: 'addExportSchema',
                 data: { name: schema_name }
               },
-              icon: 'https://cdn.rawgit.com/crystal/' + schema_name.split('.')[0] + '/master/.autocode/icon.svg',
+              icon: schema_icon,
+              style: schema_style ? 'divider' : null,
               text: schema_name
             });
+            if (schema_style) {
+              schema_style = false;
+            }
           }
         }
+        
+        autocode.fuzzy.open({
+          rows: schemas,
+          target: $('#popup input[name="schema"]'),
+          value: value
+        });
       };
         
       autocode.popup.open({

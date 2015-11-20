@@ -299,6 +299,10 @@ textarea {
   background-image: url(images/icon/docker.svg);
 }
 
+.icon.editor-icon {
+  background-image: url(images/icon/editor.svg);
+}
+
 .icon.engine-icon {
   background-image: url(images/icon/engine.svg);
 }
@@ -428,6 +432,10 @@ textarea {
 
 .icon.project-icon {
   background-image: url(images/icon/project.svg);
+}
+
+.icon.project-icon.black {
+  background-image: url(images/icon/project-black.svg);
 }
 
 .icon.reboot-icon {
@@ -716,6 +724,9 @@ textarea {
 
 #content aside .table a span.info .name {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
 }
 
 #content aside.content-right .icon {
@@ -795,6 +806,10 @@ textarea {
 
 #fuzzy .table a {
   display: table-row;
+}
+
+#fuzzy .table a:first-of-type {
+  background-color: #eef8ff;
 }
 
 #fuzzy .table a span {

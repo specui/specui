@@ -49,7 +49,7 @@
   <script src="components/jquery-cookie/jquery.cookie.js"></script>
   <script src="components/jquery-ui/jquery-ui.min.js"></script>
   <script src="components/jstree/dist/jstree.min.js"></script>
-  <script src="components/js-yaml/dist/js-yaml.min.js"></script>
+  <script src="components/js-yaml/dist/js-yaml.js"></script>
   <script src="components/marked/marked.min.js"></script>
   <script src="components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
   
@@ -281,7 +281,7 @@
             <button onclick="autocode.action.addExport()">Create Export</button>
           </div>
           <div id="exports-content-container">
-            <aside class="column" id="content-left">
+            <aside class="column content-left" id="content-left">
               <div class="table">
                 <a class="file" onclick="autocode.action.addExport()">
                   <span class="image">
@@ -402,11 +402,13 @@
               </div>
             </aside>
             <section class="content-center">
+              <!--
               <div class="options">
                 <button onclick="autocode.action.addProperty()">
                   Add Property
                 </button>
               </div>
+              -->
               <div class="title" id="outputs-tabs">Spec</div>
               <!--
               <div class="formats">

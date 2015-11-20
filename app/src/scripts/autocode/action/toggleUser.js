@@ -15,6 +15,12 @@ autocode.action.toggleUser = function() {
           text: 'View on GitHub'
         },
         {
+          action: 'editorSettings',
+          icon: 'editor-icon',
+          style: 'divider',
+          text: 'Editor Settings'
+        },
+        {
           action: 'logout',
           icon: 'logout-icon',
           style: 'divider',

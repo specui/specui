@@ -89,6 +89,7 @@ autocode.action.addOutput = function() {
       });
       
       autocode.state['outputs']();
+      autocode.action.loadOutput({ output: autocode.project.outputs.length-1 });
       
       autocode.resize.all();
       

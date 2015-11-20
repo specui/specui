@@ -26,6 +26,15 @@ force = false
 loaded_modules = {}
 imports = {}
 
+requireFromString = (src, filename) ->
+	try
+	  m = new module.constructor()
+	  m.paths = module.paths
+	  m._compile src, filename
+	  m.exports
+	catch e
+		src
+
 loadModules = (modules, host) ->
 	# load each module
 	for module_name of modules
@@ -88,37 +97,39 @@ loadModules = (modules, host) ->
 				module_config.exports[export_name].dir = module_path
 				
 				# handle engine
-				if typeof(exported.engine) == 'string' && exported.engine.match(/\./)
-					export_path = "#{module_path}/.autocode/engine/#{exported.engine}"
+				if typeof(exported.engine) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/engine/#{exported.engine}"
 					if fs.existsSync export_path
 						engine = require export_path
 					else
-						engine = exported.engine
+						engine = requireFromString exported.engine
 					module_config.exports[export_name].engine = engine
 					
 				# handle helper
-				if typeof(exported.helper) == 'string' && exported.helper.match(/\./)
-					export_path = "#{module_path}/.autocode/helper/#{exported.helper}"
+				if typeof(exported.helper) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/helper/#{exported.helper}"
 					if fs.existsSync export_path
 						helper = require export_path
 					else
-						helper = exported.helper
+						helper = requireFromString exported.helper
 					module_config.exports[export_name].helper = helper
 					
 				# handle processor
-				if typeof(exported.processor) == 'string' && exported.processor.match(/\./)
-					export_path = "#{module_path}/.autocode/processor/#{exported.processor}"
+				if typeof(exported.processor) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/processor/#{exported.processor}"
 					if fs.existsSync export_path
 						processor = require export_path
 					else
-						processor = exported.processor
+						processor = requireFromString exported.processor
 					module_config.exports[export_name].processor = processor
 				
 				# handle schema
-				if typeof(exported.schema) == 'string' && exported.schema.match(/\./)
-					export_path = "#{module_path}/.autocode/schema/#{exported.schema}"
+				if typeof(exported.schema) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/schema/#{exported.schema}"
 					if fs.existsSync export_path
 						schema = yaml.safeLoad fs.readFileSync(export_path)
+					else if module_config.exports[exported.schema]
+						schema = module_config.exports[exported.schema].schema
 					else
 						schema = exported.schema
 					module_config.exports[export_name].schema = schema
@@ -147,8 +158,8 @@ loadModules = (modules, host) ->
 						module_config.exports[export_name].spec = spec
 				
 				# handle template
-				if typeof(exported.template) == 'string' && exported.template.match(/\./)
-					export_path = "#{module_path}/.autocode/template/#{exported.template}"
+				if typeof(exported.template) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/template/#{exported.template}"
 					if fs.existsSync export_path
 						template = fs.readFileSync(export_path, 'utf8')
 					else
@@ -156,12 +167,12 @@ loadModules = (modules, host) ->
 					module_config.exports[export_name].template = template
 				
 				# handle transformer
-				if typeof(exported.transformer) == 'string' && exported.transformer.match(/\./)
-					export_path = "#{module_path}/.autocode/trans/#{exported.transformer}"
+				if typeof(exported.transformer) == 'string'
+					export_path = path.normalize "#{module_path}/.autocode/trans/#{exported.transformer}"
 					if fs.existsSync export_path
 						transformer = require export_path
 					else
-						transformer = exported.transformer
+						transformer = requireFromString exported.transformer
 					module_config.exports[export_name].transformer = transformer
 		
 		# add module to loaded modules
@@ -373,10 +384,37 @@ loadOutputs = (outputs, imports, config) ->
 		if generator.schema
 			gen_schema = generator.schema
 			if typeof(gen_schema) == 'string'
-				gen_prefix = output.generator.split('.')[0]
-				if !imports["#{gen_prefix}.#{gen_schema}"]
-					throw new Error "Schema does not exist for: #{gen_prefix}.#{gen_schema}"
-				gen_schema = imports["#{gen_prefix}.#{gen_schema}"].schema
+				gen_name = output.generator.split '.'
+				if !gen_name.length
+					throw new Error "Invalid generator name: #{gen_name}"
+				if gen_name.length > 1
+					gen_prefix = gen_name[0]
+					gen_suffix = gen_name[1]
+					if !imports["#{gen_prefix}.#{gen_suffix}"] or !imports["#{gen_prefix}.#{gen_suffix}"].schema
+						throw new Error "Schema does not exist for: #{gen_prefix}.#{gen_suffix}"
+					gen_schema = imports["#{gen_prefix}.#{gen_suffix}"].schema
+				else
+					gen_name = gen_name[0]
+					if !imports["#{gen_name}"] or !imports["#{gen_name}"].schema
+						throw new Error "Schema does not exist for: #{gen_name}"
+					gen_schema = imports["#{gen_name}"].schema
+					
+					if typeof(gen_schema) == 'string'
+						schema_name = gen_schema.split '.'
+						if !schema_name.length
+							throw new Error "Invalid schema: #{schema_name}"
+						if schema_name.length > 1
+							schema_prefix = schema_name[0]
+							schema_suffix = schema_name[1]
+							if !imports["#{schema_prefix}.#{schema_suffix}"] or !imports["#{schema_prefix}.#{schema_suffix}"].schema
+								throw new Error "Schema does not exist for: #{schema_prefix}.#{schema_suffix}"
+							gen_schema = imports["#{schema_prefix}.#{schema_suffix}"].schema
+						else
+							schema_name = schema_name[0]
+							if !imports["#{schema_name}"] or !imports["#{schema_name}"].schema
+								throw new Error "Schema does not exist: #{schema_name}"
+							gen_schema = imports["#{schema_name}"].schema
+							
 			gen_schema = loadSchemaRefs gen_schema
 			validate = skeemas.validate spec, gen_schema
 			if !validate.valid

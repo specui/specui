@@ -28,6 +28,8 @@ autocode.state['output'] = function() {
           var icon = autocode.file.icon(filename);
           $(this).addClass(icon + '-icon');
         });
+        
+        $('.jstree-anchor').first().click();
       });
       
       $('#output-content-container .content-left').on("before_open.jstree", function (e, data) {

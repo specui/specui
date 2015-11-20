@@ -21,20 +21,46 @@ autocode.action.loadProject = function(opts) {
     
     autocode.api.repos.get({
       success: function(data) {
-        var rows = [];
+        autocode.data.projects = data;
         
-        for (var i = 0; i < data.length; i++) {
-          rows.push({
-            icon: 'login-icon',
-            state: data[i].name,
-            text: data[i].name
-          });
-        }
-        
-        autocode.popup.open({
-          title: 'Load Project',
-          rows: rows,
-          style: 'table'
+        new formulator({
+          formula: 'formulas/forms/Name.json',
+          xhr: true,
+          ready: function(form) {
+            form.fields.name.autocomplete = false;
+            
+            form.fields.name.keyup = function() {
+              var value = $('#popup input[name="name"]').val();
+              
+              var project, projects = [];
+              for (var project_i in autocode.data.projects) {
+                project = autocode.data.projects[project_i];
+                if (project.name.match(new RegExp(value, 'i'))) {
+                  projects.push({
+                    action: {
+                      name: 'loadProject',
+                      data: {
+                        name: project.name
+                      }
+                    },
+                    text: project.name
+                  });
+                }
+              }
+              autocode.fuzzy.open({
+                rows: projects,
+                target: $('#popup input[name="name"]'),
+                value: value
+              });
+              
+              $('#popup input[name="name"]').attr('placeholder', 'Search GitHub...');
+            };
+            
+            autocode.popup.open({
+              title: 'Load Project',
+              content: form.toString()
+            });
+          }
         });
       }
     });
@@ -46,6 +72,9 @@ autocode.action.loadProject = function(opts) {
   
   $('.app, #init').fadeOut();
   
+  $('#popup input[name="name"]').val(opts.name);
+  
+  autocode.fuzzy.close();
   $('#popup, #overlay').fadeOut(function() {
     autocode.popup.close();
   });
@@ -65,6 +94,7 @@ autocode.action.loadProject = function(opts) {
     
     autocode.data.engines = {};
     autocode.data.generators = {};
+    autocode.data.schemas = {};
     autocode.imports = {};
     
     var requests = [];
@@ -93,6 +123,10 @@ autocode.action.loadProject = function(opts) {
                     autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
                     break;
                   }
+                  case 'schema': {
+                    autocode.data.schemas[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                    break;
+                  }
                 }
               }
             }
@@ -104,6 +138,7 @@ autocode.action.loadProject = function(opts) {
     $.when.apply(undefined, requests).done(function() {
       autocode.data.generators = autocode.object.sort(autocode.data.generators);
       autocode.data.engines = autocode.object.sort(autocode.data.engines);
+      autocode.data.schemas = autocode.object.sort(autocode.data.schemas);
       
       $('#welcome').fadeOut(function() {
         $('#overview-tab').prop('href', 'overview');
@@ -168,6 +203,7 @@ autocode.action.loadProject = function(opts) {
       
       autocode.data.engines = {};
       autocode.data.generators = {};
+      autocode.data.schemas = {};
       autocode.imports = {};
       
       var requests = [];
@@ -203,6 +239,10 @@ autocode.action.loadProject = function(opts) {
                       autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
                       break;
                     }
+                    case 'schema': {
+                      autocode.data.schemas[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                      break;
+                    }
                   }
                 }
               }
@@ -212,7 +252,9 @@ autocode.action.loadProject = function(opts) {
       }
       
       $.when.apply(undefined, requests).done(function() {
+        autocode.data.engines = autocode.object.sort(autocode.data.engines);
         autocode.data.generators = autocode.object.sort(autocode.data.generators);
+        autocode.data.schemas = autocode.object.sort(autocode.data.schemas);
         
         $('#welcome').fadeOut(function() {
           document.title = autocode.repo + ' | Autocode';

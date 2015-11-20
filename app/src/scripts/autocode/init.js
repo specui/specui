@@ -4,6 +4,7 @@ autocode.init = function() {
   $('#loader').animate({ opacity: 1 });
   
   autocode.console.init();
+  autocode.editor.init();
   autocode.hint.init();
   autocode.shortcut.init()
   autocode.initState();

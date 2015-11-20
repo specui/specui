@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "theme": {
+      "label": "Theme",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Save",
+      "type": "submit"
+    }
+  }
+}

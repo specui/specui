@@ -100,6 +100,14 @@ autocode.action.addExport = function() {
         title: 'Add Export',
         content: form.toString()
       });
+      
+      $('#popup input[name="engine"]').parents('.field').hide();
+      $('#popup input[name="filename"]').parents('.field').hide();
+      $('#popup input[name="format"]').parents('.field').hide();
+      $('#popup input[name="schema"]').parents('.field').hide();
+      $('#popup textarea[name="template"]').parents('.field').hide();
+      
+      autocode.resize.popup();
     },
     submit: function(data) {
       var data = {};
