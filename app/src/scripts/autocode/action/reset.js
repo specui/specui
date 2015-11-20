@@ -8,6 +8,14 @@ autocode.action.reset = function(opts) {
   autocode.popover.close();
   
   if (opts.confirm) {
+    // remove project from local storage
+    var config = autocode.storage.get('config');
+    if (!config || typeof(config) != 'object') {
+      config = {};
+    }
+    delete(config[autocode.repo]);
+    autocode.storage.set('config', config);
+    
     autocode.project = jsyaml.safeLoad(autocode.data.originalConfig);
     if (autocode.data.current.tab == 'config') {
       $('#config-content .CodeMirror')[0].CodeMirror.setValue(autocode.data.originalConfig);
@@ -45,7 +53,7 @@ autocode.action.reset = function(opts) {
 
   autocode.popup.open({
     title: 'Reset Project',
-    content: '<div>Are you sure you want to discard all changes? <a href="#">Show Changes</a></div><div class="diff"></div><button onclick="autocode.action.reset({ confirm: true })">Reset Project</button>'
+    content: '<div>Are you sure you want to discard all changes? <a href="#">Show Changes</a></div><div class="diff"></div><button class="delete" onclick="autocode.action.reset({ confirm: true })">Reset Project</button> <button class="secondary" onclick="autocode.action.closePopup()">Cancel</button>'
   });
 
   CodeMirror.MergeView($('#popup .diff')[0], {

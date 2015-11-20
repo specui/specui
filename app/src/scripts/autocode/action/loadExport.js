@@ -10,7 +10,7 @@ autocode.action.loadExport = function(opts) {
   
   $('#exports-name .value').text(autocode.data.current.export || ' [ Click to Add ]');
   $('#exports-type .value').text(export_data.type.substr(0, 1).toUpperCase() + export_data.type.substr(1) || ' [ Click to Add ]');
-  $('#exports-description .value').html(marked(export_data.description) || ' [ Click to Add ]');
+  $('#exports-description .value').html(export_data.description ? marked(export_data.description) : ' [ Click to Add ]');
   $('#exports-engine .value').text(export_data.engine || ' [ Click to Add ]');
   $('#exports-filename .value').text(export_data.filename || ' [ Click to Add ]');
   $('#exports-format .value').text(export_data.format || ' [ Click to Add ]');
@@ -138,6 +138,8 @@ autocode.action.loadExport = function(opts) {
   
   code_mirror[0].CodeMirror.setOption('mode', mode);
   code_mirror[0].CodeMirror.setOption('theme', autocode.editor.getTheme());
+  
+  setTimeout(function() { $('#exports-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
   
   autocode.hint.init();
   

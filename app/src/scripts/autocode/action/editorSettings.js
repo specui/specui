@@ -6,9 +6,10 @@ autocode.action.editorSettings = function() {
   
   new formulator({
     data: {
+      lineNumbers: autocode.editor.lineNumbersEnabled(),
       theme: autocode.editor.getTheme()
     },
-    formula: 'formulas/forms/Theme.json',
+    formula: 'formulas/forms/Editor.json',
     xhr: true,
     ready: function(form) {
       form.fields.theme.autocomplete = false;
@@ -58,7 +59,18 @@ autocode.action.editorSettings = function() {
     submit: function(data) {
       var data = {};
       $('#popup input, #popup select, #popup textarea').each(function() {
-        data[$(this).attr('name')] = $(this).val();
+        if (!$(this).attr('name') || !$(this).attr('name').length) {
+          return;
+        }
+        if ($(this).attr('type') == 'checkbox') {
+          if ($(this).is(':checked')) {
+            data[$(this).attr('name')] = true;
+          } else {
+            data[$(this).attr('name')] = false;
+          }
+        } else {
+          data[$(this).attr('name')] = $(this).val();
+        }
       });
       
       data.theme = data.theme.toLowerCase();
@@ -68,6 +80,13 @@ autocode.action.editorSettings = function() {
         return;
       }
       
+      console.log(data);
+      
+      if (data.lineNumbers) {
+        autocode.editor.enableLineNumbers();
+      } else {
+        autocode.editor.disableLineNumbers();
+      }
       autocode.editor.setTheme(data.theme);
       
       autocode.fuzzy.close();

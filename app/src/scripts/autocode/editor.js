@@ -46,6 +46,18 @@ autocode.editor = {
       'zenburn'
     ]
   },
+  enableLineNumbers: function() {
+    autocode.storage.set('lineNumbers', true);
+    $('.CodeMirror').each(function() {
+      $(this)[0].CodeMirror.setOption('lineNumbers', true);
+    });
+  },
+  disableLineNumbers: function() {
+    autocode.storage.remove('lineNumbers');
+    $('.CodeMirror').each(function() {
+      $(this)[0].CodeMirror.setOption('lineNumbers', false);
+    });
+  },
   getTheme: function() {
     var theme = autocode.storage.get('theme');
     if (!theme) {

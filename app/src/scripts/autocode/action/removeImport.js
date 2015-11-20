@@ -5,7 +5,7 @@ autocode.action.removeImport = function(opts) {
     autocode.popup.open({
       title: 'Remove Import',
       content: '<div style="padding-bottom: 10px">Are you sure you want to remove the <b>' + autocode.data.current.import + '</b> import from this project?</div>'
-        + '<button onclick="autocode.action.closePopup()">No, Keep Import</button> <button class="secondary" onclick="autocode.action.removeImport({ confirm: true })">Yes, Remove Import</button>'
+        + '<button class="delete" onclick="autocode.action.removeImport({ confirm: true })">Yes, Remove Import</button> <button class="secondary" onclick="autocode.action.closePopup()">No, Keep Import</button>'
     });
     
     return;

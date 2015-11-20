@@ -9,8 +9,9 @@ autocode.state['config'] = function() {
     
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#config-content textarea')[0], {
-      lineNumbers: true,
-      mode: 'yaml'
+      lineNumbers: autocode.editor.lineNumbersEnabled(),
+      mode: 'yaml',
+      theme: autocode.editor.getTheme()
     });
     
     code_mirror = $('#config-content .CodeMirror')
@@ -21,6 +22,8 @@ autocode.state['config'] = function() {
   } else {
     code_mirror[0].CodeMirror.setValue(value);
   }
+  
+  setTimeout(function() { $('#config-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
   
   autocode.resize.all();
 };

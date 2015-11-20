@@ -3,6 +3,10 @@
     "theme": {
       "label": "Theme",
       "type": "text"
+    },
+    "lineNumbers": {
+      "label": "Enable Line Numbers",
+      "type": "checkbox"
     }
   },
   "buttons": {

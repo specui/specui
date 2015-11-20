@@ -25,7 +25,10 @@ autocode.current = {
     return items;
   },
   generators: function() {
-    
+    var schemas = {};
+    schemas = autocode.current.fromExports(schemas, 'generator');
+    schemas = autocode.current.fromImports(schemas, 'generators');
+    return schemas;
   },
   schemas: function() {
     var schemas = {};

@@ -248,6 +248,11 @@
             </aside>
             <section class="column content-center">
               <div class="title tabs" id="imports-tabs"></div>
+              <div id="imports-exports">
+                <div class="imports-export" id="imports-exports-generators"></div>
+                <div class="imports-export" id="imports-exports-helpers"></div>
+                <div class="imports-export" id="imports-exports-schemas"></div>
+              </div>
             </section>
             <aside class="column content-right">
               <div class="field" id="imports-name">
@@ -264,7 +269,7 @@
                 </label>
                 <div class="value" onclick="autocode.action.editImportVersion()"></div>
               </div>
-              <a class="button" onclick="autocode.action.removeImport()">
+              <a class="button delete" onclick="autocode.action.removeImport()">
                 Remove Import
               </a>
             </aside>
@@ -356,6 +361,9 @@
                 </label>
                 <div class="value" onclick="autocode.action.editExportSchema()"></div>
               </div>
+              <a class="button delete" onclick="autocode.action.removeExport()">
+                Remove Export
+              </a>
             </aside>
           </div>
         </div>

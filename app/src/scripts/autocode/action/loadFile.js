@@ -53,9 +53,10 @@ autocode.action.loadFile = function(opts) {
   
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#output-content textarea')[0], {
-      lineNumbers: true,
+      lineNumbers: autocode.editor.lineNumbersEnabled(),
       readOnly: true,
-      mode: mode
+      mode: mode,
+      theme: autocode.editor.getTheme()
     });
     
     code_mirror = $('#output-content .CodeMirror')
@@ -67,6 +68,8 @@ autocode.action.loadFile = function(opts) {
     code_mirror[0].CodeMirror.setOption('mode', mode);
     code_mirror[0].CodeMirror.setValue(value);
   }
+  
+  setTimeout(function() { $('#output-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
   
   autocode.resize.all();
 };

@@ -75,6 +75,8 @@ autocode.action.loadOutput = function(opts) {
     }
   });
   
+  setTimeout(function() { $('#outputs-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
+  
   autocode.action.outputsHide();
   
   autocode.hint.init();

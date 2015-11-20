@@ -9,13 +9,13 @@ autocode.action.commitProject = function(opts) {
   
   if (opts.confirm) {
     var data = {
-      config: autocode.project,
+      config: jsyaml.safeDump(autocode.project),
       message: $('#popup textarea[name="message"]').val(),
       repo: autocode.repo
     };
     
     autocode.popup.open({
-      title: 'Saving Project...'
+      title: 'Committing Project and Pushing to GitHub...'
     });
     autocode.popover.close();
     

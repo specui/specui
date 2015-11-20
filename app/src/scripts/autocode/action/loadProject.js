@@ -92,6 +92,9 @@ autocode.action.loadProject = function(opts) {
     autocode.project = opts.config;
     autocode.data.originalConfig = opts.config;
     
+    autocode.data.current = {
+      pin: true
+    };
     autocode.data.engines = {};
     autocode.data.generators = {};
     autocode.data.schemas = {};
