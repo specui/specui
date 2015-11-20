@@ -4,8 +4,6 @@ autocode.shortcut = {
       if (e.keyCode == 27) {
         if ($('#popup').length) {
           autocode.action.closePopup();
-        } else {
-          autocode.action.closeProject();
         }
         return;
       } else if (!e.ctrlKey || !e.shiftKey) {

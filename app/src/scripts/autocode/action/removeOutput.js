@@ -4,7 +4,7 @@ autocode.action.removeOutput = function(opts) {
   if (!opts.confirm) {
     autocode.popup.open({
       title: 'Delete Output',
-      content: 'Are you sure you want to delete this output? <button onclick="autocode.action.removeOutput({ confirm: true })">Delete Output</button>'
+      content: 'Are you sure you want to delete this output? <button class="delete" onclick="autocode.action.removeOutput({ confirm: true })">Delete Output</button> <button class="secondary" onclick="autocode.action.closePopup()">Cancel</button>'
     });
     return;
   }

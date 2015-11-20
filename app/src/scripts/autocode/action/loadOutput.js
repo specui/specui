@@ -6,10 +6,22 @@ autocode.action.loadOutput = function(opts) {
   var generator = autocode.project.exports && autocode.project.exports[output.generator]
     ? autocode.project.exports[output.generator]
     : null;
-  if (!generator && autocode.imports[output.generator.split('.')[0]]) {
+  var schema;
+  if (generator) {
+    if (typeof(generator.schema) == 'string') {
+      schema = autocode.project.exports[generator.schema].schema;
+    } else {
+      schema = generator.schema;
+    }
+  } else if (!generator && autocode.imports[output.generator.split('.')[0]]) {
     var imported = autocode.imports[output.generator.split('.')[0]];
     if (imported && imported.exports && imported.exports[output.generator.split('.')[1]]) {
       generator = imported.exports[output.generator.split('.')[1]];
+      if (typeof(generator.schema) == 'string') {
+        schema = imported.exports[generator.schema].schema;
+      } else {
+        schema = generator.schema;
+      }
     }
   }
   
@@ -37,6 +49,26 @@ autocode.action.loadOutput = function(opts) {
   
   $('#outputs-content .content-center .schema').empty();
   
+  autocode.data.autocomplete = [];
+  if (schema) {
+    function loadSchemaValues(properties, tab) {
+      var schema_property;
+      for (var schema_name in properties) {
+        if (autocode.data.autocomplete.indexOf(schema_name) === -1) {
+          autocode.data.autocomplete.push(tab + schema_name);
+        }
+        schema_property = properties[schema_name];
+        if (schema_property.properties) {
+          loadSchemaValues(schema_property.properties, schema_name + '.');
+        }
+      }
+    };
+    loadSchemaValues(schema.properties, '');
+  }
+  for (var global_var in autocode.project) {
+    autocode.data.autocomplete.push('$' + global_var);
+  }
+  
   var code_mirror = $('#outputs-content .CodeMirror');
   var mode = 'yaml';
   var value = autocode.project.outputs[autocode.data.current.output].spec
@@ -44,12 +76,31 @@ autocode.action.loadOutput = function(opts) {
     : '';
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#outputs-content textarea')[0], {
+      extraKeys: {
+        "Ctrl-Space": 'autocomplete',
+        Tab: function(cm) {
+          if (cm.somethingSelected()) {
+            cm.indentSelection("add");
+            return;
+          }
+          var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+          cm.replaceSelection(spaces);
+        },
+        'Shift-Tab': function(cm) {
+          cm.indentSelection("subtract");
+        }
+      },
       lineNumbers: autocode.editor.lineNumbersEnabled(),
       mode: mode,
       theme: autocode.editor.getTheme()
     });
     
     code_mirror = $('#outputs-content .CodeMirror')
+    code_mirror[0].CodeMirror.on('keyup', function(cm, event) {
+      if (!cm.state.completionActive && event.keyCode != 13 && event.keyCode != 27) {
+        CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
+      }
+    });
     code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     code_mirror[0].CodeMirror.setValue(value);
     
@@ -59,21 +110,6 @@ autocode.action.loadOutput = function(opts) {
     code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     code_mirror[0].CodeMirror.setValue(value);
   }
-  
-  code_mirror[0].CodeMirror.setOption('mode', mode);
-  code_mirror[0].CodeMirror.setOption('extraKeys', {
-    Tab: function(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection("add");
-        return;
-      }
-      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
-      cm.replaceSelection(spaces);
-    },
-    'Shift-Tab': function(cm) {
-      cm.indentSelection("subtract");
-    }
-  });
   
   setTimeout(function() { $('#outputs-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
   

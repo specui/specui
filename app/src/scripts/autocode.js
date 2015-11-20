@@ -4,6 +4,36 @@ if (window.location.protocol == 'https:') {
   window.location.href = 'http://app.autocode.run';
 }
 
+CodeMirror.registerHelper('hint', 'anyword', function(editor, options) {
+  var WORD = /[\w$]+/, RANGE = 500;
+  
+  var word = options && options.word || WORD;
+  var range = options && options.range || RANGE;
+  var cur = editor.getCursor(), curLine = editor.getLine(cur.line);
+  var end = cur.ch, start = end;
+  while (start && word.test(curLine.charAt(start - 1))) --start;
+  var curWord = start != end && curLine.slice(start, end);
+
+  var list = [];
+  for (var i in autocode.data.autocomplete) {
+    if (curWord === false || autocode.data.autocomplete[i].match(curWord.replace(new RegExp('\\$', 'g'), '\\$'), 'i')) {
+      var word = autocode.data.autocomplete[i];
+      if (word.substr(0, 1) != '$') {
+        word += ': ';
+      }
+      if (list.indexOf(autocode.data.autocomplete[i]) === -1) {
+        list.push(word);
+      }
+    }
+  }
+  
+  return {
+    list: list,
+    from: CodeMirror.Pos(cur.line, start),
+    to: CodeMirror.Pos(cur.line, end)
+  };
+});
+
 jQuery.fn.extend({
   visibleHeight: function() {
     var o = $(this);

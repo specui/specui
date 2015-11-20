@@ -2,7 +2,7 @@
 	"dependencies": {
 		"CodeMirror": "5.7.0",
 		"dragula": "3.5.4",
-		"formulator": "0.6.2",
+		"formulator": "0.7.0",
 		"google-diff-match-patch-js": "1.0.0",
 		"jquery": "2.1.4",
 		"jquery-cookie": "1.4.1",
