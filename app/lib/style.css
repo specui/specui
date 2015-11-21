@@ -530,6 +530,14 @@ textarea {
   background-image: url(images/icon/r.svg);
 }
 
+.icon.release-icon {
+  background-image: url(images/icon/release.svg);
+}
+
+.icon.release-icon.black {
+  background-image: url(images/icon/release-black.svg);
+}
+
 .icon.ruby-icon {
   background-image: url(images/icon/ruby.svg);
 }
@@ -625,6 +633,14 @@ textarea {
 
 .icon.variable-icon {
   background-image: url(images/icon/variable.svg);
+}
+
+.icon.working-copy-icon {
+  background-image: url(images/icon/working-copy.svg);
+}
+
+.icon.working-copy-icon.black {
+  background-image: url(images/icon/working-copy-black.svg);
 }
 
 .icon.xml-icon {

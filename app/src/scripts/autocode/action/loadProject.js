@@ -31,7 +31,12 @@ autocode.action.loadProject = function(opts) {
             
             form.fields.name.keydown = function() {
               if (event.keyCode == 13) {
-                $('#fuzzy a').first().click();
+                if ($('#fuzzy a').first().length) {
+                  $('#fuzzy a').first().click();
+                } else {
+                  var value = $('#popup input[name="name"]').val();
+                  autocode.action.loadProject({ name: value });
+                }
                 return false;
               }
             };
@@ -178,7 +183,7 @@ autocode.action.loadProject = function(opts) {
     return;
   }
   
-  autocode.api.config.get({
+  autocode.api.releases.get({
     data: {
       repo: opts.name
     },
@@ -188,112 +193,126 @@ autocode.action.loadProject = function(opts) {
       });
     },
     success: function(data) {
-      var recent_projects = autocode.storage.get('recent', []);
-      if (recent_projects.indexOf(opts.name) !== -1) {
-        recent_projects.splice(
-          recent_projects.indexOf(opts.name),
-          1
-        );
-      }
-      recent_projects.push(opts.name);
-      if (recent_projects.length > 3) {
-        recent_projects = recent_projects.splice(recent_projects.length - 3, 3);
-      }
-      autocode.storage.set('recent', recent_projects);
+      autocode.data.releases = data;
       
-      autocode.action.updateRecent();
-      
-      var config = autocode.storage.get('config');
-      if (config && config[autocode.repo]) {
-        autocode.project = jsyaml.safeLoad(config[autocode.repo]);
-      } else {
-        autocode.project = jsyaml.safeLoad(data.config);
-      }
-      autocode.data.originalConfig = data.config;
-      
-      autocode.data.engines = {};
-      autocode.data.generators = {};
-      autocode.data.schemas = {};
-      autocode.imports = {};
-      
-      var requests = [];
-      for (var import_name in autocode.project.imports) {
-        requests.push(
-          autocode.api.config.get({
-            data: {
-              repo: import_name
-            },
-            success: function(data) {
-              var imported = this.url.split('?')[1];
-              imported = autocode.query.search(imported);
-              
-              var import_name = imported.repo.split('/');
-              if (import_name.length > 1) {
-                import_name = import_name[1];
-              } else {
-                import_name = import_name[0];
-              }
-              
-              data.config = jsyaml.safeLoad(data.config)
-              
-              autocode.imports[import_name] = data.config;
-              
-              if (data.config.exports) {
-                for (var export_name in data.config.exports) {
-                  switch (data.config.exports[export_name].type) {
-                    case 'engine': {
-                      autocode.data.engines[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
-                      break;
-                    }
-                    case 'generator': {
-                      autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
-                      break;
-                    }
-                    case 'schema': {
-                      autocode.data.schemas[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
-                      break;
+      autocode.api.config.get({
+        data: {
+          repo: opts.name
+        },
+        error: function(data) {
+          $('#welcome').fadeOut(function() {
+            $('#init').fadeIn();
+          });
+        },
+        success: function(data) {
+          var recent_projects = autocode.storage.get('recent', []);
+          if (recent_projects.indexOf(opts.name) !== -1) {
+            recent_projects.splice(
+              recent_projects.indexOf(opts.name),
+              1
+            );
+          }
+          recent_projects.push(opts.name);
+          if (recent_projects.length > 3) {
+            recent_projects = recent_projects.splice(recent_projects.length - 3, 3);
+          }
+          autocode.storage.set('recent', recent_projects);
+          
+          autocode.action.updateRecent();
+          
+          var config = autocode.storage.get('config');
+          if (config && config[autocode.repo]) {
+            autocode.project = jsyaml.safeLoad(config[autocode.repo]);
+          } else {
+            autocode.project = jsyaml.safeLoad(data.config);
+          }
+          autocode.data.originalConfig = data.config;
+          
+          autocode.data.engines = {};
+          autocode.data.generators = {};
+          autocode.data.schemas = {};
+          autocode.imports = {};
+          
+          var requests = [];
+          for (var import_name in autocode.project.imports) {
+            requests.push(
+              autocode.api.config.get({
+                data: {
+                  repo: import_name
+                },
+                success: function(data) {
+                  var imported = this.url.split('?')[1];
+                  imported = autocode.query.search(imported);
+                  
+                  var import_name = imported.repo.split('/');
+                  if (import_name.length > 1) {
+                    import_name = import_name[1];
+                  } else {
+                    import_name = import_name[0];
+                  }
+                  
+                  data.config = jsyaml.safeLoad(data.config)
+                  
+                  autocode.imports[import_name] = data.config;
+                  
+                  if (data.config.exports) {
+                    for (var export_name in data.config.exports) {
+                      switch (data.config.exports[export_name].type) {
+                        case 'engine': {
+                          autocode.data.engines[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                          break;
+                        }
+                        case 'generator': {
+                          autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                          break;
+                        }
+                        case 'schema': {
+                          autocode.data.schemas[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                          break;
+                        }
+                      }
                     }
                   }
                 }
-              }
-            }
-          })
-        );
-      }
-      
-      $.when.apply(undefined, requests).done(function() {
-        autocode.data.engines = autocode.object.sort(autocode.data.engines);
-        autocode.data.generators = autocode.object.sort(autocode.data.generators);
-        autocode.data.schemas = autocode.object.sort(autocode.data.schemas);
-        
-        $('#welcome').fadeOut(function() {
-          document.title = autocode.repo + ' | Autocode';
-          
-          $('#overview-tab').prop('href', opts.name + '/overview');
-          $('#imports-tab').prop('href', opts.name + '/imports');
-          $('#exports-tab').prop('href', opts.name + '/exports');
-          $('#outputs-tab').prop('href', opts.name + '/outputs');
-          $('#interfaces-tab').prop('href', opts.name + '/interfaces');
-          $('#scripts-tab').prop('href', opts.name + '/scripts');
-          $('#config-tab').prop('href', opts.name + '/config');
-          $('#output-tab').prop('href', opts.name + '/output');
-          
-          $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
-          $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
-                    
-          $('header').fadeIn();
-          $('#menu-project').show();
-          
-          autocode.state['overview']();
-          
-          $('.app').fadeIn();
-          
-          if (opts.callback) {
-            opts.callback();
+              })
+            );
           }
           
-          autocode.resize.all();
-        });
+          $.when.apply(undefined, requests).done(function() {
+            autocode.data.engines = autocode.object.sort(autocode.data.engines);
+            autocode.data.generators = autocode.object.sort(autocode.data.generators);
+            autocode.data.schemas = autocode.object.sort(autocode.data.schemas);
+            
+            $('#welcome').fadeOut(function() {
+              document.title = autocode.repo + ' | Autocode';
+              
+              $('#overview-tab').prop('href', opts.name + '/overview');
+              $('#imports-tab').prop('href', opts.name + '/imports');
+              $('#exports-tab').prop('href', opts.name + '/exports');
+              $('#outputs-tab').prop('href', opts.name + '/outputs');
+              $('#interfaces-tab').prop('href', opts.name + '/interfaces');
+              $('#scripts-tab').prop('href', opts.name + '/scripts');
+              $('#config-tab').prop('href', opts.name + '/config');
+              $('#output-tab').prop('href', opts.name + '/output');
+              
+              $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
+              $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
+                        
+              $('header').fadeIn();
+              $('#menu-project').show();
+              
+              autocode.state['overview']();
+              
+              $('.app').fadeIn();
+              
+              if (opts.callback) {
+                opts.callback();
+              }
+              
+              autocode.resize.all();
+            });
+          });
+        }
       });
     }
   });

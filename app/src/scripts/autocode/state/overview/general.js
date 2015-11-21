@@ -4,7 +4,7 @@ autocode.state['overview/general'] = function() {
   
   $('#overview-general-name .value').text(autocode.project.name || '[ Click to Add ]');
   $('#overview-general-version .value').text(autocode.project.version || '[ Click to Add ]');
-  $('#overview-general-description .value').html(marked(autocode.project.description) || '[ Click to Add ]');
+  $('#overview-general-description .value').html(autocode.project.description ? marked(autocode.project.description) : '[ Click to Add ]');
   $('#overview-general-url .value').html(
     autocode.project.url
     ? '<a href="' + autocode.project.url + '">' + autocode.project.url + '</a>'
