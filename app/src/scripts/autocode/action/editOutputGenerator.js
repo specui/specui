@@ -11,6 +11,49 @@ autocode.action.editOutputGenerator = function() {
     formula: 'formulas/forms/Generator.json',
     xhr: true,
     ready: function(form) {
+      form.fields.generator.autocomplete = false;
+      form.fields.generator.focus = function(o) {
+        $(o).trigger('keyup');
+      };
+      form.fields.generator.keydown = function() {
+        if (event.keyCode == 13) {
+          $('#fuzzy a').first().click();
+        }
+      };
+      form.fields.generator.keyup = function() {
+        var value = $('#popup input[name="generator"]').val();
+        
+        var current_generators = autocode.current.generators();
+        var generator, generator_icon, generators = [];
+        for (var generator_name in current_generators) {
+          generator = current_generators[generator_name];
+          if (generator_name.split('.').length > 1) {
+            generator_icon = 'https://cdn.rawgit.com/crystal/' + generator_name.split('.')[0] + '/master/.autocode/icon.svg';
+          } else {
+            generator_icon = 'project-icon black';
+          }
+          if (generator_name.match(new RegExp(value, 'i'))) {
+            generators.push({
+              action: {
+                name: 'addOutputGenerator',
+                data: {
+                  name: generator_name
+                }
+              },
+              icon: generator_icon,
+              text: generator_name
+            });
+          }
+        }
+        autocode.fuzzy.open({
+          rows: generators,
+          target: $('#popup input[name="generator"]'),
+          value: value
+        });
+        
+        $('#popup input[name="filename"]').attr('placeholder', current_generators[value] && current_generators[value].filename ? current_generators[value].filename : '');
+      };
+      
       autocode.popup.open({
         title: 'Edit Output Generator',
         content: form.toString()

@@ -28,6 +28,12 @@ autocode.action.commitProject = function(opts) {
         });
       },
       success: function(data) {
+        var config = autocode.storage.get('config');
+        if (!config || typeof(config) != 'object') {
+          config = {};
+        }
+        delete(config[autocode.repo]);
+        autocode.storage.set('config', config);
         autocode.data.originalConfig = jsyaml.safeDump(autocode.project);
         autocode.popup.close();
       }

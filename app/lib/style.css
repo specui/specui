@@ -323,6 +323,10 @@ textarea {
   background-image: url(images/icon/docker.svg);
 }
 
+.icon.dockerfile-icon {
+  background-image: url(images/icon/dockerfile.svg);
+}
+
 .icon.editor-icon {
   background-image: url(images/icon/editor.svg);
 }

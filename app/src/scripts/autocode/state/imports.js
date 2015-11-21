@@ -50,10 +50,13 @@ autocode.state['imports'] = function(opts) {
         
         $('#imports-search').keyup(function(e) {
           if (e.keyCode == 13) {
-            if (!$(this).val().length || !$('#fuzzy a').first().find('.text').length) {
+            if (!$(this).val().length) {
               return false;
             }
-            var text = $('#fuzzy a').first().find('.text').text();
+            var text = $(this).val();
+            if ($('#fuzzy a').first().find('.text').length) {
+              text = $('#fuzzy a').first().find('.text').text();
+            }
             autocode.action.addImport({ repo: text });
             $(this).val('');
             autocode.fuzzy.close();
