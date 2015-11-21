@@ -16,6 +16,11 @@ autocode.action.editExportType = function() {
       form.fields.type.focus = function(o) {
         $(o).trigger('keyup');
       };
+      form.fields.type.keydown = function() {
+        if (event.keyCode == 13) {
+          $('#fuzzy a').first().click();
+        }
+      };
       form.fields.type.keyup = function() {
         var rows = [], type_name, types = autocode.data.exportTypes;
         for (var i in types) {

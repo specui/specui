@@ -21,6 +21,6 @@ autocode.action.clean = function(opts) {
   // open popup
   autocode.popup.open({
     title: 'Are you sure?',
-    content: '<div style="padding-bottom: 20px">Cleaning your project means that all of your generated files will be destroyed and need to be regenerated.</div><button onclick="autocode.action.closePopup()">No, Nevermind</button> <button class="secondary" onclick="autocode.action.clean({ confirmed: true })">Yes, Do It</button>'
+    content: '<div style="padding-bottom: 20px">Cleaning your project means that all of your generated files will be destroyed and need to be regenerated.</div><button class="delete" onclick="autocode.action.clean({ confirmed: true })">Yes, Do It</button> <button class="secondary" onclick="autocode.action.closePopup()">No, Nevermind</button>'
   });
 };

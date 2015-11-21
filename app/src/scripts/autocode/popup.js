@@ -69,8 +69,15 @@ autocode.popup = {
     }
     
     $('#popup').css('opacity', 0.01).show();
-    $('#popup input, #popup textarea').first().focus().keyup();
-    $('#popup').animate({ opacity: 1 }, { complete: opts.complete });
+    $('#popup').animate({ opacity: 1 }, {
+      complete: function() {
+        $('#popup input, #popup textarea').first().focus().keyup();
+        
+        if (opts.complete) {
+          opts.complete();
+        }
+      }
+    });
     
     autocode.resize.all(['fuzzy', 'overlay', 'popup']);
     

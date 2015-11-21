@@ -243,18 +243,6 @@ textarea {
   width: 16px;
 }
 
-.icon.build-icon {
-  background-image: url(images/icon/build.svg);
-}
-
-.icon.build-icon.black {
-  background-image: url(images/icon/build-black.svg);
-}
-
-.icon.file-bower {
-  background-image: url(images/file/bower.svg);
-}
-
 .icon.add-icon {
   background-image: url(images/icon/add.svg);
 }
@@ -263,8 +251,24 @@ textarea {
   background-image: url(images/icon/author.svg);
 }
 
+.icon.build-icon {
+  background-image: url(images/icon/build.svg);
+}
+
+.icon.build-icon.black {
+  background-image: url(images/icon/build-black.svg);
+}
+
+.icon.c-icon {
+  background-image: url(images/icon/c.svg);
+}
+
 .icon.clean-icon {
   background-image: url(images/icon/clean.svg);
+}
+
+.icon.clojure-icon {
+  background-image: url(images/icon/clojure.svg);
 }
 
 .icon.close-icon {
@@ -279,6 +283,18 @@ textarea {
   background-image: url(images/icon/coffeescript.svg);
 }
 
+.icon.cpp-icon {
+  background-image: url(images/icon/cpp.svg);
+}
+
+.icon.csharp-icon {
+  background-image: url(images/icon/csharp.svg);
+}
+
+.icon.cson-icon {
+  background-image: url(images/icon/cson.svg);
+}
+
 .icon.commit-icon {
   background-image: url(images/icon/commit.svg);
 }
@@ -289,6 +305,14 @@ textarea {
 
 .icon.console-icon.white {
   background-image: url(images/icon/console-white.svg);
+}
+
+.icon.d-icon {
+  background-image: url(images/icon/d.svg);
+}
+
+.icon.dart-icon {
+  background-image: url(images/icon/dart.svg);
 }
 
 .icon.delete-icon {
@@ -307,6 +331,10 @@ textarea {
   background-image: url(images/icon/engine.svg);
 }
 
+.icon.erlang-icon {
+  background-image: url(images/icon/erlang.svg);
+}
+
 .icon.eslint-icon {
   background-image: url(images/icon/eslint.svg);
 }
@@ -321,6 +349,10 @@ textarea {
 
 .icon.file-icon {
   background-image: url(images/icon/file.svg);
+}
+
+.icon.fsharp-icon {
+  background-image: url(images/icon/fsharp.svg);
 }
 
 .icon.general-icon {
@@ -351,8 +383,24 @@ textarea {
   background-image: url(images/icon/gitter-hover.svg);
 }
 
+.icon.go-icon {
+  background-image: url(images/icon/go.svg);
+}
+
+.icon.groovy-icon {
+  background-image: url(images/icon/groovy.svg);
+}
+
 .icon.halt-icon {
   background-image: url(images/icon/halt.svg);
+}
+
+.icon.haskell-icon {
+  background-image: url(images/icon/haskell.svg);
+}
+
+.icon.haxe-icon {
+  background-image: url(images/icon/haxe.svg);
 }
 
 .icon.helper-icon {
@@ -368,8 +416,20 @@ textarea {
   cursor: help;
 }
 
+.icon.ini-icon {
+  background-image: url(images/icon/ini.svg);
+}
+
 .icon.interface-icon {
   background-image: url(images/icon/interface.svg);
+}
+
+.icon.java-icon {
+  background-image: url(images/icon/java.svg);
+}
+
+.icon.javascript-icon {
+  background-image: url(images/icon/javascript.svg);
 }
 
 .icon.js-icon {
@@ -414,12 +474,24 @@ textarea {
   background-image: url(images/icon/more.svg);
 }
 
+.icon.objectivec-icon {
+  background-image: url(images/icon/objectivec.svg);
+}
+
 .icon.processor-icon {
   background-image: url(images/icon/processor.svg);
 }
 
 .icon.npm-icon {
   background-image: url(images/icon/npm.svg);
+}
+
+.icon.perl-icon {
+  background-image: url(images/icon/perl.svg);
+}
+
+.icon.php-icon {
+  background-image: url(images/icon/php.svg);
 }
 
 .icon.pin-icon {
@@ -438,12 +510,24 @@ textarea {
   background-image: url(images/icon/project-black.svg);
 }
 
+.icon.python-icon {
+  background-image: url(images/icon/python.svg);
+}
+
 .icon.reboot-icon {
   background-image: url(images/icon/reboot.svg);
 }
 
 .icon.reimage-icon {
   background-image: url(images/icon/reimage.svg);
+}
+
+.icon.r-icon {
+  background-image: url(images/icon/r.svg);
+}
+
+.icon.ruby-icon {
+  background-image: url(images/icon/ruby.svg);
 }
 
 .icon.run-icon {
@@ -458,8 +542,16 @@ textarea {
   background-image: url(images/icon/stop.svg);
 }
 
+.icon.rust-icon {
+  background-image: url(images/icon/rust.svg);
+}
+
 .icon.save-icon {
   background-image: url(images/icon/save.svg);
+}
+
+.icon.scala-icon {
+  background-image: url(images/icon/scala.svg);
 }
 
 .icon.schema-icon,
@@ -494,6 +586,10 @@ textarea {
   -webkit-animation: rotating 2s linear infinite;
 }
 
+.icon.text-icon {
+  background-image: url(images/icon/text.svg);
+}
+
 .icon.tour {
   background-image: url(images/tour.svg);
   background-size: 160px 160px !important;
@@ -525,6 +621,10 @@ textarea {
 
 .icon.variable-icon {
   background-image: url(images/icon/variable.svg);
+}
+
+.icon.xml-icon {
+  background-image: url(images/icon/xml.svg);
 }
 
 .icon.yaml-icon {

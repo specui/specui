@@ -125,13 +125,18 @@ loadModules = (modules, host) ->
 				
 				# handle schema
 				if typeof(exported.schema) == 'string'
-					export_path = path.normalize "#{module_path}/.autocode/schema/#{exported.schema}"
-					if fs.existsSync export_path
-						schema = yaml.safeLoad fs.readFileSync(export_path)
-					else if module_config.exports[exported.schema]
-						schema = module_config.exports[exported.schema].schema
+					if exported.schema.match /^https?:/
+						schema = request 'get', exported.schema
+						console.log schema
+						schema = yaml.safeLoad schema.body.toString()
 					else
-						schema = exported.schema
+						export_path = path.normalize "#{module_path}/.autocode/schema/#{exported.schema}"
+						if fs.existsSync export_path
+							schema = yaml.safeLoad fs.readFileSync(export_path)
+						else if module_config.exports[exported.schema]
+							schema = module_config.exports[exported.schema].schema
+						else
+							schema = exported.schema
 					module_config.exports[export_name].schema = schema
 				
 				# handle spec

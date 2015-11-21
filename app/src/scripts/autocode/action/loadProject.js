@@ -29,6 +29,12 @@ autocode.action.loadProject = function(opts) {
           ready: function(form) {
             form.fields.name.autocomplete = false;
             
+            form.fields.name.keydown = function() {
+              if (event.keyCode == 13) {
+                $('#fuzzy a').first().click();
+                return false;
+              }
+            };
             form.fields.name.keyup = function() {
               var value = $('#popup input[name="name"]').val();
               
@@ -47,6 +53,7 @@ autocode.action.loadProject = function(opts) {
                   });
                 }
               }
+              
               autocode.fuzzy.open({
                 rows: projects,
                 target: $('#popup input[name="name"]'),

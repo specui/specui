@@ -67,14 +67,7 @@ autocode.action.addExport = function() {
         $(o).trigger('keyup');
       };
       form.fields.format.keyup = function() {
-        var rows = [], type_name, types = [
-          'cson',
-          'java',
-          'javascript',
-          'json',
-          'markdown',
-          'yaml'
-        ];
+        var rows = [], type_name, types = autocode.data.formats;
         for (var i in types) {
           type_name = types[i];
           if (type_name.match(new RegExp(value, 'i'))) {

@@ -12,6 +12,7 @@ imports:
   crystal/bower: ~0.4.1
   crystal/git: ~0.2.0
   crystal/grunt: ~0.3.1
+  crystal/license: ~0.4.0
   crystal/npm: ~0.4.0
   crystal/readme: ~0.5.1
   crystal/travis: ~0.3.0
@@ -152,6 +153,10 @@ outputs:
             - app/src/scripts/*/**
           tasks:
             - concat
+  
+  - generator: license.ApacheGenerator
+    spec:
+      copyright: $copyright
   
   - generator: npm.NPMIgnoreGenerator
     spec:
