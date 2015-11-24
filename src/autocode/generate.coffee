@@ -26,14 +26,14 @@ force = false
 loaded_modules = {}
 imports = {}
 
-requireFromString = (src, filename) ->
+requireFromString = (code, modules_path) ->
 	try
-	  m = new module.constructor()
-	  m.paths = module.paths
-	  m._compile src, filename
-	  m.exports
+		m = new module.constructor()
+		m.paths = ["#{modules_path}"]
+		m._compile code, modules_path
+		m.exports
 	catch e
-		src
+		code
 
 loadModules = (modules, host) ->
 	# load each module
@@ -102,7 +102,7 @@ loadModules = (modules, host) ->
 					if fs.existsSync export_path
 						engine = require export_path
 					else
-						engine = requireFromString exported.engine
+						engine = requireFromString exported.engine, "#{module_path}/node_modules"
 					module_config.exports[export_name].engine = engine
 					
 				# handle helper
@@ -111,7 +111,7 @@ loadModules = (modules, host) ->
 					if fs.existsSync export_path
 						helper = require export_path
 					else
-						helper = requireFromString exported.helper
+						helper = requireFromString exported.helper, "#{module_path}/node_modules"
 					module_config.exports[export_name].helper = helper
 					
 				# handle processor
@@ -120,7 +120,7 @@ loadModules = (modules, host) ->
 					if fs.existsSync export_path
 						processor = require export_path
 					else
-						processor = requireFromString exported.processor
+						processor = requireFromString exported.processor, "#{module_path}/node_modules"
 					module_config.exports[export_name].processor = processor
 				
 				# handle schema
@@ -162,6 +162,8 @@ loadModules = (modules, host) ->
 							spec = exported.spec
 						module_config.exports[export_name].spec = spec
 				
+				#console.log exported.template
+				
 				# handle template
 				if typeof(exported.template) == 'string'
 					export_path = path.normalize "#{module_path}/.autocode/template/#{exported.template}"
@@ -177,7 +179,7 @@ loadModules = (modules, host) ->
 					if fs.existsSync export_path
 						transformer = require export_path
 					else
-						transformer = requireFromString exported.transformer
+						transformer = requireFromString exported.transformer, "#{module_path}/node_modules"
 					module_config.exports[export_name].transformer = transformer
 		
 		# add module to loaded modules
@@ -555,11 +557,11 @@ loadOutputs = (outputs, imports, config) ->
 						template = inject template, null, true
 					else
 						template = inject template, injectors, true
-					content = engine content_spec, template, helpers
+					content = engine content_spec, template, helpers, process.cwd()
 				else
 					if template
 						template = inject template, injectors, true
-					content = engine spec, template, helpers
+					content = engine spec, template, helpers, process.cwd()
 			else if template
 				template = inject template, injectors, true
 				content = template
