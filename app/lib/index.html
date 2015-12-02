@@ -252,17 +252,21 @@
             <aside class="column content-left">
               <nav><a class="selected" data-hint="Repos that have been imported to this project." id="imports-imported" onclick="autocode.action.loadImportTab({ tab: 'imported' })">Imported</a><a data-hint="My Public and Private Repos on GitHub." id="imports-mine" onclick="autocode.action.loadImportTab({ tab: 'mine' })">Mine</a><a data-hint="Public Repos from all users." id="imports-public" onclick="autocode.action.loadImportTab({ tab: 'public' })">Public</a></nav>
               <div class="search">
-                <input autocomplete="off" placeholder="Filter Imports" id="imports-search" type="text" />
+                <input autocomplete="off" placeholder="Find a Repo" id="imports-search" type="text" />
               </div>
               <div class="table"></div>
             </aside>
             <section class="column content-center">
+              <nav class="tabs" id="imports-tabs"></nav>
               <div class="title" id="imports-title"></div>
-              <div class="tabs" id="imports-tabs"></div>
               <div id="imports-exports">
+                <div class="imports-export" id="imports-exports-engines"></div>
                 <div class="imports-export" id="imports-exports-generators"></div>
                 <div class="imports-export" id="imports-exports-helpers"></div>
+                <div class="imports-export" id="imports-exports-processors"></div>
                 <div class="imports-export" id="imports-exports-schemas"></div>
+                <div class="imports-export" id="imports-exports-specs"></div>
+                <div class="imports-export" id="imports-exports-transformers"></div>
               </div>
             </section>
             <aside class="column content-right">

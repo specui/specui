@@ -264,7 +264,10 @@ autocode.action.loadProject = function(opts) {
           
           autocode.data.engines = {};
           autocode.data.generators = {};
+          autocode.data.helpers = {};
+          autocode.data.processors = {};
           autocode.data.schemas = {};
+          autocode.data.transformers = {};
           autocode.imports = {};
           
           var requests = [];
@@ -298,6 +301,14 @@ autocode.action.loadProject = function(opts) {
                         }
                         case 'generator': {
                           autocode.data.generators[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                          break;
+                        }
+                        case 'helper': {
+                          autocode.data.helpers[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
+                          break;
+                        }
+                        case 'processor': {
+                          autocode.data.processors[imported.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(data.config.exports[export_name]));
                           break;
                         }
                         case 'schema': {

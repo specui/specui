@@ -913,6 +913,11 @@ textarea {
 }
 */
 
+#content .content-center nav {
+  float: right;
+  padding-top: 30px;
+}
+
 #content .content-center .info-icon {
   margin-left: 10px;
 }
