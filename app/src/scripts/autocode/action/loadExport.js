@@ -41,6 +41,12 @@ autocode.action.loadExport = function(opts) {
       tabs = ['template'];
       
       mode = export_data.format;
+      switch (mode) {
+        case 'html': {
+          mode = 'htmlmixed';
+          break;
+        }
+      }
       value = export_data.template || "\n";
       
       break;

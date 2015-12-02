@@ -8,7 +8,7 @@ autocode.action.share = function() {
   
   autocode.popup.open({
     title: 'Share Configuration',
-    content: '<input id="popup-copy-target" type="text" value="' + location.protocol + '//' + location.host + '/?config=' + value + '" /><button class="copy-button" data-clipboard-target="popup-copy-target">Copy</button> <button class="secondary" onclick="autocode.action.closePopup()">Close</button>'
+    content: '<input id="popup-copy-target" type="text" value="' + location.protocol + '//' + location.host + '/' + autocode.repo + '" /><button class="copy-button" data-clipboard-target="popup-copy-target">Copy</button> <button class="secondary" onclick="autocode.action.closePopup()">Close</button>'
   });
   
   var client = new ZeroClipboard($('.copy-button')[0]);

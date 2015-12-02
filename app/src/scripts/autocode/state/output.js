@@ -16,7 +16,7 @@ autocode.state['output'] = function() {
         }
         
         autocode.ws.io.emit('contents', {
-          config: autocode.project,
+          config: jsyaml.safeDump(autocode.project),
           project: autocode.repo.split('/')[1],
           user: autocode.repo.split('/')[0],
           file: data.instance.get_path(data.node,'/')

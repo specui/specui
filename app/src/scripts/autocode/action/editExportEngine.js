@@ -49,7 +49,16 @@ autocode.action.editExportEngine = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
-      autocode.project.exports[autocode.data.current.export].engine = data.engine;
+      if (data.engine && data.engine.length && !autocode.data.engines[data.engine]) {
+        autocode.popup.error('Unknown engine.');
+        return false;
+      }
+      
+      if (data.engine && data.engine.length) {
+        autocode.project.exports[autocode.data.current.export].engine = data.engine;
+      } else {
+        delete(autocode.project.exports[autocode.data.current.export].engine);
+      }
       
       autocode.action.loadExport({ repo: data.name });
       

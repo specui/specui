@@ -1,6 +1,8 @@
 autocode.action.closeProject = function(opts) {
   opts = opts || {};
   
+  history.pushState(null, null, '/');
+  
   autocode.popover.close();
   
   var config = autocode.storage.get('config');

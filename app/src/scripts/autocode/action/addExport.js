@@ -111,8 +111,20 @@ autocode.action.addExport = function() {
         }
       });
       
+      if (!data.name) {
+        autocode.popup.error('Name is required.');
+        return false;
+      } else if (!data.name.match(/^[a-z0-9]+$/i)) {
+        autocode.popup.error('Name is alphanumeric.');
+        return false;
+      }
+      
       if (data.type) {
         data.type = data.type.toLowerCase();
+      }
+      if (autocode.data.exportTypes.indexOf(data.type) === -1) {
+        autocode.popup.error('Type is invalid.');
+        return false;
       }
       
       var name = data.name;

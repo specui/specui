@@ -3,7 +3,7 @@ autocode.action.run = function() {
     autocode.data.current.running = false;
     
     autocode.ws.io.emit('stop', {
-      config: autocode.project,
+      config: jsyaml.safeDump(autocode.project),
       project: autocode.repo.split('/')[1],
       user: autocode.repo.split('/')[0]
     });
@@ -36,7 +36,7 @@ autocode.action.run = function() {
   }
   
   autocode.ws.io.emit('run', {
-    config: autocode.project,
+    config: jsyaml.safeDump(autocode.project),
     project: autocode.repo.split('/')[1],
     user: autocode.repo.split('/')[0]
   });

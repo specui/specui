@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "project": {
+      "label": "Project",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Load Project",
+      "type": "submit"
+    }
+  }
+}

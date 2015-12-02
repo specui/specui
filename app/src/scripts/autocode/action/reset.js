@@ -37,20 +37,7 @@ autocode.action.reset = function(opts) {
     });
     return;
   }
-
-  var output;
-  for (var output_i in autocode.project.outputs) {
-    output = autocode.project.outputs[output_i];
-    
-    if (!autocode.data.generators[output.generator]) {
-      autocode.popup.open({
-        title: 'Validation Error',
-        content: 'Generator does not exist for output: <b>' + output.generator + '</b>'
-      });
-      return;
-    }
-  }
-
+  
   autocode.popup.open({
     title: 'Reset Project',
     content: '<div>Are you sure you want to discard all changes? <a href="#">Show Changes</a></div><div class="diff"></div><button class="delete" onclick="autocode.action.reset({ confirm: true })">Reset Project</button> <button class="secondary" onclick="autocode.action.closePopup()">Cancel</button>'

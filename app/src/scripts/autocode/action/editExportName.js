@@ -22,6 +22,14 @@ autocode.action.editExportName = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
+      if (!data.name) {
+        autocode.popup.error('Name is required.');
+        return false;
+      } else if (!data.name.match(/^[a-z0-9]+$/i)) {
+        autocode.popup.error('Name is alphanumeric.');
+        return false;
+      }
+      
       if (data.name != autocode.data.current.export) {
         autocode.project.exports[data.name] = autocode.object.clone(autocode.project.exports[autocode.data.current.export]);
         delete(autocode.project.exports[autocode.data.current.export]);

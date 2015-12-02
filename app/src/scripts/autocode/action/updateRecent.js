@@ -7,7 +7,7 @@ autocode.action.updateRecent = function() {
   if (recent_projects.length) {
     var html = '';
     for (var i = 0; i < recent_projects.length; i++) {
-      html += '<a href="' + recent_projects[i] + '">' + recent_projects[i] + '</a>';
+      html += '<a onclick="autocode.action.loadProject({ confirm: true, name: \'' + recent_projects[i] + '\' })">' + recent_projects[i] + '</a>';
     }
     $('#welcome .recent .projects').html(html);
     

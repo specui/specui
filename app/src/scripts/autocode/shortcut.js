@@ -31,6 +31,11 @@ autocode.shortcut = {
           autocode.state['output']();
           break;
         }
+        // a
+        case 65: {
+          autocode.action.access();
+          break;
+        }
         // b
         case 66: {
           autocode.action.build();

@@ -12,16 +12,23 @@ autocode.action.toggleMenu = function() {
         icon: 'close-icon',
         state: '/'
       });
+      /*
+      rows.push({
+        action: 'access',
+        text: 'Project Access (Ctrl+Shift+A)',
+        style: 'divider',
+        icon: 'access-icon'
+      });
+      */
       rows.push({
         action: 'commitProject',
         text: 'Commit Project (Ctrl+Shift+M)',
-        style: 'divider',
         icon: 'commit-icon'
       });
       rows.push({
+        action: 'reset',
         text: 'Reset Project (Ctrl+Shift+T)',
-        icon: 'close-icon',
-        state: '/'
+        icon: 'reset-icon'
       });
       rows.push({
         action: 'githubRepo',
@@ -48,12 +55,14 @@ autocode.action.toggleMenu = function() {
       icon: 'login-icon'
     });
   }
+  /*
   rows.push({
     text: 'Take a Tour',
     icon: 'tour-icon',
     state: 'tour',
     style: 'divider'
   });
+  */
   
   autocode.popover.toggle({
     rows: rows,

@@ -62,7 +62,16 @@ autocode.action.editExportSchema = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
-      autocode.project.exports[autocode.data.current.export].schema = data.schema;
+      if (data.schema && data.schema.length && !autocode.current.schemas()[data.schema]) {
+        autocode.popup.error('Unknown schema.');
+        return false;
+      }
+      
+      if (data.schema && data.schema.length) {
+        autocode.project.exports[autocode.data.current.export].schema = data.schema;
+      } else {
+        delete(autocode.project.exports[autocode.data.current.export].schema);
+      }
       
       autocode.action.loadExport({ repo: data.name });
       

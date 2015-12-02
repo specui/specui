@@ -14,46 +14,86 @@ autocode.popup = {
     return false;
   },
   open: function(opts) {
+    // close popup
     autocode.popup.close();
     
+    // create popup
     var popup = $(document.createElement('div'));
     popup.attr('id', 'popup');
     popup.hide();
     
-    var html = '';
+    // append title to popup
     if (opts.title) {
-      html += '<div class="title"' + (opts.content ? '' : ' style="padding-bottom: 0px"') + '>' + opts.title + '</div>';
+      var title = $(document.createElement('div'));
+      title.addClass('title');
+      if (!opts.content) {
+        title.css('paddingBottom', 0);
+      }
+      title.text(opts.title);
+      popup.append(title);
     }
-    html += '<div class="error"></div>';
-    if (!opts.content) {
+    
+    // append error to popup
+    var error = $(document.createElement('div'));
+    error.addClass('error');
+    popup.append(error);
+    
+    // append content to popup
+    var content;
+    if (opts.content) {
+      content = $(document.createElement('div'));
+      content.addClass('content');
+      content.html(opts.content);
+    } else {
       switch (opts.style) {
         case 'table':
-          opts.content = '<div class="table">';
-          var row_action;
+          content = $(document.createElement('div'));
+          content.addClass('table');
+          
+          var row, row_element, row_icon, row_text;
           for (var row_i = 0; row_i < opts.rows.length; row_i++) {
-            if (opts.rows[row_i].state) {
-              row_action = ' href="' + opts.rows[row_i].state + '"';
-            } else if (typeof(opts.rows[row_i].action) == 'object') {
-              row_action = ' onclick="autocode.action.' + opts.rows[row_i].action.name + '(' + JSON.stringify(opts.rows[row_i].action.data) + ')"';
-            } else if (typeof(opts.rows[row_i].action) == 'string') {
-              row_action = ' onclick="autocode.action.' + opts.rows[row_i].action + '()"';
-            } else {
-              row_action = '';
+            row = opts.rows[row_i];
+            
+            row_element = $(document.createElement('a'));
+            
+            if (row.state) {
+              row.attr('href', row.state);
+            } else if (typeof(row.action) == 'object') {
+              row.on('click', 'autocode.action.' + row.action.name + '(' + JSON.stringify(row.action.data) + ')');
+            } else if (typeof(row.action) == 'string') {
+              row.on('click', 'autocode.action.' + row.action + '()');
             }
             
-            opts.content += '<a' + row_action + '>'
-                + '<span class="icon' + (!opts.rows[row_i].icon.match(/^http/) ? ' ' + opts.rows[row_i].icon : '') + '" style="' + (!!opts.rows[row_i].icon.match(/^http/) ? 'background-image: url(' + opts.rows[row_i].icon + ');' : '') + (opts.rows[row_i].style == 'divider' ? 'border-top: 1px #CCC solid' : '') + '"></span>'
-                + '<span class="text"' + (opts.rows[row_i].style == 'divider' ? ' style="border-top: 1px #CCC solid"' : '') + '>' + opts.rows[row_i].text + '</span>'
-              + '</a>';
+            // add icon to row
+            if (row.icon) {
+              row_icon = $(document.createElement('span'));
+              row_icon.addClass('icon');
+              if (!row.icon.match(/^http/)) {
+                row_icon.addClass(row.icon);
+              } else {
+                row_icon.css('backgroundImage', 'url(' + row.icon + ');');
+              }
+              if (row.style == 'divider') {
+                row_icon.css('borderTop', '1px #CCC solid');
+              }
+            }
+            
+            // add text to row
+            if (row.text) {
+              row_text = $(document.createElement('span'));
+              row_text.addClass('text');
+              if (row.style == 'divider') {
+                row_text.css('borderTop', '1px #CCC solid');
+              }
+              row_text.text(row.text);
+            }
           }
-          opts.content += '</div>';
           break;
       }
     }
-    if (opts.content) {
-      html += '<div class="content">' + opts.content + '</div>';
+    if (content) {
+      popup.append(content);
     }
-    popup.html(html);
     
     $('body').append(popup);
     

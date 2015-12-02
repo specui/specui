@@ -30,6 +30,7 @@
   <script src="components/CodeMirror/mode/haml/haml.js"></script>
   <script src="components/CodeMirror/mode/handlebars/handlebars.js"></script>
   <script src="components/CodeMirror/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="components/CodeMirror/mode/jade/jade.js"></script>
   <script src="components/CodeMirror/mode/javascript/javascript.js"></script>
   <script src="components/CodeMirror/mode/markdown/markdown.js"></script>
   <script src="components/CodeMirror/mode/nginx/nginx.js"></script>
@@ -75,7 +76,7 @@
             <span class="text">Login</span>
           </a>
           <a data-hint="Project Menu" data-hint-min-top="62" id="project" onclick="autocode.action.toggleMenu()">
-            <span class="icon project-icon"></span>
+            <span class="icon login-icon white"></span>
             <span class="text">Tour</span>
           </a>
           <a data-hint="Release Menu" data-hint-min-top="62" id="release" onclick="autocode.action.toggleRelease()">
@@ -124,25 +125,27 @@
     </div>
     <div id="welcome">
       <div>
-        <img height="200" src="images/splash.svg" />
+        <img height="50" src="images/logo-blue.svg" />
       </div>
       <div class="options">
         <a class="option" id="new-option" onclick="autocode.action.newProject()">
-          <span class="icon add-icon"></span>
-          <span class="text">New Project</span>
+          <span class="icon add-icon" style="background-size: 90%"></span>
+          <span class="button">New Project</span>
         </a>
         <a class="option" id="load-option" onclick="autocode.action.loadProject()">
           <span class="icon load-icon"></span>
-          <span class="text">Open Project</span>
+          <span class="button">Open Project</span>
         </a>
         <a class="option" id="login-option" onclick="autocode.action.login()">
           <span class="icon github-icon"></span>
-          <span class="text">Login with GitHub</span>
+          <span class="button">Login with GitHub</span>
         </a>
+        <!--
         <a class="option" href="tour" id="tour-option">
           <span class="icon tour"></span>
-          <span class="text">Take a Tour</span>
+          <span class="button">Take a Tour</span>
         </a>
+        -->
       </div>
       <div class="recent">
         Recent: <span class="projects"></span>
@@ -247,13 +250,15 @@
         <div class="content" id="imports-content">
           <div id="imports-content-container">
             <aside class="column content-left">
+              <nav><a class="selected" data-hint="Repos that have been imported to this project." id="imports-imported" onclick="autocode.action.loadImportTab({ tab: 'imported' })">Imported</a><a data-hint="My Public and Private Repos on GitHub." id="imports-mine" onclick="autocode.action.loadImportTab({ tab: 'mine' })">Mine</a><a data-hint="Public Repos from all users." id="imports-public" onclick="autocode.action.loadImportTab({ tab: 'public' })">Public</a></nav>
               <div class="search">
-                <input autocomplete="off" placeholder="Import a Project" id="imports-search" type="text" />
+                <input autocomplete="off" placeholder="Filter Imports" id="imports-search" type="text" />
               </div>
               <div class="table"></div>
             </aside>
             <section class="column content-center">
-              <div class="title tabs" id="imports-tabs"></div>
+              <div class="title" id="imports-title"></div>
+              <div class="tabs" id="imports-tabs"></div>
               <div id="imports-exports">
                 <div class="imports-export" id="imports-exports-generators"></div>
                 <div class="imports-export" id="imports-exports-helpers"></div>
@@ -275,9 +280,6 @@
                 </label>
                 <div class="value" onclick="autocode.action.editImportVersion()"></div>
               </div>
-              <a class="button delete" onclick="autocode.action.removeImport()">
-                Remove Import
-              </a>
             </aside>
           </div>
         </div>
@@ -287,9 +289,18 @@
               Exports
             </div>
             <div>
-              Exports give other projects/modules extended functionality.
+              Export Generators, Engines, Schemas and more to other Repos.
             </div>
-            <button onclick="autocode.action.addExport()">Create Export</button>
+            <div id="exports-init-icons">
+              <span class="icon generator-icon" data-hint="Generator"></span>
+              <span class="icon engine-icon" data-hint="Engine"></span>
+              <span class="icon schema-icon" data-hint="Schema"></span>
+              <span class="icon spec-icon" data-hint="Spec"></span>
+              <span class="icon helper-icon" data-hint="Helper"></span>
+              <span class="icon processor-icon" data-hint="Processor"></span>
+              <span class="icon transformer-icon" data-hint="Transformer"></span>
+            </div>
+            <button onclick="autocode.action.addExport()">Add Export</button>
           </div>
           <div id="exports-content-container">
             <aside class="column content-left" id="content-left">
@@ -367,9 +378,6 @@
                 </label>
                 <div class="value" onclick="autocode.action.editExportSchema()"></div>
               </div>
-              <a class="button delete" onclick="autocode.action.removeExport()">
-                Remove Export
-              </a>
             </aside>
           </div>
         </div>
@@ -564,6 +572,10 @@
     <nav id="support">
       <a href="https://crystal.readme.io" target="_blank">Docs</a>
       <a href="https://github.com/crystal/autocode/issues" target="_blank">Issues</a>
+      <!--
+      <a href="https://autocode.run/terms" target="_blank">Terms</a>
+      <a href="https://autocode.run/privacy" target="_blank">Privacy</a>
+      -->
       <a href="https://autocode.run/contact" target="_blank">Contact</a>
     </nav>
     <nav>

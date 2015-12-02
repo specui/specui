@@ -1,0 +1,32 @@
+{
+  "action": "/upgrade",
+  "method": "post",
+  "fields": {
+    "name": {
+      "label": "Name on Card",
+      "placeholder": "Your Name",
+      "type": "text"
+    },
+    "number": {
+      "label": "Card Number",
+      "placeholder": "1111 1111 1111 1111",
+      "type": "text"
+    },
+    "exp": {
+      "label": "Expiration Date",
+      "placeholder": "10/16",
+      "type": "text"
+    },
+    "code": {
+      "label": "CSV Code",
+      "placeholder": "123",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Upgrade Account",
+      "type": "submit"
+    }
+  }
+}

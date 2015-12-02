@@ -7,7 +7,7 @@ autocode.action.addImport = function(opts) {
   
   autocode.project.imports[opts.repo] = 'Loading...';
   
-  autocode.state['imports']({ disableSelected: true });
+  autocode.state['imports']({ disableSelected: true, tab: autocode.data.current.importTab });
   $('#imports-search').val('');
   $('#imports-content-readme').text('');
   
@@ -54,7 +54,7 @@ autocode.action.addImport = function(opts) {
           }
         });
         
-        autocode.state['imports']({ disableSelected: true });
+        autocode.state['imports']({ disableSelected: true, tab: autocode.data.current.importTab });
         if ($(window).width() > autocode.mobile.minWidth) {
           autocode.action.loadImport({ repo: opts.repo });
         }

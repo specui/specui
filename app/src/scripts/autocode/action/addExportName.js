@@ -1,6 +1,7 @@
 autocode.action.addExportName = function(opts) {
   $('#popup input[name="type"]').val(opts.name);
   
+  /*
   switch (true) {
     case ['engine','helper','processor','schema','spec','transformer'].indexOf(opts.name.toLowerCase()) !== -1: {
       $('#popup input[name="engine"]').parents('.field').hide();
@@ -19,6 +20,7 @@ autocode.action.addExportName = function(opts) {
       break;
     }
   }
+  */
   
   autocode.fuzzy.close();
   

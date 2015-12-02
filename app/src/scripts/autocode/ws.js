@@ -33,7 +33,9 @@ autocode.ws = {
     });
     autocode.ws.io.on('files', function(data) {
       autocode.data.output = data;
-      autocode.state['output']();
+      if (autocode.data.current.tab == 'output') {
+        autocode.state['output']();
+      }
     });
     autocode.ws.io.on('message', function(data) {
       if (data.processing === true) {

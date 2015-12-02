@@ -7,7 +7,7 @@ autocode.action.clean = function(opts) {
     
     // clean project
     autocode.ws.io.emit('clean', {
-      config: autocode.project,
+      config: jsyaml.safeDump(autocode.project),
       project: autocode.repo.split('/')[1],
       user: autocode.repo.split('/')[0]
     });

@@ -73,7 +73,8 @@ autocode.load = function() {
                     
                     autocode.action.loadProject({
                       name: name,
-                      callback: state ? autocode.state[state] : null
+                      callback: state ? autocode.state[state] : null,
+                      confirm: true
                     });
                   }
                 });

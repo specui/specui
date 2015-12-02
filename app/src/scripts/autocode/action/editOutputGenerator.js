@@ -65,7 +65,19 @@ autocode.action.editOutputGenerator = function() {
         data[$(this).attr('name')] = $(this).val();
       });
       
-      autocode.project.outputs[autocode.data.current.output].generator = data.generator;
+      if (!data.generator && !data.generator.length) {
+        autocode.popup.error('Generator is required.');
+        return false;
+      } else if (!autocode.current.generators()[data.generator]) {
+        autocode.popup.error('Unknown generator.');
+        return false;
+      }
+      
+      if (data.generator && data.generator.length) {
+        autocode.project.outputs[autocode.data.current.output].generator = data.generator;
+      } else {
+        delete(autocode.project.outputs[autocode.data.current.output].generator);
+      }
       
       autocode.state['outputs']();
       autocode.action.loadOutput();

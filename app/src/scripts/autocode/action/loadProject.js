@@ -24,24 +24,24 @@ autocode.action.loadProject = function(opts) {
         autocode.data.projects = data;
         
         new formulator({
-          formula: 'formulas/forms/Name.json',
+          formula: 'formulas/forms/Project.json',
           xhr: true,
           ready: function(form) {
-            form.fields.name.autocomplete = false;
+            form.fields.project.autocomplete = false;
             
-            form.fields.name.keydown = function() {
+            form.fields.project.keydown = function() {
               if (event.keyCode == 13) {
-                if ($('#fuzzy a').first().length) {
+                var value = $('#popup input[name="project"]').val();
+                if ($('#fuzzy a').first().length && value != $('#fuzzy a').first().text()) {
                   $('#fuzzy a').first().click();
                 } else {
-                  var value = $('#popup input[name="name"]').val();
-                  autocode.action.loadProject({ name: value });
+                  autocode.action.loadProject({ confirm: true, name: value });
                 }
                 return false;
               }
             };
-            form.fields.name.keyup = function() {
-              var value = $('#popup input[name="name"]').val();
+            form.fields.project.keyup = function() {
+              var value = $('#popup input[name="project"]').val();
               
               var project, projects = [];
               for (var project_i in autocode.data.projects) {
@@ -54,6 +54,7 @@ autocode.action.loadProject = function(opts) {
                         name: project.name
                       }
                     },
+                    icon: (project.private ? 'black private' : 'login') + '-icon',
                     text: project.name
                   });
                 }
@@ -61,15 +62,15 @@ autocode.action.loadProject = function(opts) {
               
               autocode.fuzzy.open({
                 rows: projects,
-                target: $('#popup input[name="name"]'),
+                target: $('#popup input[name="project"]'),
                 value: value
               });
               
-              $('#popup input[name="name"]').attr('placeholder', 'Search GitHub...');
+              $('#popup input[name="project"]').attr('placeholder', 'Search GitHub...');
             };
             
             autocode.popup.open({
-              title: 'Load Project',
+              title: 'Open Project',
               content: form.toString()
             });
           }
@@ -80,11 +81,38 @@ autocode.action.loadProject = function(opts) {
     return;
   }
   
+  if (!opts.confirm) {
+    autocode.fuzzy.close();
+    $('#popup input[name="project"]').val(opts.name).focus();
+    return;
+  }
+  
+  if (!autocode.data.projects) {
+    autocode.api.repos.get({
+      success: function(data) {
+        autocode.data.projects = data;
+        autocode.action.loadProject(opts);
+      }
+    });
+    return;
+  }
+
+  var project;
+  for (var i in autocode.data.projects) {
+    if (autocode.data.projects[i].name == opts.name) {
+      project = autocode.data.projects[i];
+    }
+  }
+  if (!project) {
+    $('#popup .error').text('Project does not exist: ' + opts.name).show();
+    return;
+  }
+  
   autocode.unload.enable();
   
   $('.app, #init').fadeOut();
   
-  $('#popup input[name="name"]').val(opts.name);
+  $('#popup input[name="project"]').val(opts.name);
   
   autocode.fuzzy.close();
   $('#popup, #overlay').fadeOut(function() {
@@ -98,6 +126,12 @@ autocode.action.loadProject = function(opts) {
     $('#project .text').text(opts.name.split('/')[1]);
   } else {
     $('#project .text').text(opts.name);
+  }
+  
+  if (project.private) {
+    $('#project .icon').removeClass('login-icon').addClass('private-icon');
+  } else {
+    $('#project .icon').removeClass('private-icon').addClass('login-icon');
   }
   
   if (opts.config) {

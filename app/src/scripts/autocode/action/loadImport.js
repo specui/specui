@@ -6,8 +6,9 @@ autocode.action.loadImport = function(opts) {
   $('#imports-content-container .table a').removeClass('selected');
   $('#imports-content-container .table a').eq(opts.index).addClass('selected');
   
+  $('#imports-title').text(opts.repo);
   $('#imports-name .value').text(opts.repo);
-  $('#imports-version .value').text(autocode.project.imports[opts.repo]);
+  $('#imports-version .value').text(autocode.project.imports[opts.repo] || 'n/a');
   $('#imports-content-readme').text('');
   
   $('#imports-tabs, #imports-exports .imports-export').hide();
@@ -43,6 +44,25 @@ autocode.action.loadImport = function(opts) {
       for (var i = 0; i < tabs.length; i++) {
         tab = tabs[i];
         $('#imports-tabs').append('<a' + (i == 0 ? ' class="selected"' : '') + ' id="imports-' + tab + '-tab" onclick="autocode.action.importsTab({ name: \'' + tab + '\' })">' + tab.substr(0,1).toUpperCase() + tab.substr(1) + '</a>');
+      }
+      
+      if (config.exports) {
+        for (var export_name in config.exports) {
+          switch (config.exports[export_name].type) {
+            case 'engine': {
+              autocode.data.engines[opts.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(config.exports[export_name]));
+              break;
+            }
+            case 'generator': {
+              autocode.data.generators[opts.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(config.exports[export_name]));
+              break;
+            }
+            case 'schema': {
+              autocode.data.schemas[opts.repo.split('/')[1] + '.' + export_name] = JSON.parse(JSON.stringify(config.exports[export_name]));
+              break;
+            }
+          }
+        }
       }
       
       for (var export_name in config.exports) {

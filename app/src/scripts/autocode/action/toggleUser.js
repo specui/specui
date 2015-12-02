@@ -4,21 +4,21 @@ autocode.action.toggleUser = function() {
       rows: [
         /*
         {
-          icon: 'settings-icon',
-          state: 'user/settings',
-          text: 'Settings'
+          icon: 'upgrade-icon',
+          state: autocode.url.account(),
+          text: 'Upgrade Account'
         },
         */
-        {
-          action: 'githubUser',
-          icon: 'login-icon',
-          text: 'View on GitHub'
-        },
         {
           action: 'editorSettings',
           icon: 'editor-icon',
           style: 'divider',
           text: 'Editor Settings'
+        },
+        {
+          action: 'githubUser',
+          icon: 'login-icon',
+          text: 'View on GitHub'
         },
         {
           action: 'logout',

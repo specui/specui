@@ -9,7 +9,9 @@ autocode.action.loadOutput = function(opts) {
   var schema;
   if (generator) {
     if (typeof(generator.schema) == 'string') {
-      schema = autocode.project.exports[generator.schema].schema;
+      if (autocode.project.exports[generator.schema]) {
+        schema = autocode.project.exports[generator.schema].schema;
+      }
     } else {
       schema = generator.schema;
     }
@@ -28,7 +30,7 @@ autocode.action.loadOutput = function(opts) {
   autocode.data.current.generator = output.generator;
   
   var filename = output.filename;
-  if (!filename && generator.filename) {
+  if (!filename && generator && generator.filename) {
     filename = '[ ' + generator.filename + ' ]';
   } else if (!filename) {
     filename = '[ Click to Add ]';
@@ -96,11 +98,13 @@ autocode.action.loadOutput = function(opts) {
     });
     
     code_mirror = $('#outputs-content .CodeMirror')
+    /*
     code_mirror[0].CodeMirror.on('keyup', function(cm, event) {
       if (!cm.state.completionActive && event.keyCode != 13 && event.keyCode != 27) {
         CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
       }
     });
+    */
     code_mirror[0].CodeMirror.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     code_mirror[0].CodeMirror.setValue(value);
     

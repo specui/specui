@@ -22,7 +22,7 @@ autocode.action.update = function() {
   }
   
   autocode.ws.io.emit('update', {
-    config: autocode.project,
+    config: jsyaml.safeDump(autocode.project),
     project: autocode.repo.split('/')[1],
     user: autocode.repo.split('/')[0]
   });

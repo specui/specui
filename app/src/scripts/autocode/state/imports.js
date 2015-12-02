@@ -12,22 +12,7 @@ autocode.state['imports'] = function(opts) {
   
   $('#imports-content-container .table a').remove();
   
-  var import_index = 0, import_version;
-  for (var import_name in autocode.object.sort(autocode.project.imports)) {
-    import_version = autocode.project.imports[import_name];
-    
-    $('#imports-content-container .table').append(
-      '<a class="file' + (autocode.data.current.import == import_name ? ' selected' : '') + '" onclick="autocode.action.loadImport({ repo: \'' + import_name + '\', index: ' + import_index + ' })">'
-        + '<span class="image"><span class="icon" style="background-image: url(https://cdn.rawgit.com/' + import_name + '/master/.autocode/icon.svg)"></span></span>'
-        + '<span class="info">'
-          + '<span class="name">' + import_name + '</span>'
-          + '<span class="generator">' + import_version + '</span>'
-        + '</span>'
-      + '</a>'
-    );
-    
-    import_index++;
-  }
+  autocode.action.loadImportTab({ tab: opts.tab || 'imported' });
   
   autocode.initState();
   

@@ -19,6 +19,7 @@ autocode.action.editExportType = function() {
       form.fields.type.keydown = function() {
         if (event.keyCode == 13) {
           $('#fuzzy a').first().click();
+          return false;
         }
       };
       form.fields.type.keyup = function() {
@@ -56,7 +57,7 @@ autocode.action.editExportType = function() {
       });
       
       if (autocode.data.exportTypes.indexOf(data.type.toLowerCase()) === -1) {
-        autocode.popup.error('Unknown type: ' + data.type);
+        autocode.popup.error('Unknown type.');
         return;
       }
       

@@ -126,8 +126,10 @@ autocode.state['tour'] = function() {
     
     $('.info-icon').hide();
     
+    /*
     autocode.ws.ip = '52.9.49.123';
     autocode.ws.init();
+    */
     
     autocode.repo = 'tour/autocode-' + Math.random();
     autocode.imports = {};

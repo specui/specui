@@ -54,8 +54,21 @@ button.delete, .button.delete {
   background-color: #FF6666;
 }
 
+button.button-icon, .button.button-icon {
+  background-position: 9px 50%;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 40px;
+}
+
 button.secondary, .button.secondary {
   background-color: #999;
+}
+
+button[disabled], .button[disabled] {
+  background-color: #999 !important;
+  color: #CCC !important;
+  cursor: no-drop !important;
 }
 
 code {
@@ -83,11 +96,11 @@ footer .icon {
 }
 
 footer .icon.github-icon {
-  background-image: url(images/icon/github.svg);
+  background-image: url(images/icon/github.svg) !important;
 }
 
 footer .icon.github-icon:hover {
-  background-image: url(images/icon/github-hover.svg);
+  background-image: url(images/icon/github-hover.svg) !important;
 }
 
 header {
@@ -203,36 +216,6 @@ textarea {
   cursor: -webkit-grabbing !important;
 }
 
-.file .image {
-  border-bottom: 1px #EEE solid;
-  height: 50px;
-  width: 50px;
-}
-
-.file .image .icon {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  height: 50px;
-  padding: 10px;
-  vertical-align: middle;
-  width: 50px;  
-}
-
-.file .info {
-  border-bottom: 1px #EEE solid;
-  vertical-align: middle;
-}
-
-.file .info .generator {
-  color: #CCC;
-  font-size: 12px;
-}
-
-.file .info .name {
-  font-size: 16px;
-}
-
 .icon {
   background-repeat: no-repeat;
   background-position: center center;
@@ -243,412 +226,438 @@ textarea {
   width: 16px;
 }
 
-.icon.add-icon {
-  background-image: url(images/icon/add.svg);
+/* ICONS */
+
+.access-icon {
+  background-image: url(images/icon/access.svg) !important;
 }
 
-.icon.author-icon {
-  background-image: url(images/icon/author.svg);
+.add-icon {
+  background-image: url(images/icon/add.svg) !important;
 }
 
-.icon.build-icon {
-  background-image: url(images/icon/build.svg);
+.author-icon {
+  background-image: url(images/icon/author.svg) !important;
 }
 
-.icon.build-icon.black {
-  background-image: url(images/icon/build-black.svg);
+.build-icon {
+  background-image: url(images/icon/build.svg) !important;
 }
 
-.icon.c-icon {
-  background-image: url(images/icon/c.svg);
+.build-icon.black {
+  background-image: url(images/icon/build-black.svg) !important;
 }
 
-.icon.clean-icon {
-  background-image: url(images/icon/clean.svg);
+.c-icon {
+  background-image: url(images/icon/c.svg) !important;
 }
 
-.icon.clojure-icon {
-  background-image: url(images/icon/clojure.svg);
+.clean-icon {
+  background-image: url(images/icon/clean.svg) !important;
 }
 
-.icon.close-icon {
-  background-image: url(images/icon/close.svg);
+.clojure-icon {
+  background-image: url(images/icon/clojure.svg) !important;
 }
 
-.icon.close-icon.white {
-  background-image: url(images/icon/close-white.svg);
+.close-icon {
+  background-image: url(images/icon/close.svg) !important;
 }
 
-.icon.coffeescript-icon {
-  background-image: url(images/icon/coffeescript.svg);
+.close-icon.white {
+  background-image: url(images/icon/close-white.svg) !important;
 }
 
-.icon.cpp-icon {
-  background-image: url(images/icon/cpp.svg);
+.coffeescript-icon {
+  background-image: url(images/icon/coffeescript.svg) !important;
 }
 
-.icon.csharp-icon {
-  background-image: url(images/icon/csharp.svg);
+.cpp-icon {
+  background-image: url(images/icon/cpp.svg) !important;
 }
 
-.icon.cson-icon {
-  background-image: url(images/icon/cson.svg);
+.csharp-icon {
+  background-image: url(images/icon/csharp.svg) !important;
 }
 
-.icon.commit-icon {
-  background-image: url(images/icon/commit.svg);
+.cson-icon {
+  background-image: url(images/icon/cson.svg) !important;
 }
 
-.icon.console-icon {
-  background-image: url(images/icon/console.svg);
+.commit-icon {
+  background-image: url(images/icon/commit.svg) !important;
 }
 
-.icon.console-icon.white {
-  background-image: url(images/icon/console-white.svg);
+.console-icon {
+  background-image: url(images/icon/console.svg) !important;
 }
 
-.icon.d-icon {
-  background-image: url(images/icon/d.svg);
+.console-icon.white {
+  background-image: url(images/icon/console-white.svg) !important;
 }
 
-.icon.dart-icon {
-  background-image: url(images/icon/dart.svg);
+.d-icon {
+  background-image: url(images/icon/d.svg) !important;
 }
 
-.icon.delete-icon {
-  background-image: url(images/icon/delete.svg);
+.dart-icon {
+  background-image: url(images/icon/dart.svg) !important;
 }
 
-.icon.docker-icon {
-  background-image: url(images/icon/docker.svg);
+.delete-icon {
+  background-image: url(images/icon/delete.svg) !important;
 }
 
-.icon.dockerfile-icon {
-  background-image: url(images/icon/dockerfile.svg);
+.docker-icon {
+  background-image: url(images/icon/docker.svg) !important;
 }
 
-.icon.editor-icon {
-  background-image: url(images/icon/editor.svg);
+.dockerfile-icon {
+  background-image: url(images/icon/dockerfile.svg) !important;
 }
 
-.icon.engine-icon {
-  background-image: url(images/icon/engine.svg);
+.editor-icon {
+  background-image: url(images/icon/editor.svg) !important;
 }
 
-.icon.erlang-icon {
-  background-image: url(images/icon/erlang.svg);
+.engine-icon {
+  background-image: url(images/icon/engine.svg) !important;
 }
 
-.icon.eslint-icon {
-  background-image: url(images/icon/eslint.svg);
+.erlang-icon {
+  background-image: url(images/icon/erlang.svg) !important;
 }
 
-.icon.facebook-icon {
-  background-image: url(images/icon/facebook.svg);
+.eslint-icon {
+  background-image: url(images/icon/eslint.svg) !important;
 }
 
-.icon.facebook-icon:hover {
-  background-image: url(images/icon/facebook-hover.svg);
+.facebook-icon {
+  background-image: url(images/icon/facebook.svg) !important;
 }
 
-.icon.file-icon {
-  background-image: url(images/icon/file.svg);
+.facebook-icon:hover {
+  background-image: url(images/icon/facebook-hover.svg) !important;
 }
 
-.icon.fsharp-icon {
-  background-image: url(images/icon/fsharp.svg);
+.file-icon {
+  background-image: url(images/icon/file.svg) !important;
 }
 
-.icon.general-icon {
-  background-image: url(images/icon/general.svg);
+.fsharp-icon {
+  background-image: url(images/icon/fsharp.svg) !important;
 }
 
-.icon.generate-icon {
-  background-image: url(images/icon/generate.svg);
+.general-icon {
+  background-image: url(images/icon/general.svg) !important;
 }
 
-.icon.generator-icon {
-  background-image: url(images/icon/generator.svg);
+.generate-icon {
+  background-image: url(images/icon/generate.svg) !important;
 }
 
-.icon.git-icon {
-  background-image: url(images/icon/git.svg);
+.generator-icon {
+  background-image: url(images/icon/generator.svg) !important;
 }
 
-.icon.github-icon {
-  background-image: url(images/github.svg);
+.git-icon {
+  background-image: url(images/icon/git.svg) !important;
 }
 
-.icon.gitter-icon {
-  background-image: url(images/icon/gitter.svg);
+.github-icon {
+  background-image: url(images/github.svg) !important;
 }
 
-.icon.gitter-icon:hover {
-  background-image: url(images/icon/gitter-hover.svg);
+.github2-icon {
+  background-image: url(images/icon/github-white.svg) !important;
 }
 
-.icon.go-icon {
-  background-image: url(images/icon/go.svg);
+.gitter-icon {
+  background-image: url(images/icon/gitter.svg) !important;
 }
 
-.icon.groovy-icon {
-  background-image: url(images/icon/groovy.svg);
+.gitter-icon:hover {
+  background-image: url(images/icon/gitter-hover.svg) !important;
 }
 
-.icon.halt-icon {
-  background-image: url(images/icon/halt.svg);
+.go-icon {
+  background-image: url(images/icon/go.svg) !important;
 }
 
-.icon.haskell-icon {
-  background-image: url(images/icon/haskell.svg);
+.groovy-icon {
+  background-image: url(images/icon/groovy.svg) !important;
 }
 
-.icon.haxe-icon {
-  background-image: url(images/icon/haxe.svg);
+.halt-icon {
+  background-image: url(images/icon/halt.svg) !important;
 }
 
-.icon.helper-icon {
-  background-image: url(images/icon/helper.svg);
+.haskell-icon {
+  background-image: url(images/icon/haskell.svg) !important;
 }
 
-.icon.html-icon {
-  background-image: url(images/icon/html.svg);
+.haxe-icon {
+  background-image: url(images/icon/haxe.svg) !important;
 }
 
-.icon.info-icon {
-  background-image: url(images/info.svg);
+.helper-icon {
+  background-image: url(images/icon/helper.svg) !important;
+}
+
+.html-icon {
+  background-image: url(images/icon/html.svg) !important;
+}
+
+.info-icon {
+  background-image: url(images/info.svg) !important;
   cursor: help;
 }
 
-.icon.ini-icon {
-  background-image: url(images/icon/ini.svg);
+.ini-icon {
+  background-image: url(images/icon/ini.svg) !important;
 }
 
-.icon.interface-icon {
-  background-image: url(images/icon/interface.svg);
+.interface-icon {
+  background-image: url(images/icon/interface.svg) !important;
 }
 
-.icon.java-icon {
-  background-image: url(images/icon/java.svg);
+.java-icon {
+  background-image: url(images/icon/java.svg) !important;
 }
 
-.icon.javascript-icon {
-  background-image: url(images/icon/javascript.svg);
+.javascript-icon {
+  background-image: url(images/icon/javascript.svg) !important;
 }
 
-.icon.js-icon {
-  background-image: url(images/file/js.svg);
+.js-icon {
+  background-image: url(images/file/js.svg) !important;
 }
 
-.icon.json-icon {
-  background-image: url(images/file/json.svg);
+.json-icon {
+  background-image: url(images/file/json.svg) !important;
 }
 
-.icon.load-icon {
-  background-image: url(images/icon/load.svg);
+.load-icon {
+  background-image: url(images/icon/load.svg) !important;
 }
 
-.icon.loader-icon {
-  background-image: url(images/icon/loader.svg);
+.loader-icon {
+  background-image: url(images/icon/loader.svg) !important;
 }
 
-.icon.loader-icon.loading {
+.loader-icon.loading {
   animation: rotating 2s linear infinite;
   -moz-animation: rotating 2s linear infinite;
   -webkit-animation: rotating 2s linear infinite;
 }
 
-.icon.login-icon {
-  background-image: url(images/icon/login.svg);
+.login-icon {
+  background-image: url(images/icon/login.svg) !important;
 }
 
-.icon.logout-icon {
-  background-image: url(images/icon/logout.svg);
+.login-icon.white {
+  background-image: url(images/icon/login-white.svg) !important;
 }
 
-.icon.markdown-icon {
-  background-image: url(images/icon/markdown.svg);
+.logout-icon {
+  background-image: url(images/icon/logout.svg) !important;
 }
 
-.icon.menu-icon {
-  background-image: url(images/menu.svg);
+.markdown-icon {
+  background-image: url(images/icon/markdown.svg) !important;
 }
 
-.icon.more-icon {
-  background-image: url(images/icon/more.svg);
+.menu-icon {
+  background-image: url(images/menu.svg) !important;
 }
 
-.icon.objectivec-icon {
-  background-image: url(images/icon/objectivec.svg);
+.more-icon {
+  background-image: url(images/icon/more.svg) !important;
 }
 
-.icon.processor-icon {
-  background-image: url(images/icon/processor.svg);
+.objectivec-icon {
+  background-image: url(images/icon/objectivec.svg) !important;
 }
 
-.icon.npm-icon {
-  background-image: url(images/icon/npm.svg);
+.processor-icon {
+  background-image: url(images/icon/processor.svg) !important;
 }
 
-.icon.perl-icon {
-  background-image: url(images/icon/perl.svg);
+.npm-icon {
+  background-image: url(images/icon/npm.svg) !important;
 }
 
-.icon.php-icon {
-  background-image: url(images/icon/php.svg);
+.perl-icon {
+  background-image: url(images/icon/perl.svg) !important;
 }
 
-.icon.pin-icon {
-  background-image: url(images/icon/pin.svg);
+.php-icon {
+  background-image: url(images/icon/php.svg) !important;
 }
 
-.icon.pin-icon.active {
-  background-image: url(images/icon/pin-active.svg);
+.pin-icon {
+  background-image: url(images/icon/pin.svg) !important;
 }
 
-.icon.project-icon {
-  background-image: url(images/icon/project.svg);
+.pin-icon.active {
+  background-image: url(images/icon/pin-active.svg) !important;
 }
 
-.icon.project-icon.black {
-  background-image: url(images/icon/project-black.svg);
+.private-icon {
+  background-image: url(images/icon/private.svg) !important;
 }
 
-.icon.python-icon {
-  background-image: url(images/icon/python.svg);
+.private-icon.black {
+  background-image: url(images/icon/private-black.svg) !important;
 }
 
-.icon.reboot-icon {
-  background-image: url(images/icon/reboot.svg);
+.project-icon {
+  background-image: url(images/icon/project.svg) !important;
 }
 
-.icon.reimage-icon {
-  background-image: url(images/icon/reimage.svg);
+.project-icon.black {
+  background-image: url(images/icon/project-black.svg) !important;
 }
 
-.icon.r-icon {
-  background-image: url(images/icon/r.svg);
+.python-icon {
+  background-image: url(images/icon/python.svg) !important;
 }
 
-.icon.release-icon {
-  background-image: url(images/icon/release.svg);
+.reboot-icon {
+  background-image: url(images/icon/reboot.svg) !important;
 }
 
-.icon.release-icon.black {
-  background-image: url(images/icon/release-black.svg);
+.reimage-icon {
+  background-image: url(images/icon/reimage.svg) !important;
 }
 
-.icon.ruby-icon {
-  background-image: url(images/icon/ruby.svg);
+.r-icon {
+  background-image: url(images/icon/r.svg) !important;
 }
 
-.icon.run-icon {
-  background-image: url(images/icon/run.svg);
+.release-icon {
+  background-image: url(images/icon/release.svg) !important;
 }
 
-.icon.run-icon.black {
-  background-image: url(images/icon/run-black.svg);
+.release-icon.black {
+  background-image: url(images/icon/release-black.svg) !important;
 }
 
-.icon.run-icon.stop {
-  background-image: url(images/icon/stop.svg);
+.reset-icon {
+  background-image: url(images/icon/reset.svg) !important;
 }
 
-.icon.rust-icon {
-  background-image: url(images/icon/rust.svg);
+.ruby-icon {
+  background-image: url(images/icon/ruby.svg) !important;
 }
 
-.icon.save-icon {
-  background-image: url(images/icon/save.svg);
+.run-icon {
+  background-image: url(images/icon/run.svg) !important;
 }
 
-.icon.scala-icon {
-  background-image: url(images/icon/scala.svg);
+.run-icon.black {
+  background-image: url(images/icon/run-black.svg) !important;
 }
 
-.icon.schema-icon,
-.icon.schematic-icon {
-  background-image: url(images/icon/schema.svg);
+.run-icon.stop {
+  background-image: url(images/icon/stop.svg) !important;
 }
 
-.icon.settings-icon {
-  background-image: url(images/icon/settings.svg);
+.rust-icon {
+  background-image: url(images/icon/rust.svg) !important;
 }
 
-.icon.share-icon {
-  background-image: url(images/icon/share.svg);
+.save-icon {
+  background-image: url(images/icon/save.svg) !important;
 }
 
-.icon.spec-icon {
-  background-image: url(images/icon/spec.svg);
+.scala-icon {
+  background-image: url(images/icon/scala.svg) !important;
 }
 
-.icon.stop-icon.black {
-  background-image: url(images/icon/stop-black.svg);
+.schema-icon,
+.schematic-icon {
+  background-image: url(images/icon/schema.svg) !important;
 }
 
-.icon.target-icon {
-  background-image: url(images/icon/target.svg);
+.settings-icon {
+  background-image: url(images/icon/settings.svg) !important;
 }
 
-.icon.target-icon.loading {
-  background-image: url(images/icon/loader.svg);
+.share-icon {
+  background-image: url(images/icon/share.svg) !important;
+}
+
+.spec-icon {
+  background-image: url(images/icon/spec.svg) !important;
+}
+
+.stop-icon.black {
+  background-image: url(images/icon/stop-black.svg) !important;
+}
+
+.target-icon {
+  background-image: url(images/icon/target.svg) !important;
+}
+
+.target-icon.loading {
+  background-image: url(images/icon/loader.svg) !important;
   animation: rotating 2s linear infinite;
   -moz-animation: rotating 2s linear infinite;
   -webkit-animation: rotating 2s linear infinite;
 }
 
-.icon.text-icon {
-  background-image: url(images/icon/text.svg);
+.text-icon {
+  background-image: url(images/icon/text.svg) !important;
 }
 
-.icon.tour {
+.tour {
   background-image: url(images/tour.svg);
   background-size: 160px 160px !important;
 }
 
-.icon.tour-icon {
-  background-image: url(images/icon/tour.svg);
+.tour-icon {
+  background-image: url(images/icon/tour.svg) !important;
 }
 
-.icon.transformer-icon {
-  background-image: url(images/icon/transformer.svg);
+.transformer-icon {
+  background-image: url(images/icon/transformer.svg) !important;
 }
 
-.icon.twitter-icon {
-  background-image: url(images/icon/twitter.svg);
+.twitter-icon {
+  background-image: url(images/icon/twitter.svg) !important;
 }
 
-.icon.twitter-icon:hover {
-  background-image: url(images/icon/twitter-hover.svg);
+.twitter-icon:hover {
+  background-image: url(images/icon/twitter-hover.svg) !important;
 }
 
-.icon.update-icon {
-  background-image: url(images/icon/update.svg);
+.update-icon {
+  background-image: url(images/icon/update.svg) !important;
 }
 
-.icon.upgrade-icon {
-  background-image: url(images/icon/upgrade.svg);
+.upgrade-icon {
+  background-image: url(images/icon/upgrade.svg) !important;
 }
 
-.icon.variable-icon {
-  background-image: url(images/icon/variable.svg);
+.variable-icon {
+  background-image: url(images/icon/variable.svg) !important;
 }
 
-.icon.working-copy-icon {
-  background-image: url(images/icon/working-copy.svg);
+.working-copy-icon {
+  background-image: url(images/icon/working-copy.svg) !important;
 }
 
-.icon.working-copy-icon.black {
-  background-image: url(images/icon/working-copy-black.svg);
+.working-copy-icon.black {
+  background-image: url(images/icon/working-copy-black.svg) !important;
 }
 
-.icon.xml-icon {
-  background-image: url(images/icon/xml.svg);
+.xml-icon {
+  background-image: url(images/icon/xml.svg) !important;
 }
 
-.icon.yaml-icon {
-  background-image: url(images/icon/yaml.svg);
+.yaml-icon {
+  background-image: url(images/icon/yaml.svg) !important;
 }
 
 .jstree .icon {
@@ -820,8 +829,13 @@ textarea {
   background-color: #FFF;
 }
 
+#content aside .table {
+  display: block;
+}
+
 #content aside .table a {
-  display: table-row;
+  display: block;
+  position: relative;
 }
 
 #content aside .table a.selected {
@@ -829,7 +843,7 @@ textarea {
 }
 
 #content aside .table a span {
-  display: table-cell;
+  display: inline-block;
 }
 
 #content aside .table a span span {
@@ -838,15 +852,34 @@ textarea {
 
 #content aside .table a span.icon {
   height: 50px;
-  padding: 10px;
   width: 50px;
+}
+
+#content aside .table a span.image {
+  display: inline-block;
+}
+
+#content aside .table a span.info {
+  display: inline-block;
+  vertical-align: middle;
+  width: -webkit-calc(100% - 70px);
 }
 
 #content aside .table a span.info .name {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 80%;
+  white-space: nowrap;
+  width: 100%;
+}
+
+#content aside .table a span.info .generator {
+  color: #999;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 #content aside.content-right .icon {
@@ -907,12 +940,22 @@ textarea {
   margin-top: 20px;
 }
 
+#exports-init .icon {
+  height: 32px;
+  margin: 0px 10px;
+  width: 32px;
+}
+
 #exports-init .title {
   border-bottom: 1px #CCC solid;
   color: #185F96;
   margin-bottom: 20px;
   padding-bottom: 20px;
   font-size: 32px;
+}
+
+#exports-init-icons {
+  padding-top: 20px;
 }
 
 #fuzzy {
@@ -969,6 +1012,40 @@ textarea {
 
 #imports-content-container {
   display: none;
+}
+
+#imports-content-container aside a button {
+  display: none;
+  position: absolute;
+  right: 10px;
+  text-align: center;
+  top: 4px;
+  width: 40px
+}
+
+#imports-content-container aside a button.delete,
+#imports-content-container aside a:hover button {
+  display: block;
+}
+
+#imports-content-container aside nav a {
+  border: 1px #FFF solid;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 33.3%;
+}
+
+#imports-content-container aside nav a:hover {
+  border: 1px #EEE solid;
+}
+
+#imports-content-container aside nav a.selected {
+  background-color: #EEE;
+  border: 1px #CCC solid;
 }
 
 #imports-init {

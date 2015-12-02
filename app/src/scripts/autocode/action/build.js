@@ -23,7 +23,7 @@ autocode.action.build = function() {
   }
   
   autocode.ws.io.emit('build', {
-    config: autocode.project,
+    config: jsyaml.safeDump(autocode.project),
     project: autocode.repo.split('/')[1],
     user: autocode.repo.split('/')[0]
   });
