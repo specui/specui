@@ -13,7 +13,7 @@ autocode.action.toggleMore = function() {
         text: 'Clean Project'
       },
       {
-        action: 'upgrade',
+        action: 'updateServer',
         icon: 'upgrade-icon',
         text: 'Upgrade Project'
       },
