@@ -1,4 +1,4 @@
-autocode.action.upgradeServer = function() {
+autocode.action.updateServer = function() {
   // close popover
   autocode.popover.close();
   
