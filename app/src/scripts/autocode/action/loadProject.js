@@ -197,6 +197,7 @@ autocode.action.loadProject = function(opts) {
         $('#interfaces-tab').prop('href', 'interfaces');
         
         $('#overview-general-subtab').prop('href', 'overview/general');
+        $('#overview-icon-subtab').prop('href', 'overview/icon');
         $('#overview-author-subtab').prop('href', 'overview/author');
         
         $('header').fadeIn();
@@ -331,6 +332,12 @@ autocode.action.loadProject = function(opts) {
             $('#welcome').fadeOut(function() {
               document.title = autocode.repo + ' | Autocode';
               
+              if (autocode.project.icon) {
+                $('#project .icon').removeClass('login-icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(autocode.project.icon) + ')');
+              } else {
+                $('#project .icon').addClass('login-icon')
+              }
+              
               $('#overview-tab').prop('href', opts.name + '/overview');
               $('#imports-tab').prop('href', opts.name + '/imports');
               $('#exports-tab').prop('href', opts.name + '/exports');
@@ -341,8 +348,9 @@ autocode.action.loadProject = function(opts) {
               $('#output-tab').prop('href', opts.name + '/output');
               
               $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
+              $('#overview-icon-subtab').prop('href', opts.name + '/overview/icon');
               $('#overview-author-subtab').prop('href', opts.name + '/overview/author');
-                        
+              
               $('header').fadeIn();
               $('#menu-project').show();
               

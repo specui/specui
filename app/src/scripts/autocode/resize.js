@@ -13,6 +13,7 @@ autocode.resize = {
       'footer',
       'header',
       'hint',
+      'icon',
       'init',
       'interfacesInit',
       'loader',

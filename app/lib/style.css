@@ -408,6 +408,10 @@ textarea {
   background-image: url(images/icon/html.svg) !important;
 }
 
+.icon-icon {
+  background-image: url(images/icon/icon.svg) !important;
+}
+
 .info-icon {
   background-image: url(images/info.svg) !important;
   cursor: help;
@@ -1213,6 +1217,12 @@ textarea {
   position: fixed;
   top: 0px;
   z-index: 1000;
+}
+
+#overview-icon-content img {
+  background-size: 150px 150px;
+  height: 150px;
+  width: 150px;
 }
 
 #popup {

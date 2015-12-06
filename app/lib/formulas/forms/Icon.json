@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "icon": {
+      "label": "Icon",
+      "type": "textarea"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Icon",
+      "type": "submit"
+    }
+  }
+}

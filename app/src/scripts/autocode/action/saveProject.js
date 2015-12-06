@@ -51,6 +51,14 @@ autocode.action.saveProject = function() {
       autocode.project.outputs[autocode.data.current.output].spec = jsyaml.safeLoad($('#outputs-content .CodeMirror')[0].CodeMirror.getValue());
       break;
     }
+    case 'overview': {
+      if ($('#overview-icon-subtab').hasClass('selected')) {
+        var value = $('#overview-icon-content .CodeMirror')[0].CodeMirror.getValue();
+        autocode.project.icon = value;
+        $('#project .icon').removeClass('login-icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(value) + ')');
+      }
+      break;
+    }
   }
   
   config[autocode.repo] = jsyaml.safeDump(autocode.project);
