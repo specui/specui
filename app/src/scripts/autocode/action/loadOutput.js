@@ -19,7 +19,7 @@ autocode.action.loadOutput = function(opts) {
     var imported = autocode.imports[output.generator.split('.')[0]];
     if (imported && imported.exports && imported.exports[output.generator.split('.')[1]]) {
       generator = imported.exports[output.generator.split('.')[1]];
-      if (typeof(generator.schema) == 'string') {
+      if (typeof(generator.schema) == 'string' && imported.exports[generator.schema]) {
         schema = imported.exports[generator.schema].schema;
       } else {
         schema = generator.schema;
@@ -31,7 +31,11 @@ autocode.action.loadOutput = function(opts) {
   
   var filename = output.filename;
   if (!filename && generator && generator.filename) {
-    filename = '[ ' + generator.filename + ' ]';
+    if (typeof(generator.filename) == 'object') {
+      filename = '[ ' + generator.filename.value + ' ]';
+    } else {
+      filename = '[ ' + generator.filename + ' ]';
+    }
   } else if (!filename) {
     filename = '[ Click to Add ]';
   }

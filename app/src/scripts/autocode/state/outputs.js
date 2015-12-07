@@ -21,6 +21,9 @@ autocode.state['outputs'] = function() {
       } else {
         output_filename = '[ Untitled ]';
       }
+      if (typeof(output_filename) == 'object') {
+        output_filename = output_filename.value;
+      }
       
       if (output.generator.split('.').length > 1) {
         output_icon = '<span class="icon" style="background-image: url(https://cdn.rawgit.com/crystal/' + output.generator.split('.')[0] + '/master/.autocode/icon.svg)"></span>'

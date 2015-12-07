@@ -29,7 +29,9 @@ autocode.fuzzy = {
       row = opts.rows[i];
       
       row_link = $(document.createElement('a'));
-      if (row.state) {
+      if (row.click) {
+        row_link.on('click', row.click);
+      } else if (row.state) {
         row_link.attr('href', row.state);
       } else if (typeof(row.action) == 'object') {
         row_link.attr('onclick', 'autocode.action[\'' + row.action.name + '\'](' + JSON.stringify(row.action.data) + ')');

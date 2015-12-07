@@ -45,6 +45,10 @@ autocode.action.loadFile = function(opts) {
       mode = 'sass';
       break;
     }
+    case !!opts.file.match(/\.sh$/): {
+      mode = 'shell';
+      break;
+    }
     case !!opts.file.match(/\.yml$/) || !!opts.file.match(/\.yaml$/): {
       mode = 'yaml';
       break;

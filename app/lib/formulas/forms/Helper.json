@@ -1,17 +1,17 @@
 {
   "fields": {
-    "filename": {
-      "label": "Filename",
+    "alias": {
+      "label": "Alias",
       "type": "text"
     },
-    "engine": {
-      "label": "Engine",
+    "helper": {
+      "label": "Helper",
       "type": "text"
     }
   },
   "buttons": {
     "submit": {
-      "label": "Edit Filename",
+      "label": "Add Helper",
       "type": "submit"
     }
   }

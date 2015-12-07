@@ -42,7 +42,16 @@ autocode.action.addOutput = function() {
           value: value
         });
         
-        $('#popup input[name="filename"]').attr('placeholder', current_generators[value] && current_generators[value].filename ? current_generators[value].filename : '');
+        var filename = '';
+        if (current_generators[value] && current_generators[value].filename) {
+          if (typeof(current_generators[value].filename) == 'object' && current_generators[value].filename['value']) {
+            filename = current_generators[value].filename['value'];
+          } else if (typeof(current_generators[value].filename) == 'string') {
+            filename = current_generators[value].filename;
+          }
+        }
+        
+        $('#popup input[name="filename"]').attr('placeholder', filename);
       };
       
       autocode.popup.open({

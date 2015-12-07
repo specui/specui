@@ -20,5 +20,5 @@ autocode.action.removeImport = function(opts) {
   }
   delete(autocode.project.imports[autocode.data.current.import]);
   
-  autocode.state['imports']();
+  autocode.state['imports']({ tab: autocode.data.current.importTab });
 };

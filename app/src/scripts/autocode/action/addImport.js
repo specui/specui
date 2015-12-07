@@ -5,7 +5,11 @@ autocode.action.addImport = function(opts) {
     autocode.project.imports = {};
   }
   
+  // add repo to imports
   autocode.project.imports[opts.repo] = 'Loading...';
+  
+  // sort imports
+  autocode.project.imports = autocode.object.sort(autocode.project.imports);
   
   autocode.state['imports']({ disableSelected: true, tab: autocode.data.current.importTab });
   $('#imports-search').val('');
@@ -51,16 +55,16 @@ autocode.action.addImport = function(opts) {
                 }
               }
             }
+            
+            autocode.state['imports']({ disableSelected: true, tab: autocode.data.current.importTab });
+            if ($(window).width() > autocode.mobile.minWidth) {
+              autocode.action.loadImport({ repo: opts.repo });
+            }
+            
+            $('#imports-init').fadeOut(function() {
+              $('#imports-content-container').fadeIn();
+            });
           }
-        });
-        
-        autocode.state['imports']({ disableSelected: true, tab: autocode.data.current.importTab });
-        if ($(window).width() > autocode.mobile.minWidth) {
-          autocode.action.loadImport({ repo: opts.repo });
-        }
-        
-        $('#imports-init').fadeOut(function() {
-          $('#imports-content-container').fadeIn();
         });
       }
     });

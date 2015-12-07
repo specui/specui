@@ -41,6 +41,11 @@ autocode.action.loadProject = function(opts) {
               }
             };
             form.fields.project.keyup = function() {
+              if (event.keyCode == 13) {
+                autocode.fuzzy.close();
+                return false;
+              }
+              
               var value = $('#popup input[name="project"]').val();
               
               var project, projects = [];
@@ -73,6 +78,11 @@ autocode.action.loadProject = function(opts) {
               title: 'Open Project',
               content: form.toString()
             });
+          },
+          submit: function() {
+            var value = $('#popup input[name="project"]').val();
+            autocode.action.loadProject({ confirm: true, name: value });
+            return false;
           }
         });
       }
@@ -96,7 +106,8 @@ autocode.action.loadProject = function(opts) {
     });
     return;
   }
-
+  
+  /*
   var project;
   for (var i in autocode.data.projects) {
     if (autocode.data.projects[i].name == opts.name) {
@@ -104,9 +115,13 @@ autocode.action.loadProject = function(opts) {
     }
   }
   if (!project) {
-    $('#popup .error').text('Project does not exist: ' + opts.name).show();
+    autocode.action.closeProject();
+    autocode.popup.open({
+      title: 'Project does not exist: ' + opts.name
+    });
     return;
   }
+  */
   
   autocode.unload.enable();
   

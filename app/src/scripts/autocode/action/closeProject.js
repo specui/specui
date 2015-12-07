@@ -9,6 +9,8 @@ autocode.action.closeProject = function(opts) {
   if (
     opts.confirm !== true
     &&
+    autocode.project
+    &&
     (
       (config && config[autocode.repo] && config[autocode.repo] != jsyaml.safeDump(autocode.project))
       ||

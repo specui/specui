@@ -41,6 +41,7 @@
   <script src="components/CodeMirror/mode/ruby/ruby.js"></script>
   <script src="components/CodeMirror/mode/rust/rust.js"></script>
   <script src="components/CodeMirror/mode/sass/sass.js"></script>
+  <script src="components/CodeMirror/mode/shell/shell.js"></script>
   <script src="components/CodeMirror/mode/sql/sql.js"></script>
   <script src="components/CodeMirror/mode/swift/swift.js"></script>
   <script src="components/CodeMirror/mode/xml/xml.js"></script>
@@ -372,7 +373,7 @@
               <div class="field" id="exports-engine">
                 <label>
                   <span class="text">Engine</span>
-                  <span class="icon info-icon" data-hint="Engine(s) used by the export."></span>
+                  <span class="icon info-icon" data-hint="Engine used by the export."></span>
                 </label>
                 <div class="value" onclick="autocode.action.editExportEngine()"></div>
               </div>
@@ -389,6 +390,14 @@
                   <span class="icon info-icon" data-hint="The format of the export."></span>
                 </label>
                 <div class="value" onclick="autocode.action.editExportFormat()"></div>
+              </div>
+              <div class="field" id="exports-helper">
+                <label>
+                  <span class="text">Helper</span>
+                  <span class="icon info-icon" data-hint="Helper(s) used by the export."></span>
+                </label>
+                <div id="exports-helpers"></div>
+                <button onclick="autocode.action.addExportHelper()">Add Helper</button>
               </div>
               <div class="field" id="exports-schema">
                 <label>

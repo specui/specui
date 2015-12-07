@@ -31,7 +31,7 @@ autocode.state['imports'] = function(opts) {
   if (!autocode.data.modules) {
     autocode.api.modules.get({
       success: function(modules) {
-        autocode.data.modules = modules;
+        autocode.data.modules = autocode.array.sort(modules, 'name');
         
         $('#imports-search').keyup(function(e) {
           if (e.keyCode == 13) {

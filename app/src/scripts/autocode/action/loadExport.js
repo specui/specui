@@ -12,9 +12,29 @@ autocode.action.loadExport = function(opts) {
   $('#exports-type .value').text(export_data.type.substr(0, 1).toUpperCase() + export_data.type.substr(1) || ' [ Click to Add ]');
   $('#exports-description .value').html(export_data.description ? marked(export_data.description) : ' [ Click to Add ]');
   $('#exports-engine .value').text(export_data.engine || ' [ Click to Add ]');
-  $('#exports-filename .value').text(export_data.filename || ' [ Click to Add ]');
+  var filename = '[ Click to Add ]';
+  if (export_data.filename) {
+    if (typeof(export_data.filename) == 'object' && export_data.filename.value) {
+      filename = export_data.filename.value;
+    } else if (typeof(export_data.filename) == 'string') {
+      filename = export_data.filename;
+    }
+  }
+  $('#exports-filename .value').text(filename);
   $('#exports-format .value').text(export_data.format || ' [ Click to Add ]');
   $('#exports-schema .value').text(export_data.schema || ' [ Click to Add ]');
+  
+  $('#exports-helpers').text('');
+  
+  var current_helper, current_helpers = export_data.helper, helper;
+  for (var helper_name in current_helpers) {
+    helper = current_helpers[helper_name];
+    $('#exports-helpers').append(
+      '<div class="value" onclick="autocode.action.editExportHelper({ alias: \'' + helper_name + '\' })">'
+        + helper_name
+        + '<div style="color: #CCC; font-size: 12px">' + helper + '</div>'
+      + '</div>');
+  }
   
   var code_mirror = $('#exports-content .CodeMirror');
   var mode = 'text', tabs = [], value = jsyaml.safeDump(autocode.project);

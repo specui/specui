@@ -25,10 +25,16 @@ autocode.current = {
     return items;
   },
   generators: function() {
-    var schemas = {};
-    schemas = autocode.current.fromExports(schemas, 'generator');
-    schemas = autocode.current.fromImports(schemas, 'generators');
+    var generators = {};
+    generators = autocode.current.fromExports(generators, 'generator');
+    generators = autocode.current.fromImports(generators, 'generators');
     return schemas;
+  },
+  helpers: function() {
+    var helpers = {};
+    helpers = autocode.current.fromExports(helpers, 'helper');
+    helpers = autocode.current.fromImports(helpers, 'helpers');
+    return helpers;
   },
   schemas: function() {
     var schemas = {};

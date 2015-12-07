@@ -4,9 +4,22 @@ autocode.action.editExportFilename = function() {
   });
   autocode.popover.close();
   
+  var engine = '', filename = '';
+  if (typeof(autocode.project.exports[autocode.data.current.export].filename) == 'object') {
+    if (autocode.project.exports[autocode.data.current.export].filename.engine) {
+      engine = autocode.project.exports[autocode.data.current.export].filename.engine;
+    }
+    if (autocode.project.exports[autocode.data.current.export].filename.value) {
+      filename = autocode.project.exports[autocode.data.current.export].filename.value;
+    }
+  } else if (typeof(autocode.project.exports[autocode.data.current.export].filename) == 'string') {
+    filename = autocode.project.exports[autocode.data.current.export].filename;
+  }
+  
   new formulator({
     data: {
-      filename: autocode.project.exports[autocode.data.current.export].filename
+      engine: engine,
+      filename: filename
     },
     formula: 'formulas/forms/Filename.json',
     xhr: true,
