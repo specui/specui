@@ -43,6 +43,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['engine'];
@@ -56,6 +57,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').show();
       $('#exports-filename').show();
       $('#exports-format').show();
+      $('#exports-helper').show();
       $('#exports-schema').show();
       
       tabs = ['template'];
@@ -75,6 +77,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['helper'];
@@ -88,6 +91,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['processor'];
@@ -101,6 +105,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['schema'];
@@ -114,6 +119,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['spec'];
@@ -127,6 +133,7 @@ autocode.action.loadExport = function(opts) {
       $('#exports-engine').hide();
       $('#exports-filename').hide();
       $('#exports-format').hide();
+      $('#exports-helper').hide();
       $('#exports-schema').hide();
       
       tabs = ['transformer'];
