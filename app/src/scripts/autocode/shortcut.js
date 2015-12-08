@@ -2,7 +2,7 @@ autocode.shortcut = {
   init: function() {
     $(window).bind('keydown', function(e) {
       if (e.keyCode == 27) {
-        if ($('#popup').length) {
+        if ($('#popup').length && !$(':focus').length) {
           autocode.action.closePopup();
         }
         return;

@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "processor": {
+      "label": "Processor",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Add Processor",
+      "type": "submit"
+    }
+  }
+}

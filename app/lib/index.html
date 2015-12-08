@@ -499,9 +499,14 @@
                 </label>
                 <div class="value" onclick="autocode.action.editOutputPath()"></div>
               </div>
-              <a class="button delete" onclick="autocode.action.removeOutput()">
-                Remove Output
-              </a>
+              <div class="field" id="outputs-processor">
+                <label>
+                  <span class="text">Processor</span>
+                  <span class="icon info-icon" data-hint="Processor(s) used by the export."></span>
+                </label>
+                <div id="outputs-processors"></div>
+                <button onclick="autocode.action.addOutputProcessor()">Add Processor</button>
+              </div>
             </aside>
           </div>
         </div>

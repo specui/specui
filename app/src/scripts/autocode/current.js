@@ -28,13 +28,19 @@ autocode.current = {
     var generators = {};
     generators = autocode.current.fromExports(generators, 'generator');
     generators = autocode.current.fromImports(generators, 'generators');
-    return schemas;
+    return generators;
   },
   helpers: function() {
     var helpers = {};
     helpers = autocode.current.fromExports(helpers, 'helper');
     helpers = autocode.current.fromImports(helpers, 'helpers');
     return helpers;
+  },
+  processors: function() {
+    var processors = {};
+    processors = autocode.current.fromExports(processors, 'processor');
+    processors = autocode.current.fromImports(processors, 'processors');
+    return processors;
   },
   schemas: function() {
     var schemas = {};

@@ -2,6 +2,13 @@ autocode.object = {
   clone: function(o) {
     return JSON.parse(JSON.stringify(o));
   },
+  count: function(o) {
+    var i = 0;
+    for (var k in o) {
+      i++;
+    }
+    return i;
+  },
   first: function(o) {
     for (var i in o) {
       return o[i];

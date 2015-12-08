@@ -47,6 +47,20 @@ autocode.action.loadOutput = function(opts) {
   $('#outputs-generator .value').text(output.generator);
   $('#outputs-path .value').text(output.path || '[ Project Root ]');
   
+  $('#outputs-processors').text('');
+  
+  var current_processor, current_processors = output.processor, processor, processor_name;
+  if (typeof(current_processors) == 'string') {
+    current_processors = [current_processors];
+  }
+  for (var processor_i in current_processors) {
+    processor_name = current_processors[processor_i];
+    $('#outputs-processors').append(
+      '<div class="value" onclick="autocode.action.editOutputProcessor({ processor: \'' + processor_name + '\' })">'
+        + processor_name
+      + '</div>');
+  }
+  
   if (output.spec) {
     $('#outputs-content textarea').val(jsyaml.safeDump(output.spec));
   } else {

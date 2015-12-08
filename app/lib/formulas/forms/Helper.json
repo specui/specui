@@ -1,11 +1,11 @@
 {
   "fields": {
-    "alias": {
-      "label": "Alias",
-      "type": "text"
-    },
     "helper": {
       "label": "Helper",
+      "type": "text"
+    },
+    "alias": {
+      "label": "Alias",
       "type": "text"
     }
   },

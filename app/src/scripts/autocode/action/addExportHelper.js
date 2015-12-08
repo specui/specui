@@ -2,18 +2,19 @@ autocode.action.addExportHelper = function() {
   autocode.popup.open({
     title: 'Loading...'
   });
-  autocode.popover.close();
   
   new formulator({
     formula: 'formulas/forms/Helper.json',
-    xhr: true,
     ready: function(form) {
       form.fields.helper.autocomplete = false;
       form.fields.helper.focus = function(o) {
-        $(o).trigger('keyup');
+        $(this).trigger('keyup');
       };
       form.fields.helper.keyup = function() {
-        var rows = [], helper_name, helpers = autocode.current.helpers();
+        var rows = [],
+          helper_name,
+          helpers = autocode.current.helpers(),
+          value = $(this).val();
         for (var helper_name in helpers) {
           if (helper_name.match(new RegExp(value, 'i'))) {
             rows.push({
@@ -37,27 +38,25 @@ autocode.action.addExportHelper = function() {
       };
       
       autocode.popup.open({
-        title: 'Edit Export Helper',
-        content: form.toString()
+        title: 'Add Export Helper',
+        content: form.toObject()
       });
     },
     submit: function(data) {
-      var data = {};
-      $('#popup input, #popup select, #popup textarea').each(function() {
-        data[$(this).attr('name')] = $(this).val();
-      });
-      
+      // add helper to export
       if (!autocode.project.exports[autocode.data.current.export].helper) {
         autocode.project.exports[autocode.data.current.export].helper = {};
       }
       autocode.project.exports[autocode.data.current.export].helper[data.alias] = data.helper;
+      
+      // sort export's helpers
       autocode.project.exports[autocode.data.current.export].helper = autocode.object.sort(autocode.project.exports[autocode.data.current.export].helper);
       
+      // reload export
       autocode.action.loadExport({ repo: data.name });
       
+      // close popup
       autocode.popup.close();
-      
-      return false;
     }
   });
 };
