@@ -125,8 +125,8 @@
       <a class="button" onclick="autocode.action.loadProject()">No, Load Another Project</a> <a class="button" onclick="autocode.action.initProject()">Yes, Initialize Autocode</a>
     </div>
     <div id="welcome">
-      <div>
-        <img height="50" src="images/logo-blue.svg" />
+      <div class="logo">
+        <img src="images/logo-blue.svg" />
       </div>
       <div class="options">
         <a class="option" id="new-option" onclick="autocode.action.newProject()">
@@ -138,8 +138,11 @@
           <span class="button">Open Project</span>
         </a>
         <a class="option" id="login-option" onclick="autocode.action.login()">
-          <span class="icon github-icon"></span>
-          <span class="button">Login with GitHub</span>
+          <span class="icon user-icon"></span>
+          <span class="button">
+            <span class="icon github2-icon"></span>
+            <span>Login with GitHub</span>
+          </span>
         </a>
         <!--
         <a class="option" href="tour" id="tour-option">

@@ -83,8 +83,21 @@ autocode.load = function() {
             error: function() {
               $('#new-option, #load-option').hide();
               $('#recent').hide();
+              
+              var user = autocode.storage.get('user');
+              if (user && user.avatar) {
+                $('#login-option .user-icon').css('background-image', 'url(' + user.avatar + ')');
+              } else {
+                $('#login-option .user-icon').addClass('guest-icon');
+              }
             },
             success: function(data) {
+              // cache user
+              autocode.storage.set('user', {
+                avatar: data.avatar,
+                username: data.username
+              });
+              
               autocode.data.accounts = [data];
               autocode.data.user = data;
               autocode.data.user.isLoggedIn = true;
