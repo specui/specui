@@ -1,18 +1,74 @@
 autocode.action.newProject = function() {
+  // close popovers
+  autocode.popover.close();
+  
+  // open popup
   autocode.popup.open({
     title: 'Loading...'
   });
-  autocode.popover.close();
   
+  // render form
   new formulator({
     formula: 'formulas/forms/NewProject.json',
     xhr: true,
     ready: function(form) {
       form.action = autocode.url.api('repos');
-      form = $(form.toString());
       
-      /*
-      var access_field = form.find('.field').eq(1);
+      form.fields.account.autocomplete = false;
+      
+      form.fields.account.placeholder = autocode.data.accounts[0].username;
+      
+      form.fields.account.keydown = function(e) {
+        if (e.keyCode == 13) {
+          var value = $('#popup input[name="account"]').val();
+          if ($('#fuzzy a').first().length && value != $('#fuzzy a').first().text()) {
+            $('#fuzzy a').first().click();
+          } else {
+            $('#fuzzy')
+          }
+          return false;
+        }
+      };
+      form.fields.account.keyup = function(e) {
+        if (e.keyCode == 13) {
+          autocode.fuzzy.close();
+          return false;
+        }
+        
+        var value = $('#popup input[name="account"]').val();
+        
+        var account, account_data = {}, accounts = [], accounts_other = [];
+        for (var account_i in autocode.data.accounts) {
+          account = autocode.data.accounts[account_i];
+          account_data = {
+            action: {
+              name: 'addProjectAccount',
+              data: {
+                name: account.username
+              }
+            },
+            icon: 'login-icon',
+            text: account.username
+          };
+          if (account.username.match(new RegExp(value, 'i'))) {
+            accounts.push(account_data);
+          } else {
+            accounts_other.push(account_data);
+          }
+        }
+        
+        accounts = accounts.concat(accounts_other);
+        
+        autocode.fuzzy.open({
+          rows: accounts,
+          target: $('#popup input[name="account"]'),
+          value: value
+        });
+      };
+      
+      form = form.toObject();
+      
+      var access_field = form.find('.field').eq(2);
       access_field.find('input').attr('type', 'hidden');
       access_field.find('input').val('public');
       
@@ -46,7 +102,6 @@ autocode.action.newProject = function() {
       });
       warning.html('Upgrade to an <a href="' + autocode.url.account() + '" target="_blank">Innovator Account</a> to create private projects.');
       access_field.append(warning);
-      */
       
       autocode.popup.open({
         title: 'New Project',
@@ -54,10 +109,13 @@ autocode.action.newProject = function() {
       });
     },
     submit: function() {
-      $('#popup button').attr('disabled', true).text('Loading...');
+      $('#popup .error').hide();
+      $('#popup .buttons button').attr('disabled', true).text('Loading...');
+      
+      autocode.resize.popup();
     },
     error: function(data) {
-      $('#popup button').attr('disabled', false).text('Create Project');
+      $('#popup .buttons button').attr('disabled', false).text('Create Project');
       $('#popup .error').text(data.error).show();
       
       autocode.resize.popup();

@@ -2,12 +2,16 @@
   "action": "/projects",
   "method": "post",
   "fields": {
-    "user": {
+    "account": {
       "label": "GitHub Account",
       "type": "text"
     },
     "repo": {
       "label": "GitHub Repo",
+      "type": "text"
+    },
+    "access": {
+      "label": "Access",
       "type": "text"
     },
     "name": {

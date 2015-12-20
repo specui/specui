@@ -107,21 +107,20 @@ autocode.action.loadProject = function(opts) {
     return;
   }
   
-  /*
   var project;
   for (var i in autocode.data.projects) {
     if (autocode.data.projects[i].name == opts.name) {
       project = autocode.data.projects[i];
     }
   }
-  if (!project) {
+  if (project && project.private && !autocode.data.user.innovator) {
     autocode.action.closeProject();
     autocode.popup.open({
-      title: 'Project does not exist: ' + opts.name
+      title: 'Private Projects require an Innovator account',
+      content: '<button onclick="window.location.href = autocode.url.account()">Upgrade Account</button>'
     });
     return;
   }
-  */
   
   autocode.unload.enable();
   
@@ -143,7 +142,7 @@ autocode.action.loadProject = function(opts) {
     $('#project .text').text(opts.name);
   }
   
-  if (project.private) {
+  if (project && project.private) {
     $('#project .icon').removeClass('login-icon').addClass('private-icon');
   } else {
     $('#project .icon').removeClass('private-icon').addClass('login-icon');

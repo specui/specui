@@ -266,7 +266,7 @@
         <div class="content" id="imports-content">
           <div id="imports-content-container">
             <aside class="column content-left">
-              <nav><a class="selected" data-hint="Repos that have been imported to this project." id="imports-imported" onclick="autocode.action.loadImportTab({ tab: 'imported' })">Imported</a><a data-hint="My Public and Private Repos on GitHub." id="imports-mine" onclick="autocode.action.loadImportTab({ tab: 'mine' })">Mine</a><a data-hint="Public Repos from all users." id="imports-public" onclick="autocode.action.loadImportTab({ tab: 'public' })">Public</a></nav>
+              <nav><a class="selected" data-hint="Repos that have been imported to this project." id="imports-imported" onclick="autocode.action.loadImportTab({ tab: 'imported' })">Imported</a><a data-hint="My Public and Private Projects on GitHub." id="imports-mine" onclick="autocode.action.loadImportTab({ tab: 'mine' })">Mine</a><a data-hint="Public Repos from all users." id="imports-public" onclick="autocode.action.loadImportTab({ tab: 'public' })">Public</a></nav>
               <div class="search">
                 <input autocomplete="off" placeholder="Find a Repo" id="imports-search" type="text" />
               </div>
@@ -610,6 +610,7 @@
       <a href="https://autocode.run/privacy" target="_blank">Privacy</a>
       -->
       <a href="https://autocode.run/contact" target="_blank">Contact</a>
+      <a onclick="autocode.action.logout()">Logout</a>
     </nav>
     <nav>
       <a class="icon gitter-icon" href="https://gitter.im/crystal/autocode" target="_blank"></a>

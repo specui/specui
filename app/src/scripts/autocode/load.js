@@ -85,6 +85,7 @@ autocode.load = function() {
               $('#recent').hide();
             },
             success: function(data) {
+              autocode.data.accounts = [data];
               autocode.data.user = data;
               autocode.data.user.isLoggedIn = true;
               
