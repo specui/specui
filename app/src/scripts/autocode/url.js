@@ -3,7 +3,7 @@ autocode.url = {
     if (location.host.match(/^alpha/)) {
       return 'http://alpha.account.autocode.run:3003/' + (uri ? uri : '');
     } else {
-      return 'https://account.autocode.run/' + (uri ? uri : '');
+      return 'https://hub.autocode.run/' + (uri ? uri : '');
     }
   },
   api: function(uri) {
