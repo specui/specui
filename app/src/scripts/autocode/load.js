@@ -112,7 +112,7 @@ autocode.load = function() {
                     username: user.username
                   });
                   
-                  autocode.data.accounts = [data];
+                  autocode.data.accounts = [user];
                   autocode.data.user = data;
                   autocode.data.user.isLoggedIn = true;
                   
