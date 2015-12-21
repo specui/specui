@@ -108,7 +108,11 @@ autocode.action.newProject = function() {
         content: form
       });
     },
-    submit: function() {
+    submit: function(data) {
+      if (!data.account) {
+        data.account = autocode.data.accounts[0].username;
+      }
+      
       $('#popup .error').hide();
       $('#popup .buttons button').attr('disabled', true).text('Loading...');
       
@@ -127,10 +131,6 @@ autocode.action.newProject = function() {
         autocode.action.loadProject({
           confirm: true,
           name: data.name
-        });
-        
-        $('#welcome').fadeOut(function() {
-          $('.app').fadeIn();
         });
       });
     }
