@@ -249,6 +249,10 @@ textarea {
   background-image: url(images/icon/add.svg) !important;
 }
 
+.add-icon.white {
+  background-image: url(images/icon/add-white.svg) !important;
+}
+
 .author-icon {
   background-image: url(images/icon/author.svg) !important;
 }
@@ -769,6 +773,26 @@ textarea {
 .value .icon {
   background-size: 16px 16px;
   margin: 0px !important;
+}
+
+#add-project {
+  float: right;
+}
+
+#add-project .icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  display: inline-block;
+  height: 32px;
+  margin-left: 10px;
+  width: 32px;
+}
+
+#add-project .icon,
+#add-project .text {
+  padding: 0px;
+  vertical-align: middle;
 }
 
 #app {
@@ -1332,7 +1356,59 @@ textarea {
   padding: 10px;
 }
 
-#popover .table a span.icon {
+#projects-content-form {
+  margin: 0px auto;
+  padding: 20px 0px;
+  width: 400px;
+}
+
+#projects-content-results {
+  border-top: 1px #EEE solid;
+  overflow: auto;
+}
+
+#projects-content-results a {
+  border-bottom: 1px #EEE solid;
+  border-right: 1px #EEE solid;
+  box-sizing: border-box;
+  color: #000;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  width: 20%;
+}
+
+@media screen and (max-width: 1000px) {
+  #projects-content-results a {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #projects-content-results a {
+    width: 50%;
+  }
+}
+
+#projects-content-results a span {
+  display: block;
+}
+
+#projects-content-results a .image {
+  background-image: url(images/icon/github.svg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+#projects-content-results a .text {
+  padding: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#popover-content-results .table a span.icon {
   background-size: 24px 24px;
 }
 
@@ -1447,6 +1523,7 @@ textarea {
 }
 
 #welcome {
+  display: none;
   position: fixed;
   text-align: center;
 }

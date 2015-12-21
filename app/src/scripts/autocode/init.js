@@ -51,6 +51,34 @@ autocode.init = function() {
     }
   });
   
+  $('#projects-content-form input').bind('keyup', function() {
+    var projects = autocode.data.projects, value = $(this).val();
+    
+    $('#projects-content-results').empty();
+    
+    var project_element;
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].name && projects[i].name.match(new RegExp(value, 'i'))) {
+        project_element = $(document.createElement('a'));
+        project_element.bind('click', function() {
+          autocode.action.loadProject({
+            confirm: true,
+            name: $(this).data('name')
+          });
+        });
+        project_element.data('name', projects[i].name);
+        project_element.html(
+          /*'<span class="image" style="background-image: url(https://cdn.rawgit.com/' + projects[i].name + '/master/.autocode/icon.svg)"></span>'*/
+          '<span class="image"></span>'
+          + '<span class="text">' + projects[i].name + '</span>'
+        );
+        $('#projects-content-results').append(project_element);
+      }
+    }
+    
+    autocode.resize.projects();
+  });
+  
   var code = autocode.query.get('code');
   if (code) {
     history.pushState(null, null, '/');

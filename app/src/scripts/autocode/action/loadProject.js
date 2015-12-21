@@ -148,6 +148,10 @@ autocode.action.loadProject = function(opts) {
     $('#project .icon').removeClass('private-icon').addClass('login-icon');
   }
   
+  $('#add-project').fadeOut(function() {
+    $('#project, #release, #status-icon, #target-icon, #usage').fadeIn();
+  });
+  
   if (opts.config) {
     autocode.project = opts.config;
     autocode.data.originalConfig = opts.config;

@@ -23,6 +23,7 @@ autocode.resize = {
       'outputsInit',
       'overlay',
       'popup',
+      'projects',
       'fuzzy',
       'welcome'
     ];

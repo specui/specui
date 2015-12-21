@@ -78,7 +78,7 @@
           </a>
           <a data-hint="Project Menu" data-hint-min-top="62" id="project" onclick="autocode.action.toggleMenu()">
             <span class="icon login-icon white"></span>
-            <span class="text">Tour</span>
+            <span class="text">Load Project</span>
           </a>
           <a data-hint="Release Menu" data-hint-min-top="62" id="release" onclick="autocode.action.toggleRelease()">
             <span class="icon working-copy-icon"></span>
@@ -89,6 +89,12 @@
             <span class="text">Loading Test Server...</span>
           </a>
           <span data-hint="Offline" data-hint-min-top="62" id="status-icon"></span>
+        </div>
+        <div id="add-project">
+          <a data-hint="Create a New Project" data-hint-min-top="62" id="add-icon" onclick="autocode.action.newProject()">
+            <span class="text">New Project</span>
+            <span class="icon add-icon white"></span>
+          </a>
         </div>
         <div id="usage">
           <div id="usage-off">
@@ -122,21 +128,13 @@
       <div>
         Autocode has not been initialized for this repo. Would you like to do that now?
       </div>
-      <a class="button" onclick="autocode.action.loadProject()">No, Load Another Project</a> <a class="button" onclick="autocode.action.initProject()">Yes, Initialize Autocode</a>
+      <a class="button" onclick="autocode.action.closeProject({ confirm: true })">No, Load Another Project</a> <a class="button" onclick="autocode.action.initProject()">Yes, Initialize Autocode</a>
     </div>
     <div id="welcome">
       <div class="logo">
         <img src="images/logo-blue.svg" />
       </div>
       <div class="options">
-        <a class="option" id="new-option" onclick="autocode.action.newProject()">
-          <span class="icon add-icon" style="background-size: 90%"></span>
-          <span class="button">New Project</span>
-        </a>
-        <a class="option" id="load-option" onclick="autocode.action.loadProject()">
-          <span class="icon load-icon"></span>
-          <span class="button">Open Project</span>
-        </a>
         <a class="option" id="login-option" onclick="autocode.action.login()">
           <span class="icon user-icon"></span>
           <span class="button">
@@ -144,12 +142,6 @@
             <span>Login with GitHub</span>
           </span>
         </a>
-        <!--
-        <a class="option" href="tour" id="tour-option">
-          <span class="icon tour"></span>
-          <span class="button">Take a Tour</span>
-        </a>
-        -->
       </div>
       <div class="recent">
         Recent: <span class="projects"></span>
@@ -165,6 +157,17 @@
           </div>
         </div>
         -->
+        <div class="content" id="projects-content">
+          <div id="projects-content-form">
+            <input placeholder="Search all projects..." />
+          </div>
+          <div id="projects-content-results">
+            <a href="#">
+              <span class="image"></span>
+              <span class="text">crystal/bower</span>
+            </a>
+          </div>
+        </div>
         <div class="content" id="overview-content">
           <aside class="content-left column">
             <div class="table">

@@ -34,7 +34,13 @@ autocode.action.closeProject = function(opts) {
   
   $('#menu-project').hide();
   
-  $('.app, #init, header').fadeOut(function() {
-    $('#welcome').fadeIn();
+  $('.app:first, #init, #project, #release, #status-icon, #target-icon, #usage').fadeOut();
+  $('#content').fadeOut(function() {
+    $('.app:last').show();
+    autocode.action.toggleSection('projects');
+    $('#content').css('opacity', 0).show();
+    autocode.resize.all();
+    $('#content').animate({ opacity: 1 });
+    $('#add-project').fadeIn();
   });
 };
