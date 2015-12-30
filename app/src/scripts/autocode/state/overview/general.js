@@ -10,5 +10,6 @@ autocode.state['overview/general'] = function() {
     ? '<a href="' + autocode.project.url + '">' + autocode.project.url + '</a>'
     : '[ Click to Add ]'
   );
+  $('#overview-general-license .value').text(autocode.project.license || '[ Click to Add ]');
   $('#overview-general-copyright .value').text(autocode.project.copyright || ' [ Click to Add ]');
 };

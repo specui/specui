@@ -53,6 +53,10 @@ autocode.action.loadFile = function(opts) {
       mode = 'yaml';
       break;
     }
+    case !!opts.file.match(/\.xml$/): {
+      mode = 'xml';
+      break;
+    }
   }
   
   if (!code_mirror.length) {

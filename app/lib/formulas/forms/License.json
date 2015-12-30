@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "license": {
+      "label": "License",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit License",
+      "type": "submit"
+    }
+  }
+}
