@@ -142,11 +142,7 @@ autocode.action.loadProject = function(opts) {
     $('#project .text').text(opts.name);
   }
   
-  if (project && project.private) {
-    $('#project .icon').removeClass('login-icon').addClass('private-icon');
-  } else {
-    $('#project .icon').removeClass('private-icon').addClass('login-icon');
-  }
+  $('#project .icon').css('background-image', 'url(' + autocode.url.api('icons/' + opts.name) + '?default=' + encodeURIComponent('//app.autocode.run/images/icon/github-white.svg') + ')');
   
   $('#add-project').fadeOut(function() {
     $('#project, #release, #status-icon, #target-icon, #usage').fadeIn();
@@ -349,12 +345,6 @@ autocode.action.loadProject = function(opts) {
             
             $('#welcome').fadeOut(function() {
               document.title = autocode.repo + ' | Autocode';
-              
-              if (autocode.project.icon) {
-                $('#project .icon').removeClass('login-icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(autocode.project.icon) + ')');
-              } else {
-                $('#project .icon').addClass('login-icon')
-              }
               
               $('#overview-tab').prop('href', opts.name + '/overview');
               $('#imports-tab').prop('href', opts.name + '/imports');

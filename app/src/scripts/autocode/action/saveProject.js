@@ -56,7 +56,7 @@ autocode.action.saveProject = function() {
         if ($('#overview-icon-subtab').hasClass('selected')) {
           var value = $('#overview-icon-content .CodeMirror')[0].CodeMirror.getValue();
           autocode.project.icon = value;
-          $('#project .icon').removeClass('login-icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(value) + ')');
+          $('#project .icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(value) + ')');
         }
         break;
       }
