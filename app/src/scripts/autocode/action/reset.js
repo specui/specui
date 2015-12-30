@@ -16,6 +16,13 @@ autocode.action.reset = function(opts) {
     delete(config[autocode.repo]);
     autocode.storage.set('config', config);
     
+    var icon = autocode.storage.get('icon');
+    if (icon && icon[autocode.repo]) {
+      delete(icon[autocode.repo]);
+      autocode.storage.set('icon', icon);
+    }
+    delete(autocode.icon);
+    
     autocode.project = jsyaml.safeLoad(autocode.data.originalConfig);
     if (autocode.data.current.tab == 'config') {
       $('#config-content .CodeMirror')[0].CodeMirror.setValue(autocode.data.originalConfig);
@@ -30,7 +37,7 @@ autocode.action.reset = function(opts) {
     autocode.project = jsyaml.safeLoad(value);
   }
 
-  if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project)) {
+  if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project) && !autocode.icon) {
     autocode.popup.open({
       title: 'No Changes',
       content: 'There are no changes to your Autocode configuration.'

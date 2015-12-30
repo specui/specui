@@ -30,9 +30,9 @@ autocode.action.editProjectIcon = function() {
       };
       
       if (data.icon && data.icon.length) {
-        autocode.project.icon = data.icon;
+        autocode.icon = data.icon;
       } else {
-        delete(autocode.project.icon);
+        delete(autocode.icon);
       }
       
       autocode.popup.close();

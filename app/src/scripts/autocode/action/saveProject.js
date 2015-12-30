@@ -55,7 +55,13 @@ autocode.action.saveProject = function() {
       case 'overview': {
         if ($('#overview-icon-subtab').hasClass('selected')) {
           var value = $('#overview-icon-content .CodeMirror')[0].CodeMirror.getValue();
-          autocode.project.icon = value;
+          autocode.icon = value;
+          var icon = autocode.storage.get('icon');
+          if (!icon) {
+            icon = {};
+          }
+          icon[autocode.repo]= value;
+          autocode.storage.set('icon', icon);
           $('#project .icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(value) + ')');
         }
         break;

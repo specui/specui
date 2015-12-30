@@ -46,7 +46,7 @@ autocode.action.commitProject = function(opts) {
     autocode.project = jsyaml.safeLoad(value);
   }
 
-  if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project)) {
+  if (autocode.data.originalConfig == jsyaml.safeDump(autocode.project) && !autocode.icon) {
     autocode.popup.open({
       title: 'No Changes',
       content: 'There are no changes to your Autocode configuration.'

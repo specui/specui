@@ -142,7 +142,14 @@ autocode.action.loadProject = function(opts) {
     $('#project .text').text(opts.name);
   }
   
-  $('#project .icon').css('background-image', 'url(' + autocode.url.api('icons/' + opts.name) + '?default=' + encodeURIComponent('//app.autocode.run/images/icon/github-white.svg') + ')');
+  var icon = autocode.storage.get('icon');
+  if (icon && icon[opts.name]) {
+    autocode.icon = icon[opts.name];
+    $('#project .icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(autocode.icon) + ')');
+  } else {
+    delete(autocode.icon);
+    $('#project .icon').css('background-image', 'url(' + autocode.url.api('icons/' + opts.name) + '?default=' + encodeURIComponent('//app.autocode.run/images/icon/github-white.svg') + ')');
+  }
   
   $('#add-project').fadeOut(function() {
     $('#project, #release, #status-icon, #target-icon, #usage').fadeIn();
