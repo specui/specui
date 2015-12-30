@@ -38,6 +38,9 @@ autocode.fuzzy = {
       } else if (typeof(row.action) == 'string') {
         row_link.attr('onclick', 'autocode.action[\'' + row.action + '\']()');
       }
+      if (row.value) {
+        row_link.data('value', row.value);
+      }
       table.append(row_link);
       
       if (icons_exist) {

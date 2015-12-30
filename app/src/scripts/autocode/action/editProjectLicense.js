@@ -25,12 +25,13 @@ autocode.action.editProjectLicense = function() {
             rows.push({
               click: function() {
                 // update license field
-                $('#popup input[name="license"]').val($(this).text());
+                $('#popup input[name="license"]').val($(this).data('value'));
                 
                 // close fuzzy
                 autocode.fuzzy.close();
               },
-              text: license_name
+              text: license_name + '<span>' + licenses[license_name] + '</span>',
+              value: license_name
             });
           }
         }

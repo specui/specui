@@ -1,0 +1,14 @@
+{
+  "fields": {
+    "company": {
+      "label": "Company",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Company",
+      "type": "submit"
+    }
+  }
+}

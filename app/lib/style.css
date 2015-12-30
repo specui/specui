@@ -1050,6 +1050,13 @@ textarea {
   padding: 10px;
 }
 
+#fuzzy .table a span span {
+  color: #999;
+  display: block;
+  font-size: 12px;
+  padding: 0px;
+}
+
 #fuzzy .table a span.icon {
   background-size: 24px 24px;
   height: 24px;
