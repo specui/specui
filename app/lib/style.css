@@ -979,6 +979,24 @@ textarea {
   padding: 21px 0px 20px;
 }
 
+#errors {
+  opacity: .9;
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  z-index: 1000;
+}
+
+#errors a {
+  background-color: #FFCCCC;
+  border: 1px #FF0000 solid;
+  border-radius: 5px;
+  color: #FF0000;
+  display: block !important;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
 #exports-content-container {
   display: none;
 }
