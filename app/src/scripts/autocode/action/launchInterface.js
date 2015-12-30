@@ -1,5 +1,5 @@
 autocode.action.launchInterface = function() {
-  var state = 'http://' + autocode.ws.ip;
+  var state = autocode.url.ws();
   var interface_data = autocode.project.interfaces[autocode.data.current.interface];
   var port = interface_data.port;
   var path = interface_data.path;

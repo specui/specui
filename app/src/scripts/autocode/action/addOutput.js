@@ -98,7 +98,7 @@ autocode.action.addOutput = function() {
       if (!autocode.project.outputs) {
         autocode.project.outputs = [];
       }
-      if (typeof(autocode.project.outputs) instanceof Array) {
+      if (autocode.project.outputs instanceof Array) {
         autocode.project.outputs.push(data);
       } else {
         autocode.project.outputs[output.filename] = data;

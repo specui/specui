@@ -12,5 +12,12 @@ autocode.url = {
     } else {
       return 'https://api.autocode.run/' + (uri ? uri : '');
     }
+  },
+  ws: function(uri) {
+    if (location.host.match(/^alpha/)) {
+      return 'ws://alpha.api.autocode.run:3009/' + (uri ? uri : '');
+    } else {
+      return 'wss://api.autocode.run/' + (uri ? uri : '');
+    }
   }
 };

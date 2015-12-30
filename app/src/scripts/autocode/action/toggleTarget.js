@@ -9,7 +9,7 @@ autocode.action.toggleTarget = function() {
   if (autocode.project.interfaces && autocode.project.interfaces.length) {
     var state, port, path, params, name;
     for (var i = 0; i < autocode.project.interfaces.length; i++) {
-      state = 'http://' + autocode.ws.ip;
+      state = autocode.url.ws();
       port = autocode.project.interfaces[i].port;
       path = autocode.project.interfaces[i].path;
       params = autocode.project.interfaces[i].params;

@@ -1,6 +1,6 @@
 autocode.ws = {
-  ip: '127.0.0.1',
   io: null,
+  ip: null,
   init: function() {
     if (!autocode.ws.ip) {
       return;
@@ -11,7 +11,9 @@ autocode.ws = {
       $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
     }
     
-    autocode.ws.io = io('http://' + autocode.ws.ip + ':12345');
+    var url = autocode.url.ws() + '?ip=' + autocode.ws.ip;
+    
+    autocode.ws.io = io(url);
     autocode.ws.io.on('connect', function(socket) {
       $('#console .content').append('<div>Connected.</div>');
       if (autocode.data.current.pin) {
@@ -38,6 +40,8 @@ autocode.ws = {
       }
     });
     autocode.ws.io.on('message', function(data) {
+      console.log(data);
+      
       if (data.processing === true) {
         autocode.status.processing();
         $('#build-icon, #generate-icon, #run-icon, #update-icon').addClass('disabled');
