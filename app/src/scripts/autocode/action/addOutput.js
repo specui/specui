@@ -98,7 +98,11 @@ autocode.action.addOutput = function() {
       if (!autocode.project.outputs) {
         autocode.project.outputs = [];
       }
-      autocode.project.outputs.push(data);
+      if (typeof(autocode.project.outputs) instanceof Array) {
+        autocode.project.outputs.push(data);
+      } else {
+        autocode.project.outputs[output.filename] = data;
+      }
       
       $('#popup, #overlay').fadeOut(function() {
         autocode.popup.close();

@@ -68,8 +68,7 @@ autocode.init = function() {
         });
         project_element.data('name', projects[i].name);
         project_element.html(
-          /*'<span class="image" style="background-image: url(https://cdn.rawgit.com/' + projects[i].name + '/master/.autocode/icon.svg)"></span>'*/
-          '<span class="image"></span>'
+          '<span class="image" style="background-image: url(' + autocode.url.api('icons/' + projects[i].name) + ')"></span>'
           + '<span class="text">' + projects[i].name + '</span>'
         );
         $('#projects-content-results').append(project_element);
