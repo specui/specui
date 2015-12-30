@@ -158,12 +158,6 @@ outputs:
     spec:
       copyright: $copyright
   
-  - generator: npm.NPMIgnoreGenerator
-    spec:
-      items:
-        - cli/src
-        - src
-  
   - generator: npm.PackageGenerator
     spec: npm.yml
     
