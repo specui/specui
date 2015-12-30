@@ -41,7 +41,7 @@ autocode.action.loadImportTab = function(opts) {
       
       row_image = $(document.createElement('span'));
       row_image.addClass('image');
-      row_image.html('<span class="icon" style="background-image: url(https://cdn.rawgit.com/' + repo.name + '/master/.autocode/icon.svg)"></span>');
+      row_image.html('<span class="icon" style="background-image: url(' + autocode.url.api('icons/' + repo.name) + '?default=' + encodeURIComponent('//app.autocode.run/images/icon/github.svg') + ')"></span>');
       repo_row.append(row_image);
       
       row_info = $(document.createElement('span'));
