@@ -9,7 +9,7 @@ autocode.action.initProject = function() {
       repo: autocode.repo
     },
     success: function(data) {
-      autocode.action.loadProject({ name: autocode.repo });
+      autocode.action.loadProject({ confirm: true, name: autocode.repo });
     }
   });
 };

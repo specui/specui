@@ -9,9 +9,9 @@ autocode.action.commitProject = function(opts) {
   
   if (opts.confirm) {
     var data = {
-      config: jsyaml.safeDump(autocode.project),
+      project: autocode.repo.split('/')[1],
       message: $('#popup textarea[name="message"]').val(),
-      repo: autocode.repo
+      user: autocode.repo.split('/')[0]
     };
     
     autocode.popup.open({
@@ -19,25 +19,8 @@ autocode.action.commitProject = function(opts) {
     });
     autocode.popover.close();
     
-    autocode.api.config.post({
-      data: data,
-      error: function(data) {
-        autocode.popup.open({
-          title: 'Unable to Commit Project',
-          content: 'Please try again or contact us at <a href="mailto:support@autocode.run">support@autocode.run</a>.'
-        });
-      },
-      success: function(data) {
-        var config = autocode.storage.get('config');
-        if (!config || typeof(config) != 'object') {
-          config = {};
-        }
-        delete(config[autocode.repo]);
-        autocode.storage.set('config', config);
-        autocode.data.originalConfig = jsyaml.safeDump(autocode.project);
-        autocode.popup.close();
-      }
-    });
+    autocode.ws.io.emit('commit', data);
+    
     return;
   }
   

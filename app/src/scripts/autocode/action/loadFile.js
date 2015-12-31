@@ -49,6 +49,10 @@ autocode.action.loadFile = function(opts) {
       mode = 'shell';
       break;
     }
+    case !!opts.file.match(/\.svg$/): {
+      mode = 'xml';
+      break;
+    }
     case !!opts.file.match(/\.yml$/) || !!opts.file.match(/\.yaml$/): {
       mode = 'yaml';
       break;

@@ -61,6 +61,11 @@ autocode.action.saveProject = function() {
             icon = {};
           }
           icon[autocode.repo]= value;
+          autocode.ws.io.emit('icon', {
+            contents: value,
+            project: autocode.repo.split('/')[1],
+            user: autocode.repo.split('/')[0]
+          });
           autocode.storage.set('icon', icon);
           $('#project .icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(value) + ')');
         }

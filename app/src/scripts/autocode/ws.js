@@ -23,6 +23,21 @@ autocode.ws = {
       
       $('#usage-on').show();
       $('#usage-off').hide();
+      
+      autocode.ws.io.emit('icon', {
+        project: autocode.repo.split('/')[1],
+        user: autocode.repo.split('/')[0]
+      });
+    });
+    autocode.ws.io.on('commit', function(data) {
+      var config = autocode.storage.get('config');
+      if (!config || typeof(config) != 'object') {
+        config = {};
+      }
+      delete(config[autocode.repo]);
+      autocode.storage.set('config', config);
+      autocode.data.originalConfig = jsyaml.safeDump(autocode.project);
+      autocode.popup.close();
     });
     autocode.ws.io.on('contents', function(data) {
       autocode.action.loadFile({
@@ -38,6 +53,10 @@ autocode.ws = {
       if (autocode.data.current.tab == 'output') {
         autocode.state['output']();
       }
+    });
+    autocode.ws.io.on('icon', function(data) {
+      autocode.icon = data.contents;
+      $('#project .icon').css('background-image', 'url(data:image/svg+xml;base64,' + btoa(data.contents) + ')');
     });
     autocode.ws.io.on('message', function(data) {
       console.log(data);
