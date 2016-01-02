@@ -14,7 +14,8 @@ autocode.ws = {
     var url = autocode.url.ws() + '?ip=' + autocode.ws.ip;
     
     autocode.ws.io = io(url);
-    autocode.ws.io.on('connect', function(socket) {
+    
+    autocode.ws.io.on('started', function(socket) {
       $('#console .content').append('<div>Connected.</div>');
       if (autocode.data.current.pin) {
         $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
@@ -29,6 +30,18 @@ autocode.ws = {
         user: autocode.repo.split('/')[0]
       });
     });
+    
+    autocode.ws.io.on('stopped', function(data) {
+      $('#console .content').append('<div>Disconnected.</div>');
+      if (autocode.data.current.pin) {
+        $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
+      }
+      autocode.status.pending();
+      
+      $('#usage-on').hide();
+      $('#usage-off').show();
+    });
+    
     autocode.ws.io.on('commit', function(data) {
       var config = autocode.storage.get('config');
       if (!config || typeof(config) != 'object') {
@@ -87,16 +100,6 @@ autocode.ws = {
           $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
         }
       }
-    });
-    autocode.ws.io.on('disconnect', function(data) {
-      $('#console .content').append('<div>Disconnected.</div>');
-      if (autocode.data.current.pin) {
-        $('#console .content').scrollTop($('#console .content')[0].scrollHeight);
-      }
-      autocode.status.pending();
-      
-      $('#usage-on').hide();
-      $('#usage-off').show();
     });
   }
 };
