@@ -54,6 +54,12 @@ autocode.init = function() {
   $('#projects-content-form input').bind('keyup', function() {
     var projects = autocode.data.projects, value = $(this).val();
     
+    if (value == $(this).data('value')) {
+      return;
+    }
+    
+    $(this).data('value', value);
+    
     $('#projects-content-results').empty();
     
     var project_element;
