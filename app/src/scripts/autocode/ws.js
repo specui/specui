@@ -1,6 +1,6 @@
 autocode.ws = {
   io: null,
-  ip: null,
+  ip: '127.0.0.1',
   init: function() {
     if (!autocode.ws.ip) {
       return;

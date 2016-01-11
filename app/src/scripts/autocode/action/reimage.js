@@ -9,9 +9,6 @@ autocode.action.reimage = function() {
   $('#usage-on').hide();
   $('#usage-off').show();
   
-  // reset ip
-  delete(autocode.ws.ip);
-  
   $('#target-icon .text').text('Reimaging...');
   
   autocode.api.reimage.post({
