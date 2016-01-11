@@ -23,17 +23,14 @@ autocode.load = function() {
               $('#new-option, #load-option').hide();
               $('#recent').hide();
               
-              var user = autocode.storage.get('user');
-              if (user && user.avatar) {
-                $('#login-option .user-icon').css('background-image', 'url(' + user.avatar + ')');
-                autocode.storage.set('avatar', user.avatar);
-              } else {
-                $('#login-option .user-icon').addClass('guest-icon');
-              }
-              
               $('#login-option .button').removeClass('loading').attr('disabled', false).find('span').last().text('Login with GitHub');
             },
             success: function(user) {
+              if (user && user.avatar) {
+                $('#login-option .user-icon').css('background-image', 'url(' + user.avatar + ')');
+                autocode.storage.set('avatar', user.avatar);
+              }
+              
               autocode.api.repos.get({
                 complete: function() {
                   autocode.action.updateRecent();
