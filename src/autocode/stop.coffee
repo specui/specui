@@ -1,4 +1,5 @@
 # load packages
+path = require 'path'
 spawn = require 'cross-spawn'
 
 module.exports = () ->
