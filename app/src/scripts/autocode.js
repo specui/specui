@@ -92,6 +92,7 @@ var autocode = {
       'ruby',
       'rust',
       'scala',
+      'swift',
       'text',
       'yaml',
       'xml'

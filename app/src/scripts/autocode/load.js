@@ -26,26 +26,19 @@ autocode.load = function() {
               var user = autocode.storage.get('user');
               if (user && user.avatar) {
                 $('#login-option .user-icon').css('background-image', 'url(' + user.avatar + ')');
+                autocode.storage.set('avatar', user.avatar);
               } else {
                 $('#login-option .user-icon').addClass('guest-icon');
               }
               
-              $('#loader').fadeOut(function() {
-                $('#loader').remove();
-                $('#container').show();
-                autocode.resize.all();
-                $('#container').animate({ opacity: 1 },{
-                  complete: function() {
-                    $('.app:last').show();
-                    $('#welcome').fadeIn();
-                  }
-                });
-              });
+              $('#login-option .button').removeClass('loading').attr('disabled', false).find('span').last().text('Login with GitHub');
             },
             success: function(user) {
               autocode.api.repos.get({
                 complete: function() {
                   autocode.action.updateRecent();
+                  
+                  $('#welcome').hide();
                   
                   var repo = autocode.storage.get('repo');
                   if (!repo) {
@@ -53,54 +46,32 @@ autocode.load = function() {
                   }
                   
                   if (!repo) {
-                    $('#loader').fadeOut(function() {
-                      $('#loader').remove();
-                      $('#container').show();
-                      $('#menu-project').hide();
-                      autocode.resize.all();
-                      $('#container').animate({ opacity: 1 },{
-                        complete: function() {
-                          var config = autocode.query.get('config');
-                          if (config) {
-                            config = jsyaml.safeLoad(atob(config));
-                            autocode.action.loadProject({
-                              name: '(Untitled)',
-                              config: config
-                            });
-                          }
-                          
-                          autocode.resize.all();
-                        }
+                    $('#menu-project').hide();
+                    
+                    var config = autocode.query.get('config');
+                    if (config) {
+                      config = jsyaml.safeLoad(atob(config));
+                      autocode.action.loadProject({
+                        name: '(Untitled)',
+                        config: config
                       });
-                    });
+                    }
                     
                     return;
                   }
                   
-                  $('#loader').fadeOut(function() {
-                    $('#loader').remove();
-                    $('#container').show();
-                    $('#welcome').hide();
-                    autocode.resize.all();
-                    $('#container').animate({
-                      opacity: 1
-                    },{
-                      complete: function() {
-                        var name = repo.split('/').splice(0, 2).join('/');
-                        var state = repo.split('/').splice(2).join('/');
-                        
-                        if (autocode.state[name]) {
-                          autocode.state['tour']();
-                          return;
-                        }
-                        
-                        autocode.action.loadProject({
-                          name: name,
-                          callback: state ? autocode.state[state] : null,
-                          confirm: true
-                        });
-                      }
-                    });
+                  var name = repo.split('/').splice(0, 2).join('/');
+                  var state = repo.split('/').splice(2).join('/');
+                  
+                  if (autocode.state[name]) {
+                    autocode.state['tour']();
+                    return;
+                  }
+                  
+                  autocode.action.loadProject({
+                    name: name,
+                    callback: state ? autocode.state[state] : null,
+                    confirm: true
                   });
                 },
                 success: function(projects) {

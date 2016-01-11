@@ -1,7 +1,5 @@
 autocode.init = function() {
   autocode.api.url = autocode.url.api();
-  autocode.resize.loader();
-  $('#loader').animate({ opacity: 1 });
   
   autocode.console.init();
   autocode.editor.init();

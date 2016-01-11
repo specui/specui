@@ -1,5 +1,7 @@
 autocode.action.logout = function() {
-  autocode.loader.open();
+  $('#login-option .button').text('Logging out...');
+  
+  $('#welcome').fadeIn();
   
   autocode.api.logout.get({
     success: function() {

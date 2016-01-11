@@ -155,6 +155,7 @@ autocode.action.loadExport = function(opts) {
   if (!code_mirror.length) {
     var editor = CodeMirror.fromTextArea($('#exports-content textarea')[0], {
       lineNumbers: autocode.editor.lineNumbersEnabled(),
+      indentWithTabs: true,
       mode: mode
     });
     

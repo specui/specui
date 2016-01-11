@@ -138,9 +138,9 @@
       <div class="options">
         <a class="option" id="login-option" onclick="autocode.action.login()">
           <span class="icon user-icon"></span>
-          <span class="button">
+          <span class="button loading" disabled="true">
             <span class="icon github2-icon"></span>
-            <span>Login with GitHub</span>
+            <span>Logging in...</span>
           </span>
         </a>
       </div>
@@ -656,6 +656,7 @@
     </div>
     <div class="content"></div>
   </div>
+  <script>autocode.bootstrap()</script>
   <script>
     if (!location.hostname.match(/alpha/)) {
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

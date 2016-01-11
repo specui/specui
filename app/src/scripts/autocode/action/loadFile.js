@@ -49,6 +49,10 @@ autocode.action.loadFile = function(opts) {
       mode = 'shell';
       break;
     }
+    case !!opts.file.match(/\.swift$/): {
+      mode = 'swift';
+      break;
+    }
     case !!opts.file.match(/\.svg$/): {
       mode = 'xml';
       break;

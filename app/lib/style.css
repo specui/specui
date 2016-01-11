@@ -84,6 +84,19 @@ button:active, .button:active {
   margin-top: 2px;
 }
 
+button.loading, .button.loading {
+  background-color: transparent !important;
+  box-shadow: none;
+  cursor: default !important;
+}
+
+button.loading .icon, .button.loading .icon {
+  animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -webkit-animation: rotating 2s linear infinite;
+  background-image: url(images/loader.svg) !important;
+}
+
 code {
   background-color: #FFF;
 }
@@ -843,7 +856,6 @@ textarea {
 }
 
 #container {
-  display: none;
   opacity: 0;
 }
 
@@ -1548,7 +1560,6 @@ textarea {
 }
 
 #welcome {
-  display: none;
   position: fixed;
   text-align: center;
 }
