@@ -69,5 +69,5 @@ Try Autocode online here:
 
 View Autocode's Official Documentation here:
 
-[https://crystal.readme.io](https://crystal.readme.io)
+[https://autocode.readme.io](https://autocode.readme.io)
 
