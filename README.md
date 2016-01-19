@@ -108,7 +108,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>NAME</b></div>
+      <div><b>ctate/cordova</b></div>
       Generates a Cordova app
     </div>
   </tr>
