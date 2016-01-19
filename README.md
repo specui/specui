@@ -324,7 +324,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/license">
-        <img width="100" src="https://rawgit.com/ctate/license/master/.autocode/icon.svg" />](https://github.com/ctate/license)
+        <img width="100" src="https://rawgit.com/ctate/license/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
