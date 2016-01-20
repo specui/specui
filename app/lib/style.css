@@ -861,6 +861,7 @@ textarea {
 
 #content {
   clear: both;
+  overflow: auto;
 }
 
 #content aside,

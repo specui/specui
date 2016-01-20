@@ -4,5 +4,4 @@ autocode.resize.projects = function() {
     backgroundSize: (size-40) + 'px ' + (size-40) + 'px',
     height: size - 20
   });
-  $('#projects-content-results').css('paddingBottom', $('footer').outerHeight());
 };
