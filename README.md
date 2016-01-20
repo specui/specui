@@ -1,7 +1,9 @@
+# Autocode 
 
-[![Autocode](https://rawgit.com/crystal/autocode/master/.autocode/image.svg)](https://autocode.run)
+[![Travis](https://img.shields.io/travis/ctate/autocode.svg)](https://travis-ci.org/ctate/autocode)
+[![Gitter](https://img.shields.io/gitter/room/ctate/autocode.svg)](https://gitter.im/ctate/autocode)
 
-
+> spec-driven code generator
 
 # Table of Contents
 

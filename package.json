@@ -52,7 +52,7 @@
 		"xml-to-jsobj": "latest",
 		"user-home": "~2.0.0"
 	},
-	"description": "the ultimate developer platform",
+	"description": "spec-driven code generator",
 	"devDependencies": {
 		"browser-sync": "~2.9.11",
 		"mocha": "latest",
