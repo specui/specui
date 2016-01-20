@@ -9,14 +9,14 @@ author:
 license: Apache-2.0
 copyright: 2015 Crystal
 imports:
-  ctate/authors: ~0.3.3
-  ctate/bower: ~0.4.1
-  ctate/git: ~0.2.0
-  ctate/grunt: ~0.3.1
-  ctate/license: ~0.4.0
-  ctate/npm: ~0.4.0
-  ctate/readme: /Users/ctate/.autocode/dev/readme # ~0.5.1
-  ctate/travis: ~0.3.0
+  ctate/authors: ~0.3.7
+  ctate/bower: ~0.5.2
+  ctate/git: ~0.2.2
+  ctate/grunt: ~0.3.2
+  ctate/license: ~0.5.2
+  ctate/npm: ~0.4.3
+  ctate/readme: ~0.5.4
+  ctate/travis: ~0.4.1
 exports:
   ConfigSchema:
     schema:
