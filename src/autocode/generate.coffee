@@ -126,7 +126,7 @@ loadModules = (modules, host) ->
 				# handle schema
 				if typeof(exported.schema) == 'string'
 					if exported.schema.match /^https?:/
-						schema = request 'get', exported.schema
+						schema = request 'get', exported.schema, { allowRedirectHeaders: ['User-Agent'] }
 						console.log schema
 						schema = yaml.safeLoad schema.body.toString()
 					else
@@ -152,7 +152,7 @@ loadModules = (modules, host) ->
 					module_config.exports[export_name].spec = spec
 				else if typeof(exported.spec) == 'string' && exported.spec.match(/\./)
 					if exported.spec.match(/^https?:\/\//)
-						spec = request 'get', exported.spec
+						spec = request 'get', exported.spec, { allowRedirectHeaders: ['User-Agent'] }
 						module_config.exports[export_name].spec = yaml.safeLoad spec.body
 					else
 						export_path = "#{module_path}/.autocode/spec/#{exported.spec}"
@@ -359,7 +359,7 @@ loadOutputs = (outputs, imports, config) ->
 							output_processor = loadProcessor imports[output_spec].processor, null, imports
 							output_spec = imports[output_spec].spec
 						else if output_spec.match(/^https?:\/\//)
-							output_spec = request 'get', output_spec
+							output_spec = request 'get', output_spec, { allowRedirectHeaders: ['User-Agent'] }
 							output_spec = yaml.safeLoad spec.body
 						else
 							spec_filename = ".autocode/spec/#{output_spec}"
@@ -376,7 +376,7 @@ loadOutputs = (outputs, imports, config) ->
 						output_processor = loadProcessor imports[output.spec].processor, null, imports
 						spec = imports[output.spec].spec
 					else if output.spec.match(/^https?:\/\//)
-						spec = request 'get', output.spec
+						spec = request 'get', output.spec, { allowRedirectHeaders: ['User-Agent'] }
 						spec = yaml.safeLoad spec.body
 					else
 						spec_filename = ".autocode/spec/#{output.spec}"
@@ -671,7 +671,7 @@ loadSchemaRefs = (schema) ->
 		
 		if !fs.existsSync schema_path
 			console.log "Loading schema for ref: #{schema['$ref']}"
-			resp = request 'get', schema['$ref']
+			resp = request 'get', schema['$ref'], { allowRedirectHeaders: ['User-Agent'] }
 			if !fs.existsSync path.dirname(schema_path)
 				mkdirp.sync path.dirname(schema_path)
 			fs.writeFileSync schema_path, resp
@@ -846,7 +846,7 @@ parse = (spec, config, processors) ->
 								if imports[spec[i]['$value']]
 									spec[i]['$value'] = imports[spec[i]['$value']].spec
 								else if spec[i]['$value'].match(/^https?:\/\//)
-									spec[i]['$value'] = request 'get', spec[i]['$value']
+									spec[i]['$value'] = request 'get', spec[i]['$value'], { allowRedirectHeaders: ['User-Agent'] }
 									spec[i]['$value'] = yaml.safeLoad spec[i]['$value'].body
 							spec[i]['$value'] = processor.callback spec[i]['$value']
 						

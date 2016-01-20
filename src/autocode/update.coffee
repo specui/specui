@@ -75,7 +75,7 @@ update = () ->
 			# get all releases
 			else
 				url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
-			resp = request 'get', url, { headers: headers }
+			resp = request 'get', url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
 			if resp.statusCode != 200
 				throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
 			# parse latest release
@@ -106,7 +106,7 @@ update = () ->
 			url = "#{tarball_url}#{access_token_url}"
 			
 			# download module
-			response = request 'get', url, { headers: headers }
+			response = request 'get', url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
 			
 			# gunzip module
 			data = zlib.gunzipSync response.body

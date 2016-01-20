@@ -48,7 +48,7 @@ install = (opts) ->
     
     # get latest release
     release_url = "https://api.github.com/repos/#{module_name}/releases/latest#{access_token_url}"
-    release_resp = request 'get', release_url, { headers: headers }
+    release_resp = request 'get', release_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if release_resp.statusCode != 200
       throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
     release = JSON.parse release_resp.body
@@ -62,7 +62,7 @@ install = (opts) ->
     
     # get releases
     release_url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
-    release_resp = request 'get', release_url, { headers: headers }
+    release_resp = request 'get', release_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if release_resp.statusCode != 200
       throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
     releases = JSON.parse release_resp.body
@@ -85,14 +85,14 @@ install = (opts) ->
   # check if autocode config exists for project
   if opts.force != true
     config_url = "https://api.github.com/repos/#{module_name}/contents/.autocode/config.yml?ref=#{tag_name}"
-    config_resp = request 'get', config_url, { headers: headers }
+    config_resp = request 'get', config_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if config_resp.statusCode != 200
       throw new Error "Module (#{module_name}) has not implemented Autocode. Use -f to install anyways."
   
   # get module source url
   tarball_url = "#{release.tarball_url}#{access_token_url}"
   console.log "Downloading from: #{tarball_url}".bold
-  tarball_response = request 'get', tarball_url, { headers: headers }
+  tarball_response = request 'get', tarball_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
   if tarball_response.statusCode != 200
     throw new Error "Unable to download module (#{module_name})."
   tarball = zlib.gunzipSync tarball_response.body

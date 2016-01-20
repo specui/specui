@@ -72,7 +72,7 @@
 		"javascript generator",
 		"coffeescript generator"
 	],
-	"license": "mit",
+	"license": "Apache-2.0",
 	"main": "lib/autocode.js",
 	"name": "autocode",
 	"repository": {

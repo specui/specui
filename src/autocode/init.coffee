@@ -3,7 +3,6 @@ assert   = require 'assert'
 colors   = require 'colors'
 fs       = require 'fs'
 path     = require 'path'
-request  = require 'sync-request'
 userHome = require 'user-home'
 yaml     = require 'js-yaml'
 

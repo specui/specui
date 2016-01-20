@@ -22,7 +22,7 @@ info = (opts) ->
   
   console.log "Getting info for #{type} (#{name})...".blue
   
-  resp = request 'get', crystal.url 'api', "modules/#{name}"
+  resp = request 'get', crystal.url('api', "modules/#{name}"), { allowRedirectHeaders: ['User-Agent'] }
   
   if resp.statusCode != 200
     if resp.statusCode == 404

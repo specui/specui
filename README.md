@@ -31,7 +31,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/angular</b></div>
+      <div><b><a href="https://github.com/ctate/angular">ctate/angular</a></b></div>
       Generates an Angular app
     </div>
   </tr>
@@ -42,7 +42,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/asciinema</b></div>
+      <div><b><a href="https://github.com/ctate/asciinema">ctate/asciinema</a></b></div>
       Generates an Asciicast
     </div>
   </tr>
@@ -53,7 +53,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/backbone</b></div>
+      <div><b><a href="https://github.com/ctate/backbone">ctate/backbone</a></b></div>
       Generates a Backbone app
     </div>
   </tr>
@@ -64,7 +64,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/bower</b></div>
+      <div><b><a href="https://github.com/ctate/bower">ctate/bower</a></b></div>
       Generates Bower config and package files
     </div>
   </tr>
@@ -75,7 +75,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/cocoapods</b></div>
+      <div><b><a href="https://github.com/ctate/cocoapods">ctate/cocoapods</a></b></div>
       Generates a Podfile
     </div>
   </tr>
@@ -86,7 +86,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/coffeescript</b></div>
+      <div><b><a href="https://github.com/ctate/coffeescript">ctate/coffeescript</a></b></div>
       Transforms CoffeeScript into JavaScript
     </div>
   </tr>
@@ -97,7 +97,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/composer</b></div>
+      <div><b><a href="https://github.com/ctate/composer">ctate/composer</a></b></div>
       Generates a Composer package file
     </div>
   </tr>
@@ -108,7 +108,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/cordova</b></div>
+      <div><b><a href="https://github.com/ctate/cordova">ctate/cordova</a></b></div>
       Generates a Cordova app
     </div>
   </tr>
@@ -119,7 +119,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/django</b></div>
+      <div><b><a href="https://github.com/ctate/django">ctate/django</a></b></div>
       Generates a Django app
     </div>
   </tr>
@@ -130,7 +130,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/docker</b></div>
+      <div><b><a href="https://github.com/ctate/docker">ctate/docker</a></b></div>
       Generates a Dockerfile
     </div>
   </tr>
@@ -141,7 +141,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/editorconfig</b></div>
+      <div><b><a href="https://github.com/ctate/editorconfig">ctate/editorconfig</a></b></div>
       Generates an .editorconfig file
     </div>
   </tr>
@@ -152,7 +152,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/electron</b></div>
+      <div><b><a href="https://github.com/ctate/electron">ctate/electron</a></b></div>
       Generates an Electron app
     </div>
   </tr>
@@ -163,7 +163,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/eslint</b></div>
+      <div><b><a href="https://github.com/ctate/eslint">ctate/eslint</a></b></div>
       Generates an .eslintrc file
     </div>
   </tr>
@@ -174,7 +174,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/express</b></div>
+      <div><b><a href="https://github.com/ctate/express">ctate/express</a></b></div>
       Generates an Express app
     </div>
   </tr>
@@ -185,7 +185,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/feathers</b></div>
+      <div><b><a href="https://github.com/ctate/feathers">ctate/feathers</a></b></div>
       Generates a Feathers app
     </div>
   </tr>
@@ -196,7 +196,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/git</b></div>
+      <div><b><a href="https://github.com/ctate/git">ctate/git</a></b></div>
       Generates `.gitignore` and `.gitkeep` files
     </div>
   </tr>
@@ -207,7 +207,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>google-analytics</b></div>
+      <div><b><a href="https://github.com/ctate/google-analytics">ctate/google-analytics</a></b></div>
       Generates tracking code for Google Analytics
     </div>
   </tr>
@@ -218,7 +218,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/grunt</b></div>
+      <div><b><a href="https://github.com/ctate/grunt">ctate/grunt</a></b></div>
       Generates a Gruntfile
     </div>
   </tr>
@@ -229,7 +229,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/handlebars</b></div>
+      <div><b><a href="https://github.com/ctate/handlebars">ctate/handlebars</a></b></div>
       Renders Handlebars templates for generators
     </div>
   </tr>
@@ -240,7 +240,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/hosts</b></div>
+      <div><b><a href="https://github.com/ctate/hosts">ctate/hosts</a></b></div>
       Generates a HOSTS file
     </div>
   </tr>
@@ -251,7 +251,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/httpd</b></div>
+      <div><b><a href="https://github.com/ctate/httpd">ctate/httpd</a></b></div>
       Generates a `apache.conf` file
     </div>
   </tr>
@@ -262,7 +262,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/ini</b></div>
+      <div><b><a href="https://github.com/ctate/ini">ctate/ini</a></b></div>
       Renders INI files for generators
     </div>
   </tr>
@@ -273,7 +273,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/jade</b></div>
+      <div><b><a href="https://github.com/ctate/jade">ctate/jade</a></b></div>
       Renders Jade templates for generators
     </div>
   </tr>
@@ -284,7 +284,7 @@ npm install autocode -g
       <a/>
     </td>
     <td>
-      <div><b>ctate/javascript</b></div>
+      <div><b><a href="https://github.com/ctate/javascript">ctate/javascript</a></b></div>
       Transforms JavaScript into beautiful JavaScript
     </div>
   </tr>
@@ -295,7 +295,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/jshint</b></div>
+      <div><b><a href="https://github.com/ctate/jshint">ctate/jshint</a></b></div>
       Generates a `.jshintrc` file
     </div>
   </tr>
@@ -306,7 +306,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/json</b></div>
+      <div><b><a href="https://github.com/ctate/json">ctate/json</a></b></div>
       Renders JSON files for generators
     </div>
   </tr>
@@ -317,7 +317,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/laravel</b></div>
+      <div><b><a href="https://github.com/ctate/laravel">ctate/laravel</a></b></div>
       Generates a Laravel app
     </div>
   </tr>
@@ -328,7 +328,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/license</b></div>
+      <div><b><a href="https://github.com/ctate/license">ctate/license</a></b></div>
       Generates a LICENSE file
     </div>
   </tr>
@@ -339,7 +339,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/martini</b></div>
+      <div><b><a href="https://github.com/ctate/martini">ctate/martini</a></b></div>
       Generates a Martini app
     </div>
   </tr>
@@ -350,7 +350,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/model</b></div>
+      <div><b><a href="https://github.com/ctate/model">ctate/model</a></b></div>
       Model Schema
     </div>
   </tr>
@@ -361,7 +361,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/npm</b></div>
+      <div><b><a href="https://github.com/ctate/npm">ctate/npm</a></b></div>
       Generates `package.json` and `.npmignore` files
     </div>
   </tr>
@@ -372,7 +372,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/php</b></div>
+      <div><b><a href="https://github.com/ctate/php">ctate/php</a></b></div>
       Generates `php.ini` files
     </div>
   </tr>
@@ -383,7 +383,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/pip</b></div>
+      <div><b><a href="https://github.com/ctate/pip">ctate/pip</a></b></div>
       Generates `requirements.txt` files
     </div>
   </tr>
@@ -394,7 +394,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/rails</b></div>
+      <div><b><a href="https://github.com/ctate/rails">ctate/rails</a></b></div>
       Generates a Rails app
     </div>
   </tr>
@@ -405,7 +405,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/raml</b></div>
+      <div><b><a href="https://github.com/ctate/raml">ctate/raml</a></b></div>
       Schemas for RAML
     </div>
   </tr>
@@ -416,7 +416,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/redis</b></div>
+      <div><b><a href="https://github.com/ctate/redis">ctate/redis</a></b></div>
       Generates a `redis.conf` file
     </div>
   </tr>
@@ -427,7 +427,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/rubygems</b></div>
+      <div><b><a href="https://github.com/ctate/rubygems">ctate/rubygems</a></b></div>
       Generates a `Gemfile`
     </div>
   </tr>
@@ -438,7 +438,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/sequelize</b></div>
+      <div><b><a href="https://github.com/ctate/sequelize">ctate/sequelize</a></b></div>
       Generates models for Sequelize
     </div>
   </tr>
@@ -449,7 +449,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/swagger</b></div>
+      <div><b><a href="https://github.com/ctate/swagger">ctate/swagger</a></b></div>
       Schemas for Swagger
     </div>
   </tr>
@@ -460,7 +460,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/travis</b></div>
+      <div><b><a href="https://github.com/ctate/travis">ctate/travis</a></b></div>
       Generates a `.travis.yml` file
     </div>
   </tr>
@@ -471,7 +471,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/vagrant</b></div>
+      <div><b><a href="https://github.com/ctate/vagrant">ctate/vagrant</a></b></div>
       Generates a `Vagrantfile`
     </div>
   </tr>
@@ -482,7 +482,7 @@ npm install autocode -g
       </a>
     </td>
     <td>
-      <div><b>ctate/watchman</b></div>
+      <div><b><a href="https://github.com/ctate/watchman">ctate/watchman</a></b></div>
       Generates a `.watchmanconfig` file
     </div>
   </tr>
