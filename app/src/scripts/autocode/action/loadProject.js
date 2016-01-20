@@ -133,7 +133,9 @@ autocode.action.loadProject = function(opts) {
     autocode.popup.close();
   });
   
+  // update repo
   autocode.repo = opts.name;
+  history.pushState(null, null, autocode.repo);
   
   var user = opts.name.split('/')[0];
   if (user == autocode.data.user.username) {
