@@ -23,11 +23,11 @@ npm install autocode -g
 
 # Generators
 
-<table>
+<table width="100%">
   <tr>
     <td>
       <a href="https://github.com/ctate/angular">
-        <img width="100" src="https://rawgit.com/ctate/angular/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/angular/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -38,7 +38,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/asciinema">
-        <img width="100" src="https://rawgit.com/ctate/asciinema/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/asciinema/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -49,7 +49,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/backbone">
-        <img width="100" src="https://rawgit.com/ctate/backbone/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/backbone/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -60,7 +60,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/bower">
-        <img width="100" src="https://rawgit.com/ctate/bower/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/bower/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -71,7 +71,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/cocoapods">
-        <img width="100" src="https://rawgit.com/ctate/cocoapods/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/cocoapods/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -82,7 +82,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/coffeescript">
-        <img width="100" src="https://rawgit.com/ctate/coffeescript/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/coffeescript/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -93,7 +93,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/composer">
-        <img width="100" src="https://rawgit.com/ctate/composer/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/composer/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -104,7 +104,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/cordova">
-        <img width="100" src="https://rawgit.com/ctate/cordova/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/cordova/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -115,7 +115,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/django">
-        <img width="100" src="https://rawgit.com/ctate/django/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/django/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -126,7 +126,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/docker">
-        <img width="100" src="https://rawgit.com/ctate/docker/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/docker/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -137,7 +137,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/editorconfig">
-        <img width="100" src="https://rawgit.com/ctate/editorconfig/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/editorconfig/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -148,7 +148,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/electron">
-        <img width="100" src="https://rawgit.com/ctate/electron/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/electron/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -159,7 +159,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/eslint">
-        <img width="100" src="https://rawgit.com/ctate/eslint/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/eslint/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -170,7 +170,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/express">
-        <img width="100" src="https://rawgit.com/ctate/express/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/express/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -181,7 +181,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/feathers">
-        <img width="100" src="https://rawgit.com/ctate/feathers/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/feathers/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -192,7 +192,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/git">
-        <img width="100" src="https://rawgit.com/ctate/git/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/git/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -203,7 +203,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/google-analytics">
-        <img width="100" src="https://rawgit.com/ctate/google-analytics/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/google-analytics/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -214,7 +214,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/grunt">
-        <img width="100" src="https://rawgit.com/ctate/grunt/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/grunt/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -225,7 +225,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/handlebars">
-        <img width="100" src="https://rawgit.com/ctate/handlebars/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/handlebars/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -236,7 +236,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/hosts">
-        <img width="100" src="https://rawgit.com/ctate/hosts/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/hosts/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -247,7 +247,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/httpd">
-        <img width="100" src="https://rawgit.com/ctate/httpd/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/httpd/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -258,7 +258,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/ini">
-        <img width="100" src="https://rawgit.com/ctate/ini/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/ini/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -269,7 +269,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/jade">
-        <img width="100" src="https://rawgit.com/ctate/jade/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/jade/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -280,7 +280,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/javascript">
-        <img width="100" src="https://rawgit.com/ctate/javascript/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/javascript/master/.autocode/icon.svg" />
       <a/>
     </td>
     <td>
@@ -291,7 +291,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/jshint">
-        <img width="100" src="https://rawgit.com/ctate/jshint/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/jshint/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -302,7 +302,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/json">
-        <img width="100" src="https://rawgit.com/ctate/json/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/json/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -313,7 +313,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/laravel">
-        <img width="100" src="https://rawgit.com/ctate/laravel/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/laravel/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -324,7 +324,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/license">
-        <img width="100" src="https://rawgit.com/ctate/license/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/license/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -335,7 +335,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/martini">
-        <img width="100" src="https://rawgit.com/ctate/martini/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/martini/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -346,7 +346,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/model">
-        <img width="100" src="https://rawgit.com/ctate/model/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/model/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -357,7 +357,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/npm">
-        <img width="100" src="https://rawgit.com/ctate/npm/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/npm/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -368,7 +368,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/php">
-        <img width="100" src="https://rawgit.com/ctate/php/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/php/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -379,7 +379,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/pip">
-        <img width="100" src="https://rawgit.com/ctate/pip/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/pip/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -390,7 +390,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/rails">
-        <img width="100" src="https://rawgit.com/ctate/rails/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/rails/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -401,7 +401,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/raml">
-        <img width="100" src="https://rawgit.com/ctate/raml/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/raml/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -412,7 +412,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/redis">
-        <img width="100" src="https://rawgit.com/ctate/redis/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/redis/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -423,7 +423,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/rubygems">
-        <img width="100" src="https://rawgit.com/ctate/rubygems/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/rubygems/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -434,7 +434,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/sequelize">
-        <img width="100" src="https://rawgit.com/ctate/sequelize/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/sequelize/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -445,7 +445,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/swagger">
-        <img width="100" src="https://rawgit.com/ctate/swagger/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/swagger/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -456,7 +456,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/travis">
-        <img width="100" src="https://rawgit.com/ctate/travis/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/travis/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -467,7 +467,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/vagrant">
-        <img width="100" src="https://rawgit.com/ctate/vagrant/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/vagrant/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
@@ -478,7 +478,7 @@ npm install autocode -g
   <tr>
     <td>
       <a href="https://github.com/ctate/watchman">
-        <img width="100" src="https://rawgit.com/ctate/watchman/master/.autocode/icon.svg" />
+        <img width="50" src="https://rawgit.com/ctate/watchman/master/.autocode/icon.svg" />
       </a>
     </td>
     <td>
