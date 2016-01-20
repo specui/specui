@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
     grunt.initConfig({
         "pkg": "package.json",
         "concat": {
@@ -16,10 +15,7 @@ module.exports = function(grunt) {
             "tasks": ["concat"]
         }
     });
-
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.registerTask('default', ['concat']);
-
 };

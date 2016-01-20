@@ -1,7 +1,7 @@
 # Autocode 
 
 [![Travis](https://img.shields.io/travis/ctate/autocode.svg)](https://travis-ci.org/ctate/autocode)
-[![Gitter](https://img.shields.io/gitter/room/ctate/autocode.svg)](https://gitter.im/ctate/autocode)
+[!(https://img.shields.io/travis/ctate/autocode.svg)](https://travis-ci.org/ctate/autocode)
 
 > spec-driven code generator
 

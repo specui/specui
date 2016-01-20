@@ -1,12 +1,21 @@
 {
+	"name": "autocode",
+	"version": "1.1.4",
+	"description": "spec-driven code generator",
 	"author": {
 		"name": "Chris Tate",
 		"email": "chris@autocode.run",
 		"url": "https://autocode.run"
 	},
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/crystal/autocode"
+	},
 	"bin": {
 		"autocode": "./bin/autocode"
 	},
+	"main": "lib/autocode.js",
 	"dependencies": {
 		"bluebird": "~2.9.34",
 		"change-case": "latest",
@@ -52,13 +61,11 @@
 		"xml-to-jsobj": "latest",
 		"user-home": "~2.0.0"
 	},
-	"description": "spec-driven code generator",
 	"devDependencies": {
 		"browser-sync": "~2.9.11",
 		"mocha": "latest",
 		"should": "latest"
 	},
-	"homepage": "https://autocode.run",
 	"keywords": [
 		"autocode",
 		"crystal",
@@ -72,15 +79,8 @@
 		"javascript generator",
 		"coffeescript generator"
 	],
-	"license": "Apache-2.0",
-	"main": "lib/autocode.js",
-	"name": "autocode",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/crystal/autocode"
-	},
+	"homepage": "https://autocode.run",
 	"scripts": {
 		"test": "mocha"
-	},
-	"version": "1.1.3"
+	}
 }

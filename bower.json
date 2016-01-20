@@ -1,4 +1,7 @@
 {
+	"name": "autocode",
+	"description": "spec-driven code generator",
+	"main": "lib/autocode.js",
 	"dependencies": {
 		"CodeMirror": "5.7.0",
 		"dragula": "3.5.4",
@@ -11,8 +14,5 @@
 		"js-yaml": "3.4.2",
 		"marked": "0.3.5",
 		"zeroclipboard": "2.2.0"
-	},
-	"description": "spec-driven code generator",
-	"main": "lib/autocode.js",
-	"name": "autocode"
+	}
 }
