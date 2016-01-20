@@ -1,9 +1,22 @@
 autocode.state['overview/author'] = function() {
   autocode.action.toggleColumn('overview-content', 2);
   
-  $('#overview-author-name .value').text(autocode.project.author.name || ' [ Click to Add ]');
-  $('#overview-author-email .value').text(autocode.project.author.email || ' [ Click to Add ]');
-  $('#overview-author-url .value').text(autocode.project.author.url || ' [ Click to Add ]');
+  var authorName = ' [ Click to Add ]';
+  if (autocode.project.author && autocode.project.author.name) {
+    authorName = autocode.project.author.name;
+  }
+  var authorEmail = ' [ Click to Add ]';
+  if (autocode.project.author && autocode.project.author.email) {
+    authorEmail = autocode.project.author.email;
+  }
+  var authorURL = ' [ Click to Add ]';
+  if (autocode.project.author && autocode.project.author.url) {
+    authorURL = autocode.project.author.url;
+  }
+  
+  $('#overview-author-name .value').text(authorName);
+  $('#overview-author-email .value').text(authorEmail);
+  $('#overview-author-url .value').text(authorURL);
   
   autocode.action.toggleSection('overview', 'author');
 };
