@@ -90,19 +90,6 @@ autocode.action.newProject = function() {
       private_button.text('Private');
       access_field.append(private_button);
       
-      var warning = $(document.createElement('div'));
-      warning.addClass('access-warning');
-      warning.css({
-        backgroundColor: '#eef8ff',
-        borderRadius: '5px',
-        display: 'none',
-        fontSize: '12px',
-        marginTop: '5px',
-        padding: '5px'
-      });
-      warning.html('Upgrade to an <a href="' + autocode.url.account() + '" target="_blank">Innovator Account</a> to create private projects.');
-      access_field.append(warning);
-      
       autocode.popup.open({
         title: 'New Project',
         content: form
