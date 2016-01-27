@@ -9,6 +9,7 @@ autocode.action.commitProject = function(opts) {
   
   if (opts.confirm) {
     var data = {
+      config: jsyaml.safeDump(autocode.project),
       project: autocode.repo.split('/')[1],
       message: $('#popup textarea[name="message"]').val(),
       user: autocode.repo.split('/')[0]

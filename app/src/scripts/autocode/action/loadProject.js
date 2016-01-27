@@ -218,6 +218,7 @@ autocode.action.loadProject = function(opts) {
         $('#config-tab').prop('href', 'config');
         $('#output-tab').prop('href', 'output');
         $('#interfaces-tab').prop('href', 'interfaces');
+        $('#versions-tab').prop('href', 'versions');
         
         $('#overview-general-subtab').prop('href', 'overview/general');
         $('#overview-icon-subtab').prop('href', 'overview/icon');
@@ -363,6 +364,7 @@ autocode.action.loadProject = function(opts) {
               $('#scripts-tab').prop('href', opts.name + '/scripts');
               $('#config-tab').prop('href', opts.name + '/config');
               $('#output-tab').prop('href', opts.name + '/output');
+              $('#versions-tab').prop('href', opts.name + '/versions');
               
               $('#overview-general-subtab').prop('href', opts.name + '/overview/general');
               $('#overview-icon-subtab').prop('href', opts.name + '/overview/icon');
@@ -371,7 +373,9 @@ autocode.action.loadProject = function(opts) {
               $('header').fadeIn();
               $('#menu-project').show();
               
-              autocode.state['overview']();
+              autocode.action.generate();
+              
+              autocode.state['output']();
               
               $('.app').fadeIn();
               

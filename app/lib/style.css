@@ -812,6 +812,16 @@ textarea {
   display: none;
 }
 
+#code-tabs a {
+  border: 1px #CCC solid;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+#code-tabs a.selected {
+  background-color: #EEE;
+}
+
 #config-content textarea {
   font-family: 'Courier New';
 }
@@ -861,7 +871,7 @@ textarea {
 
 #content {
   clear: both;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #content aside,
@@ -990,6 +1000,14 @@ textarea {
   border-bottom: 1px #EEE solid;
   font-size: 24px;
   padding: 21px 0px 20px;
+}
+
+#content .content-left {
+  border-right: 1px #EEE solid;
+}
+
+#content .content-right {
+  border-left: 1px #EEE solid;
 }
 
 #errors {
@@ -1504,7 +1522,11 @@ textarea {
   float: left;
   padding: 15px 0px;
   text-align: center;
-  width: 12.5%;
+  width: 11.1%;
+}
+
+#tabs a:last-of-type {
+  width: 11.2%;
 }
 
 #tabs a:hover {
@@ -1558,6 +1580,23 @@ textarea {
 #user .icon,
 #user .text {
   vertical-align: middle;
+}
+
+#versions-init {
+  position: fixed;
+  text-align: center;
+}
+
+#versions-init button {
+  margin-top: 20px;
+}
+
+#versions-init .title {
+  border-bottom: 1px #CCC solid;
+  color: #185F96;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  font-size: 32px;
 }
 
 #welcome {

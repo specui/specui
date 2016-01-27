@@ -48,6 +48,10 @@ autocode.action.saveProject = function() {
         }
         break;
       }
+      case 'output': {
+        autocode.project.outputs[autocode.data.current.output].spec = jsyaml.safeLoad($('#output-content .CodeMirror')[0].CodeMirror.getValue());
+        break;
+      }
       case 'outputs': {
         autocode.project.outputs[autocode.data.current.output].spec = jsyaml.safeLoad($('#outputs-content .CodeMirror')[0].CodeMirror.getValue());
         break;

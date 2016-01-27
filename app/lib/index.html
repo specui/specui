@@ -112,6 +112,7 @@
         </div>
       </nav>
       <nav class="app" id="tabs">
+        <a class="tab" href="output" id="output-tab">Code</a>
         <a class="tab" href="overview" id="overview-tab">Globals</a>
         <a class="tab" href="imports" id="imports-tab">Imports</a>
         <a class="tab" href="exports" id="exports-tab">Exports</a>
@@ -119,7 +120,7 @@
         <a class="tab" href="interfaces" id="interfaces-tab">Interfaces</a>
         <a class="tab" href="scripts" id="scripts-tab">Scripts</a>
         <a class="tab" href="config" id="config-tab">Config</a>
-        <a class="tab" href="output" id="output-tab">Files</a>
+        <a class="tab" href="versions" id="versions-tab">Versions</a>
       </nav>
     </header>
     <div id="init">
@@ -431,21 +432,20 @@
           </div>
         </div>
         <div class="content" id="output-content">
-          <div id="output-init">
-            <div class="title">
-              Output
-            </div>
-            <div>
-              Add imports and outputs to your Autocode configuration and click the button below to generate code for your project.
-            </div>
-            <a class="button" onclick="autocode.action.build()">Generate Code</a>
-          </div>
           <div id="output-content-container">
             <aside class="column content-left">
               <div class="table"></div>
             </aside>
             <div class="column content" id="output-content">
-              <textarea name="output"></textarea>
+              <div id="code-tabs">
+                <a id="code-tabs-spec" class="selected" onclick="autocode.action.toggleCode('spec')">Spec</a>
+                <a id="code-tabs-code" onclick="autocode.action.toggleCode('code')">Code</a>
+                <a id="code-tabs-preview" onclick="autocode.action.toggleCode('preview')">Preview</a>
+              </div>
+              <div id="code-editor">
+                <textarea name="output"></textarea>
+              </div>
+              <iframe frameborder="0" id="code-preview"></iframe>
             </div>
           </div>
         </div>
@@ -618,6 +618,49 @@
         </div>
         <div class="content" id="config-content">
           <textarea name="config"></textarea>
+        </div>
+        <div class="content" id="versions-content">
+          <div id="versions-init">
+            <div class="title">
+              Versions
+            </div>
+            <div>
+              Add a new version.
+            </div>
+            <button onclick="autocode.action.addVersion()">Add Version</button>
+          </div>
+          <div id="versions-content-container">
+            <aside class="content-left">
+              <div class="table">
+                <a class="file" onclick="autocode.action.addVersion()">
+                  <span class="image">
+                    <span class="icon add-icon"></span>
+                  </span>
+                  <span class="info">
+                    <span class="name">Add Version</span>
+                  </span>
+                </a>
+              </div>
+            </aside>
+            <section class="content-center">
+              <button onclick="autocode.action.launchInterface()" style="float: right; margin-top: 10px">
+                Launch
+              </button>
+              <button onclick="autocode.action.removeInterface()" style="float: right; margin-top: 10px">
+                Delete
+              </button>
+              <div class="field">
+                <div class="title value" id="versions-title" onclick="autocode.action.editInterfaceName()"></div>
+              </div>
+              <div class="field" id="versions-port">
+                <label>
+                  <span class="text">Port</span>
+                  <span class="icon info-icon" data-hint="Your app's port."></span>
+                </label>
+                <div class="value" onclick="autocode.action.editInterfacePort()"></div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ autocode.resize = {
     
     var parts = [
       'body',
+      'codePreview',
       'content',
       'config',
       'exports',
@@ -25,6 +26,7 @@ autocode.resize = {
       'popup',
       'projects',
       'fuzzy',
+      'versionsInit',
       'welcome'
     ];
     

@@ -87,5 +87,7 @@ autocode.action.loadFile = function(opts) {
   
   setTimeout(function() { $('#output-content .CodeMirror')[0].CodeMirror.refresh() }, 0);
   
+  $('#code-preview').attr('src', 'data:text/html;charset=utf-8,' + escape(marked(value)));
+  
   autocode.resize.all();
 };

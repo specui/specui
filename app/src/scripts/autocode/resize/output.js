@@ -4,6 +4,7 @@ autocode.resize.output = function() {
     height: $(window).height()
       - $('header').outerHeight()
       - $('footer').outerHeight()
+      - $('#code-tabs').outerHeight()
       - $('#console').visibleHeight()
   });
 };
