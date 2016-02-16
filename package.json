@@ -1,6 +1,6 @@
 {
 	"name": "autocode",
-	"version": "1.1.4",
+	"version": "1.2.0",
 	"description": "spec-driven code generator",
 	"author": {
 		"name": "Chris Tate",
