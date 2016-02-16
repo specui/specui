@@ -53,7 +53,7 @@ if (minimist.debug || command == 'help') {
 // get autocode output
 bluebird.try(function() {
 	// change cwd
-	if (command != 'info' && command != 'install' && command != 'link' && command != 'search' && minimist._[1]) {
+	if (command != 'info' && command != 'import' && command != 'install' && command != 'link' && command != 'search' && minimist._[1]) {
 		var dest = minimist._[1].split('@');
 		var version = dest[1] || 'latest';
 		var module = dest[0];
@@ -66,7 +66,7 @@ bluebird.try(function() {
 		process.chdir(cwd);
 	}
 	
-	if (command == 'build' || command == 'config' || command == 'run' || command == 'stop' || command == 'update') {
+	if (command == 'build' || command == 'config' || command == 'import' || command == 'run' || command == 'stop' || command == 'update') {
 		project.load(process.cwd());
 	}
 	
@@ -90,6 +90,14 @@ bluebird.try(function() {
 		case 'help':
 			var output = require(__dirname + '/../cli/lib/help')(commands);
 			console.log(output);
+			break;
+		
+		case 'import':
+			project.import({
+				name: minimist._[1],
+				force: minimist.f || minimist.force ? true : false
+			});
+		
 			break;
 		
 		case 'install':

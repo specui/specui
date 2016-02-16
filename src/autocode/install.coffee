@@ -35,7 +35,7 @@ install = (opts) ->
   
   # set headers for github
   headers = {
-    'User-Agent': 'Crystal Autocode <support@autocode.run> (https://autocode.run/autocode)'
+    'User-Agent': 'Autocode <support@autocode.run> (https://autocode.run/autocode)'
   }
   
   # get access token url
@@ -50,7 +50,7 @@ install = (opts) ->
     release_url = "https://api.github.com/repos/#{module_name}/releases/latest#{access_token_url}"
     release_resp = request 'get', release_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if release_resp.statusCode != 200
-      throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
+      throw new Error "Module (#{module_name}) does not exist on GitHub."
     release = JSON.parse release_resp.body
     if !release
       throw new Error "Unable to locate generator (#{name})."
@@ -64,7 +64,7 @@ install = (opts) ->
     release_url = "https://api.github.com/repos/#{module_name}/releases#{access_token_url}"
     release_resp = request 'get', release_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if release_resp.statusCode != 200
-      throw new Error "Module (#{module_name}) does not exist in the Crystal Hub."
+      throw new Error "Module (#{module_name}) does not exist on GitHub."
     releases = JSON.parse release_resp.body
     if !releases
       throw new Error "Unable to locate generator (#{name})."
@@ -84,7 +84,7 @@ install = (opts) ->
   
   # check if autocode config exists for project
   if opts.force != true
-    config_url = "https://api.github.com/repos/#{module_name}/contents/.autocode/config.yml?ref=#{tag_name}"
+    config_url = "https://api.github.com/repos/#{module_name}/contents/.autocode/config.yml#{access_token_url}&ref=#{tag_name}"
     config_resp = request 'get', config_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
     if config_resp.statusCode != 200
       throw new Error "Module (#{module_name}) has not implemented Autocode. Use -f to install anyways."
@@ -101,6 +101,11 @@ install = (opts) ->
   
   # get module path
   module_path = path.normalize "#{userHome}/.autocode/module/#{host}/#{module_name}/#{module_version}"
+  if fs.existsSync(module_path) and opts.ignoreOverwrite
+    return {
+      name: module_name
+      version: module_version
+    }
   
   # untar module
   untar.untar(tarball).forEach (file) ->
@@ -122,8 +127,15 @@ install = (opts) ->
     
   project = new autocode module_path
   project.update()
-  project.build()
+  project.build {
+    skipGeneration: true
+  }
   
   console.log "Successfully installed #{module_name} at: #{module_path}".green
+  
+  {
+    name: module_name
+    version: module_version
+  }
   
 module.exports = install

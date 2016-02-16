@@ -2,6 +2,7 @@
 (function() {
   module.exports = function() {
     var file, fs, text;
+    return "\nAUTOCODE\n========\n";
     fs = require('fs');
     file = __dirname + "/../ascii.txt";
     text = fs.readFileSync(file);

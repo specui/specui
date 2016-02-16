@@ -777,7 +777,7 @@ generate = (opts) ->
 	
 	# load outputs
 	if config.outputs
-		console.log "Loading outputs...".bold
+		console.log "Generating outputs...".bold
 		loadOutputs config.outputs, imports, config
 	
 	{

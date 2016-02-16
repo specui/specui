@@ -29,7 +29,7 @@ init = (project_path, validate = true) ->
 	
 	# require project path
 	if !project_path
-		throw new Error 'project_path for crystal config is required'
+		throw new Error 'project_path for Autocode config is required'
 	
 	# load config
 	config = load project_path
@@ -37,14 +37,14 @@ init = (project_path, validate = true) ->
 	if !config
 		return false
 	
-	# get crystal path
-	crystal_path = path.resolve "#{__dirname}/../.."
+	# get autocode path
+	autocode_path = path.resolve "#{__dirname}/../.."
 	
 	if validate == false
-		autocode_config = yaml.safeLoad fs.readFileSync("#{crystal_path}/.autocode/config.yml")
+		autocode_config = yaml.safeLoad fs.readFileSync("#{autocode_path}/.autocode/config.yml")
 		return autocode_config.exports.ConfigSchema.schema
 	else
-		config_schema = this.load crystal_path, false
+		config_schema = this.load autocode_path, false
 	
 	validate = skeemas.validate config, config_schema
 	if !validate.valid

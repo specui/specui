@@ -5,7 +5,7 @@ request  = require 'sync-request'
 request = bluebird.promisifyAll request
 
 info = (opts) ->
-  crystal = this
+  autocode = this
   
   if typeof opts == 'object'
     if opts._ && opts._[1]
@@ -16,13 +16,22 @@ info = (opts) ->
     name = opts
   
   if !name
-    throw new Error "'name' is required for crystal search"
+    throw new Error "'name' is required for autocode search"
   
-  type = if name.match(/\./) then 'module' else 'collection'
+  # set headers for github
+  headers = {
+    'User-Agent': 'Autocode <support@autocode.run> (https://autocode.run/autocode)'
+  }
   
-  console.log "Getting info for #{type} (#{name})...".blue
+  # get access token url
+  access_token_url = ''
+  if process.env.GITHUB_ACCESS_TOKEN
+    access_token_url += "?access_token=#{process.env.GITHUB_ACCESS_TOKEN}"
   
-  resp = request 'get', crystal.url('api', "modules/#{name}"), { allowRedirectHeaders: ['User-Agent'] }
+  console.log "Getting info for #{name}...".blue
+  
+  repo_url = "https://api.github.com/repos/#{name}/releases/latest#{access_token_url}"
+  resp = request 'get', repo_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
   
   if resp.statusCode != 200
     if resp.statusCode == 404
@@ -33,23 +42,6 @@ info = (opts) ->
   # get module
   module = JSON.parse resp.body
   
-  console.log "\n#{module.name} v#{module.version}".bold
-  console.log "#{module.description}"
-  
-  console.log "\nModules:".bold
-  for mod_name of module.modules
-    mod_version = module.modules[mod_name]
-    console.log "- #{mod_name}@#{mod_version}"
-  
-  console.log "\nImports:".bold
-  for import_name of module.imports
-    module_import = module.imports[import_name]
-    console.log "- #{import_name}"
-  
-  console.log "\nExports:".bold
-  for export_name of module.exports
-    module_export = module.exports[export_name]
-    console.log "- #{export_name} (#{module_export.type})"
-  console.log ""
+  console.log "Latest Version: ".bold + module.tag_name.substr(1)
   
 module.exports = info

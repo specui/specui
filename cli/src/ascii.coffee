@@ -1,4 +1,5 @@
 module.exports = () ->
+	return "\nAUTOCODE\n========\n"
 	
 	# load packages
 	fs = require 'fs'

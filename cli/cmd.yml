@@ -1,6 +1,6 @@
 build:
-  #opts: '[project]'
-  desc: build project from current directory or specified project's directory
+  opts: '[module]'
+  desc: build module
 #cache:
 #  opts: '<key> [value]'
 #  desc: 'read/write value from/to cache'
@@ -8,19 +8,24 @@ build:
 #  opts: '[dir]'
 #  desc: clean project from current or specified directory
 config:
-  #opts: '[project]'
-  desc: get project's Autocode Config
+  opts: '[key] [value]'
+  desc: get or set project's Autocode Config
 help:
   desc: get help
-#info:
-#  opts: '<project>'
-#  desc: get info about a project
+hi:
+  desc: say hello
+info:
+  opts: '<module>'
+  desc: get info about a module
 init:
   #opts: '[dir]'
-  desc: initialize a Autocode project
+  desc: initialize Autocode in the current directory
 install:
   opts: '<module>'
-  desc: install module
+  desc: install module from GitHub
+import:
+  opts: '<module>'
+  desc: import a module from GitHub to this module
 #link:
 #  opts: '<project>@<version> [src]'
 #  desc: link a project
