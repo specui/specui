@@ -28,7 +28,7 @@ module.exports = (commands) ->
 		
 	getCopyright = () ->
 		# define output
-		output = "Copyright (c) 2014 Crystal. All Rights Reserved.\n"
+		output = "Copyright (c) 2014-2016 Autocode. All Rights Reserved.\n"
 		
 	getInfo = () ->
 		# add info to output
@@ -37,9 +37,9 @@ module.exports = (commands) ->
 		# define details
 		details = {
 			Author: 'Chris Tate <chris@autocode.run>'
-			License: 'MIT'
+			License: 'Apache-2.0'
 			Website: 'https://autocode.run'
-			Repository: 'https://github.com/crystal/autocode'
+			Repository: 'https://github.com/ctate/autocode'
 		}
 		
 		# get longest detail

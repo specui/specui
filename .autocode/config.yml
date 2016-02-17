@@ -1,18 +1,20 @@
 name: Autocode
 version: 1.2.0
 description: spec-driven code generator
-repository: https://github.com/crystal/autocode
+repository: https://github.com/ctate/autocode
 author:
   name: Chris Tate
   email: chris@autocode.run
-  url: https://autocode.run
+  url: 'https://autocode.run'
+company: Autocode
 license: Apache-2.0
-copyright: 2015 Crystal
+copyright: Copyright © 2015-2016 Autocode. All Rights Reserved.
 imports:
   ctate/authors: ~0.3.7
   ctate/bower: ~0.5.2
   ctate/git: ~0.2.3
   ctate/grunt: ~0.3.2
+  ctate/handlebars: ~0.4.4
   ctate/license: ~0.5.2
   ctate/npm: ~0.4.3
   ctate/readme: ~0.5.4
@@ -98,6 +100,17 @@ exports:
             - number
             - string
     type: schema
+  VersionGenerator:
+    engine: handlebars.HandlebarsEngine
+    filename: version.txt
+    schema:
+      type: object
+      properties:
+        version:
+          required: true
+          type: string
+    template: version.hbs
+    type: generator
 outputs:
   - generator: bower.ConfigGenerator
     spec:
@@ -155,9 +168,10 @@ outputs:
           tasks:
             - concat
   
-  - generator: license.ApacheGenerator
+  - generator: license.LicenseGenerator
     spec:
       copyright: $copyright
+      license: $license
   
   - generator: npm.PackageGenerator
     spec: npm.yml
@@ -663,6 +677,10 @@ outputs:
       language: node_js
       node_js:
       - '0.12'
+  - generator: VersionGenerator
+    path: cli
+    spec:
+      version: $version
 scripts:
   build:
     - description: Install Node.js via nvm.

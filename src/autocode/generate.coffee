@@ -823,6 +823,12 @@ parse = (spec, config, processors) ->
 					spec['$value'] = processor.callback spec['$value']
 		
 		return spec['$value']
+		
+	else if typeof(spec['$value']) == 'string' and imports[spec['$value']] and imports[spec['$value']].spec
+		if spec['$key']
+			return imports[spec['$value']].spec[spec['$key']]
+		else
+			return imports[spec['$value']].spec
 	
 	for i of spec
 		s = spec[i]

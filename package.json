@@ -10,7 +10,7 @@
 	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/crystal/autocode"
+		"url": "https://github.com/ctate/autocode"
 	},
 	"bin": {
 		"autocode": "./bin/autocode"

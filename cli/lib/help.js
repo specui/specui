@@ -26,16 +26,16 @@
     };
     getCopyright = function() {
       var output;
-      return output = "Copyright (c) 2014 Crystal. All Rights Reserved.\n";
+      return output = "Copyright (c) 2014-2016 Autocode. All Rights Reserved.\n";
     };
     getInfo = function() {
       var detail, detail_length, detail_max, detail_name, details, output;
       output = "\nInfo:\n\n";
       details = {
         Author: 'Chris Tate <chris@autocode.run>',
-        License: 'MIT',
+        License: 'Apache-2.0',
         Website: 'https://autocode.run',
-        Repository: 'https://github.com/crystal/autocode'
+        Repository: 'https://github.com/ctate/autocode'
       };
       detail_max = 0;
       for (detail_name in details) {
