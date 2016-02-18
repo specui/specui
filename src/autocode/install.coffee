@@ -90,8 +90,9 @@ install = (opts) ->
       throw new Error "Module (#{module_name}) has not implemented Autocode. Use -f to install anyways."
   
   # get module source url
-  tarball_url = "#{release.tarball_url}#{access_token_url}"
+  tarball_url = release.tarball_url
   console.log "Downloading from: #{tarball_url}".bold
+  tarball_url += access_token_url
   tarball_response = request 'get', tarball_url, { headers: headers, allowRedirectHeaders: ['User-Agent'] }
   if tarball_response.statusCode != 200
     throw new Error "Unable to download module (#{module_name})."
