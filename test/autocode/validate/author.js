@@ -48,6 +48,7 @@ describe('author', _ => {
     }
     
     new Autocode(config)
+      .update()
       .save()
       .generate()
     

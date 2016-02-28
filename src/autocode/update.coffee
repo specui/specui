@@ -146,5 +146,7 @@ update = () ->
 		}
 	
 	console.log "\n" + ' DONE! '.bgGreen.white
+	
+	this
 
 module.exports = update

@@ -16,7 +16,7 @@ imports:
   ctate/grunt: ~0.3.2
   ctate/handlebars: ~0.4.4
   ctate/license: ~0.5.2
-  ctate/mocha: ~0.1.0
+  ctate/mocha: ~0.2.0
   ctate/npm: ~0.4.3
   ctate/readme: ~0.5.4
   ctate/travis: ~0.4.1
@@ -154,6 +154,7 @@ outputs:
         - babel-core/register
         - chai
       recursive: true
+      timeout: 0
 
   - generator: git.GitignoreGenerator
     spec:
