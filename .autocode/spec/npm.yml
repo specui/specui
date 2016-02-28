@@ -10,6 +10,7 @@ bin:
   autocode: "./bin/autocode"
 main: lib/autocode.js
 dependencies:
+  babel-preset-es2015: ~6.5.0
   bluebird: ~2.9.34
   change-case: latest
   coffee-script: latest
@@ -54,9 +55,10 @@ dependencies:
   xml-to-jsobj: latest
   user-home: ~2.0.0
 devDependencies:
+  babel-core: ~6.5.2
   browser-sync: ~2.9.11
+  chai: ~3.5.0
   mocha: latest
-  should: latest
 keywords:
   - autocode
   - crystal

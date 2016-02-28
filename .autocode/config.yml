@@ -10,12 +10,13 @@ company: Autocode
 license: Apache-2.0
 copyright: Copyright © 2015-2016 Autocode. All Rights Reserved.
 imports:
-  ctate/authors: ~0.3.7
+  ctate/babel: ~0.1.0
   ctate/bower: ~0.5.2
   ctate/git: ~0.2.3
   ctate/grunt: ~0.3.2
   ctate/handlebars: ~0.4.4
   ctate/license: ~0.5.2
+  ctate/mocha: ~0.1.0
   ctate/npm: ~0.4.3
   ctate/readme: ~0.5.4
   ctate/travis: ~0.4.1
@@ -36,6 +37,10 @@ exports:
             url:
               title: URL
               type: string
+        company:
+          description: The company that owns the project.
+          title: Company
+          type: string
         copyright:
           title: Copyright
           type: string
@@ -91,6 +96,7 @@ exports:
                 type: string
         name:
           description: This project's name.
+          required: true
           title: Name
           type: string
         version:
@@ -112,6 +118,11 @@ exports:
     template: version.hbs
     type: generator
 outputs:
+  - generator: babel.ConfigGenerator
+    spec:
+      presets:
+        - es2015
+        
   - generator: bower.ConfigGenerator
     spec:
       directory: app/lib/components
@@ -134,6 +145,16 @@ outputs:
         marked: 0.3.5
         zeroclipboard: 2.2.0
   
+  - generator: mocha.ConfigGenerator
+    path: test
+    spec:
+      compilers:
+        - coffee:coffee-script/register
+      requires:
+        - babel-core/register
+        - chai
+      recursive: true
+
   - generator: git.GitignoreGenerator
     spec:
       items:

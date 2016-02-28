@@ -11,8 +11,11 @@ save = (opts = {}) ->
   if config.host == 'github.com'
     delete config.host
   delete config.path
+  delete config.modules
   config = yaml.safeDump config
   
   fs.writeFileSync "#{this.path}/.autocode/config.yml", config
+  
+  this
 
 module.exports = save

@@ -22,6 +22,7 @@ skeemas      = require 'skeemas'
 userHome     = require 'user-home'
 yaml         = require 'js-yaml'
 
+cwd = process.cwd()
 force = false
 loaded_modules = {}
 imports = {}
@@ -362,7 +363,7 @@ loadOutputs = (outputs, imports, config) ->
 							output_spec = request 'get', output_spec, { allowRedirectHeaders: ['User-Agent'] }
 							output_spec = yaml.safeLoad spec.body
 						else
-							spec_filename = ".autocode/spec/#{output_spec}"
+							spec_filename = "#{cwd}/.autocode/spec/#{output_spec}"
 							if !fs.existsSync spec_filename
 								throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
 							output_spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
@@ -379,7 +380,7 @@ loadOutputs = (outputs, imports, config) ->
 						spec = request 'get', output.spec, { allowRedirectHeaders: ['User-Agent'] }
 						spec = yaml.safeLoad spec.body
 					else
-						spec_filename = ".autocode/spec/#{output.spec}"
+						spec_filename = "#{cwd}/.autocode/spec/#{output.spec}"
 						if !fs.existsSync spec_filename
 							throw new Error "File (#{spec_filename}) does not exist for spec in output for config (#{config.id})"
 						spec = yaml.safeLoad fs.readFileSync(spec_filename, 'utf8')
@@ -482,7 +483,7 @@ loadOutputs = (outputs, imports, config) ->
 				code_dir = copy_filename.substring 0, copy_filename.lastIndexOf('/')+1
 				if !fs.existsSync code_dir
 					mkdirp.sync code_dir
-				fs.writeFileSync "#{copy_filename}", fs.readFileSync "#{copy_dir}/#{code_file}"
+				fs.writeFileSync "#{cwd}/#{copy_filename}", fs.readFileSync "#{copy_dir}/#{code_file}"
 				
 				console.log "Generated file: #{copy_filename}".green
 		
@@ -538,7 +539,7 @@ loadOutputs = (outputs, imports, config) ->
 				
 			# get content from output
 			if output.template
-				output_path = ".autocode/template/#{output.template}"
+				output_path = "#{cwd}/.autocode/template/#{output.template}"
 				if fs.existsSync output_path
 					template = fs.readFileSync(output_path, 'utf8')
 				else
@@ -582,7 +583,7 @@ loadOutputs = (outputs, imports, config) ->
 				content = ""
 			
 			# get cached checksums
-			cache_filename = ".autocode/cache.yml"
+			cache_filename = "#{cwd}/.autocode/cache.yml"
 			if fs.existsSync cache_filename
 				cache = yaml.safeLoad fs.readFileSync(cache_filename, 'utf8')
 				if !cache.checksum
@@ -611,15 +612,15 @@ loadOutputs = (outputs, imports, config) ->
 			
 			# cache checksum
 			cache.checksum[filename_checksum] = content_checksum
-			if !fs.existsSync ".autocode"
-				mkdirp.sync ".autocode"
-			fs.writeFileSync ".autocode/cache.yml", yaml.safeDump cache
+			if !fs.existsSync "#{cwd}/.autocode"
+				mkdirp.sync "#{cwd}/.autocode"
+			fs.writeFileSync "#{cwd}/.autocode/cache.yml", yaml.safeDump cache
 
 			# write content to file
 			file_last_path = filename.lastIndexOf('/')
 			if file_last_path != -1
 				mkdirp.sync filename.substr(0, file_last_path)
-			fs.writeFileSync filename, content
+			fs.writeFileSync "#{cwd}/#{filename}", content
 			
 			console.log "- #{filename}"
 			
@@ -704,6 +705,9 @@ generate = (opts) ->
 	# get config
 	config = this.config
 	
+	# get cwd
+	cwd = this.path
+	
 	# get opts
 	if opts and opts.force
 		force = true
@@ -712,8 +716,8 @@ generate = (opts) ->
 	if config.imports
 		config.modules = config.imports
 		if config.name
-			config.modules[config.name] = process.cwd()
-		delete config.imports
+			config.modules[config.name] = cwd
+		#delete config.imports
 	
 	# load modules
 	if config.modules
@@ -783,6 +787,8 @@ generate = (opts) ->
 	{
 		imports: imports
 	}
+	
+	this
 
 inject = (template, injectors, remove_injector = true) ->
 	template.replace /([  |\t]+)?>>>[a-z_]*<<<\n?/ig, (injector) ->
@@ -796,8 +802,8 @@ inject = (template, injectors, remove_injector = true) ->
 		if injectors and injectors[injector]
 			if injectors[injector] instanceof Array
 				injected = injectors[injector].join "\n"
-			else if (injectors[injector].substr(0,1) == '/' or injectors[injector].substr(0,2) == './') and fs.existsSync ".autocode/#{injectors[injector]}"
-				injected = fs.readFileSync ".autocode/#{injectors[injector]}", 'utf8'
+			else if (injectors[injector].substr(0,1) == '/' or injectors[injector].substr(0,2) == './') and fs.existsSync "#{cwd}/.autocode/#{injectors[injector]}"
+				injected = fs.readFileSync "#{cwd}/.autocode/#{injectors[injector]}", 'utf8'
 			else
 				injected = injectors[injector]
 			if remove_injector == true

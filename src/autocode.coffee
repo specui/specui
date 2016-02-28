@@ -17,7 +17,7 @@ global.ErrorRequired = (name) ->
   this.message = "'#{name}' is required."
 global.ErrorRequired.prototype = Error.prototype
 
-autocode = (config) ->
+autocode = (config, cwd) ->
   
   # define methods
   methods = [
@@ -65,7 +65,10 @@ autocode = (config) ->
       
       match = 'Failed "required" criteria:'
       if validate.errors[0].message.match match
-        message = validate.errors[0].message.replace /Failed "required" criteria: missing property \((.*?)\)$/, "`#{validate.errors[0].context.substr(2).replace(/\//, '.')}.$1` is required."
+        context = validate.errors[0].context.substr(2).replace(/\//, '.')
+        if context.length
+          context += '.'
+        message = validate.errors[0].message.replace /Failed "required" criteria: missing property \((.*?)\)$/, "`#{context}$1` is required."
         message = message.replace /\ or\ /, '` or `'
         throw new Error message
       
@@ -80,6 +83,9 @@ autocode = (config) ->
   else
     this.config = {}
     this.path = process.cwd()
+  
+  if cwd
+    this.path = cwd
   
   if !this.path.match /^\//
     this.path = path.normalize "#{process.cwd()}/#{this.path}"
