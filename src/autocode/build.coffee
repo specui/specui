@@ -1,12 +1,7 @@
 # load dependencies
-changecase = require 'change-case'
-colors     = require 'colors'
-cson       = require 'season'
 fs         = require 'fs'
 mkdirp     = require 'mkdirp'
-mustache   = require 'mustache'
 path       = require 'path'
-pluralize  = require 'pluralize'
 spawn      = require 'cross-spawn'
 
 exports.generate = require './generate'

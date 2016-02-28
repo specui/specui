@@ -1,12 +1,12 @@
+# load packages
+cson = require 'season'
+fs = require 'fs'
+semver = require 'semver'
+yaml = require 'js-yaml'
+
 module.exports = (opts) ->
 	
 	console.log 'Versioning project...'
-	
-	# load packages
-	cson = require 'season'
-	fs = require 'fs'
-	semver = require 'semver'
-	yaml = require 'js-yaml'
 	
 	# get config
 	config = this.config('.')

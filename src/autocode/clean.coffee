@@ -1,8 +1,7 @@
-module.exports = (opts) ->
-	
-	# load deps
-	fs = require('fs-extra')
-	
+# load deps
+fs = require('fs-extra')
+
+module.exports = (opts) ->	
 	console.log 'Cleaning...'
 	
 	# remove "lib" folder

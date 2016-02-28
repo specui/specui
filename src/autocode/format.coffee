@@ -1,9 +1,9 @@
+# load packages
+changecase = require 'change-case'
+pluralize = require 'pluralize'
+
 module.exports = (singular, plural) ->
-	
-	# load packages
-	changecase = require 'change-case'
-	pluralize = require 'pluralize'
-	
+		
 	# validate singular
 	if !singular or !singular.length
 		throw new Error '"singular" is required in crystal.build.format()'

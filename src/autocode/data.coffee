@@ -1,11 +1,9 @@
+cson = require 'season'
+fs = require 'fs'
+
 module.exports = (opts) ->
 	
 	console.log 'Syncing data...'
-	
-	cson = require 'season'
-	fs = require 'fs'
-	mkdirp = require 'mkdirp'
-	userHome = require 'user-home'
 	
 	source = opts._[1]
 	path = opts._[2] || '.'

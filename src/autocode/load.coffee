@@ -1,12 +1,8 @@
 # load modules
 cson     = require 'season'
-extend   = require 'extend-combine'
 fs       = require 'fs'
-marked   = require 'marked'
 path     = require 'path'
-readdir  = require 'fs-readdir-recursive'
 skeemas  = require 'skeemas'
-userHome = require 'user-home'
 xml      = require 'xml-to-jsobj'
 yaml     = require 'js-yaml'
 

@@ -15,7 +15,6 @@ dependencies:
   change-case: latest
   coffee-script: latest
   colors: ~1.1.2
-  connect-history-api-fallback: ~1.1.0
   cross-spawn: ~2.0.0
   cson-parser: 1.0.x
   debug: latest
@@ -28,21 +27,16 @@ dependencies:
   fstream-ignore: latest
   fstream-npm: latest
   gunzip-maybe: ~1.2.1
-  gzip-js: latest
-  handlebars: latest
   js-yaml: ~3.3.1
-  marked: "~0.3.3"
   merge: 1.2.0
   mkdirp: latest
   minimist: ~1.1.3
-  mustache: latest
   prompt: 0.2.14
   pad: ~0.1.0
   pluralize: latest
   request: latest
   season: latest
   semver: latest
-  semver-regex: 1.0.0
   skeemas: "~1.1.6"
   sprintf: latest
   sync-request: ~2.0.1
@@ -52,7 +46,6 @@ dependencies:
   user-home: ~2.0.0
 devDependencies:
   babel-core: ~6.5.2
-  browser-sync: ~2.9.11
   chai: ~3.5.0
   mocha: latest
 keywords:

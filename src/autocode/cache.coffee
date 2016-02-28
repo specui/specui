@@ -1,5 +1,4 @@
 fs = require 'fs'
-mkdirp = require 'mkdirp'
 userHome = require 'user-home'
 yaml = require 'js-yaml'
 

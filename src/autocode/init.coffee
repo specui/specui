@@ -1,9 +1,6 @@
 # load deps
-assert   = require 'assert'
-colors   = require 'colors'
 fs       = require 'fs'
 path     = require 'path'
-userHome = require 'user-home'
 yaml     = require 'js-yaml'
 
 popular_modules = []

@@ -11,13 +11,9 @@
 crystal = {
 	format: require './format'
 }
-changecase = require 'change-case'
-cson       = require 'season'
 debug      = require('debug')('build')
 fs         = require 'fs'
 merge      = require 'merge'
-mkdirp     = require 'mkdirp'
-mustache   = require 'mustache'
 pluralize  = require 'pluralize'
 
 # valid detail types
