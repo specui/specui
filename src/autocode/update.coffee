@@ -1,5 +1,6 @@
 # load packages
 autocode  = require '../autocode'
+colors   = require 'colors'
 error    = require '../error'
 fs       = require 'fs'
 gunzip   = require 'gunzip-maybe'

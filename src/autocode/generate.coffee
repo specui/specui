@@ -2,6 +2,7 @@
 crystal = {
 	load: require './load'
 }
+colors       = require 'colors'
 crypto       = require 'crypto'
 extend       = require 'extend-combine'
 fs           = require 'fs'

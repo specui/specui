@@ -1,5 +1,6 @@
 # load deps
 autocode = require '../autocode'
+colors   = require 'colors'
 fs       = require 'fs'
 mkdirp   = require 'mkdirp'
 path     = require 'path'
