@@ -11,9 +11,7 @@ license: Apache-2.0
 copyright: Copyright © 2015-2016 Autocode. All Rights Reserved.
 imports:
   ctate/babel: ~0.1.0
-  ctate/bower: ~0.5.2
   ctate/git: ~0.2.3
-  ctate/grunt: ~0.3.2
   ctate/handlebars: ~0.4.4
   ctate/license: ~0.5.2
   ctate/mocha: ~0.2.0
@@ -122,28 +120,6 @@ outputs:
     spec:
       presets:
         - es2015
-        
-  - generator: bower.ConfigGenerator
-    spec:
-      directory: app/lib/components
-  
-  - generator: bower.PackageGenerator
-    spec:
-      name: autocode
-      description: $description
-      main: lib/autocode.js
-      dependencies:
-        CodeMirror: 5.7.0
-        dragula: 3.5.4
-        formulator: 0.10.1
-        google-diff-match-patch-js: 1.0.0
-        jquery: 2.1.4
-        jquery-cookie: 1.4.1
-        jquery-ui: 1.11.4
-        jstree: 3.2.1
-        js-yaml: 3.4.2
-        marked: 0.3.5
-        zeroclipboard: 2.2.0
   
   - generator: mocha.ConfigGenerator
     path: test
@@ -163,32 +139,6 @@ outputs:
         - app/lib/components/
         - app/lib/scripts
         - node_modules/
-  
-  - generator: grunt.GruntfileGenerator
-    spec:
-      loadNpmTasks:
-        - grunt-contrib-concat
-        - grunt-contrib-watch
-      registerTask:
-        default:
-          - concat
-      config:
-        pkg: package.json
-        concat:
-          options:
-            separator: ;
-          dist:
-            src:
-              - app/src/scripts/autocode.js
-              - app/src/scripts/autocode/*.js
-              - app/src/scripts/*/**
-            dest: app/lib/scripts/autocode.js
-        watch:
-          files:
-            - app/src/scripts/autocode.js
-            - app/src/scripts/*/**
-          tasks:
-            - concat
   
   - generator: license.LicenseGenerator
     spec:
@@ -707,24 +657,16 @@ scripts:
   build:
     - description: Install Node.js via nvm.
       command: curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-    - description: Install Bower via npm.
-      command: npm install bower -g
     - description: Install CoffeeScript via npm.
       command: npm install coffee-script -g
     - description: Install Forever via npm.
       command: npm install forever -g
-    - description: Install Grunt CLI via npm.
-      command: npm install grunt-cli -g
     - description: Install npm Modules.
       command: npm install
-    - description: Install bower Modules.
-      command: bower install
     - description: Compile Library.
       command: coffee --compile --output lib/ src/
     - description: Compile CLI Library.
       command: coffee --compile --output cli/lib/ cli/src/
-    - description: Run Grunt.
-      command: grunt
   run:
     - description: Run web server for Autocode app.
       command: forever start -a --uid autocode-app app/app.js
