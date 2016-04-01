@@ -1,0 +1,14 @@
+{
+	"extends": "airbnb",
+	"rules": {
+		"comma-dangle": 0,
+		"indent": [
+			"error",
+			"tab"
+		],
+		"semi": [
+			"error",
+			"never"
+		]
+	}
+}

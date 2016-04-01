@@ -11,6 +11,7 @@ license: Apache-2.0
 copyright: Copyright © 2015-2016 Autocode. All Rights Reserved.
 imports:
   ctate/babel: ~0.1.0
+  ctate/eslint: ~0.1.0
   ctate/git: ~0.2.3
   ctate/handlebars: ~0.4.4
   ctate/license: ~0.5.2
@@ -120,6 +121,18 @@ outputs:
     spec:
       presets:
         - es2015
+  
+  - generator: eslint.ConfigGenerator
+    spec:
+      extends: airbnb
+      rules:
+        comma-dangle: 0
+        indent:
+          - error
+          - tab
+        semi:
+          - error
+          - never
   
   - generator: mocha.ConfigGenerator
     path: test
