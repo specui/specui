@@ -1,0 +1,19 @@
+{
+  "name": "@zappjs/handlebars",
+  "version": "0.1.1",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@zappjs/core": "workspace:*",
+    "change-case": "^3.1.0",
+    "handlebars": "^4.1.2",
+    "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/pluralize": "0.0.29",
+    "tsconfig": "workspace:*",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

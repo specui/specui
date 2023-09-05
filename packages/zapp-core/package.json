@@ -1,0 +1,12 @@
+{
+  "name": "@zappjs/core",
+  "version": "2.0.0-alpha.2",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^3.2.1"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

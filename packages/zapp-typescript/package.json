@@ -1,0 +1,16 @@
+{
+  "name": "@zappjs/typescript",
+  "version": "0.2.3",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@zappjs/core": "workspace:*",
+    "@zappjs/json": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

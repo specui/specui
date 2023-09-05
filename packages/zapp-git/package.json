@@ -1,0 +1,19 @@
+{
+  "name": "@zappjs/git",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@zappjs/core": "workspace:*",
+    "@zappjs/handlebars": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  }
+}
