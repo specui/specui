@@ -1,5 +1,0 @@
---compilers coffee:coffee-script/register
---recursive
---require babel-core/register
---require chai
---timeout 0
