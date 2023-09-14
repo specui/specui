@@ -6,42 +6,11 @@
 
 Zapp is a continuous code generator designed to streamline the development process. Unlike traditional code generators that are mainly used for project scaffolding, Zapp can be used iteratively throughout your project's lifecycle. It's spec-driven, meaning you can define your logic and requirements in a spec file, and Zapp will generate the necessary code.
 
-## Quickstart
+<img src="https://github.com/zappjs/zappjs/blob/main/images/lifecycle.png" />
 
-1. Install Zapp CLI:
+## Documentation
 
-```sh
-npm install @zappjs/cli -g
-```
-
-2. Install a Zapp &mdash; such as this one that generates a README file:
-
-```sh
-npm install @zappjs/readme-example-zapp
-```
-
-3. Create a spec in `.zapp/zapp.yml`:
-
-```yaml
-name: my app
-description: a really cool app
-```
-
-4. Generate code
-
-```sh
-zapp generate
-```
-
-5. Check out the contents of your shiny new `README.md` file:
-
-```md
-# my app
-
-> a really cool app
-```
-
-For more details, check the [full documentation](https://zappjs.com).
+Read the full documentation [here](https://zappjs.com).
 
 ## Features
 
