@@ -1,5 +1,6 @@
 {
   "name": "next-api",
+  "private": true,
   "devDependencies": {
     "@zappjs/cli": "^2.0.0-alpha.7"
   },

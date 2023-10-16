@@ -1,5 +1,6 @@
 {
   "name": "next-api-zapp",
+  "private": true,
   "type": "module",
   "files": [
     "dist"
