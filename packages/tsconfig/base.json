@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
-    "lib": ["es5", "es6", "dom"],
+    "lib": ["esnext", "dom"],
     "module": "commonjs",
     "composite": false,
     "declaration": true,

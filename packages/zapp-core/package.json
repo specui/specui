@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "typescript": "^3.2.1"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "build": "tsc"

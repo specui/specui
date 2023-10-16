@@ -5,7 +5,7 @@
   "devDependencies": {
     "@zappjs/core": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^3.5.2"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "build": "tsc"

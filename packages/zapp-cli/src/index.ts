@@ -1,46 +1,35 @@
 require('ts-node/register');
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as program from 'commander';
+import { existsSync } from 'fs';
+import { mkdir, writeFile } from 'fs/promises';
+import { dirname, normalize } from 'path';
+import { program } from 'commander';
+import { loadZappFile } from './utils/loadZappFile';
 
-import * as pkg from '../package.json';
-
-program.version(pkg.version);
+program.name('@zappjs/cli').description('continuous code generation ⚡️').version('2.0.0');
 
 program.command('generate').action(async () => {
-  // load zapp project
-  const files = await require(`${process.cwd()}/.zapp/zapp`).default;
+  const zappFile = loadZappFile();
 
   console.log('Generated Files:');
 
-  Object.keys(files)
-    .sort((a, b) => {
-      if (a < b) {
-        return -1;
-      }
-      if (a > b) {
-        return 1;
-      }
-      return 0;
-    })
-    .forEach(async (fileName) => {
-      const fileContents = await files[fileName];
-      const filePath = path.normalize(fileName);
-      const dirName = path.dirname(filePath);
+  Object.entries(zappFile).forEach(async ([fileName, generator]) => {
+    const fileContents = await generator;
+    const filePath = normalize(fileName);
+    const dirName = dirname(filePath);
 
-      if (typeof fileContents !== 'string') {
-        console.log(`- ${filePath} (skipped)`);
-        return;
-      }
+    if (typeof fileContents !== 'string') {
+      console.log(`- ${filePath} (skipped)`);
+      return;
+    }
 
-      if (!fs.existsSync(dirName)) {
-        fs.mkdirSync(dirName, { recursive: true });
-      }
-      fs.writeFileSync(filePath, fileContents);
+    if (!existsSync(dirName)) {
+      await mkdir(dirName, { recursive: true });
+    }
+    await writeFile(filePath, fileContents);
 
-      console.log(`- ${filePath}`);
-    });
+    console.log(`- ${filePath}`);
+  });
 });
 
-program.parse(process.argv);
+program.parse();

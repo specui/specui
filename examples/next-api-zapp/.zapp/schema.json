@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "the name of the api",
+          "type": "string"
+        },
+        "version": {
+          "description": "the api version",
+          "type": "string"
+        },
+        "description": {
+          "description": "a description of the api",
+          "type": "string"
+        },
+        "ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "calls": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "request": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "enum": ["number", "string"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "models": {
+          "type": "object",
+          "additionalProperties": {
+            "request": {
+              "type": "object",
+              "additionalProperties": {
+                "enum": ["string"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

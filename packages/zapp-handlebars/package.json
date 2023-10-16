@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/pluralize": "0.0.29",
     "tsconfig": "workspace:*",
-    "typescript": "^3.5.2"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "build": "tsc"
