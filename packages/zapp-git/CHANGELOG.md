@@ -1,5 +1,12 @@
 # @zappjs/git
 
+## 0.1.1
+
+### Patch Changes
+
+- fixes package bundle
+- removes eslint
+
 ## 0.1.0
 
 ### Minor Changes

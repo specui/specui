@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "changeset": "changeset",
     "dev": "turbo run dev",
     "generate": "turbo run generate",
     "lint": "turbo run lint",

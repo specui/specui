@@ -14,16 +14,21 @@
     "@mui/icons-material": "^5.14.9",
     "@mui/lab": "5.0.0-alpha.144",
     "@mui/material": "^5.14.9",
-    "@types/node": "20.6.0",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
-    "nextra": "^2.12.3",
-    "nextra-theme-docs": "^2.12.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "nextra": "^2.13.2",
+    "nextra-theme-docs": "^2.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.6.0",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
