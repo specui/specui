@@ -1,12 +1,17 @@
 import { generate } from '@zappjs/core';
 import { GitignoreGenerator } from '@zappjs/git';
+import { HandlebarsEngine } from '@zappjs/handlebars';
 import { JsonEngine } from '@zappjs/json';
 import { PrettierProcessor } from '@zappjs/prettier';
 import { camelCase, pascalCase } from 'change-case';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 import { plural } from 'pluralize';
 
 interface ISpec {
+  name: string;
+  version: string;
+  description: string;
   auth?: {
     providers?: {
       google?: {};
@@ -45,7 +50,7 @@ export default function zapp(spec: ISpec) {
   } = {};
   if (spec.auth) {
     auth['app/api/auth/[...nextauth]/route.ts'] = generate({
-      processor: PrettierProcessor,
+      processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
           import { authOptions } from '@/app/auth'
@@ -58,7 +63,7 @@ export default function zapp(spec: ISpec) {
       },
     });
     auth['app/api/auth.ts'] = generate({
-      processor: PrettierProcessor,
+      processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
           import { NextAuthOptions } from 'next-auth'
@@ -103,7 +108,7 @@ export default function zapp(spec: ISpec) {
     const modelNamePlural = plural(modelName);
     const modelNamePluralPascal = pascalCase(modelNamePlural);
     tables[`src/tables/${modelNamePluralPascal}Table.ts`] = generate({
-      processor: PrettierProcessor,
+      processor: PrettierProcessor(),
       engine: async () => {
         return `
           import { ColumnType, Generated, sql } from 'kysely'
@@ -152,7 +157,7 @@ export default function zapp(spec: ISpec) {
     ...auth,
     ...tables,
     'src/lib/db.ts': generate({
-      processor: PrettierProcessor,
+      processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
           import { createKysely } from '@vercel/postgres-kysely'
@@ -197,6 +202,9 @@ export default function zapp(spec: ISpec) {
       engine: JsonEngine,
       spec: {
         ...pkg,
+        name: spec.name,
+        version: spec.version,
+        description: spec.description,
         dependencies: {
           ...pkg.dependencies,
           '@vercel/postgres-kysely': '^0.5.0',
@@ -204,6 +212,14 @@ export default function zapp(spec: ISpec) {
           'next-auth': '^4.23.1',
         },
       },
+    }),
+    'README.md': generate({
+      processor: PrettierProcessor({
+        parser: 'markdown',
+      }),
+      engine: HandlebarsEngine,
+      spec,
+      template: readFileSync(join(__dirname, '../../.zapp', './templates/readme.hbs'), 'utf8'),
     }),
   };
 }

@@ -7,7 +7,7 @@ interface Generate {
 
 interface GenerateConfig {
   engine?: IEngine;
-  processor?: IProcessor;
+  processor?: (output: string) => Promise<string>;
   schema?: object;
   spec?: object;
   template?: string;

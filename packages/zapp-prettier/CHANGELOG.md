@@ -1,5 +1,17 @@
 # @zappjs/prettier
 
+## 0.5.0
+
+### Minor Changes
+
+- accepts options
+
+### Patch Changes
+
+- Updated dependencies
+  - @zappjs/core@2.1.0
+  - @zappjs/json@0.2.0
+
 ## 0.4.0
 
 ### Minor Changes

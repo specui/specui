@@ -1,5 +1,11 @@
 # @zappjs/next-zapp
 
+## 0.1.3
+
+### Patch Changes
+
+- generates README.md file
+
 ## 0.1.2
 
 ### Patch Changes
