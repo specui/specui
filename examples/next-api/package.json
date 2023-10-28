@@ -1,7 +1,8 @@
 {
   "name": "next-api-example",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "example of a generated Next.js API",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "@zappjs/cli": "^2.0.0"

@@ -2,6 +2,7 @@
 name: next-api-example
 version: 1.0.0
 description: example of a generated Next.js API
+license: MIT
 auth:
   providers:
     github: {}

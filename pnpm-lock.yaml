@@ -117,19 +117,22 @@ importers:
         specifier: ^2.0.0
         version: link:../zapp-cli
       '@zappjs/core':
-        specifier: ^2.0.0
+        specifier: ^2.1.0
         version: link:../zapp-core
       '@zappjs/git':
-        specifier: ^0.1.0
+        specifier: ^0.1.3
         version: link:../zapp-git
       '@zappjs/handlebars':
-        specifier: ^0.2.1
+        specifier: ^0.2.2
         version: link:../zapp-handlebars
       '@zappjs/json':
         specifier: ^0.2.0
         version: link:../zapp-json
+      '@zappjs/license':
+        specifier: ^0.0.0
+        version: link:../zapp-license
       '@zappjs/prettier':
-        specifier: ^0.4.0
+        specifier: ^0.5.0
         version: link:../zapp-prettier
       typescript:
         specifier: ^5.2.2
@@ -217,6 +220,25 @@ importers:
       '@zappjs/core':
         specifier: workspace:*
         version: link:../zapp-core
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  packages/zapp-license:
+    dependencies:
+      '@zappjs/core':
+        specifier: workspace:*
+        version: link:../zapp-core
+      '@zappjs/handlebars':
+        specifier: workspace:*
+        version: link:../zapp-handlebars
+    devDependencies:
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.6.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig

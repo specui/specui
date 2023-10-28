@@ -2,6 +2,7 @@ import { generate } from '@zappjs/core';
 import { GitignoreGenerator } from '@zappjs/git';
 import { HandlebarsEngine } from '@zappjs/handlebars';
 import { JsonEngine } from '@zappjs/json';
+import { LicenseGenerator } from '@zappjs/license';
 import { PrettierProcessor } from '@zappjs/prettier';
 import { camelCase, pascalCase } from 'change-case';
 import { readFileSync } from 'fs';
@@ -11,6 +12,7 @@ import { plural } from 'pluralize';
 interface ISpec {
   name: string;
   version: string;
+  license: 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
   description: string;
   auth?: {
     providers?: {
@@ -198,6 +200,16 @@ export default function zapp(spec: ISpec) {
       },
     }),
     '.gitignore': GitignoreGenerator(['dist/', 'node_modules/', '.DS_Store']),
+    LICENSE: LicenseGenerator(spec),
+    'next.config.js': generate({
+      processor: PrettierProcessor(),
+      engine: () => /*ts*/ `
+        /** @type {import('next').NextConfig} */
+        const nextConfig = {}
+
+        module.exports = nextConfig
+      `,
+    }),
     'package.json': generate({
       engine: JsonEngine,
       spec: {
@@ -205,6 +217,7 @@ export default function zapp(spec: ISpec) {
         name: spec.name,
         version: spec.version,
         description: spec.description,
+        license: spec.license,
         dependencies: {
           ...pkg.dependencies,
           '@vercel/postgres-kysely': '^0.5.0',
