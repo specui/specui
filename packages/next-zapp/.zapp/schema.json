@@ -24,6 +24,22 @@
             "type": "string"
           }
         },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "providers": {
+              "type": "object",
+              "properties": {
+                "github": {
+                  "type": "object"
+                },
+                "google": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
         "calls": {
           "type": "object",
           "additionalProperties": {

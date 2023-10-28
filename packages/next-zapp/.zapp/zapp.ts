@@ -7,6 +7,12 @@ import { readFileSync } from 'fs';
 import { plural } from 'pluralize';
 
 interface ISpec {
+  auth?: {
+    providers?: {
+      google?: {};
+      github?: {};
+    };
+  };
   calls: {
     [name: string]: {
       request: {};
@@ -33,6 +39,62 @@ export default function zapp(spec: ISpec) {
     camelCase(plural(model)),
   );
   const modelNamesPluralPascal = Object.keys(spec.models).map((model) => pascalCase(plural(model)));
+
+  const auth: {
+    [file: string]: Promise<string>;
+  } = {};
+  if (spec.auth) {
+    auth['app/api/auth/[...nextauth]/route.ts'] = generate({
+      processor: PrettierProcessor,
+      engine: async () => {
+        return /*ts*/ `
+          import { authOptions } from '@/app/auth'
+          import NextAuth from 'next-auth'
+          
+          const handler = NextAuth(authOptions)
+          
+          export { handler as GET, handler as POST }        
+        `;
+      },
+    });
+    auth['app/api/auth.ts'] = generate({
+      processor: PrettierProcessor,
+      engine: async () => {
+        return /*ts*/ `
+          import { NextAuthOptions } from 'next-auth'
+          import GithubProvider, { GithubProfile } from 'next-auth/providers/github'
+          
+          export const authOptions: NextAuthOptions = {
+            providers: [
+              ${
+                spec.auth?.providers?.github
+                  ? /*ts*/ `
+                GithubProvider({
+                  clientId: process.env.GITHUB_ID || '',
+                  clientSecret: process.env.GITHUB_SECRET || '',
+                  authorization: {
+                    params: {
+                      scope: undefined,
+                    },
+                  },
+                  profile(profile: GithubProfile) {
+                    return {
+                      id: profile.id.toString(),
+                      name: profile.name,
+                      image: profile.avatar_url,
+                      email: profile.login,
+                    }
+                  },
+                }),
+              `
+                  : ''
+              }
+            ],
+          }        
+        `;
+      },
+    });
+  }
 
   const tables: {
     [file: string]: Promise<string>;
@@ -87,6 +149,7 @@ export default function zapp(spec: ISpec) {
   });
 
   return {
+    ...auth,
     ...tables,
     'src/lib/db.ts': generate({
       processor: PrettierProcessor,
@@ -138,6 +201,7 @@ export default function zapp(spec: ISpec) {
           ...pkg.dependencies,
           '@vercel/postgres-kysely': '^0.5.0',
           kysely: '^0.26.3',
+          'next-auth': '^4.23.1',
         },
       },
     }),
