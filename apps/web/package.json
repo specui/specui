@@ -10,12 +10,20 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
-    "@zappjs/next-zapp": "^0.1.0",
+    "@zappjs/core": "^2.0.0",
+    "js-yaml": "^3.13.1",
     "next": "14.0.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/lab": "5.0.0-alpha.144",
+    "@mui/material": "^5.14.9",
+    "@mui/x-tree-view": "^6.17.0",
+    "@types/js-yaml": "^3.12.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
