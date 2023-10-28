@@ -1,1 +1,1 @@
-export { default } from 'next-api-zapp';
+export { default } from '@zappjs/next-zapp';

@@ -1,6 +1,6 @@
 {
-  "name": "next-api-zapp",
-  "private": true,
+  "name": "@zappjs/next-zapp",
+  "version": "0.1.0",
   "type": "module",
   "files": [
     "dist"

@@ -81,18 +81,18 @@ importers:
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
+      '@zappjs/next-zapp':
+        specifier: workspace:*
+        version: link:../../packages/next-zapp
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
-      next-api-zapp:
-        specifier: workspace:*
-        version: link:../next-api-zapp
     devDependencies:
       '@zappjs/cli':
-        specifier: ^2.0.0-alpha.7
+        specifier: ^2.0.0
         version: link:../../packages/zapp-cli
 
-  examples/next-api-zapp:
+  packages/next-zapp:
     dependencies:
       '@types/node':
         specifier: ^18.0.0
@@ -112,19 +112,19 @@ importers:
         version: 0.0.29
       '@zappjs/cli':
         specifier: ^2.0.0
-        version: link:../../packages/zapp-cli
+        version: link:../zapp-cli
       '@zappjs/core':
         specifier: ^2.0.0
-        version: link:../../packages/zapp-core
+        version: link:../zapp-core
       '@zappjs/git':
         specifier: ^0.1.0
-        version: link:../../packages/zapp-git
+        version: link:../zapp-git
       '@zappjs/json':
         specifier: ^0.2.0
-        version: link:../../packages/zapp-json
+        version: link:../zapp-json
       '@zappjs/prettier':
         specifier: ^0.4.0
-        version: link:../../packages/zapp-prettier
+        version: link:../zapp-prettier
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
