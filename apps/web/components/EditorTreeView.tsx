@@ -29,7 +29,7 @@ export const EditorTreeView: FC = () => {
       <>
         {nodes.map((node) => (
           <TreeItem key={node.id} nodeId={node.id} label={node.name}>
-            {Array.isArray(node.children) ? node.children.map((node) => renderTree(node)) : null}
+            {Array.isArray(node.children) ? renderTree(node.children) : null}
           </TreeItem>
         ))}
       </>

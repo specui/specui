@@ -5,11 +5,10 @@ import { JsonEngine } from '@zappjs/json';
 import { LicenseGenerator } from '@zappjs/license';
 import { PrettierProcessor } from '@zappjs/prettier';
 import { camelCase, pascalCase } from 'change-case';
-import { readFileSync } from 'fs';
 import { join } from 'path';
 import { plural } from 'pluralize';
 
-interface ISpec {
+export interface ISpec {
   name: string;
   version: string;
   license: 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
@@ -39,8 +38,8 @@ interface ISpec {
   };
 }
 
-export default function zapp(spec: ISpec) {
-  const pkg = require(`${process.cwd()}/package.json`);
+export default async function zapp(spec: ISpec) {
+  const pkg = process?.versions?.node ? require(`${process.cwd()}/package.json`) : {};
 
   const modelNamesPluralCamelCase = Object.keys(spec.models).map((model) =>
     camelCase(plural(model)),
@@ -48,10 +47,10 @@ export default function zapp(spec: ISpec) {
   const modelNamesPluralPascal = Object.keys(spec.models).map((model) => pascalCase(plural(model)));
 
   const auth: {
-    [file: string]: Promise<string>;
+    [file: string]: string;
   } = {};
   if (spec.auth) {
-    auth['app/api/auth/[...nextauth]/route.ts'] = generate({
+    auth['app/api/auth/[...nextauth]/route.ts'] = await generate({
       processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
@@ -64,7 +63,7 @@ export default function zapp(spec: ISpec) {
         `;
       },
     });
-    auth['app/api/auth.ts'] = generate({
+    auth['app/api/auth.ts'] = await generate({
       processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
@@ -104,15 +103,16 @@ export default function zapp(spec: ISpec) {
   }
 
   const tables: {
-    [file: string]: Promise<string>;
+    [file: string]: string;
   } = {};
-  Object.entries(spec.models).forEach(([modelName, model]) => {
-    const modelNamePlural = plural(modelName);
-    const modelNamePluralPascal = pascalCase(modelNamePlural);
-    tables[`src/tables/${modelNamePluralPascal}Table.ts`] = generate({
-      processor: PrettierProcessor(),
-      engine: async () => {
-        return `
+  await Promise.all(
+    Object.entries(spec.models).map(async ([modelName, model]) => {
+      const modelNamePlural = plural(modelName);
+      const modelNamePluralPascal = pascalCase(modelNamePlural);
+      tables[`src/tables/${modelNamePluralPascal}Table.ts`] = await generate({
+        processor: PrettierProcessor(),
+        engine: async () => {
+          return `
           import { ColumnType, Generated, sql } from 'kysely'
 
           import { db } from '../lib/db'
@@ -151,14 +151,20 @@ export default function zapp(spec: ISpec) {
           }
         
         `;
-      },
-    });
-  });
+        },
+      });
+    }),
+  );
+
+  let fs;
+  if (process?.versions?.node) {
+    fs = require('fs');
+  }
 
   return {
     ...auth,
     ...tables,
-    'src/lib/db.ts': generate({
+    'src/lib/db.ts': await generate({
       processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
@@ -199,9 +205,9 @@ export default function zapp(spec: ISpec) {
         `;
       },
     }),
-    '.gitignore': GitignoreGenerator(['dist/', 'node_modules/', '.DS_Store']),
-    LICENSE: LicenseGenerator(spec),
-    'next.config.js': generate({
+    '.gitignore': await GitignoreGenerator(['dist/', 'node_modules/', '.DS_Store']),
+    LICENSE: await LicenseGenerator(spec),
+    'next.config.js': await generate({
       processor: PrettierProcessor(),
       engine: () => /*ts*/ `
         /** @type {import('next').NextConfig} */
@@ -210,7 +216,7 @@ export default function zapp(spec: ISpec) {
         module.exports = nextConfig
       `,
     }),
-    'package.json': generate({
+    'package.json': await generate({
       engine: JsonEngine,
       spec: {
         ...pkg,
@@ -226,13 +232,15 @@ export default function zapp(spec: ISpec) {
         },
       },
     }),
-    'README.md': generate({
+    'README.md': await generate({
       processor: PrettierProcessor({
         parser: 'markdown',
       }),
       engine: HandlebarsEngine,
       spec,
-      template: readFileSync(join(__dirname, '../../.zapp', './templates/readme.hbs'), 'utf8'),
+      template: fs
+        ? fs.readFileSync(join(__dirname, '../../.zapp', './templates/readme.hbs'), 'utf8')
+        : '',
     }),
   };
 }

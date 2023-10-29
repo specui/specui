@@ -1,6 +1,6 @@
 import { IEngine } from '@zappjs/core';
 import * as changeCase from 'change-case';
-import Handlebars, { compile, registerHelper, HelperOptions } from 'handlebars';
+import Handlebars from 'handlebars/dist/handlebars';
 import { plural, singular } from 'pluralize';
 
 Handlebars.registerHelper(
@@ -8,35 +8,30 @@ Handlebars.registerHelper(
   (
     str: string,
     casing:
-      | 'camel'
-      | 'constant'
-      | 'dot'
-      | 'header'
-      | 'lower'
-      | 'lcFirst'
-      | 'no'
-      | 'param'
-      | 'pascal'
-      | 'path'
-      | 'sentence'
-      | 'snake'
-      | 'swap'
-      | 'title'
-      | 'upper'
-      | 'ucFirst',
-    opts: HelperOptions,
+      | 'camelCase'
+      | 'constantCase'
+      | 'dotCase'
+      | 'noCase'
+      | 'pascalCase'
+      | 'pathCase'
+      | 'sentenceCase'
+      | 'snakeCase',
+    opts: Handlebars.HelperOptions,
   ) => {
-    if (!changeCase[casing]) {
-      throw new Error(`Unknown casing: ${casing}`);
-    }
-    return changeCase[casing](str);
+    // if (!changeCase[casing]) {
+    //   throw new Error(`Unknown casing: ${casing}`);
+    // }
+    // return changeCase[casing](str);
+    return str;
   },
 );
 
-Handlebars.registerHelper('plural', (str: string, opts: HelperOptions) => plural(str));
+Handlebars.registerHelper('plural', (str: string, opts: Handlebars.HelperOptions) => plural(str));
 
-Handlebars.registerHelper('singular', (str: string, opts: HelperOptions) => singular(str));
+Handlebars.registerHelper('singular', (str: string, opts: Handlebars.HelperOptions) =>
+  singular(str),
+);
 
 export const HandlebarsEngine: IEngine = (spec = {}, template = '') => {
-  return compile(template)(spec);
+  return Handlebars.compile(template)(spec);
 };

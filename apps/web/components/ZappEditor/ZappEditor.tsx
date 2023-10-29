@@ -1,14 +1,53 @@
 'use client';
 
 import Editor from '@monaco-editor/react';
-import { generate } from '@zappjs/core';
-import { GitignoreGenerator } from '@zappjs/git';
-import { LicenseGenerator } from '@zappjs/license';
+import nextZapp, { ISpec } from '@zappjs/next-zapp';
 import { safeDump, safeLoad } from 'js-yaml';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 import { EditorTreeView } from '../EditorTreeView';
 import { useEditorStore } from '@/stores/editor';
+
+type InputObject = { [key: string]: string };
+type OutputObject = {
+  id: string;
+  name: string;
+  children?: OutputObject[];
+};
+
+function transform(input: InputObject): OutputObject[] {
+  const result: OutputObject[] = [];
+
+  for (const path in input) {
+    const parts = path.split('/');
+    let currentLevel: OutputObject[] = result;
+
+    parts.forEach((part, index) => {
+      let existingPart = currentLevel.find((item) => item.name === part);
+
+      if (index === parts.length - 1) {
+        currentLevel.push({
+          id: parts.slice(0, index + 1).join('/'),
+          name: part,
+        });
+        return;
+      }
+
+      if (!existingPart) {
+        existingPart = {
+          id: parts.slice(0, index + 1).join('/'),
+          name: part,
+          children: [],
+        };
+        currentLevel.push(existingPart);
+      }
+
+      currentLevel = existingPart.children!;
+    });
+  }
+
+  return result;
+}
 
 const initialSpec = {
   name: 'my-app',
@@ -55,42 +94,14 @@ export const ZappEditor: FC = () => {
   const [value, setValue] = useState(safeDump(initialSpec));
 
   const handleGenerate = useCallback(async () => {
-    const spec =
-      (safeLoad(value) as {
-        name: string;
-        description: string;
-        license: 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
-      }) || {};
+    const spec = (safeLoad(value) as ISpec) || {};
 
-    const output = await generate({
-      engine: async () => {
-        return `# ${spec.name}\n\n>${spec.description}`;
-      },
-    });
+    const result = await nextZapp(spec);
+    const data = transform(result);
 
-    const gitignore = await GitignoreGenerator(['node_modules/']);
-    const license = await LicenseGenerator(spec);
-
-    setCode({
-      '.gitignore': gitignore,
-      LICENSE: license,
-      'README.md': output,
-    });
-    setData([
-      {
-        id: '.gitignore',
-        name: '.gitignore',
-      },
-      {
-        id: 'LICENSE',
-        name: 'LICENSE',
-      },
-      {
-        id: 'README.md',
-        name: 'README.md',
-      },
-    ]);
-  }, [value]);
+    setCode(result);
+    setData(data);
+  }, [setCode, setData, value]);
 
   useEffect(() => {
     handleGenerate();
@@ -113,12 +124,24 @@ export const ZappEditor: FC = () => {
       </div>
       <div className="h-80 w-1/2">
         <div className="flex h-full">
-          <div className="w-1/4">
+          <div className="w-1/3">
             <EditorTreeView />
           </div>
-          <div className="w-3/4">
+          <div className="w-2/3">
             <Editor
-              language="yaml"
+              language={
+                selected.endsWith('.js')
+                  ? 'javascript'
+                  : selected.endsWith('.json')
+                  ? 'json'
+                  : selected.endsWith('.md')
+                  ? 'markdown'
+                  : selected.endsWith('.ts')
+                  ? 'typescript'
+                  : selected.endsWith('.yaml') || selected.endsWith('.yml')
+                  ? 'yaml'
+                  : 'text'
+              }
               options={{
                 minimap: {
                   enabled: false,

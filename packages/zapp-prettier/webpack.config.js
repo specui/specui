@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: '@zappjs/license',
+    library: '@zappjs/prettier',
     libraryTarget: 'umd',
     globalObject: 'this',
   },
@@ -28,7 +28,7 @@ module.exports = {
   },
   externals: {
     '@zappjs/core': '@zappjs/core',
-    '@zappjs/handlebars': '@zappjs/handlebars',
+    '@zappjs/json': '@zappjs/json',
     tsconfig: 'tsconfig'
   },
 };

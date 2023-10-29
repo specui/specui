@@ -1,13 +1,14 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     library: '@zappjs/git',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   module: {
     rules: [

@@ -10,9 +10,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
-    "@zappjs/core": "workspace:*",
-    "@zappjs/git": "workspace:*",
-    "@zappjs/license": "workspace:*",
+    "@zappjs/next-zapp": "workspace:*",
     "axios": "^1.6.0",
     "js-yaml": "^3.13.1",
     "next": "14.0.0",
