@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
-    "@zappjs/core": "^2.0.0",
+    "@zappjs/core": "workspace:*",
+    "@zappjs/git": "workspace:*",
+    "@zappjs/license": "workspace:*",
+    "axios": "^1.6.0",
     "js-yaml": "^3.13.1",
     "next": "14.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^4.4.4"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.1",
