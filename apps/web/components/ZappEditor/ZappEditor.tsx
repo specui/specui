@@ -90,6 +90,7 @@ export const ZappEditor: FC = () => {
   const setData = useEditorStore((state) => state.setData);
 
   const selected = useEditorStore((state) => state.selected);
+  const setSelected = useEditorStore((state) => state.setSelected);
 
   const [value, setValue] = useState(safeDump(initialSpec));
 
@@ -101,15 +102,18 @@ export const ZappEditor: FC = () => {
 
     setCode(result);
     setData(data);
-  }, [setCode, setData, value]);
+    if (!selected) {
+      setSelected('README.md');
+    }
+  }, [setCode, setData, setSelected, selected, value]);
 
   useEffect(() => {
     handleGenerate();
   }, [handleGenerate]);
 
   return (
-    <div className="flex">
-      <div className="h-80 w-1/2">
+    <div className="flex" style={{ height: '80vh' }}>
+      <div className="w-1/3">
         <Editor
           language="yaml"
           onChange={(value) => setValue(value || '')}
@@ -122,7 +126,7 @@ export const ZappEditor: FC = () => {
           value={value}
         />
       </div>
-      <div className="h-80 w-1/2">
+      <div className="w-2/3">
         <div className="flex h-full">
           <div className="w-1/3">
             <EditorTreeView />

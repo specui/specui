@@ -1,11 +1,19 @@
 import {
-    ChevronRight as ChevronRightIcon,
-    ExpandMore as ExpandMoreIcon,
+  ChevronRight as ChevronRightIcon,
+  Code,
+  ExpandMore as ExpandMoreIcon,
+  FileCopy,
+  Info,
+  KeySharp,
 } from '@mui/icons-material';
 import { TreeItem, TreeView } from '@mui/x-tree-view';
-import { FC, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent, useEffect } from 'react';
 
 import { RenderTree, useEditorStore } from '@/stores/editor';
+import { TsIcon } from '@/icons/TsIcon';
+import { JsIcon } from '@/icons/JsIcon';
+import { HtmlIcon } from '@/icons/HtmlIcon';
+import { GitIcon } from '@/icons/GitIcon';
 
 export const EditorTreeView: FC = () => {
   const data = useEditorStore((state) => state.data);
@@ -28,7 +36,30 @@ export const EditorTreeView: FC = () => {
     return (
       <>
         {nodes.map((node) => (
-          <TreeItem key={node.id} nodeId={node.id} label={node.name}>
+          <TreeItem
+            key={node.id}
+            endIcon={
+              node.name.startsWith('LICENSE') ? (
+                <KeySharp />
+              ) : node.name.endsWith('.gitignore') ? (
+                <GitIcon />
+              ) : node.name.endsWith('.htm') || node.name.endsWith('.html') ? (
+                <HtmlIcon />
+              ) : node.name.endsWith('.js') || node.name.endsWith('.jsx') ? (
+                <JsIcon />
+              ) : node.name.endsWith('.json') ? (
+                <Code />
+              ) : node.name.endsWith('.md') ? (
+                <Info />
+              ) : node.name.endsWith('.ts') || node.name.endsWith('.tsx') ? (
+                <TsIcon />
+              ) : (
+                <FileCopy />
+              )
+            }
+            nodeId={node.id}
+            label={node.name}
+          >
             {Array.isArray(node.children) ? renderTree(node.children) : null}
           </TreeItem>
         ))}
