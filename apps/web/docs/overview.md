@@ -10,10 +10,6 @@ Simply provide Zapp with a [spec](/components/specs) that outlines your requirem
 
 ### Key Features of Zapp
 
-### What You Can Generate With Zapp
-
-Zapp is designed to be highly versatile, capable of generating a wide array of code and file types: APIs, UI components, databases, and just about anything.
-
 #### Spec-driven
 
 The specs you provide serve as the blueprint for code generation. These specs allow Zapp to understand what needs to be generated, ensuring alignment with your project's unique needs.

@@ -112,7 +112,7 @@ export const ZappEditor: FC = () => {
   }, [handleGenerate]);
 
   return (
-    <div className="flex" style={{ height: '80vh' }}>
+    <div className="flex" style={{ height: '100%' }}>
       <div className="w-1/2">
         <Editor
           language="yaml"

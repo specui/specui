@@ -3,12 +3,12 @@ import { FC } from 'react';
 
 const pages = [
   {
-    text: 'Docs',
-    url: '/docs',
-  },
-  {
     text: 'Playground',
     url: '/playground',
+  },
+  {
+    text: 'Docs',
+    url: '/docs',
   },
 ];
 

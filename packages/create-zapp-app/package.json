@@ -1,0 +1,8 @@
+{
+  "name": "create-zapp-app",
+  "version": "0.1.0",
+  "description": "Creates a Zapp app",
+  "dependencies": {
+    "commander": "^11.1.0"
+  }
+}

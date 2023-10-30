@@ -1,15 +1,19 @@
 import { DocsMenu } from '@/components/DocsMenu';
 import { FC, ReactNode } from 'react';
 
+import styles from './DocsTemplate.module.css';
+
 export const DocsTemplate: FC<{
   children: ReactNode;
 }> = ({ children }) => {
   return (
     <div className="flex">
-      <div className="w-1/3">
+      <div className="w-1/4">
         <DocsMenu />
       </div>
-      <div className="p-4 w-2/3">{children}</div>
+      <div className="p-4 w-3/4">
+        <div className={styles.content}>{children}</div>
+      </div>
     </div>
   );
 };

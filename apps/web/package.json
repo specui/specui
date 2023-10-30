@@ -12,6 +12,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@zappjs/next-zapp": "workspace:*",
     "axios": "^1.6.0",
+    "classnames": "^2.3.2",
     "js-yaml": "^3.13.1",
     "next": "14.0.0",
     "react": "^18",

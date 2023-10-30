@@ -35,6 +35,9 @@ importers:
       axios:
         specifier: ^1.6.0
         version: 1.6.0
+      classnames:
+        specifier: ^2.3.2
+        version: 2.3.2
       js-yaml:
         specifier: ^3.13.1
         version: 3.14.1
@@ -176,6 +179,12 @@ importers:
       '@zappjs/cli':
         specifier: ^2.0.0
         version: link:../../packages/zapp-cli
+
+  packages/create-zapp-app:
+    dependencies:
+      commander:
+        specifier: ^11.1.0
+        version: 11.1.0
 
   packages/next-zapp:
     dependencies:
@@ -2483,6 +2492,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
+
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
     dev: false
@@ -2569,6 +2582,11 @@ packages:
 
   /commander@11.0.0:
     resolution: {integrity: sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ==}
+    engines: {node: '>=16'}
+    dev: false
+
+  /commander@11.1.0:
+    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
     dev: false
 
