@@ -22,7 +22,7 @@ export default function Home() {
     >
       <h1 className="font-bold text-center mb-12 text-8xl">Turn specs into code</h1>
       <h2 className="text-center text-gray-400 mb-12 text-xl">
-        Zapp is the code generator you've been waiting for
+        Zapp is the code generator you&apos;ve been waiting for
       </h2>
       <div className="flex justify-center gap-4">
         <Link
