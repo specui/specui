@@ -55,7 +55,7 @@ const initialSpec = {
   description: 'this is my cool app',
   license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
   auth: {
-    provider: {
+    providers: {
       github: {},
     },
   },
@@ -113,7 +113,7 @@ export const ZappEditor: FC = () => {
 
   return (
     <div className="flex" style={{ height: '80vh' }}>
-      <div className="w-1/3">
+      <div className="w-1/2">
         <Editor
           language="yaml"
           onChange={(value) => setValue(value || '')}
@@ -126,7 +126,7 @@ export const ZappEditor: FC = () => {
           value={value}
         />
       </div>
-      <div className="w-2/3">
+      <div className="w-1/2">
         <div className="flex h-full">
           <div className="w-1/3">
             <EditorTreeView />
