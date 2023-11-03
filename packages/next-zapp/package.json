@@ -27,7 +27,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json && mv dist/cjs/zapp.js dist/cjs/zapp.cjs"
+    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json && mv dist/cjs/zapp.js dist/cjs/zapp.cjs",
+    "dev": "tsc -b --watch ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json && mv dist/cjs/zapp.js dist/cjs/zapp.cjs"
   },
   "dependencies": {
     "@types/node": "^18.0.0",

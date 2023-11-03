@@ -8,7 +8,7 @@ export const GitIcon: FC<{ size?: number }> = ({ size = 16 }) => {
           <path d="M0 .113h91.887V92H0Zm0 0" />
         </clipPath>
       </defs>
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <path
           stroke="none"
           fillRule="nonzero"

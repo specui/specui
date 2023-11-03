@@ -9,7 +9,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "js-yaml": "^3.13.1"

@@ -7,13 +7,15 @@ import {
   KeySharp,
 } from '@mui/icons-material';
 import { TreeItem, TreeView } from '@mui/x-tree-view';
-import { FC, SyntheticEvent, useEffect } from 'react';
+import { FC, SyntheticEvent } from 'react';
 
-import { RenderTree, useEditorStore } from '@/stores/editor';
 import { TsIcon } from '@/icons/TsIcon';
 import { JsIcon } from '@/icons/JsIcon';
 import { HtmlIcon } from '@/icons/HtmlIcon';
 import { GitIcon } from '@/icons/GitIcon';
+import { CssIcon } from '@/icons/CssIcon';
+import { SvgIcon } from '@/icons/SvgIcon';
+import { RenderTree, useEditorStore } from '@/stores/editor';
 
 export const EditorTreeView: FC = () => {
   const data = useEditorStore((state) => state.data);
@@ -41,6 +43,8 @@ export const EditorTreeView: FC = () => {
             endIcon={
               node.name.startsWith('LICENSE') ? (
                 <KeySharp />
+              ) : node.name.endsWith('.css') ? (
+                <CssIcon />
               ) : node.name.endsWith('.gitignore') ? (
                 <GitIcon />
               ) : node.name.endsWith('.htm') || node.name.endsWith('.html') ? (
@@ -51,6 +55,8 @@ export const EditorTreeView: FC = () => {
                 <Code />
               ) : node.name.endsWith('.md') ? (
                 <Info />
+              ) : node.name.endsWith('.svg') ? (
+                <SvgIcon />
               ) : node.name.endsWith('.ts') || node.name.endsWith('.tsx') ? (
                 <TsIcon />
               ) : (

@@ -3,6 +3,7 @@
 import Editor from '@monaco-editor/react';
 import nextZapp, { ISpec } from '@zappjs/next-zapp';
 import { safeDump, safeLoad } from 'js-yaml';
+import { configureMonacoYaml } from 'monaco-yaml';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 import { EditorTreeView } from '../EditorTreeView';
@@ -13,6 +14,17 @@ type OutputObject = {
   id: string;
   name: string;
   children?: OutputObject[];
+};
+
+window.MonacoEnvironment = {
+  getWorker(_, label) {
+    switch (label) {
+      case 'yaml':
+        return new Worker(new URL('monaco-yaml/yaml.worker', import.meta.url));
+      default:
+        throw new Error(`Unknown label ${label}`);
+    }
+  },
 };
 
 function transform(input: InputObject): OutputObject[] {
@@ -53,29 +65,113 @@ const initialSpec = {
   name: 'my-app',
   version: '1.0.0',
   description: 'this is my cool app',
+  author: {
+    name: 'Super Coder',
+    email: 'info@example.org',
+    url: 'https://example.org/',
+  },
   license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
   auth: {
-    providers: {
-      github: {},
-    },
+    providers: ['facebook', 'github', 'google'],
   },
   calls: {
-    createPost: {},
-    getPost: {},
+    createPost: {
+      request: {
+        title: {
+          required: true,
+          type: 'string',
+        },
+        summary: {
+          type: 'string',
+        },
+        content: {
+          required: true,
+          type: 'string',
+        },
+      },
+      response: {
+        id: {
+          required: true,
+          type: 'number',
+        },
+      },
+    },
+    getPost: {
+      request: {
+        id: {
+          type: 'number',
+        },
+      },
+      response: {
+        id: {
+          required: true,
+          type: 'number',
+        },
+        title: {
+          required: true,
+          type: 'string',
+        },
+        summary: {
+          type: 'string',
+        },
+        content: {
+          required: true,
+          type: 'string',
+        },
+      },
+    },
   },
   models: {
+    comment: {
+      attributes: {
+        content: {
+          type: 'string',
+        },
+        postId: {
+          type: 'number',
+        },
+        userId: {
+          unique: true,
+          type: 'string',
+        },
+      },
+    },
     post: {
       attributes: {
         id: {
           key: 'primary',
           type: 'number',
         },
-        name: {
+        title: {
           unique: true,
+          type: 'string',
+        },
+        summary: {
+          type: 'string',
+        },
+        content: {
           type: 'string',
         },
         slug: {
           unique: true,
+          type: 'string',
+        },
+      },
+    },
+    user: {
+      attributes: {
+        id: {
+          key: 'primary',
+          type: 'number',
+        },
+        username: {
+          type: 'string',
+          unique: true,
+        },
+        socialId: {
+          type: 'number',
+        },
+        source: {
           type: 'string',
         },
       },
@@ -92,7 +188,9 @@ export const ZappEditor: FC = () => {
   const selected = useEditorStore((state) => state.selected);
   const setSelected = useEditorStore((state) => state.setSelected);
 
-  const [value, setValue] = useState(safeDump(initialSpec));
+  const [value, setValue] = useState(
+    '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(initialSpec),
+  );
 
   const handleGenerate = useCallback(async () => {
     const spec = (safeLoad(value) as ISpec) || {};
@@ -117,6 +215,139 @@ export const ZappEditor: FC = () => {
         <Editor
           language="yaml"
           onChange={(value) => setValue(value || '')}
+          onMount={(_, monaco) => {
+            configureMonacoYaml(monaco, {
+              enableSchemaRequest: true,
+              schemas: [
+                {
+                  fileMatch: [],
+                  schema: {
+                    type: 'object',
+                    additionalProperties: false,
+                    properties: {
+                      name: {
+                        description: 'the name of the api',
+                        type: 'string',
+                      },
+                      version: {
+                        description: 'the api version',
+                        type: 'string',
+                      },
+                      description: {
+                        description: 'a description of the api',
+                        type: 'string',
+                      },
+                      license: {
+                        description: 'the license type',
+                        enum: ['Apache-2.0', 'GPL-2.0-only', 'GPL-3.0-only', 'ISC', 'MIT'],
+                        type: 'string',
+                      },
+                      author: {
+                        description: 'the author',
+                        type: 'object',
+                        properties: {
+                          name: {
+                            type: 'string',
+                          },
+                          email: {
+                            type: 'string',
+                          },
+                          url: {
+                            type: 'string',
+                          },
+                        },
+                      },
+                      ignore: {
+                        type: 'array',
+                        items: {
+                          type: 'string',
+                        },
+                      },
+                      auth: {
+                        type: 'object',
+                        properties: {
+                          providers: {
+                            type: 'array',
+                            items: {
+                              enum: ['facebook', 'github', 'google'],
+                              type: 'string',
+                            },
+                          },
+                        },
+                      },
+                      calls: {
+                        type: 'object',
+                        additionalProperties: {
+                          type: 'object',
+                          additionalProperties: false,
+                          properties: {
+                            request: {
+                              type: 'object',
+                              additionalProperties: {
+                                type: 'object',
+                                additionalProperties: false,
+                                properties: {
+                                  required: {
+                                    type: 'boolean'
+                                  },
+                                  type: {
+                                    enum: ['number', 'string'],
+                                  },
+                                },
+                              },
+                            },
+                            response: {
+                              type: 'object',
+                              additionalProperties: {
+                                type: 'object',
+                                additionalProperties: false,
+                                properties: {
+                                  required: {
+                                    type: 'boolean'
+                                  },
+                                  type: {
+                                    enum: ['number', 'string'],
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      models: {
+                        type: 'object',
+                        additionalProperties: {
+                          type: 'object',
+                          properties: {
+                            attributes: {
+                              type: 'object',
+                              additionalProperties: {
+                                type: 'object',
+                                properties: {
+                                  key: {
+                                    enum: ['primary'],
+                                    type: 'string',
+                                  },
+                                  type: {
+                                    enum: ['boolean', 'number', 'string'],
+                                    type: 'string',
+                                  },
+                                  unique: {
+                                    type: 'boolean',
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  uri: '/schemas/next-zapp-schema.json',
+                },
+              ],
+            });
+          }}
           options={{
             minimap: {
               enabled: false,
@@ -134,12 +365,22 @@ export const ZappEditor: FC = () => {
           <div className="w-2/3">
             <Editor
               language={
-                selected.endsWith('.js')
+                selected.endsWith('.css')
+                  ? 'css'
+                  : selected.endsWith('.gitignore')
+                  ? 'shell'
+                  : selected.endsWith('.js')
                   ? 'javascript'
                   : selected.endsWith('.json')
                   ? 'json'
                   : selected.endsWith('.md')
                   ? 'markdown'
+                  : selected.endsWith('.sass')
+                  ? 'sass'
+                  : selected.endsWith('.scss')
+                  ? 'scss'
+                  : selected.endsWith('.svg')
+                  ? 'xml'
                   : selected.endsWith('.ts')
                   ? 'typescript'
                   : selected.endsWith('.yaml') || selected.endsWith('.yml')

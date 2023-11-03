@@ -18,6 +18,11 @@
           "description": "a description of the api",
           "type": "string"
         },
+        "license": {
+          "description": "the license type",
+          "enum": ["Apache-2.0", "GPL-2.0-only", "GPL-3.0-only", "ISC", "MIT"],
+          "type": "string"
+        },
         "ignore": {
           "type": "array",
           "items": {
