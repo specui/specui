@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Home() {
-  const [isCopied, setIsCopied] = useState(false)
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async () => {
     setIsCopied(true);
@@ -20,9 +20,13 @@ export default function Home() {
       className="flex flex-col align-middle justify-center mx-auto"
       style={{ minHeight: 'calc(100vh - 65px)' }}
     >
-      <h1 className="font-bold text-center mb-12 text-8xl">Turn specs into code</h1>
-      <h2 className="text-center text-gray-400 mb-12 text-xl">
-        Zapp is the code generator you&apos;ve been waiting for
+      <h1 className="flex flex-col font-bold gap-4 text-center mb-12 text-2xl sm:text-4xl md:text-6xl">
+        <div>The best way to</div>
+        <div>keep your code consistent</div>
+        <div>and up-to-date</div>
+      </h1>
+      <h2 className="text-center text-gray-400 mb-12 text-md sm:text-lg md:text-xl">
+        ZappJS is the most robust code generator in the world
       </h2>
       <div className="flex justify-center gap-4">
         <Link

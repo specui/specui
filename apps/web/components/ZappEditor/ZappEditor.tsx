@@ -288,7 +288,7 @@ export const ZappEditor: FC = () => {
                                 additionalProperties: false,
                                 properties: {
                                   required: {
-                                    type: 'boolean'
+                                    type: 'boolean',
                                   },
                                   type: {
                                     enum: ['number', 'string'],
@@ -303,7 +303,7 @@ export const ZappEditor: FC = () => {
                                 additionalProperties: false,
                                 properties: {
                                   required: {
-                                    type: 'boolean'
+                                    type: 'boolean',
                                   },
                                   type: {
                                     enum: ['number', 'string'],
@@ -381,7 +381,7 @@ export const ZappEditor: FC = () => {
                   ? 'scss'
                   : selected.endsWith('.svg')
                   ? 'xml'
-                  : selected.endsWith('.ts')
+                  : selected.endsWith('.ts') || selected.endsWith('.tsx')
                   ? 'typescript'
                   : selected.endsWith('.yaml') || selected.endsWith('.yml')
                   ? 'yaml'

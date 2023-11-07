@@ -151,6 +151,35 @@ export default async function zapp(spec: ISpec) {
     });
   }
 
+  const calls: {
+    [file: string]: string;
+  } = {};
+  await Promise.all(
+    Object.entries(spec.calls).map(async ([callName, call]) => {
+      calls[`app/api/${callName}/route.ts`] = await generate({
+        processor: PrettierProcessor(),
+        engine: () => `
+          import { NextRequest, NextResponse } from 'next/server'
+
+          import {
+            ${pascalCase(callName)}Request,
+            ${pascalCase(callName)}Response
+          } from '../../lib/schemas/${camelCase(
+            callName,
+          )}Schema'
+
+          export async function POST(req: NextRequest<${pascalCase(callName)}Response>) {
+            const request = (await req.json()) as ${pascalCase(callName)}Request
+
+            // implement your logic here
+
+            return NextResponse.json({})
+          }
+        `,
+      });
+    }),
+  );
+
   const schemas: {
     [file: string]: string;
   } = {};
@@ -189,11 +218,11 @@ export default async function zapp(spec: ISpec) {
             }),
           };
           
-          export type ${callName}Request = z.infer<
+          export type ${pascalCase(callName)}Request = z.infer<
             typeof ${callName}Schema.request
           >;
           
-          export type ${callName}Response = z.infer<
+          export type ${pascalCase(callName)}Response = z.infer<
             typeof ${callName}Schema.response
           >;
         `,
@@ -257,7 +286,7 @@ export default async function zapp(spec: ISpec) {
 
   return {
     ...auth,
-
+    ...calls,
     'app/globals.css': await generate({
       processor: PrettierProcessor({
         parser: 'css',
@@ -563,6 +592,51 @@ export default async function zapp(spec: ISpec) {
     }),
     ...schemas,
     ...tables,
+    'lib/client.ts': await generate({
+      processor: PrettierProcessor(),
+      engine: () => `
+        import axios from "axios";
+
+        ${Object.entries(spec.calls)
+          .map(
+            ([callName]) => `
+            import {
+              ${pascalCase(callName)}Request,
+              ${pascalCase(callName)}Response,
+            } from "../schemas/texture/${camelCase(callName)}Schema";
+          `,
+          )
+          .join('\n')} 
+
+        export type Call = <T>(method: string, data: any) => Promise<T>;
+        
+        export const call: Call = async (method, data) => {
+          const res = await axios({
+            method: "POST",
+            headers:
+              typeof localStorage !== "undefined" && localStorage.getItem("accessToken")
+                ? {
+                    Authorization: \`Bearer \${localStorage.getItem("accessToken")}\`,
+                  }
+                : {},
+            url: \`/api\${method}\`,
+            data: data || {},
+          });
+        
+          return res.data;
+        };
+
+        ${Object.entries(spec.calls)
+          .map(
+            ([callName]) => `
+            export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
+              return await call<${pascalCase(callName)}Response>("/${callName}", req);
+            };
+          `,
+          )
+          .join('\n')} 
+      `,
+    }),
     'lib/db.ts': await generate({
       processor: PrettierProcessor(),
       engine: async () => {

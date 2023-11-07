@@ -11,7 +11,7 @@ export const Header: FC = () => {
     <header className="bg-slate-950 border-b border-b-slate-900 sticky p-4 top-0">
       <div className="flex items-center justify-between">
         <h1 className="font-bold">
-          <Link className="flex items-center gap-4" href="/">
+          <Link className="flex items-center gap-1" href="/">
             <img height="32" width="32" src="/logo.png" />
             ZappJS
           </Link>
