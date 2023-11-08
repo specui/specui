@@ -202,6 +202,10 @@ export const ZappEditor: FC = () => {
     window.MonacoEnvironment = {
       getWorker(_, label) {
         switch (label) {
+          case 'editorWorkerService':
+            return new Worker(
+              new URL('monaco-editor/esm/vs/editor/editor.worker', import.meta.url),
+            );
           case 'yaml':
             return new Worker(new URL('monaco-yaml/yaml.worker', import.meta.url));
           default:
