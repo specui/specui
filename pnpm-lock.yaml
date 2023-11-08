@@ -184,6 +184,9 @@ importers:
       commander:
         specifier: ^11.1.0
         version: 11.1.0
+      js-yaml:
+        specifier: ^3.13.1
+        version: 3.14.1
       picocolors:
         specifier: ^1.0.0
         version: 1.0.0
@@ -194,6 +197,9 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
     devDependencies:
+      '@types/js-yaml':
+        specifier: ^3.12.1
+        version: 3.12.7
       '@types/prompts':
         specifier: ^2.4.8
         version: 2.4.8

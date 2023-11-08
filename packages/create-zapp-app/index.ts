@@ -4,8 +4,8 @@ import { Command } from 'commander';
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { cyan, green, red, yellow, bold, blue } from 'picocolors';
 import prompts from 'prompts';
+import { safeDump } from 'js-yaml';
 
 import pkg from './package.json';
 
@@ -40,7 +40,7 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
     private: true,
     devDependencies: {
       '@zappjs/cli': '^2.0.0',
-      "@zappjs/next-zapp": "^0.1.6",
+      '@zappjs/next-zapp': '^0.1.9',
     },
     scripts: {
       generate: 'zapp generate',
@@ -48,7 +48,89 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
   };
 
   await writeFile(join(dir, 'package.json'), JSON.stringify(projectPackage, null, 2));
-  await writeFile(join(dir, '.zapp/spec.yml'), 'name: test');
+  await writeFile(
+    join(dir, '.zapp/spec.yml'),
+    safeDump({
+      name: name,
+      version: '0.1.0',
+      description: 'Created by create-zapp-app',
+      license: 'MIT',
+      auth: {
+        providers: ['github'],
+      },
+      calls: {
+        createPost: {
+          request: {
+            name: {
+              type: 'string',
+            },
+          },
+        },
+        getPost: {
+          request: {
+            id: {
+              type: 'number',
+            },
+          },
+        },
+      },
+      models: {
+        authors: {
+          attributes: {
+            id: {
+              key: 'primary',
+              type: 'number',
+            },
+            name: {
+              type: 'string',
+              unique: true,
+            },
+          },
+        },
+        comments: {
+          attributes: {
+            postId: {
+              type: 'number',
+            },
+            message: {
+              type: 'string',
+            },
+          },
+        },
+        post: {
+          attributes: {
+            id: {
+              key: 'primary',
+              type: 'number',
+            },
+            name: {
+              unique: true,
+              type: 'string',
+            },
+            slug: {
+              unique: true,
+              type: 'string',
+            },
+          },
+        },
+        users: {
+          attributes: {
+            id: {
+              key: 'primary',
+              type: 'number',
+            },
+            username: {
+              type: 'string',
+              unique: true,
+            },
+            password: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    }),
+  );
   await writeFile(join(dir, '.zapp/zapp.ts'), `export { default } from '@zappjs/next-zapp';\n`);
 });
 
