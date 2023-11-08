@@ -1,5 +1,13 @@
 # @zappjs/handlebars
 
+## 0.2.3
+
+### Patch Changes
+
+- updates dependencies
+- Updated dependencies
+  - @zappjs/core@2.1.1
+
 ## 0.2.2
 
 ### Patch Changes

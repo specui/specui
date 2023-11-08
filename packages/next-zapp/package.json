@@ -1,6 +1,6 @@
 {
   "name": "@zappjs/next-zapp",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "files": [
     "dist"
@@ -17,13 +17,13 @@
   },
   "devDependencies": {
     "@types/pluralize": "0.0.29",
-    "@zappjs/cli": "^2.0.0",
-    "@zappjs/core": "^2.1.0",
-    "@zappjs/git": "^0.1.3",
-    "@zappjs/handlebars": "^0.2.2",
-    "@zappjs/json": "^0.2.0",
-    "@zappjs/license": "^0.1.0",
-    "@zappjs/prettier": "^0.5.0",
+    "@zappjs/cli": "^2.0.1",
+    "@zappjs/core": "^2.1.1",
+    "@zappjs/git": "^0.1.4",
+    "@zappjs/handlebars": "^0.2.3",
+    "@zappjs/json": "^0.2.1",
+    "@zappjs/license": "^0.1.1",
+    "@zappjs/prettier": "^0.5.1",
     "typescript": "^5.2.2"
   },
   "scripts": {

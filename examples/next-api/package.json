@@ -1,11 +1,11 @@
 {
   "name": "next-api-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "example of a generated Next.js API",
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@zappjs/cli": "^2.0.0"
+    "@zappjs/cli": "^2.0.1"
   },
   "dependencies": {
     "@vercel/postgres-kysely": "^0.5.0",

@@ -1,5 +1,11 @@
 # @zappjs/next-zapp
 
+## 0.1.4
+
+### Patch Changes
+
+- updates dependencies
+
 ## 0.1.3
 
 ### Patch Changes

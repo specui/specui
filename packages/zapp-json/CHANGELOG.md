@@ -1,5 +1,11 @@
 # @zappjs/json
 
+## 0.2.1
+
+### Patch Changes
+
+- updates dependencies
+
 ## 0.2.0
 
 ### Minor Changes
