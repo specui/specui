@@ -1,5 +1,24 @@
 # @zappjs/next-zapp
 
+## 0.1.9
+
+### Patch Changes
+
+- Fixes generation via CLI
+
+## 0.1.8
+
+### Patch Changes
+
+- Adds dist files
+
+## 0.1.7
+
+### Patch Changes
+
+- Adds types
+- Adds types
+
 ## 0.1.6
 
 ### Patch Changes

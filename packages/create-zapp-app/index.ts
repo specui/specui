@@ -40,7 +40,7 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
     private: true,
     devDependencies: {
       '@zappjs/cli': '^2.0.0',
-      "@zappjs/next-zapp": "^0.1.5",
+      "@zappjs/next-zapp": "^0.1.6",
     },
     scripts: {
       generate: 'zapp generate',

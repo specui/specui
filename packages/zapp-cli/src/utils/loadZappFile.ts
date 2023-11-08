@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'fs';
 import { extname, join } from 'path';
 import { parse } from 'yaml';
 
-export const loadZappFile = () => {
+export const loadZappFile = async () => {
   const zappDir = join(process.cwd(), '.zapp');
 
   const possibleFiles = ['spec.yaml', 'spec.yml', 'spec.json', 'zapp.js', 'zapp.ts'];
@@ -16,7 +16,7 @@ export const loadZappFile = () => {
         case '.yaml':
         case '.yml':
           const zapp = require(join(zappDir, 'zapp')).default;
-          return zapp(parse(readFileSync(filePath, 'utf8')));
+          return await zapp(parse(readFileSync(filePath, 'utf8')));
 
         case '.json':
           return JSON.parse(readFileSync(filePath, 'utf8'));

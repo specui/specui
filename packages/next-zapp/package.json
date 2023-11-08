@@ -1,7 +1,11 @@
 {
   "name": "@zappjs/next-zapp",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "main": "./dist/zapp.js",
+  "types": "./dist/zapp.d.ts",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/pluralize": "0.0.29",
     "typescript": "^5.2.2"

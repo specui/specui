@@ -78,7 +78,7 @@ export default async function zapp(spec: ISpec) {
         `;
       },
     });
-    auth['app/api/auth.ts'] = await generate({
+    auth['app/auth.ts'] = await generate({
       processor: PrettierProcessor(),
       engine: async () => {
         return /*ts*/ `
@@ -164,11 +164,9 @@ export default async function zapp(spec: ISpec) {
           import {
             ${pascalCase(callName)}Request,
             ${pascalCase(callName)}Response
-          } from '../../lib/schemas/${camelCase(
-            callName,
-          )}Schema'
+          } from '@/lib/schemas/${camelCase(callName)}Schema'
 
-          export async function POST(req: NextRequest<${pascalCase(callName)}Response>) {
+          export async function POST(req: NextRequest) {
             const request = (await req.json()) as ${pascalCase(callName)}Request
 
             // implement your logic here
@@ -243,7 +241,7 @@ export default async function zapp(spec: ISpec) {
           return `
           import { ColumnType, Generated, sql } from 'kysely'
 
-          import { db } from '../lib/db'
+          import { db } from '@/lib/db'
           
           export interface ${modelNamePluralPascal}Table {
             ${Object.entries(model.attributes)
@@ -603,7 +601,7 @@ export default async function zapp(spec: ISpec) {
             import {
               ${pascalCase(callName)}Request,
               ${pascalCase(callName)}Response,
-            } from "../schemas/texture/${camelCase(callName)}Schema";
+            } from "@/lib/schemas/${camelCase(callName)}Schema";
           `,
           )
           .join('\n')} 
@@ -646,7 +644,7 @@ export default async function zapp(spec: ISpec) {
           ${modelNamesPluralPascal
             .map(
               (modelName) =>
-                `import { ${modelName}Table, create${modelName}Table } from '../tables/${modelName}Table'`,
+                `import { ${modelName}Table, create${modelName}Table } from '@/lib/tables/${modelName}Table'`,
             )
             .join('\n')}
           
@@ -775,6 +773,7 @@ export default async function zapp(spec: ISpec) {
         dependencies: {
           ...pkg.dependencies,
           '@vercel/postgres-kysely': '^0.5.0',
+          axios: '^1.6.0',
           kysely: '^0.26.3',
           next: '14.0.0',
           react: '^18',

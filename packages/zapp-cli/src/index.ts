@@ -9,7 +9,7 @@ import { loadZappFile } from './utils/loadZappFile';
 program.name('@zappjs/cli').description('continuous code generation ⚡️').version('2.0.0');
 
 program.command('generate').action(async () => {
-  const zappFile = loadZappFile();
+  const zappFile = await loadZappFile();
 
   console.log('Generated Files:');
 
