@@ -1,9 +1,7 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist/",
-    "module": "esnext",
-    "moduleResolution": "node"
+    "outDir": "dist/"
   },
   "include": [".zapp/*.ts"],
   "exclude": ["dist", "build", "node_modules"]

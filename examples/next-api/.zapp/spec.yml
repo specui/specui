@@ -5,7 +5,7 @@ description: example of a generated Next.js API
 license: MIT
 auth:
   providers:
-    github: {}
+    - github
 calls:
   createPost:
     request:

@@ -1,27 +1,14 @@
 {
   "name": "@zappjs/next-zapp",
-  "version": "0.1.5",
-  "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/cjs/zapp.cjs",
-  "module": "./dist/esm/zapp.js",
-  "types": "./dist/types/zapp.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/zapp.d.ts",
-      "import": "./dist/esm/zapp.js",
-      "require": "./dist/cjs/zapp.cjs"
-    }
-  },
+  "version": "0.1.6",
+  "main": "./dist/zapp.js",
   "devDependencies": {
     "@types/pluralize": "0.0.29",
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json && mv dist/cjs/zapp.js dist/cjs/zapp.cjs",
-    "dev": "tsc -b --watch ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json && mv dist/cjs/zapp.js dist/cjs/zapp.cjs"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@types/node": "^18.0.0",
