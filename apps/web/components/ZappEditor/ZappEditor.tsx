@@ -16,17 +16,6 @@ type OutputObject = {
   children?: OutputObject[];
 };
 
-window.MonacoEnvironment = {
-  getWorker(_, label) {
-    switch (label) {
-      case 'yaml':
-        return new Worker(new URL('monaco-yaml/yaml.worker', import.meta.url));
-      default:
-        throw new Error(`Unknown label ${label}`);
-    }
-  },
-};
-
 function transform(input: InputObject): OutputObject[] {
   const result: OutputObject[] = [];
 
@@ -208,6 +197,19 @@ export const ZappEditor: FC = () => {
   useEffect(() => {
     handleGenerate();
   }, [handleGenerate]);
+
+  useEffect(() => {
+    window.MonacoEnvironment = {
+      getWorker(_, label) {
+        switch (label) {
+          case 'yaml':
+            return new Worker(new URL('monaco-yaml/yaml.worker', import.meta.url));
+          default:
+            throw new Error(`Unknown label ${label}`);
+        }
+      },
+    };
+  }, []);
 
   return (
     <div className="flex" style={{ height: '100%' }}>
