@@ -41,6 +41,9 @@ importers:
       js-yaml:
         specifier: ^3.13.1
         version: 3.14.1
+      monaco-editor:
+        specifier: ^0.44.0
+        version: 0.44.0
       monaco-yaml:
         specifier: ^5.1.0
         version: 5.1.0(monaco-editor@0.44.0)
