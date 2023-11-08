@@ -43,9 +43,8 @@ export default function Home() {
         className="cursor-pointer flex gap-2 justify-center text-gray-600 mt-4"
         onClick={handleCopy}
       >
-        {/* npx create-zapp-app@latest
-        {isCopied ? <Check /> : <ContentCopy />} */}
-        License: MIT
+        npx create-zapp-app@latest
+        {isCopied ? <Check /> : <ContentCopy />}
       </button>
     </main>
   );

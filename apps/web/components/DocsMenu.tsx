@@ -12,8 +12,8 @@ const pages = [
     url: '/docs',
   },
   {
-    text: 'Install Zapp CLI',
-    url: '/docs/install',
+    text: 'Quickstart',
+    url: '/docs/quickstart',
   },
   {
     text: 'Components',

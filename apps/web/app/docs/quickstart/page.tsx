@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { DocsTemplate } from '@/templates/DocsTemplate';
 
 async function getData() {
-  const content = await readFile(join(process.cwd(), './docs/install.md'), 'utf8');
+  const content = await readFile(join(process.cwd(), './docs/quickstart.md'), 'utf8');
   return content;
 }
 
