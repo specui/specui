@@ -1,5 +1,11 @@
 # @zappjs/next-zapp
 
+## 0.1.5
+
+### Patch Changes
+
+- Includes @zappjs packages in bundle
+
 ## 0.1.4
 
 ### Patch Changes
