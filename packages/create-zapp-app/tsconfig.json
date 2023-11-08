@@ -1,11 +1,8 @@
 {
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "target": "es2019",
-    "moduleResolution": "node",
-    "strict": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": false
+    "outDir": "dist/"
   },
-  "exclude": ["templates", "dist"]
+  "include": ["index.ts"],
+  "exclude": ["dist", "build", "node_modules"]
 }
