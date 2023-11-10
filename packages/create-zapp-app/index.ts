@@ -39,7 +39,7 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
     description: 'Created by create-zapp-app',
     private: true,
     devDependencies: {
-      '@zappjs/cli': '^2.2.0',
+      '@zappjs/cli': '^2.2.1',
       '@zappjs/next-zapp': '^0.2.0',
     },
     scripts: {
