@@ -1,6 +1,6 @@
 {
   "name": "@zappjs/cli",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "continuous code generation ⚡️",
   "bin": {
     "zapp": "bin/zapp"

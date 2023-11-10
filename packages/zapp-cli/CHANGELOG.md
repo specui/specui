@@ -1,5 +1,11 @@
 # @zappjs/cli
 
+## 2.2.1
+
+### Patch Changes
+
+- fixes build
+
 ## 2.2.0
 
 ### Minor Changes
