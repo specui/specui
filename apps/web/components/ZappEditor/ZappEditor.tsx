@@ -1,7 +1,7 @@
 'use client';
 
 import Editor from '@monaco-editor/react';
-import nextZapp, { ISpec } from '@zappjs/next-zapp';
+import nextZapp, { ISpec } from '@zappjs/next-zapp/dist/zapp-browser';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
 import { FC, useCallback, useEffect, useState } from 'react';

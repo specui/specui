@@ -1,11 +1,11 @@
 {
   "name": "next-api-example",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "example of a generated Next.js API",
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@zappjs/cli": "^2.0.1",
+    "@zappjs/cli": "^2.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -31,6 +31,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate": "zapp generate",
     "start": "next start",
     "lint": "next lint"
   }

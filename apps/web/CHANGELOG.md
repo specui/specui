@@ -1,5 +1,18 @@
 # @zappjs/web
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @zappjs/next-zapp@0.2.0
+
+## 0.1.7
+
+### Patch Changes
+
+- @zappjs/next-zapp@0.1.10
+
 ## 0.1.6
 
 ### Patch Changes

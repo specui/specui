@@ -1,6 +1,6 @@
 {
   "name": "@zappjs/next-zapp",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "main": "./dist/zapp.js",
   "types": "./dist/zapp.d.ts",
   "files": [
@@ -23,7 +23,7 @@
     "@zappjs/handlebars": "^0.2.3",
     "@zappjs/json": "^0.2.1",
     "@zappjs/license": "^0.1.1",
-    "@zappjs/prettier": "^0.5.1",
+    "@zappjs/prettier": "^0.6.0",
     "change-case": "^3.1.0",
     "kysely": "^0.26.3"
   }

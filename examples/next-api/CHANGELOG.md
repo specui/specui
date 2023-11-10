@@ -1,5 +1,18 @@
 # next-api
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @zappjs/next-zapp@0.2.0
+
+## 1.0.1
+
+### Patch Changes
+
+- @zappjs/next-zapp@0.1.10
+
 ## 1.0.1
 
 ### Patch Changes

@@ -2,9 +2,9 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.ts',
+  entry: './src/standalone.ts',
   output: {
-    filename: 'index.js',
+    filename: 'standalone.js',
     path: path.resolve(__dirname, 'dist'),
     library: '@zappjs/prettier',
     libraryTarget: 'umd',

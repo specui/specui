@@ -1,4 +1,4 @@
 export * from './interfaces';
 export * from './generators';
-export * from './processors';
+export { PrettierProcessor } from './processors/PrettierProcessor';
 export * from './schemas';

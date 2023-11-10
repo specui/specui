@@ -1,8 +1,12 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "types": ["jest", "node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "build", "node_modules"]
 }

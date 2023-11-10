@@ -1,0 +1,11 @@
+bin/
+  cmd/
+    run
+  cli
+src/
+  components/
+    Footer.tsx
+    Header.tsx
+  App.ts
+LICENSE
+README.md

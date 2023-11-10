@@ -3,7 +3,7 @@ import { GitignoreGenerator } from '@zappjs/git';
 import { HandlebarsEngine } from '@zappjs/handlebars';
 import { JsonEngine } from '@zappjs/json';
 import { LicenseGenerator } from '@zappjs/license';
-import { PrettierProcessor } from '@zappjs/prettier';
+import { PrettierProcessor } from '@zappjs/prettier/dist/standalone';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 

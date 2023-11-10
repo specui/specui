@@ -1,7 +1,10 @@
 {
   "name": "@zappjs/prettier",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@zappjs/core": "workspace:*",
     "@zappjs/json": "workspace:*",
@@ -16,7 +19,7 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "tsc && webpack",
     "dev": "webpack --watch"
   }
 }
