@@ -1,5 +1,5 @@
 import { IEngine } from '@zappjs/core';
-import { stringify } from 'smol-toml';
+import { stringify } from '@iarna/toml';
 
 export const TomlEngine: IEngine = async (spec) => {
   return stringify(spec);
