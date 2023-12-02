@@ -4,10 +4,13 @@ import Editor from '@monaco-editor/react';
 import nextZapp, { ISpec } from '@zappjs/next-zapp/dist/zapp-browser';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { EditorTreeView } from '../EditorTreeView';
 import { useEditorStore } from '@/stores/editor';
+import { SpecEditor } from '../SpecEditor/SpecEditor';
+import { useSpecStore } from '@/stores/spec';
+import clsx from 'clsx';
 
 type InputObject = { [key: string]: string };
 type OutputObject = {
@@ -50,125 +53,10 @@ function transform(input: InputObject): OutputObject[] {
   return result;
 }
 
-const initialSpec = {
-  name: 'my-app',
-  version: '1.0.0',
-  description: 'this is my cool app',
-  author: {
-    name: 'Super Coder',
-    email: 'info@example.org',
-    url: 'https://example.org/',
-  },
-  license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
-  auth: {
-    providers: ['facebook', 'github', 'google'],
-  },
-  calls: {
-    createPost: {
-      request: {
-        title: {
-          required: true,
-          type: 'string',
-        },
-        summary: {
-          type: 'string',
-        },
-        content: {
-          required: true,
-          type: 'string',
-        },
-      },
-      response: {
-        id: {
-          required: true,
-          type: 'number',
-        },
-      },
-    },
-    getPost: {
-      request: {
-        id: {
-          type: 'number',
-        },
-      },
-      response: {
-        id: {
-          required: true,
-          type: 'number',
-        },
-        title: {
-          required: true,
-          type: 'string',
-        },
-        summary: {
-          type: 'string',
-        },
-        content: {
-          required: true,
-          type: 'string',
-        },
-      },
-    },
-  },
-  models: {
-    comment: {
-      attributes: {
-        content: {
-          type: 'string',
-        },
-        postId: {
-          type: 'number',
-        },
-        userId: {
-          unique: true,
-          type: 'string',
-        },
-      },
-    },
-    post: {
-      attributes: {
-        id: {
-          key: 'primary',
-          type: 'number',
-        },
-        title: {
-          unique: true,
-          type: 'string',
-        },
-        summary: {
-          type: 'string',
-        },
-        content: {
-          type: 'string',
-        },
-        slug: {
-          unique: true,
-          type: 'string',
-        },
-      },
-    },
-    user: {
-      attributes: {
-        id: {
-          key: 'primary',
-          type: 'number',
-        },
-        username: {
-          type: 'string',
-          unique: true,
-        },
-        socialId: {
-          type: 'number',
-        },
-        source: {
-          type: 'string',
-        },
-      },
-    },
-  },
-};
-
 export const ZappEditor: FC = () => {
+  const spec = useSpecStore((state) => state.spec);
+  const setSpec = useSpecStore((state) => state.setSpec);
+
   const code = useEditorStore((state) => state.code);
   const setCode = useEditorStore((state) => state.setCode);
 
@@ -177,14 +65,14 @@ export const ZappEditor: FC = () => {
   const selected = useEditorStore((state) => state.selected);
   const setSelected = useEditorStore((state) => state.setSelected);
 
-  const [value, setValue] = useState(
-    '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(initialSpec),
-  );
+  const value = useMemo(() => {
+    return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
+  }, [spec]);
+
+  const [editor, setEditor] = useState<'visual' | 'yaml'>('visual');
 
   const handleGenerate = useCallback(async () => {
-    const spec = (safeLoad(value) as ISpec) || {};
-
-    const result = await nextZapp(spec);
+    const result = await nextZapp(spec as any);
     const data = transform(result);
 
     setCode(result);
@@ -192,7 +80,7 @@ export const ZappEditor: FC = () => {
     if (!selected) {
       setSelected('README.md');
     }
-  }, [setCode, setData, setSelected, selected, value]);
+  }, [setCode, setData, setSelected, selected, spec]);
 
   useEffect(() => {
     handleGenerate();
@@ -238,129 +126,131 @@ export const ZappEditor: FC = () => {
 
   return (
     <div className="flex" style={{ height: '100%' }}>
-      <div className="w-1/2">
-        <Editor
-          language="yaml"
-          onChange={(value) => setValue(value || '')}
-          onMount={(_, monaco) => {
-            configureMonacoYaml(monaco, {
-              enableSchemaRequest: true,
-              schemas: [
-                {
-                  fileMatch: [],
-                  schema: {
-                    type: 'object',
-                    additionalProperties: false,
-                    properties: {
-                      name: {
-                        description: 'the name of the api',
-                        type: 'string',
-                      },
-                      version: {
-                        description: 'the api version',
-                        type: 'string',
-                      },
-                      description: {
-                        description: 'a description of the api',
-                        type: 'string',
-                      },
-                      license: {
-                        description: 'the license type',
-                        enum: ['Apache-2.0', 'GPL-2.0-only', 'GPL-3.0-only', 'ISC', 'MIT'],
-                        type: 'string',
-                      },
-                      author: {
-                        description: 'the author',
-                        type: 'object',
-                        properties: {
-                          name: {
-                            type: 'string',
-                          },
-                          email: {
-                            type: 'string',
-                          },
-                          url: {
-                            type: 'string',
-                          },
-                        },
-                      },
-                      ignore: {
-                        type: 'array',
-                        items: {
+      <div className="relative w-1/2">
+        {editor === 'yaml' && (
+          <Editor
+            language="yaml"
+            onChange={(value) => setSpec(safeLoad(value || '') as any)}
+            onMount={(_, monaco) => {
+              configureMonacoYaml(monaco, {
+                enableSchemaRequest: true,
+                schemas: [
+                  {
+                    fileMatch: [],
+                    schema: {
+                      type: 'object',
+                      additionalProperties: false,
+                      properties: {
+                        name: {
+                          description: 'the name of the api',
                           type: 'string',
                         },
-                      },
-                      auth: {
-                        type: 'object',
-                        properties: {
-                          providers: {
-                            type: 'array',
-                            items: {
-                              enum: ['facebook', 'github', 'google'],
+                        version: {
+                          description: 'the api version',
+                          type: 'string',
+                        },
+                        description: {
+                          description: 'a description of the api',
+                          type: 'string',
+                        },
+                        license: {
+                          description: 'the license type',
+                          enum: ['Apache-2.0', 'GPL-2.0-only', 'GPL-3.0-only', 'ISC', 'MIT'],
+                          type: 'string',
+                        },
+                        author: {
+                          description: 'the author',
+                          type: 'object',
+                          properties: {
+                            name: {
+                              type: 'string',
+                            },
+                            email: {
+                              type: 'string',
+                            },
+                            url: {
                               type: 'string',
                             },
                           },
                         },
-                      },
-                      calls: {
-                        type: 'object',
-                        additionalProperties: {
+                        ignore: {
+                          type: 'array',
+                          items: {
+                            type: 'string',
+                          },
+                        },
+                        auth: {
                           type: 'object',
-                          additionalProperties: false,
                           properties: {
-                            request: {
-                              type: 'object',
-                              additionalProperties: {
+                            providers: {
+                              type: 'array',
+                              items: {
+                                enum: ['facebook', 'github', 'google'],
+                                type: 'string',
+                              },
+                            },
+                          },
+                        },
+                        calls: {
+                          type: 'object',
+                          additionalProperties: {
+                            type: 'object',
+                            additionalProperties: false,
+                            properties: {
+                              request: {
                                 type: 'object',
-                                additionalProperties: false,
-                                properties: {
-                                  required: {
-                                    type: 'boolean',
-                                  },
-                                  type: {
-                                    enum: ['number', 'string'],
+                                additionalProperties: {
+                                  type: 'object',
+                                  additionalProperties: false,
+                                  properties: {
+                                    required: {
+                                      type: 'boolean',
+                                    },
+                                    type: {
+                                      enum: ['number', 'string'],
+                                    },
                                   },
                                 },
                               },
-                            },
-                            response: {
-                              type: 'object',
-                              additionalProperties: {
+                              response: {
                                 type: 'object',
-                                additionalProperties: false,
-                                properties: {
-                                  required: {
-                                    type: 'boolean',
-                                  },
-                                  type: {
-                                    enum: ['number', 'string'],
+                                additionalProperties: {
+                                  type: 'object',
+                                  additionalProperties: false,
+                                  properties: {
+                                    required: {
+                                      type: 'boolean',
+                                    },
+                                    type: {
+                                      enum: ['number', 'string'],
+                                    },
                                   },
                                 },
                               },
                             },
                           },
                         },
-                      },
-                      models: {
-                        type: 'object',
-                        additionalProperties: {
+                        models: {
                           type: 'object',
-                          properties: {
-                            attributes: {
-                              type: 'object',
-                              additionalProperties: {
+                          additionalProperties: {
+                            type: 'object',
+                            properties: {
+                              attributes: {
                                 type: 'object',
-                                properties: {
-                                  key: {
-                                    enum: ['primary'],
-                                    type: 'string',
-                                  },
-                                  type: {
-                                    enum: ['boolean', 'number', 'string'],
-                                    type: 'string',
-                                  },
-                                  unique: {
-                                    type: 'boolean',
+                                additionalProperties: {
+                                  type: 'object',
+                                  properties: {
+                                    key: {
+                                      enum: ['primary'],
+                                      type: 'string',
+                                    },
+                                    type: {
+                                      enum: ['boolean', 'number', 'string'],
+                                      type: 'string',
+                                    },
+                                    unique: {
+                                      type: 'boolean',
+                                    },
                                   },
                                 },
                               },
@@ -369,20 +259,35 @@ export const ZappEditor: FC = () => {
                         },
                       },
                     },
+                    uri: '/schemas/next-zapp-schema.json',
                   },
-                  uri: '/schemas/next-zapp-schema.json',
-                },
-              ],
-            });
-          }}
-          options={{
-            minimap: {
-              enabled: false,
-            },
-          }}
-          theme="vs-dark"
-          value={value}
-        />
+                ],
+              });
+            }}
+            options={{
+              minimap: {
+                enabled: false,
+              },
+            }}
+            theme="vs-dark"
+            value={value}
+          />
+        )}
+        {editor === 'visual' && <SpecEditor />}
+        <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
+          <button
+            className={clsx('px-2 rounded-lg', { 'bg-slate-700': editor === 'visual' })}
+            onClick={() => setEditor('visual')}
+          >
+            Visual
+          </button>
+          <button
+            className={clsx('px-2 rounded-lg', { 'bg-slate-700': editor === 'yaml' })}
+            onClick={() => setEditor('yaml')}
+          >
+            YAML
+          </button>
+        </div>
       </div>
       <div className="w-1/2">
         <div className="flex h-full">

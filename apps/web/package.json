@@ -13,6 +13,7 @@
     "@zappjs/next-zapp": "workspace:*",
     "axios": "^1.6.0",
     "classnames": "^2.3.2",
+    "clsx": "^2.0.0",
     "js-yaml": "^3.13.1",
     "monaco-editor": "^0.44.0",
     "monaco-yaml": "^5.1.0",
