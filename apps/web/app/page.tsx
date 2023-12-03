@@ -21,12 +21,11 @@ export default function Home() {
       style={{ minHeight: 'calc(100vh - 65px)' }}
     >
       <h1 className="flex flex-col font-bold gap-4 text-center mb-12 text-2xl sm:text-4xl md:text-6xl">
-        <div>The best way to</div>
-        <div>keep your code consistent</div>
-        <div>and up-to-date</div>
+        <div>Lightning-fast</div>
+        <div>code generation</div>
       </h1>
       <h2 className="text-center text-gray-400 mb-12 text-md sm:text-lg md:text-xl">
-        ZappJS is the most robust code generator in the world
+        ZappJS is a continuous, spec-driven code generator, powered by AI.
       </h2>
       <div className="flex justify-center gap-4">
         <Link
