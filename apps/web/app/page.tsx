@@ -19,14 +19,14 @@ export default function Home() {
   return (
     <SessionProvider>
       <main
-        className="flex flex-col align-middle justify-center mx-auto"
+        className="flex flex-col align-middle justify-center mx-auto p-4"
         style={{ minHeight: 'calc(100vh - 65px)' }}
       >
-        <h1 className="flex flex-col font-bold gap-4 text-center mb-12 text-2xl sm:text-4xl md:text-6xl">
+        <h1 className="flex flex-col font-bold gap-4 text-center mb-12 text-5xl md:text-7xl sm:text-6xl">
           <div>Lightning-fast</div>
           <div>code generation</div>
         </h1>
-        <h2 className="text-center text-gray-400 mb-12 text-md sm:text-lg md:text-xl">
+        <h2 className="text-center text-gray-400 mb-12 text-xs md:text-base sm:text-sm">
           ZappJS is a continuous, spec-driven code generator, powered by AI.
         </h2>
         <div className="flex justify-center gap-4">

@@ -125,8 +125,8 @@ export const ZappEditor: FC = () => {
   }, []);
 
   return (
-    <div className="flex" style={{ height: '100%' }}>
-      <div className="relative w-1/2">
+    <div className="flex flex-col md:flex-row" style={{ height: '100%' }}>
+      <div className="h-1/2 relative w-full md:h-full md:w-1/2">
         {editor === 'yaml' && (
           <Editor
             language="yaml"
@@ -289,7 +289,7 @@ export const ZappEditor: FC = () => {
           </button>
         </div>
       </div>
-      <div className="w-1/2">
+      <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
           <div className="w-1/3">
             <EditorTreeView />
