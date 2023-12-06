@@ -1,8 +1,7 @@
 'use client';
 
 import { Logout as LogoutIcon } from '@mui/icons-material';
-import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { FC } from 'react';
 
 export const User: FC = () => {
@@ -23,7 +22,7 @@ export const User: FC = () => {
           </button>
         </>
       ) : (
-        <Link href="signin">Sign In</Link>
+        <button onClick={() => signIn('github')}>Sign In</button>
       )}
     </div>
   );
