@@ -1,3 +1,4 @@
+import { deleteKey } from '@/utils/deleteKey';
 import { renameKey } from '@/utils/renameKey';
 import { setNested } from '@/utils/setNested';
 import { StateCreator, create } from 'zustand';
@@ -16,8 +17,9 @@ export interface SpecState {
 
   init: () => Promise<void>;
   reset: () => void;
+  deleteKey: (path: (number | string)[]) => void;
   updateKey: (oldPath: (number | string)[], newKey: string) => void;
-  updateValue: (path: (number | string)[], value: string) => void;
+  updateValue: (path: (number | string)[], value?: string) => void;
 }
 
 export const createSpecSlice: StateCreator<SpecState> = (set, get) => ({
@@ -150,6 +152,14 @@ export const createSpecSlice: StateCreator<SpecState> = (set, get) => ({
 
   reset: () => {
     set({ spec: {} });
+  },
+
+  deleteKey: (path) => {
+    const spec = JSON.parse(JSON.stringify(get().spec));
+
+    deleteKey(spec, path);
+
+    set({ spec });
   },
 
   updateKey: (oldPath, newKey) => {

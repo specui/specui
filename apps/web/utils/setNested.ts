@@ -16,5 +16,9 @@ export function setNested(obj: any, path: (number | string)[], value: any): void
   }
 
   // Set the value at the final key
-  current[path[path.length - 1]] = value;
+  if (value === undefined) {
+    delete current[path[path.length - 1]];
+  } else {
+    current[path[path.length - 1]] = value;
+  }
 }

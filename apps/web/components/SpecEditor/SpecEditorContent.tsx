@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC, useMemo, useState } from 'react';
+import { FC, KeyboardEvent, useMemo, useState } from 'react';
 
 import { useSpecStore } from '@/stores/spec';
 import { getNested } from '@/utils/getNested';
@@ -26,6 +26,7 @@ export const SpecEditorContent: FC = () => {
   const focused = useSpecStore((state) => state.focused);
   const setFocused = useSpecStore((state) => state.setFocused);
 
+  const deleteKey = useSpecStore((state) => state.deleteKey);
   const updateKey = useSpecStore((state) => state.updateKey);
   const updateValue = useSpecStore((state) => state.updateValue);
 
@@ -70,6 +71,38 @@ export const SpecEditorContent: FC = () => {
     );
   }, [selected, spec]);
 
+  const handleBlur = (specItem: SpecItem, type: 'key' | 'value') => {
+    if (type === 'key') {
+      updateKey(specItem.path, value);
+    } else {
+      updateValue(specItem.path, value);
+    }
+
+    setFocused('');
+    setValue('');
+  };
+
+  const handleFocus = (specItem: SpecItem, type: 'key' | 'value') => {
+    setFocused(`${type}:${specItem.path}`);
+    setValue(specItem[type]?.toString() || '');
+  };
+
+  const handleKeyDown = (e: KeyboardEvent, specItem: SpecItem, type: 'key' | 'value') => {
+    if (e.key === 'k' && e.metaKey && e.shiftKey) {
+      if (type === 'key') {
+        deleteKey(specItem.path);
+      } else {
+        updateValue(specItem.path, undefined);
+      }
+    } else if (e.key === 'Enter') {
+      if (type === 'key') {
+        updateKey(specItem.path, value);
+      } else {
+        updateValue(specItem.path, value);
+      }
+    }
+  };
+
   const render = (items: SpecItem[], indent = 0) => {
     return items.map((specItem) => (
       <li className="grid grid-cols-2" key={specItem.key}>
@@ -83,18 +116,10 @@ export const SpecEditorContent: FC = () => {
         ) : (
           <input
             className="bg-gray-900 col-span-1 font-bold outline-none p-1 text-gray-300"
-            onBlur={() => {
-              updateKey(specItem.path, value);
-
-              setFocused('');
-              setValue('');
-            }}
+            onBlur={() => handleBlur(specItem, 'key')}
             onChange={(e) => setValue(e.target.value)}
-            onFocus={() => {
-              setFocused(`key:${specItem.path}`);
-              setValue(specItem.key);
-            }}
-            onKeyDown={(e) => e.key === 'Enter' && updateKey(specItem.path, value)}
+            onFocus={() => handleFocus(specItem, 'key')}
+            onKeyDown={(e) => handleKeyDown(e, specItem, 'key')}
             style={{ paddingLeft: `${indent}rem`, marginRight: `${-indent}rem` }}
             value={focused === `key:${specItem.path}` ? value : specItem.key}
           />
@@ -108,18 +133,10 @@ export const SpecEditorContent: FC = () => {
               'text-red-600': specItem.type === 'number',
               'text-green-600': specItem.type === 'string',
             })}
-            onBlur={() => {
-              updateValue(specItem.path, value);
-
-              setFocused('');
-              setValue('');
-            }}
+            onBlur={() => handleBlur(specItem, 'value')}
             onChange={(e) => setValue(e.target.value)}
-            onFocus={() => {
-              setFocused(`value:${specItem.path}`);
-              setValue(specItem.value as string);
-            }}
-            onKeyDown={(e) => e.key === 'Enter' && updateValue(specItem.path, value)}
+            onFocus={() => handleFocus(specItem, 'value')}
+            onKeyDown={(e) => handleKeyDown(e, specItem, 'value')}
             value={focused === `value:${specItem.path}` ? value : specItem.value.toString()}
           />
         )}
