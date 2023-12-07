@@ -17,7 +17,11 @@ export function setNested(obj: any, path: (number | string)[], value: any): void
 
   // Set the value at the final key
   if (value === undefined) {
-    delete current[path[path.length - 1]];
+    if (Array.isArray(current)) {
+      current.splice(Number(path[path.length - 1]), 1);
+    } else {
+      delete current[path[path.length - 1]];
+    }
   } else {
     current[path[path.length - 1]] = value;
   }
