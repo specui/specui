@@ -94,10 +94,8 @@ export const SpecEditorContent: FC = () => {
 
   const handleKeyDown = (e: KeyboardEvent, specItem: SpecItem, type: 'key' | 'value') => {
     if (e.key === 'k' && e.metaKey && e.shiftKey) {
-      updateValue(specItem.path, undefined);
-
-      setFocused('');
-      setValue('');
+      const updatedSpec = updateValue(specItem.path, undefined);
+      setValue(getNested(updatedSpec, specItem.path) || '');
     } else if (e.key === 'Enter') {
       if (type === 'key') {
         updateKey(specItem.path, value);

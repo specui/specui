@@ -1,4 +1,4 @@
-export function getNested<T>(obj: any, path: string | string[], defaultValue?: T): T | undefined {
+export function getNested<T>(obj: any, path: string | (number | string)[], defaultValue?: T): T | undefined {
   // Convert the path to an array if it is not already
   const pathArray = Array.isArray(path) ? path : path.split('.').filter((key) => key.length);
 
