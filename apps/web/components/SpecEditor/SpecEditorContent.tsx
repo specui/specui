@@ -72,7 +72,7 @@ export const SpecEditorContent: FC = () => {
 
   const render = (items: SpecItem[], indent = 0) => {
     return items.map((specItem) => (
-      <li className="grid grid-cols-2" key={specItem.key} title={`/${specItem.path.join('/')}`}>
+      <li className="grid grid-cols-2" key={specItem.key}>
         {specItem.parent?.type === 'array' ? (
           <div
             className="bg-gray-900 col-span-1 font-mono outline-none p-1 text-gray-600"
