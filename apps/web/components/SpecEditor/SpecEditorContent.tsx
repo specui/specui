@@ -152,7 +152,7 @@ export const SpecEditorContent: FC = () => {
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => handleFocus(specItem, 'value')}
             onKeyDown={(e) => handleKeyDown(e, specItem, 'value')}
-            value={focused === `value:${specItem.pathString}` ? value : specItem.value.toString()}
+            value={focused === `value:${specItem.pathString}` ? value : specItem.value?.toString()}
           />
         )}
         {hovered === specItem.pathString && (
