@@ -130,7 +130,9 @@ export const SpecEditorContent: FC = () => {
           </div>
         ) : (
           <input
-            className="bg-gray-900 col-span-1 font-bold outline-none p-1 text-gray-300"
+            className={clsx('bg-gray-900 col-span-1 font-bold outline-none p-1 text-gray-300', {
+              'col-span-2': ['array', 'object'].includes(specItem.type),
+            })}
             onBlur={() => handleBlur('key')}
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => handleFocus(specItem, 'key')}
@@ -139,9 +141,7 @@ export const SpecEditorContent: FC = () => {
             value={focused === `key:${specItem.pathString}` ? value : specItem.key}
           />
         )}
-        {specItem.value === undefined ? (
-          <div className="bg-gray-900 col-span-1 p-1" />
-        ) : (
+        {!['array', 'object'].includes(specItem.type) && (
           <input
             className={clsx('bg-gray-900 col-span-1 outline-none p-1', {
               'text-blue-600': specItem.type === 'boolean',
