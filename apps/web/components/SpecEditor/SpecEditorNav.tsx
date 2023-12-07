@@ -52,20 +52,17 @@ export const SpecEditorNav: FC = () => {
           ) : (
             <div style={{ width: 24 }} />
           )}
-          <button
-            className="flex-grow text-left"
-            onClick={() => setSelected(specItem.path)}
-          >
+          <button className="flex-grow text-left" onClick={() => setSelected(specItem.path)}>
             {specItem.name}
           </button>
         </div>
-        {expanded[specItem.name] && render(specItem.items, indent + 1)}
+        {expanded[specItem.name] && <ul>{render(specItem.items, indent + 1)}</ul>}
       </li>
     ));
   };
 
   return (
-    <ul className="list-none">
+    <ul>
       <li>
         <button
           className={clsx('pl-2 text-left w-full', {
@@ -75,7 +72,7 @@ export const SpecEditorNav: FC = () => {
         >
           /
         </button>
-        {render(specItems)}
+        <ul>{render(specItems)}</ul>
       </li>
     </ul>
   );

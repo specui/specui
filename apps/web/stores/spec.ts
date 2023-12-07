@@ -16,8 +16,8 @@ export interface SpecState {
 
   init: () => Promise<void>;
   reset: () => void;
-  updateKey: (oldPath: string, newKey: string) => void;
-  updateValue: (path: string, value: string) => void;
+  updateKey: (oldPath: (number | string)[], newKey: string) => void;
+  updateValue: (path: (number | string)[], value: string) => void;
 }
 
 export const createSpecSlice: StateCreator<SpecState> = (set, get) => ({
@@ -155,7 +155,7 @@ export const createSpecSlice: StateCreator<SpecState> = (set, get) => ({
   updateKey: (oldPath, newKey) => {
     const spec = JSON.parse(JSON.stringify(get().spec));
 
-    renameKey(spec, oldPath.slice(1).split('/'), newKey);
+    renameKey(spec, oldPath, newKey);
 
     set({ spec });
   },
@@ -163,7 +163,7 @@ export const createSpecSlice: StateCreator<SpecState> = (set, get) => ({
   updateValue: (path, value) => {
     const spec = JSON.parse(JSON.stringify(get().spec));
 
-    setNested(spec, path.slice(1).split('/'), value);
+    setNested(spec, path, value);
 
     set({ spec });
   },

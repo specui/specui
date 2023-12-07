@@ -1,4 +1,4 @@
-function renameRootKeyPreservingOrder(obj: any, oldKey: string, newKey: string): any {
+function renameRootKeyPreservingOrder(obj: any, oldKey: number | string, newKey: string): any {
   const newObject: Record<string, any> = {};
 
   // Copy properties to the new object, renaming the specified key
@@ -13,7 +13,7 @@ function renameRootKeyPreservingOrder(obj: any, oldKey: string, newKey: string):
   return newObject;
 }
 
-export function renameKey(obj: any, path: string[], newKey: string): void {
+export function renameKey(obj: any, path: (number | string)[], newKey: string): void {
   if (path.length === 0) {
     throw new Error('Path cannot be empty');
   }

@@ -1,4 +1,4 @@
-export function setNested(obj: any, path: string[], value: any): void {
+export function setNested(obj: any, path: (number | string)[], value: any): void {
   if (path.length === 0) {
     throw new Error('Path cannot be empty');
   }
