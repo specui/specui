@@ -271,5 +271,5 @@ export const SpecEditorContent: FC = () => {
     ));
   };
 
-  return <ul className="bg-gray-900 min-h-full px-2 w-full">{render(specItems)}</ul>;
+  return <ul className="bg-gray-900 min-h-full pb-96 px-2 w-full">{render(specItems)}</ul>;
 };
