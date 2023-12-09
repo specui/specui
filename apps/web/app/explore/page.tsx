@@ -34,7 +34,7 @@ export default function Home() {
         <h1 className="flex flex-col font-bold gap-2 text-center text-4xl md:text-7xl sm:text-6xl">
           <div>Explore</div>
         </h1>
-        <h2 className="relative text-center text-gray-400 text-xs w-1/3 md:text-base sm:text-sm">
+        <h2 className="text-center text-gray-400 text-xs w-1/3 md:text-base sm:text-sm">
           Coming Soon
         </h2>
       </motion.main>

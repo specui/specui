@@ -1,6 +1,8 @@
+import { MenuRounded } from '@mui/icons-material';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 const pages = [
   {
@@ -20,20 +22,33 @@ const pages = [
 export const Menu: FC = () => {
   const pathname = usePathname();
 
+  const [show, setShow] = useState(false);
+
   return (
-    <ul className="flex gap-4">
-      {pages.map((page) => (
-        <li
-          className={
-            pathname === page.url
-              ? 'text-yellow-300'
-              : 'text-gray-200 hover:text-white'
-          }
-          key={page.url}
-        >
-          <Link href={page.url}>{page.text}</Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <button className="md:hidden" onClick={() => setShow(!show)}>
+        <MenuRounded className="text-4xl xs:text-3xl sm:text-2xl" />
+      </button>
+      <ul
+        className={clsx(
+          'bg-slate-900 bottom-0 gap-4 items-center justify-center fixed left-0 right-0 text-6xl top-0 z-10 md:bg-transparent md:flex md:static md:text-base',
+          show ? 'flex flex-col md:flex-row' : 'hidden',
+        )}
+      >
+        {pages.map((page) => (
+          <li
+            className={clsx(
+              'text-center',
+              pathname === page.url ? 'text-yellow-300' : 'text-gray-200 hover:text-white',
+            )}
+            key={page.url}
+          >
+            <Link href={page.url} onMouseUp={() => setShow(false)}>
+              {page.text}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };

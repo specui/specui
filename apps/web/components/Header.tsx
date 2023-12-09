@@ -21,22 +21,27 @@ export const Header: FC = () => {
               <img height="32" width="32" src="/logo.png" />
             </Link>
           </h1>
-          <motion.div
-            className="overflow-hidden text-yellow-300 whitespace-nowrap"
-            initial={{ width: 0 }}
-            animate={{ width: pathname.startsWith('/playground') ? 'auto' : 0 }}
-            transition={{ duration: .25 }}
-          >
-            Untitled
-          </motion.div>
-          <motion.div
-            className="overflow-hidden text-gray-500 whitespace-nowrap"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: pathname === '/playground' ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            |
-          </motion.div>
+          {pathname.startsWith('/playground') && (
+            <>
+              <motion.div
+                className="overflow-hidden text-yellow-300 whitespace-nowrap"
+                initial={{ width: 0 }}
+                animate={{ width: 'auto' }}
+                transition={{ duration: 0.25 }}
+              >
+                Untitled
+              </motion.div>
+              <motion.div
+                className="overflow-hidden text-gray-500 whitespace-nowrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                |
+              </motion.div>
+            </>
+          )}
+
           <Menu />
         </div>
         <div className="flex gap-4 items-center">
