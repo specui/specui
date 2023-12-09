@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <main
       className="flex flex-col gap-2 items-center justify-center mx-auto"
-      style={{ minHeight: 'calc(100vh - 65px)' }}
+      style={{ minHeight: 'calc(100vh - 97px)' }}
     >
       <h2 className="text-4xl">Not Found</h2>
       <p className="text-gray-400">

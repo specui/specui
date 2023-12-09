@@ -21,7 +21,7 @@ export default function Home() {
     <SessionProvider>
       <main
         className="flex flex-col gap-4 align-middle items-center justify-center mx-auto p-4 md:gap-8 sm:gap-7"
-        style={{ minHeight: 'calc(100vh - 65px)' }}
+        style={{ minHeight: 'calc(100vh - 97px)' }}
       >
         <h1 className="flex flex-col font-bold gap-2 text-center text-4xl md:text-7xl sm:text-6xl">
           <motion.div

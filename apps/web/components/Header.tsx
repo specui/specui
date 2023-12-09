@@ -13,8 +13,11 @@ export const Header: FC = () => {
   const pathname = usePathname();
 
   return (
-    <header className="bg-slate-950 border-b border-b-slate-900 sticky p-4 top-0">
-      <div className="flex items-center justify-between">
+    <header className="bg-slate-950 border-b border-b-slate-900 sticky top-0">
+      <div className="bg-yellow-400 p-2 text-black text-center text-xs">
+        ZappJS is in <b>ALPHA</b>. You would be crazy to use it in production.
+      </div>
+      <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-4">
           <h1 className="font-bold">
             <Link className="flex items-center gap-1" href="/">

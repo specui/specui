@@ -6,7 +6,7 @@ export default function SignInPage() {
   return (
     <main
       className="flex flex-col gap-4 items-center justify-center mx-auto"
-      style={{ minHeight: 'calc(100vh - 65px)' }}
+      style={{ minHeight: 'calc(100vh - 97px)' }}
     >
       <h1 className="text-center text-7xl">
         Sign in to

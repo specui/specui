@@ -46,10 +46,18 @@ export interface ISpec {
 
 export default async function zapp(spec: ISpec) {
   const components: {
-    [name: string]: string;
+    [name: string]: {
+      html: string;
+      css: string;
+    };
   } = {};
   Object.entries(spec.components).forEach(([name, component]) => {
-    components[name] = `<${component.type}>${component.text || ''}</${component.type}>`;
+    components[name] = {
+      css: `${component.type} {${Object.entries(component.style || [])
+        .map(([key, value]) => `${paramCase(key)}: ${value}`)
+        .join(';')}}`,
+      html: `<${component.type}>${component.text || ''}</${component.type}>`,
+    };
   });
 
   return {
@@ -73,11 +81,12 @@ export default async function zapp(spec: ISpec) {
                 )
                 .join('\n')}
               ${spec.pages.index.elements
-                .map(
-                  (element) =>
-                    `${element.type} {${Object.entries(element.style || [])
-                      .map(([key, value]) => `${paramCase(key)}: ${value}`)
-                      .join(';')}}`,
+                .map((element) =>
+                  element.type === 'component' && element.component
+                    ? components[element.component].css
+                    : `${element.type} {${Object.entries(element.style || [])
+                        .map(([key, value]) => `${paramCase(key)}: ${value}`)
+                        .join(';')}}`,
                 )
                 .join('')}
             </style>
@@ -86,7 +95,7 @@ export default async function zapp(spec: ISpec) {
             ${spec.pages.index.elements
               .map((element) =>
                 element.type === 'component' && element.component
-                  ? components[element.component]
+                  ? components[element.component].html
                   : `<${element.type}>${element.text || ''}</${element.type}>`,
               )
               .join('')}

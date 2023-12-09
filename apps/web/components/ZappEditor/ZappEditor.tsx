@@ -85,13 +85,15 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
       generator === 'next' ? await nextZapp(spec as any) : await vanillaZapp(spec as any);
     const data = transform(result);
 
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://localhost:8080/update',
-    //   data: {
-    //     files: result,
-    //   },
-    // });
+    if (process.env.NEXT_PUBLIC_ZAPP_LIVE_API) {
+      axios({
+        method: 'POST',
+        url: `${process.env.NEXT_PUBLIC_ZAPP_LIVE_API}/update`,
+        data: {
+          files: result,
+        },
+      });
+    }
 
     setCode(result);
     setData(data);
@@ -551,7 +553,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
             <>
               {generator === 'vanilla' ? (
                 <iframe className="w-full" ref={iframeRef} />
-              ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_API ? (
+              ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_APP ? (
                 <div className="flex flex-col gap-4 items-center justify-center w-full">
                   <div className="text-lg">Next.js preview not available (yet)</div>
                   <button
@@ -562,7 +564,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
                   </button>
                 </div>
               ) : (
-                <iframe className="w-full" src={process.env.NEXT_PUBLIC_ZAPP_LIVE_API} />
+                <iframe className="w-full" src={process.env.NEXT_PUBLIC_ZAPP_LIVE_APP} />
               )}
             </>
           ) : (

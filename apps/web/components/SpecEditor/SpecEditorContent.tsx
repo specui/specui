@@ -1,4 +1,4 @@
-import { Close as DeleteIcon } from '@mui/icons-material';
+import { Add as AddIcon, Close as DeleteIcon } from '@mui/icons-material';
 import clsx from 'clsx';
 import { FC, KeyboardEvent, useMemo, useState } from 'react';
 
@@ -6,14 +6,17 @@ import { useSpecStore } from '@/stores/spec';
 import { getNested } from '@/utils/getNested';
 
 type SpecItemParent = {
+  itemCount: number;
   path: SpecItemPath;
   pathString: string;
+  parent?: SpecItemParent;
   type: SpecItemType;
 };
 type SpecItemPath = (number | string)[];
 type SpecItemType = 'array' | 'boolean' | 'object' | 'number' | 'string';
 
 interface SpecItem {
+  index: number;
   items?: SpecItem[];
   key: string;
   parent?: SpecItemParent;
@@ -33,15 +36,17 @@ export const SpecEditorContent: FC = () => {
   const updateKey = useSpecStore((state) => state.updateKey);
   const updateValue = useSpecStore((state) => state.updateValue);
 
+  const [newSpecItem, setNewSpecItem] = useState<SpecItem | null>(null);
   const [hovered, setHovered] = useState('');
   const [value, setValue] = useState('');
 
   const specItems = useMemo<SpecItem[]>(() => {
     const parse = (spec: object, parent?: SpecItemParent): SpecItem[] => {
-      return Object.entries(spec).map(([key, spec]) => {
+      return Object.entries(spec).map(([key, spec], index) => {
         const path = (parent?.path || []).concat(key);
         const type = Array.isArray(spec) ? 'array' : (typeof spec as SpecItemType);
         return {
+          index,
           path,
           pathString: path.join('/'),
           key,
@@ -50,6 +55,8 @@ export const SpecEditorContent: FC = () => {
           items:
             typeof spec === 'object'
               ? parse(spec, {
+                  itemCount: Object.keys(spec).length,
+                  parent,
                   path,
                   pathString: path.join('/'),
                   type,
@@ -64,6 +71,7 @@ export const SpecEditorContent: FC = () => {
       selected === '/' ? spec : (getNested(spec, selected.slice(1).split('/')) as any),
       selected !== '/'
         ? {
+            itemCount: Object.keys(getNested(spec, selected.slice(1).split('/')) as any).length,
             path: selected.slice(1).split('/'),
             pathString: selected,
             type: 'object',
@@ -77,7 +85,20 @@ export const SpecEditorContent: FC = () => {
 
     if (path?.length > 0) {
       if (type === 'key') {
-        updateKey(path, value);
+        if (path.slice(-1)[0] === '') {
+          if (value === '') {
+            setNewSpecItem(null);
+          } else {
+            updateValue(path.slice(0, -1).concat(value), '');
+            setNewSpecItem(null);
+
+            setTimeout(() => {
+              document.getElementById(`value-${path.slice(0, -1).concat(value).join('/')}`)!.focus();
+            });
+          }
+        } else {
+          updateKey(path, value);
+        }
       } else {
         updateValue(path, value);
       }
@@ -98,10 +119,29 @@ export const SpecEditorContent: FC = () => {
       setValue(getNested(updatedSpec, specItem.path) || '');
     } else if (e.key === 'Enter') {
       if (type === 'key') {
-        updateKey(specItem.path, value);
+        if (specItem.key === '') {
+          updateValue(specItem.path, '');
+        } else {
+          updateKey(specItem.path, value);
+        }
       } else {
         updateValue(specItem.path, value);
       }
+    } else if (
+      e.key === 'Tab' &&
+      type === 'value' &&
+      specItem.parent &&
+      specItem.parent.itemCount - 1 === specItem.index
+    ) {
+      updateValue(specItem.path, value);
+      setFocused(`${specItem.parent.pathString}/`);
+      setNewSpecItem({
+        ...specItem,
+        key: '',
+        path: specItem.parent.path.concat(''),
+        pathString: `${specItem.parent.pathString}/`,
+        value: '',
+      });
     }
   };
 
@@ -131,6 +171,7 @@ export const SpecEditorContent: FC = () => {
             className={clsx('bg-gray-900 col-span-1 font-bold outline-none p-1 text-gray-300', {
               'col-span-2': ['array', 'object'].includes(specItem.type),
             })}
+            id={`key-${specItem.pathString}`}
             onBlur={() => handleBlur('key')}
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => handleFocus(specItem, 'key')}
@@ -146,6 +187,7 @@ export const SpecEditorContent: FC = () => {
               'text-red-600': specItem.type === 'number',
               'text-green-600': specItem.type === 'string',
             })}
+            id={`value-${specItem.pathString}`}
             onBlur={() => handleBlur('value')}
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => handleFocus(specItem, 'value')}
@@ -153,21 +195,78 @@ export const SpecEditorContent: FC = () => {
             value={focused === `value:${specItem.pathString}` ? value : specItem.value?.toString()}
           />
         )}
-        {hovered === specItem.pathString && (
-          <button
-            className="absolute right-0 text-slate-500 top-[2px] hover:text-white"
-            onMouseDown={() => {
-              updateValue(specItem.path, undefined);
-
-              setFocused('');
-              setValue('');
-            }}
-            title="Delete (cmd+shift+k)"
-          >
-            <DeleteIcon />
-          </button>
-        )}
         {specItem.items && <ul className="col-span-2">{render(specItem.items, indent + 1)}</ul>}
+        {newSpecItem?.parent?.pathString === specItem.pathString && (
+          <>
+            {specItem.parent?.type === 'array' ? (
+              <div
+                className="bg-gray-900 col-span-1 font-mono outline-none p-1 text-gray-600"
+                style={{ paddingLeft: `${indent + 1}rem`, marginRight: `${-indent + 1}rem` }}
+              >
+                {specItem.key}
+              </div>
+            ) : (
+              <input
+                className={clsx('bg-gray-900 col-span-1 font-bold outline-none p-1 text-gray-300', {
+                  'col-span-2': ['array', 'object'].includes(specItem.type),
+                })}
+                id={`key-${specItem.pathString}/`}
+                onBlur={(e) => handleBlur('key')}
+                onChange={(e) => setValue(e.target.value)}
+                onFocus={() => handleFocus(newSpecItem, 'key')}
+                onKeyDown={(e) => handleKeyDown(e, newSpecItem, 'key')}
+                style={{ paddingLeft: `${indent + 1}rem`, marginRight: `${-indent + 1}rem` }}
+                value={focused === `key:${newSpecItem?.pathString}` ? value : ''}
+              />
+            )}
+            {!['array', 'object'].includes(specItem.type) && (
+              <input
+                className={clsx('bg-gray-900 col-span-1 outline-none p-1', {
+                  'text-blue-600': specItem.type === 'boolean',
+                  'text-red-600': specItem.type === 'number',
+                  'text-green-600': specItem.type === 'string',
+                })}
+                id={`value-${specItem.pathString}/`}
+                onBlur={() => handleBlur('value')}
+                onChange={(e) => setValue(e.target.value)}
+                onFocus={() => handleFocus(specItem, 'value')}
+                onKeyDown={(e) => handleKeyDown(e, specItem, 'value')}
+                value={focused === `value:${newSpecItem?.pathString}` ? value : ''}
+              />
+            )}
+          </>
+        )}
+        {hovered === specItem.pathString && (
+          <div className="absolute right-0 text-slate-500 top-[2px] hover:text-white">
+            <button
+              onMouseDown={() => {
+                const newPath =
+                  specItem.type === 'object'
+                    ? specItem.path.concat('')
+                    : specItem.parent!.path.concat('');
+                updateValue(newPath, '');
+
+                setTimeout(() => {
+                  document.getElementById(`key-${newPath.join('/')}`)!.focus();
+                });
+              }}
+              title="Delete (cmd+shift+k)"
+            >
+              <AddIcon />
+            </button>
+            <button
+              onMouseDown={() => {
+                updateValue(specItem.path, undefined);
+
+                setFocused('');
+                setValue('');
+              }}
+              title="Delete (cmd+shift+k)"
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+        )}
       </li>
     ));
   };
