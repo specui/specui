@@ -1,0 +1,30 @@
+{
+  "name": "@zappjs/vanilla-zapp",
+  "version": "0.2.0",
+  "main": "./dist/zapp.js",
+  "types": "./dist/zapp.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/pluralize": "0.0.29",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@types/node": "^18.0.0",
+    "@vercel/postgres-kysely": "^0.5.0",
+    "@zappjs/cli": "^2.0.1",
+    "@zappjs/core": "^2.1.1",
+    "@zappjs/git": "^0.1.4",
+    "@zappjs/handlebars": "^0.2.3",
+    "@zappjs/json": "^0.2.1",
+    "@zappjs/license": "^0.1.1",
+    "@zappjs/prettier": "^0.6.0",
+    "change-case": "^3.1.0",
+    "kysely": "^0.26.3"
+  }
+}

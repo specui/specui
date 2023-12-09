@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "the name of the api",
+          "type": "string"
+        },
+        "version": {
+          "description": "the api version",
+          "type": "string"
+        },
+        "description": {
+          "description": "a description of the api",
+          "type": "string"
+        },
+        "license": {
+          "description": "the license type",
+          "enum": ["Apache-2.0", "GPL-2.0-only", "GPL-3.0-only", "ISC", "MIT"],
+          "type": "string"
+        },
+        "ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "providers": {
+              "type": "object",
+              "properties": {
+                "github": {
+                  "type": "object"
+                },
+                "google": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "calls": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "request": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "enum": ["number", "string"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "models": {
+          "type": "object",
+          "additionalProperties": {
+            "request": {
+              "type": "object",
+              "additionalProperties": {
+                "enum": ["string"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

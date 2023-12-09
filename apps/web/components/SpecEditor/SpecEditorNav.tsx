@@ -62,7 +62,7 @@ export const SpecEditorNav: FC = () => {
   };
 
   return (
-    <ul>
+    <ul className="bg-slate-900 border-r border-r-slate-950 h-full">
       <li>
         <button
           className={clsx('pl-2 text-left w-full', {

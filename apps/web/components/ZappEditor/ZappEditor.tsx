@@ -1,16 +1,18 @@
 'use client';
 
 import Editor from '@monaco-editor/react';
-import nextZapp, { ISpec } from '@zappjs/next-zapp/dist/zapp-browser';
+import nextZapp from '@zappjs/next-zapp/dist/zapp-browser';
+import vanillaZapp from '@zappjs/vanilla-zapp/dist/zapp-browser';
+import axios from 'axios';
+import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { EditorTreeView } from '../EditorTreeView';
+import { EditorTreeView } from '@/components/EditorTreeView';
+import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
-import { SpecEditor } from '../SpecEditor/SpecEditor';
 import { useSpecStore } from '@/stores/spec';
-import clsx from 'clsx';
 
 type InputObject = { [key: string]: string };
 type OutputObject = {
@@ -53,7 +55,11 @@ function transform(input: InputObject): OutputObject[] {
   return result;
 }
 
-export const ZappEditor: FC = () => {
+export interface ZappEditorProps {
+  generator: 'vanilla' | 'next';
+}
+
+export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
   const spec = useSpecStore((state) => state.spec);
   const setSpec = useSpecStore((state) => state.setSpec);
 
@@ -65,26 +71,266 @@ export const ZappEditor: FC = () => {
   const selected = useEditorStore((state) => state.selected);
   const setSelected = useEditorStore((state) => state.setSelected);
 
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
   const value = useMemo(() => {
     return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
   }, [spec]);
 
   const [editor, setEditor] = useState<'visual' | 'yaml'>('visual');
+  const [output, setOutput] = useState<'preview' | 'code'>('preview');
 
   const handleGenerate = useCallback(async () => {
-    const result = await nextZapp(spec as any);
+    const result =
+      generator === 'next' ? await nextZapp(spec as any) : await vanillaZapp(spec as any);
     const data = transform(result);
+
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://localhost:8080/update',
+    //   data: {
+    //     files: result,
+    //   },
+    // });
 
     setCode(result);
     setData(data);
     if (!selected) {
-      setSelected('README.md');
+      if (generator === 'vanilla') {
+        setSelected('index.html');
+      } else {
+        setSelected('README.md');
+      }
     }
-  }, [setCode, setData, setSelected, selected, spec]);
+  }, [generator, setCode, setData, setSelected, selected, spec]);
 
   useEffect(() => {
     handleGenerate();
   }, [handleGenerate]);
+
+  useEffect(() => {
+    iframeRef.current?.contentWindow?.document.open();
+    iframeRef.current?.contentWindow?.document.write(code['index.html']);
+    iframeRef.current?.contentWindow?.document.close();
+  }, [iframeRef, output, code]);
+
+  useMemo(() => {
+    if (generator === 'vanilla') {
+      setSpec({
+        app: {
+          title: 'Zapp',
+          name: 'my-app',
+          version: '1.0.0',
+          description: 'this is my cool app',
+          author: {
+            name: 'Super Coder',
+            email: 'info@example.org',
+            url: 'https://example.org/',
+          },
+          license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
+        },
+        components: {
+          header: {
+            type: 'header',
+            style: {
+              backgroundColor: 'darkgray',
+            },
+          },
+        },
+        pages: {
+          index: {
+            elements: [
+              {
+                type: 'component',
+                component: 'header',
+              },
+              {
+                type: 'h1',
+                text: 'Spec. Preview. Ship.',
+                style: {
+                  color: 'white',
+                  fontFamily: 'Georgia, serif',
+                  fontSize: '2em',
+                  marginBottom: '.5em',
+                  textAlign: 'center',
+                },
+              },
+              {
+                type: 'h2',
+                text: 'Build at lightning-speed',
+                style: {
+                  color: 'gray',
+                  fontFamily: 'Verdana, sans-serif',
+                  fontSize: '1em',
+                  textAlign: 'center',
+                },
+              },
+            ],
+          },
+        },
+        styles: {
+          body: {
+            alignItems: 'center',
+            backgroundColor: 'black',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            fontFamily: 'sans-serif',
+            height: '100%',
+            justifyContent: 'center',
+          },
+          html: {
+            height: '100%',
+          },
+        },
+      });
+    } else {
+      setSpec({
+        name: 'my-app',
+        version: '1.0.0',
+        description: 'this is my cool app',
+        author: {
+          name: 'Super Coder',
+          email: 'info@example.org',
+          url: 'https://example.org/',
+        },
+        license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
+        auth: {
+          providers: ['facebook', 'github', 'google'],
+        },
+        calls: {
+          createPost: {
+            request: {
+              title: {
+                required: true,
+                type: 'string',
+              },
+              summary: {
+                type: 'string',
+              },
+              content: {
+                required: true,
+                type: 'string',
+              },
+            },
+            response: {
+              id: {
+                required: true,
+                type: 'number',
+              },
+            },
+          },
+          getPost: {
+            request: {
+              id: {
+                type: 'number',
+              },
+            },
+            response: {
+              id: {
+                required: true,
+                type: 'number',
+              },
+              title: {
+                required: true,
+                type: 'string',
+              },
+              summary: {
+                type: 'string',
+              },
+              content: {
+                required: true,
+                type: 'string',
+              },
+            },
+          },
+        },
+        models: {
+          comment: {
+            attributes: {
+              content: {
+                type: 'string',
+              },
+              postId: {
+                type: 'number',
+              },
+              userId: {
+                unique: true,
+                type: 'string',
+              },
+            },
+          },
+          post: {
+            attributes: {
+              id: {
+                key: 'primary',
+                type: 'number',
+              },
+              title: {
+                unique: true,
+                type: 'string',
+              },
+              summary: {
+                type: 'string',
+              },
+              content: {
+                type: 'string',
+              },
+              slug: {
+                unique: true,
+                type: 'string',
+              },
+            },
+          },
+          user: {
+            attributes: {
+              id: {
+                key: 'primary',
+                type: 'number',
+              },
+              username: {
+                type: 'string',
+                unique: true,
+              },
+              socialId: {
+                type: 'number',
+              },
+              source: {
+                type: 'string',
+              },
+            },
+          },
+        },
+        pages: {
+          index: {
+            components: [
+              {
+                type: 'h1',
+                text: 'Spec. Preview. Ship.',
+                style: {
+                  color: 'white',
+                  fontFamily: 'Georgia, serif',
+                  fontSize: '2em',
+                  marginBottom: '.5em',
+                  textAlign: 'center',
+                },
+              },
+              {
+                type: 'h2',
+                text: 'Build at lightning-speed',
+                style: {
+                  color: 'gray',
+                  fontFamily: 'Verdana, sans-serif',
+                  fontSize: '1em',
+                  textAlign: 'center',
+                },
+              },
+            ],
+          },
+        },
+      });
+    }
+  }, [generator, setSpec]);
 
   useEffect(() => {
     window.MonacoEnvironment = {
@@ -125,12 +371,22 @@ export const ZappEditor: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row" style={{ height: '100%' }}>
-      <div className="h-1/2 relative w-full md:h-full md:w-1/2">
+    <div className="bg-gray-900 flex flex-col md:flex-row" style={{ height: '100%' }}>
+      <div className="border-r border-r-gray-950 h-1/2 relative w-full md:h-full md:w-1/2">
         {editor === 'yaml' && (
           <Editor
             language="yaml"
             onChange={(value) => setSpec(safeLoad(value || '') as any)}
+            beforeMount={(monaco) => {
+              monaco.editor.defineTheme('my-theme', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [],
+                colors: {
+                  'editor.background': '#111827',
+                },
+              });
+            }}
             onMount={(_, monaco) => {
               configureMonacoYaml(monaco, {
                 enableSchemaRequest: true,
@@ -269,7 +525,7 @@ export const ZappEditor: FC = () => {
                 enabled: false,
               },
             }}
-            theme="vs-dark"
+            theme="my-theme"
             value={value}
           />
         )}
@@ -291,44 +547,92 @@ export const ZappEditor: FC = () => {
       </div>
       <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
-          <div className="w-1/3">
-            <EditorTreeView />
-          </div>
-          <div className="w-2/3">
-            <Editor
-              language={
-                selected.endsWith('.css')
-                  ? 'css'
-                  : selected.endsWith('.gitignore')
-                  ? 'shell'
-                  : selected.endsWith('.js')
-                  ? 'javascript'
-                  : selected.endsWith('.json')
-                  ? 'json'
-                  : selected.endsWith('.md')
-                  ? 'markdown'
-                  : selected.endsWith('.sass')
-                  ? 'sass'
-                  : selected.endsWith('.scss')
-                  ? 'scss'
-                  : selected.endsWith('.svg')
-                  ? 'xml'
-                  : selected.endsWith('.ts') || selected.endsWith('.tsx')
-                  ? 'typescript'
-                  : selected.endsWith('.yaml') || selected.endsWith('.yml')
-                  ? 'yaml'
-                  : 'text'
-              }
-              options={{
-                minimap: {
-                  enabled: false,
-                },
-                readOnly: true,
-              }}
-              theme="vs-dark"
-              value={code[selected]}
-            />
-          </div>
+          {output === 'preview' ? (
+            <>
+              {generator === 'vanilla' ? (
+                <iframe className="w-full" ref={iframeRef} />
+              ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_API ? (
+                <div className="flex flex-col gap-4 items-center justify-center w-full">
+                  <div className="text-lg">Next.js preview not available (yet)</div>
+                  <button
+                    className="bg-gray-950 px-8 py-2 rounded-xl text-xs md:text-base sm:text-sm"
+                    onClick={() => setOutput('code')}
+                  >
+                    View Code
+                  </button>
+                </div>
+              ) : (
+                <iframe className="w-full" src={process.env.NEXT_PUBLIC_ZAPP_LIVE_API} />
+              )}
+            </>
+          ) : (
+            <>
+              <div className="border-r border-r-gray-950 w-1/3">
+                <EditorTreeView />
+              </div>
+              <div className="w-2/3">
+                <Editor
+                  beforeMount={(monaco) => {
+                    monaco.editor.defineTheme('my-theme', {
+                      base: 'vs-dark',
+                      inherit: true,
+                      rules: [],
+                      colors: {
+                        'editor.background': '#111827',
+                      },
+                    });
+                  }}
+                  language={
+                    selected.endsWith('.css')
+                      ? 'css'
+                      : selected.endsWith('.gitignore')
+                      ? 'shell'
+                      : selected.endsWith('.html')
+                      ? 'html'
+                      : selected.endsWith('.js')
+                      ? 'javascript'
+                      : selected.endsWith('.json')
+                      ? 'json'
+                      : selected.endsWith('.md')
+                      ? 'markdown'
+                      : selected.endsWith('.sass')
+                      ? 'sass'
+                      : selected.endsWith('.scss')
+                      ? 'scss'
+                      : selected.endsWith('.svg')
+                      ? 'xml'
+                      : selected.endsWith('.ts') || selected.endsWith('.tsx')
+                      ? 'typescript'
+                      : selected.endsWith('.yaml') || selected.endsWith('.yml')
+                      ? 'yaml'
+                      : 'text'
+                  }
+                  options={{
+                    minimap: {
+                      enabled: false,
+                    },
+                    readOnly: true,
+                  }}
+                  theme="my-theme"
+                  value={code[selected]}
+                />
+              </div>
+            </>
+          )}
+        </div>
+        <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
+          <button
+            className={clsx('px-2 rounded-lg', { 'bg-slate-700': output === 'preview' })}
+            onClick={() => setOutput('preview')}
+          >
+            Preview
+          </button>
+          <button
+            className={clsx('px-2 rounded-lg', { 'bg-slate-700': output === 'code' })}
+            onClick={() => setOutput('code')}
+          >
+            Code
+          </button>
         </div>
       </div>
     </div>
