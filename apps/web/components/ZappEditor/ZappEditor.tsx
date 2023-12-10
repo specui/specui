@@ -111,10 +111,20 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
   }, [handleGenerate]);
 
   useEffect(() => {
-    iframeRef.current?.contentWindow?.document.open();
-    iframeRef.current?.contentWindow?.document.write(code['index.html']);
-    iframeRef.current?.contentWindow?.document.close();
-  }, [iframeRef, output, code]);
+    if (generator === 'vanilla') {
+      iframeRef.current?.contentWindow?.document.open();
+      iframeRef.current?.contentWindow?.document.write(code['index.html']);
+      iframeRef.current?.contentWindow?.document.close();
+    } else {
+      setTimeout(() => {
+        iframeRef.current?.setAttribute('src', `about:blank`);
+        iframeRef.current?.setAttribute(
+          'src',
+          `${process.env.NEXT_PUBLIC_ZAPP_LIVE_APP}/api/auth/signin`,
+        );
+      }, 100);
+    }
+  }, [generator, iframeRef, output, code]);
 
   useMemo(() => {
     if (generator === 'vanilla') {
@@ -564,7 +574,11 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
                   </button>
                 </div>
               ) : (
-                <iframe className="w-full" src={process.env.NEXT_PUBLIC_ZAPP_LIVE_APP} />
+                <iframe
+                  className="w-full"
+                  ref={iframeRef}
+                  src={`${process.env.NEXT_PUBLIC_ZAPP_LIVE_APP}/api/auth/signin`}
+                />
               )}
             </>
           ) : (

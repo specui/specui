@@ -92,69 +92,347 @@ export default async function zapp(spec: ISpec) {
     auth['app/auth.ts'] = await generate({
       processor: PrettierProcessor(),
       engine: async () => {
+        const providers: Record<string, string> = {
+          '42-school': `{
+            clientId: process.env.FORTY_TWO_CLIENT_ID || '',
+            clientSecret: process.env.FORTY_TWO_CLIENT_SECRET || '',
+          }`,
+          apple: `{
+            clientId: process.env.APPLE_ID || '',
+            clientSecret: process.env.APPLE_SECRET || '',
+          }`,
+          atlassian: `{
+            clientId: process.env.ATLASSIAN_CLIENT_ID || '',
+            clientSecret: process.env.ATLASSIAN_CLIENT_SECRET || '',
+            authorization: {
+              params: {
+                scope: 'write:jira-work read:jira-work read:jira-user offline_access read:me',
+              },
+            },
+          }`,
+          auth0: `{
+            clientId: process.env.AUTH0_CLIENT_ID || '',
+            clientSecret: process.env.AUTH0_CLIENT_SECRET || '',
+            issuer: process.env.AUTH0_ISSUER || ''
+          }`,
+          authentik: `{
+            clientId: process.env.AUTHENTIK_ID || '',
+            clientSecret: process.env.AUTHENTIK_SECRET || '',
+            issuer: process.env.AUTHENTIK_ISSUER || '',
+          }`,
+          'azure-ad-b2c': `{
+            tenantId: process.env.AZURE_AD_B2C_TENANT_NAME || '',
+            clientId: process.env.AZURE_AD_B2C_CLIENT_ID || '',
+            clientSecret: process.env.AZURE_AD_B2C_CLIENT_SECRET || '',
+            primaryUserFlow: process.env.AZURE_AD_B2C_PRIMARY_USER_FLOW || '',
+            authorization: { params: { scope: "offline_access openid" } },
+          }`,
+          'azure-ad': `{
+            clientId: process.env.AZURE_AD_CLIENT_ID || '',
+            clientSecret: process.env.AZURE_AD_CLIENT_SECRET || '',
+            tenantId: process.env.AZURE_AD_TENANT_ID || '',
+          }`,
+          'battle.net': `{
+            clientId: process.env.BATTLENET_CLIENT_ID || '',
+            clientSecret: process.env.BATTLENET_CLIENT_SECRET || '',
+            issuer: process.env.BATTLENET_ISSUER || ''
+          }`,
+          box: `{
+            clientId: process.env.BOX_CLIENT_ID || '',
+            clientSecret: process.env.BOX_CLIENT_SECRET || ''
+          }`,
+          'boxyhq-saml': `{
+            issuer: "http://localhost:5225",
+            clientId: "dummy", // The dummy here is necessary since we'll pass tenant and product custom attributes in the client code
+            clientSecret: "dummy", // The dummy here is necessary since we'll pass tenant and product custom attributes in the client code
+          }`,
+          bungie: `{
+            clientId: process.env.BUNGIE_CLIENT_ID || '',
+            clientSecret: process.env.BUNGIE_SECRET || '',
+            headers: {
+              "X-API-Key": process.env.BUNGIE_API_KEY || ''
+            }
+          }`,
+          cognito: `{
+            clientId: process.env.COGNITO_CLIENT_ID || '',
+            clientSecret: process.env.COGNITO_CLIENT_SECRET || '',
+            issuer: process.env.COGNITO_ISSUER || '',
+          }`,
+          coinbase: `{
+            clientId: process.env.COINBASE_CLIENT_ID || '',
+            clientSecret: process.env.COINBASE_CLIENT_SECRET || ''
+          }`,
+          credentials: `{
+            // The name to display on the sign in form (e.g. "Sign in with...")
+            name: "Credentials",
+            // \`credentials\` is used to generate a form on the sign in page.
+            // You can specify which fields should be submitted, by adding keys to the \`credentials\` object.
+            // e.g. domain, username, password, 2FA token, etc.
+            // You can pass any HTML attribute to the <input> tag through the object.
+            credentials: {
+              username: { label: "Username", type: "text", placeholder: "jsmith" },
+              password: { label: "Password", type: "password" }
+            },
+            async authorize(credentials, req) {
+              // Add logic here to look up the user from the credentials supplied
+              const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
+        
+              if (user) {
+                // Any object returned will be saved in \`user\` property of the JWT
+                return user
+              } else {
+                // If you return null then an error will be displayed advising the user to check their details.
+                return null
+        
+                // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+              }
+            }
+          }`,
+          discord: `{
+            clientId: process.env.DISCORD_CLIENT_ID || '',
+            clientSecret: process.env.DISCORD_CLIENT_SECRET || ''
+          }`,
+          dropbox: `{
+            clientId: process.env.DROPBOX_CLIENT_ID || '',
+            clientSecret: process.env.DROPBOX_CLIENT_SECRET || ''
+          }`,
+          'duende-identityserver6': `{
+            clientId: process.env.DUENDE_IDS6_ID || '',
+            clientSecret: process.env.DUENDE_IDS6_SECRET || '',
+            issuer: process.env.DUENDE_IDS6_ISSUER || '',
+          }`,
+          email: `{
+            server: process.env.EMAIL_SERVER || '',
+            from: process.env.EMAIL_FROM || ''
+          }`,
+          eveonline: `{
+            clientId: process.env.EVE_CLIENT_ID || '',
+            clientSecret: process.env.EVE_CLIENT_SECRET || ''
+          }`,
+          facebook: `{
+            clientId: process.env.FACEBOOK_CLIENT_ID || '',
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
+          }`,
+          faceit: `{
+            clientId: process.env.FACEIT_CLIENT_ID || '',
+            clientSecret: process.env.FACEIT_CLIENT_SECRET || ''
+          }`,
+          foursquare: `{
+            clientId: process.env.FOURSQUARE_CLIENT_ID || '',
+            clientSecret: process.env.FOURSQUARE_CLIENT_SECRET || '',
+            apiVersion: "YYYYMMDD"
+          }`,
+          freshbooks: `{
+            clientId: process.env.FRESHBOOKS_CLIENT_ID || '',
+            clientSecret: process.env.FRESHBOOKS_CLIENT_SECRET || '',
+          }`,
+          fusionauth: `{
+            id: "fusionauth",
+            name: "FusionAuth",
+            issuer:  process.env.FUSIONAUTH_ISSUER || '',
+            clientId: process.env.FUSIONAUTH_CLIENT_ID || '',
+            clientSecret: process.env.FUSIONAUTH_SECRET || '',
+            tenantId: process.env.FUSIONAUTH_TENANT_ID || '' // Only required if you're using multi-tenancy
+          }`,
+          github: `{
+            clientId: process.env.GITHUB_ID || '',
+            clientSecret: process.env.GITHUB_SECRET || '',
+          }`,
+          gitlab: `{
+            clientId: process.env.GITLAB_CLIENT_ID || '',
+            clientSecret: process.env.GITLAB_CLIENT_SECRET || ''
+          }`,
+          google: `{
+            clientId: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+          }`,
+          hubspot: `{
+            clientId: process.env.HUBSPOT_CLIENT_ID || '',
+            clientSecret: process.env.HUBSPOT_CLIENT_SECRET || ''
+          }`,
+          'identity-server4': `{
+            id: "identity-server4",
+            name: "IdentityServer4",
+            issuer:  process.env.IdentityServer4_Issuer,
+            clientId: process.env.IdentityServer4_CLIENT_ID || '',
+            clientSecret: process.env.IdentityServer4_CLIENT_SECRET || ''
+          }`,
+          instagram: `{
+            clientId: process.env.INSTAGRAM_CLIENT_ID || '',
+            clientSecret: process.env.INSTAGRAM_CLIENT_SECRET || ''
+          }`,
+          kakao: `{
+            clientId: process.env.KAKAO_CLIENT_ID || '',
+            clientSecret: process.env.KAKAO_CLIENT_SECRET || ''
+          }`,
+          keycloak: `{
+            clientId: process.env.KEYCLOAK_ID || '',
+            clientSecret: process.env.KEYCLOAK_SECRET || '',
+            issuer: process.env.KEYCLOAK_ISSUER || '',
+          }`,
+          line: `{
+            clientId: process.env.LINE_CLIENT_ID || '',
+            clientSecret: process.env.LINE_CLIENT_SECRET || ''
+          }`,
+          linkedin: `{
+            clientId: process.env.LINKEDIN_CLIENT_ID || '',
+            clientSecret: process.env.LINKEDIN_CLIENT_SECRET || ''
+          }`,
+          mailchimp: `{
+            clientId: process.env.MAILCHIMP_CLIENT_ID || '',
+            clientSecret: process.env.MAILCHIMP_CLIENT_SECRET || ''
+          }`,
+          mailru: `{
+            clientId: process.env.MAILRU_CLIENT_ID || '',
+            clientSecret: process.env.MAILRU_CLIENT_SECRET || ''
+          }`,
+          medium: `{
+            clientId: process.env.MEDIUM_CLIENT_ID,
+            clientSecret: process.env.MEDIUM_CLIENT_SECRET
+          }`,
+          naver: `{
+            clientId: process.env.NAVER_CLIENT_ID,
+            clientSecret: process.env.NAVER_CLIENT_SECRET
+          }`,
+          netlify: `{
+            clientId: process.env.NETLIFY_CLIENT_ID,
+            clientSecret: process.env.NETLIFY_CLIENT_SECRET
+          }`,
+          okta: `{
+            clientId: process.env.OKTA_CLIENT_ID,
+            clientSecret: process.env.OKTA_CLIENT_SECRET,
+            issuer: process.env.OKTA_ISSUER
+          }`,
+          onelogin: `{
+            clientId: process.env.ONELOGIN_CLIENT_ID,
+            clientSecret: process.env.ONELOGIN_CLIENT_SECRET,
+            issuer: process.env.ONELOGIN_ISSUER
+          }`,
+          osso: `{
+            clientId: process.env.OSSO_CLIENT_ID,
+            clientSecret: process.env.OSSO_CLIENT_SECRET,
+            issuer: process.env.OSSO_ISSUER
+          }`,
+          osu: `{
+            clientId: process.env.OSU_CLIENT_ID,
+            clientSecret: process.env.OSU_CLIENT_SECRET
+          }`,
+          patreon: `{
+            clientId: process.env.PATREON_ID,
+            clientSecret: process.env.PATREON_SECRET,
+          }`,
+          pinterest: `{
+            clientId: process.env.PINTEREST_ID,
+            clientSecret: process.env.PINTEREST_SECRET
+          }`,
+          pipedrive: `{
+            clientId: process.env.PIPEDRIVE_CLIENT_ID,
+            clientSecret: process.env.PIPEDRIVE_CLIENT_SECRET,
+          }`,
+          reddit: `{
+            clientId: process.env.REDDIT_CLIENT_ID,
+            clientSecret: process.env.REDDIT_CLIENT_SECRET
+          }`,
+          salesforce: `{
+            clientId: process.env.SALESFORCE_CLIENT_ID,
+            clientSecret: process.env.SALESFORCE_CLIENT_SECRET,
+          }`,
+          slack: `{
+            clientId: process.env.SLACK_CLIENT_ID,
+            clientSecret: process.env.SLACK_CLIENT_SECRET
+          }`,
+          spotify: `{
+            clientId: process.env.SPOTIFY_CLIENT_ID,
+            clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+          }`,
+          strava: `{
+            clientId: process.env.STRAVA_CLIENT_ID,
+            clientSecret: process.env.STRAVA_CLIENT_SECRET,
+          }`,
+          todoist: `{
+            clientId: process.env.TODOIST_ID,
+            clientSecret: process.env.TODOIST_SECRET
+          }`,
+          trakt: `{
+            clientId: process.env.TRAKT_ID,
+            clientSecret: process.env.TRAKT_SECRET,
+          }`,
+          twitch: `{
+            clientId: process.env.TWITCH_CLIENT_ID,
+            clientSecret: process.env.TWITCH_CLIENT_SECRET
+          }`,
+          twitter: `{
+            clientId: process.env.TWITTER_CLIENT_ID,
+            clientSecret: process.env.TWITTER_CLIENT_SECRET
+          }`,
+          'united-effects': `{
+            clientId: process.env.UNITED_EFFECTS_CLIENT_ID,
+            clientSecret: process.env.UNITED_EFFECTS_CLIENT_SECRET,
+            issuer: process.env.UNITED_EFFECTS_ISSUER
+          }`,
+          vk: `{
+            clientId: process.env.VK_CLIENT_ID,
+            clientSecret: process.env.VK_CLIENT_SECRET
+          }`,
+          wikimedia: `{
+            clientId: process.env.WIKIMEDIA_CLIENT_ID,
+            clientSecret: process.env.WIKIMEDIA_CLIENT_SECRET
+          }`,
+          wordpress: `{
+            clientId: process.env.WORDPRESS_CLIENT_ID,
+            clientSecret: process.env.WORDPRESS_CLIENT_SECRET
+          }`,
+          workos: `{
+            clientId: process.env.WORKOS_CLIENT_ID,
+            clientSecret: process.env.WORKOS_API_KEY,
+          }`,
+          yandex: `{
+            clientId: process.env.YANDEX_CLIENT_ID,
+            clientSecret: process.env.YANDEX_CLIENT_SECRET
+          }`,
+          zitadel: `{
+            clientId: process.env.ZITADEL_CLIENT_ID,
+            authorization: {
+              params: {
+                  scope: \`openid email profile urn:zitadel:iam:org:project:id:\${process.env.ZITADEL_PROJECT_ID}:aud\`
+              }
+            }
+          }`,
+          zoho: `{
+            clientId: process.env.ZOHO_CLIENT_ID,
+            clientSecret: process.env.ZOHO_CLIENT_SECRET
+          }`,
+          zoom: `{
+            clientId: process.env.ZOOM_CLIENT_ID,
+            clientSecret: process.env.ZOOM_CLIENT_SECRET
+          }`,
+        };
+
+        const renderProviderImport = (provider: string) => {
+          return providers[provider]
+            ? `import ${pascalCase(provider)}Provider from 'next-auth/providers/${provider}'`
+            : '';
+        };
+
+        const renderProviderCode = (provider: string) => {
+          return providers[provider]
+            ? `${pascalCase(provider)}Provider(${providers[provider]})`
+            : '';
+        };
+
         return /*ts*/ `
           import { NextAuthOptions } from 'next-auth'
-          ${
-            spec.auth?.providers?.includes('facebook')
-              ? `import FacebookProvider from 'next-auth/providers/facebook'`
-              : ''
-          }
-          ${
-            spec.auth?.providers?.includes('github')
-              ? `import GithubProvider, { GithubProfile } from 'next-auth/providers/github'`
-              : ''
-          }
-          ${
-            spec.auth?.providers?.includes('google')
-              ? `import GoogleProvider from 'next-auth/providers/google'`
-              : ''
-          }
+          ${spec.auth?.providers
+            .map((provider) => renderProviderImport(provider))
+            .filter((v) => !!v)
+            .join(';')}
           
           export const authOptions: NextAuthOptions = {
             providers: [
-              ${
-                spec.auth?.providers?.includes('facebook')
-                  ? /*ts*/ `
-                FacebookProvider({
-                  clientId: process.env.FACEBOOK_ID || '',
-                  clientSecret: process.env.FACEBOOK_SECRET || '',
-                }),
-              `
-                  : ''
-              }
-              ${
-                spec.auth?.providers?.includes('github')
-                  ? /*ts*/ `
-                GithubProvider({
-                  clientId: process.env.GITHUB_ID || '',
-                  clientSecret: process.env.GITHUB_SECRET || '',
-                  authorization: {
-                    params: {
-                      scope: undefined,
-                    },
-                  },
-                  profile(profile: GithubProfile) {
-                    return {
-                      id: profile.id.toString(),
-                      name: profile.name,
-                      image: profile.avatar_url,
-                      email: profile.login,
-                    }
-                  },
-                }),
-              `
-                  : ''
-              }
-              ${
-                spec.auth?.providers?.includes('google')
-                  ? /*ts*/ `
-                GoogleProvider({
-                  clientId: process.env.GOOGLE_ID || '',
-                  clientSecret: process.env.GOOGLE_SECRET || '',
-                }),
-              `
-                  : ''
-              }
+              ${spec.auth?.providers
+                .map((provider) => renderProviderCode(provider))
+                .filter((v) => !!v)
+                .join(',')}
             ],
           }        
         `;
