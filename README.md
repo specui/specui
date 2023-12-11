@@ -1,21 +1,50 @@
-# Zapp: Continuous Code Generation ⚡️
+<div align="center">
+
+<a href="https://zappjs.com">
+  <img height="120" src="https://zappjs.com/logo.png">
+</a>
+
+# ZappJS
+
+Write specs. Generate code.
 
 [![License](https://img.shields.io/github/license/zappjs/zappjs.svg?style=flat-square)](https://github.com/zappjs/zappjs/blob/mistress/LICENSE)
 [![npm](https://img.shields.io/npm/v/@zappjs/core?style=flat-square)](https://npm.im/@zappjs/core)
 
+<sup>Spec. Preview. Ship.</sup>
+
+</div>
+
 ## Overview
 
-[Zapp](https://zappjs.com) is a code generation tool that empowers developers to automate code creation based on specifications. It simplifies and accelerates software development by generating code templates, reducing manual coding efforts, and ensuring consistency across projects.
+ZappJS is a continuous, spec-driven code generator.
 
-Read the full documentation [here](https://zappjs.com/docs).
+✍️ <b>Write specs</b> in:
+- YAML, JSON and JS/TS
+- Or use the ZappJS [Visual Editor](https://zappjs.com/playground)
+
+⚡️ <b>Generate code</b> for:
+- Any language: JavaScript, Go, Python, Ruby, Java
+- Any framework: Next.js, Astro, Vue, Angular, Gorm, Django
+- Any markup/format/other: HTML, JSON, YAML, CSS
 
 ## Quickstart
+
+### Online Playground
+
+Go to https://zappjs.com/playground
+
+### Get Started Locally
 
 The fastest way to create a Zapp-enabled project:
 
 ```bash
 npx create-zapp-app@latest
 ```
+
+## Docs
+
+Read the docs: https://zappjs.com/docs
 
 ## Example
 

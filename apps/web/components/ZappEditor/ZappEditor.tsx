@@ -562,7 +562,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
           {output === 'preview' ? (
             <>
               {generator === 'vanilla' ? (
-                <iframe className="w-full" ref={iframeRef} />
+                <iframe className="w-full" ref={iframeRef} title="Code preview using Vanilla code generator" />
               ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_APP ? (
                 <div className="flex flex-col gap-4 items-center justify-center w-full">
                   <div className="text-lg">Next.js preview not available (yet)</div>
@@ -578,6 +578,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
                   className="w-full"
                   ref={iframeRef}
                   src={`${process.env.NEXT_PUBLIC_ZAPP_LIVE_APP}/api/auth/signin`}
+                  title="Code preview using Next.js code generator"
                 />
               )}
             </>

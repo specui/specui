@@ -117,7 +117,7 @@ export const DocsMenu: FC = () => {
   return (
     <ul className="p-4" style={{ maxHeight: 'calc(100vh - 97px)' }}>
       {pages.map((page) => (
-        <li key={page.url}>
+        <li key={page.text}>
           {page.children ? (
             <>
               <button

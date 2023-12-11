@@ -20,8 +20,8 @@ export const Header: FC = () => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-4">
           <h1 className="font-bold">
-            <Link className="flex items-center gap-1" href="/">
-              <img height="32" width="32" src="/logo.png" />
+            <Link className="flex items-center gap-1" href="/" aria-label="Go back to homepage">
+              <img alt="ZappJS Logo" height="32" width="32" src="/logo.png" />
             </Link>
           </h1>
           {pathname.startsWith('/playground') && (

@@ -46,13 +46,20 @@ export const SpecEditorNav: FC = () => {
               onClick={() =>
                 setExpanded({ ...expanded, [specItem.name]: !expanded[specItem.name] })
               }
+              aria-label={`${expanded[specItem.name] ? 'Collapse' : 'Expand'} spec at path: ${
+                specItem.path
+              }`}
             >
               {expanded[specItem.name] ? <ArrowDropDown /> : <ArrowRight />}
             </button>
           ) : (
             <div style={{ width: 24 }} />
           )}
-          <button className="flex-grow text-left" onClick={() => setSelected(specItem.path)}>
+          <button
+            className="flex-grow text-left"
+            onClick={() => setSelected(specItem.path)}
+            aria-label={`Go to spec at path: ${specItem.path}`}
+          >
             {specItem.name}
           </button>
         </div>
@@ -69,6 +76,7 @@ export const SpecEditorNav: FC = () => {
             'bg-slate-800': selected === '/',
           })}
           onClick={() => setSelected('/')}
+          aria-label="Go to spec at root"
         >
           /
         </button>

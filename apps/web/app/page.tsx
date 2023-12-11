@@ -29,14 +29,14 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.15 }}
           >
-            Lightning-fast
+            Write specs.
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.15 }}
           >
-            code generation
+            Generate code.
           </motion.div>
         </h1>
         {/* <h2 className="relative text-gray-400 text-xs w-1/3 md:text-base sm:text-sm">
