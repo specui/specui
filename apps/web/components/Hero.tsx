@@ -16,16 +16,26 @@ export const Hero: FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.15 }}
         >
-          Write specs.
+          Stop writing
         </motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.15 }}
         >
-          Generate code.
+          redundant code.
         </motion.div>
       </h1>
+      <motion.h2
+        className="text-center text-gray-500 w-3/4 lg:w-1/2 md:w-2/3 text-md md:text-xl sm:text-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.15 }}
+      >
+        A spec-driven code generator that keeps your codebase consistent and{' '}
+        <span className="whitespace-nowrap">up-to-date</span>, so you can focus writing the code
+        that sets your app apart.
+      </motion.h2>
       <motion.div
         className="flex justify-center gap-4"
         initial={{ opacity: 0 }}
