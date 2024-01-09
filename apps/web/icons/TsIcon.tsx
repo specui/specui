@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-export const TsIcon: FC<{ size?: number }> = ({ size = 16 }) => {
+export const TsIcon: FC<{ color?: string; size?: number }> = ({ color = '#3178C6', size = 16 }) => {
   return (
     <svg
       version="1.1"
@@ -15,7 +15,7 @@ export const TsIcon: FC<{ size?: number }> = ({ size = 16 }) => {
       height={size}
     >
       <path
-        fill="#3178C6"
+        fill={color}
         fillRule="evenodd"
         clipRule="evenodd"
         d="M144.7,166.9v36.4c5.9,3,12.9,5.3,21,6.8s16.6,2.3,25.6,2.3c15.4,0,32.3-2.2,45.5-10.8

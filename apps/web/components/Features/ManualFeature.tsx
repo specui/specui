@@ -1,4 +1,7 @@
+import { GoIcon } from '@/icons/GoIcon';
 import { CodeSnippet } from '../CodeSnippet';
+import { FeatureDescription } from './FeatureDescription';
+import { FeatureTitle } from './FeatureTitle';
 
 const spec = `
 models:
@@ -55,12 +58,12 @@ func CreatePost(db *gorm.DB) gin.HandlerFunc {
 export const ManualFeature = () => {
   return (
     <div className="pb-32 px-4 mx-auto max-w-6xl">
-      <h2 className="mb-2 text-4xl">Use alongside your handwritten code</h2>
-      <p className="mb-8 text-gray-500 text-xl w-2/3">
+      <FeatureTitle>Use alongside your handwritten code</FeatureTitle>
+      <FeatureDescription>
         Effortlessly blend automated and manual code. Designed for synergy, ZappJS allows you to
         generate essential code structures automatically while providing the flexibility to write
         your custom code alongside.
-      </p>
+      </FeatureDescription>
       <h3 className="mb-4 text-lg">
         Choose whether to generate your models, handlers, both, or neither
       </h3>
@@ -68,10 +71,10 @@ export const ManualFeature = () => {
         <CodeSnippet className="col-span-3 md:col-span-1" title="spec.yml">
           {spec}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="post.go (generated)">
+        <CodeSnippet className="col-span-3 md:col-span-1" icon={<GoIcon color="white" />} title="post.go (generated)">
           {generatedCode}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="post_handlers.go (handwritten)">
+        <CodeSnippet className="col-span-3 md:col-span-1" icon={<GoIcon color="white" />} title="post_handlers.go (handwritten)">
           {handwrittenCode}
         </CodeSnippet>
       </div>

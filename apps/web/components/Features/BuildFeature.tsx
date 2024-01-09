@@ -1,4 +1,7 @@
+import { JsIcon } from '@/icons/JsIcon';
 import { CodeSnippet } from '../CodeSnippet';
+import { FeatureDescription } from './FeatureDescription';
+import { FeatureTitle } from './FeatureTitle';
 
 const apiSpec = `
 models:
@@ -98,29 +101,49 @@ program.parse();
 export const BuildFeature = () => {
   return (
     <div className="pb-32 px-4 mx-auto max-w-6xl">
-      <h2 className="mb-2 text-4xl">Build anything</h2>
-      <p className="mb-8 text-gray-500 text-xl w-2/3">
+      <FeatureTitle>Build anything</FeatureTitle>
+      <FeatureDescription>
         Apps, websites, APIs, desktop applications, CLI tools, games. Anything you can code
         manually, you can use ZappJS to generate all or part of your codebase.
-      </p>
+      </FeatureDescription>
       <h3 className="mb-4 text-lg">Generate models for an API</h3>
       <div className="gap-4 grid grid-cols-2">
         <CodeSnippet className="col-span-2 md:col-span-1" title="spec.yml">
           {apiSpec}
         </CodeSnippet>
-        <CodeSnippet className="col-span-2 md:col-span-1" title="User.js">
+        <CodeSnippet
+          className="col-span-2 md:col-span-1"
+          icon={<JsIcon color="white" />}
+          title="User.js"
+        >
           {apiCode}
         </CodeSnippet>
       </div>
       <h3 className="mb-4 mt-8 text-lg">Generate pages for a website</h3>
       <div className="gap-4 grid grid-cols-2">
-        <CodeSnippet title="spec.yml">{websiteSpec}</CodeSnippet>
-        <CodeSnippet title="home.jsx">{websiteCode}</CodeSnippet>
+        <CodeSnippet className="col-span-2 md:col-span-1" title="spec.yml">
+          {websiteSpec}
+        </CodeSnippet>
+        <CodeSnippet
+          className="col-span-2 md:col-span-1"
+          icon={<JsIcon color="white" />}
+          title="home.jsx"
+        >
+          {websiteCode}
+        </CodeSnippet>
       </div>
       <h3 className="mb-4 mt-8 text-lg">Generate a CLI program</h3>
       <div className="gap-4 grid grid-cols-2">
-        <CodeSnippet title="spec.yml">{cliSpec}</CodeSnippet>
-        <CodeSnippet title="home.jsx">{cliCode}</CodeSnippet>
+        <CodeSnippet className="col-span-2 md:col-span-1" title="spec.yml">
+          {cliSpec}
+        </CodeSnippet>
+        <CodeSnippet
+          className="col-span-2 md:col-span-1"
+          icon={<JsIcon color="white" />}
+          title="home.jsx"
+        >
+          {cliCode}
+        </CodeSnippet>
       </div>
     </div>
   );

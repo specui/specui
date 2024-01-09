@@ -1,4 +1,8 @@
+import { JsIcon } from '@/icons/JsIcon';
 import { CodeSnippet } from '../CodeSnippet';
+import { FeatureDescription } from './FeatureDescription';
+import { FeatureTitle } from './FeatureTitle';
+import { TsIcon } from '@/icons/TsIcon';
 
 const spec = `
 models:
@@ -70,20 +74,28 @@ export const createUsersTable = async () => {
 export const ConsistentFeature = () => {
   return (
     <div className="pb-32 px-4 mx-auto max-w-6xl">
-      <h2 className="mb-2 text-4xl">Keep your codebase consistent</h2>
-      <p className="mb-8 text-gray-500 text-xl w-2/3">
+      <FeatureTitle>Keep your codebase consistent</FeatureTitle>
+      <FeatureDescription>
         Maintaining a consistent codebase is hard. But it is the key to efficiency and scalability.
         Naming conventions, design patterns and coding standards are a big part of this. ZappJS
         ensures uniformity across your entire project.
-      </p>
+      </FeatureDescription>
       <div className="gap-4 grid grid-cols-3">
         <CodeSnippet className="col-span-3 md:col-span-1" title="spec.yml">
           {spec}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="PostsTable.ts">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<TsIcon color="white" />}
+          title="PostsTable.ts"
+        >
           {postsTable}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="UsersTable.ts">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<TsIcon color="white" />}
+          title="UsersTable.ts"
+        >
           {usersTable}
         </CodeSnippet>
       </div>

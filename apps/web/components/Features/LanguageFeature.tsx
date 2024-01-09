@@ -9,6 +9,8 @@ import { PythonIcon } from '@/icons/PythonIcon';
 import { RustIcon } from '@/icons/RustIcon';
 import { ScalaIcon } from '@/icons/ScalaIcon';
 import { SwiftIcon } from '@/icons/SwiftIcon';
+import { FeatureTitle } from './FeatureTitle';
+import { FeatureDescription } from './FeatureDescription';
 
 export const LanguageFeature = () => {
   const languages = [
@@ -56,11 +58,11 @@ export const LanguageFeature = () => {
 
   return (
     <div className="pb-32 px-4 mx-auto max-w-6xl">
-      <h2 className="mb-2 text-4xl">Generate code in any language</h2>
-      <p className="mb-8 text-gray-500 text-xl w-2/3">
+      <FeatureTitle>Generate code in any language</FeatureTitle>
+      <FeatureDescription>
         ZappJS breaks down the barriers of language-specific limitations, offering you the freedom
         to generate code in the language of your choice.
-      </p>
+      </FeatureDescription>
       <ul className="gap-4 gap-y-24 grid grid-cols-5">
         {languages.map((language, index) => (
           <motion.li

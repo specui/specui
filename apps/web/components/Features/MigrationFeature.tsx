@@ -1,4 +1,9 @@
+import { JsIcon } from '@/icons/JsIcon';
 import { CodeSnippet } from '../CodeSnippet';
+import { FeatureDescription } from './FeatureDescription';
+import { FeatureTitle } from './FeatureTitle';
+import { TsIcon } from '@/icons/TsIcon';
+import { PrismaIcon } from '@/icons/PrismaIcon';
 
 const modelsSpec = `
 models:
@@ -61,30 +66,52 @@ const HomePage: FC = () =>
 export const MigrationFeature = () => {
   return (
     <div className="pb-32 px-4 mx-auto max-w-6xl">
-      <h2 className="mb-2 text-4xl">Breeze through migrations and upgrades</h2>
-      <p className="mb-8 text-gray-500 text-xl w-2/3">
+      <FeatureTitle>Breeze through migrations and upgrades</FeatureTitle>
+      <FeatureDescription>
         Your needs and dependencies change constantly. It&apos;s easy to fall behind and can even
         bring your app to a sudden hault. ZappJS enables you to effortlessly adapt your existing
         codebase to new standards and upgrades, minimizing manual effort and reducing the scope for
         errors.
-      </p>
+      </FeatureDescription>
       <h3 className="mb-4 text-lg">Migrating from Mongoose to Prisma</h3>
       <div className="gap-4 grid grid-cols-3">
         <CodeSnippet className="col-span-3 md:col-span-1" title="spec.yml">
           {modelsSpec}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="User.js">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<JsIcon color="white" />}
+          title="User.js"
+        >
           {mongooseCode}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" title="schema.prisma">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<PrismaIcon color="white" />}
+          title="schema.prisma"
+        >
           {prismaCode}
         </CodeSnippet>
       </div>
       <h3 className="mb-4 mt-8 text-lg">Upgrading from Class Components to Function Components</h3>
       <div className="gap-4 grid grid-cols-3">
-        <CodeSnippet title="spec.yml">{pagesSpec}</CodeSnippet>
-        <CodeSnippet title="home.jsx">{classComponent}</CodeSnippet>
-        <CodeSnippet title="home.tsx">{functionComponent}</CodeSnippet>
+        <CodeSnippet className="col-span-3 md:col-span-1" title="spec.yml">
+          {pagesSpec}
+        </CodeSnippet>
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<JsIcon color="white" />}
+          title="home.jsx"
+        >
+          {classComponent}
+        </CodeSnippet>
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<TsIcon color="white" />}
+          title="home.tsx"
+        >
+          {functionComponent}
+        </CodeSnippet>
       </div>
     </div>
   );

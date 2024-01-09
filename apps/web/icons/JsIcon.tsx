@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-export const JsIcon: FC<{ size?: number }> = ({ size = 16 }) => {
+export const JsIcon: FC<{ color?: string; size?: number }> = ({ color = '#FFDF00', size = 16 }) => {
   return (
     <svg
       version="1.1"
@@ -15,7 +15,7 @@ export const JsIcon: FC<{ size?: number }> = ({ size = 16 }) => {
       height={size}
     >
       <path
-        fill="#FFDF00"
+        fill={color}
         d="M158.7,164.3c7.8,12.8,18,22.2,36,22.2c15.1,0,24.8-7.6,24.8-18c0-12.5-9.9-16.9-26.6-24.2l-9.1-3.9
 	c-26.3-11.2-43.8-25.3-43.8-55c0-27.4,20.9-48.2,53.5-48.2c23.2,0,39.9,8.1,51.9,29.2l-28.4,18.3c-6.3-11.2-13-15.6-23.5-15.6
 	c-10.7,0-17.5,6.8-17.5,15.6c0,11,6.8,15.4,22.4,22.2l9.1,3.9c31,13.3,48.5,26.9,48.5,57.3c0,32.9-25.8,50.9-60.5,50.9
