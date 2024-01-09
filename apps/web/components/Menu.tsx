@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuRounded } from '@mui/icons-material';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -6,16 +8,12 @@ import { FC, useState } from 'react';
 
 const pages = [
   {
-    text: 'Create',
-    url: '/create',
-  },
-  {
-    text: 'Explore',
-    url: '/explore',
-  },
-  {
-    text: 'Learn',
+    text: 'Docs',
     url: '/docs',
+  },
+  {
+    text: 'Playground',
+    url: '/playground',
   },
 ];
 
@@ -31,7 +29,7 @@ export const Menu: FC = () => {
       </button>
       <ul
         className={clsx(
-          'bg-slate-900 bottom-0 gap-4 items-center justify-center fixed left-0 right-0 text-6xl top-0 z-10 md:bg-transparent md:flex md:static md:text-base',
+          'bg-slate-900 bottom-0 gap-8 items-center justify-center fixed left-0 right-0 text-6xl top-0 z-10 md:bg-transparent md:flex md:static md:text-base',
           show ? 'flex flex-col md:flex-row' : 'hidden',
         )}
       >
@@ -39,7 +37,7 @@ export const Menu: FC = () => {
           <li
             className={clsx(
               'text-center',
-              pathname === page.url ? 'text-yellow-300' : 'text-gray-200 hover:text-white',
+              pathname === page.url ? 'text-blue-600' : 'text-gray-200 hover:text-white',
             )}
             key={page.url}
           >

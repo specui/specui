@@ -2,6 +2,7 @@
 
 import { Logout as LogoutIcon } from '@mui/icons-material';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { FC } from 'react';
 
 export const User: FC = () => {
@@ -13,7 +14,7 @@ export const User: FC = () => {
         <>
           <div className="flex gap-2">
             <div>
-              <img height={24} width={24} src={session.user?.image!} />
+              <Image alt="User Avatar" height={24} width={24} src={session.user?.image!} />
             </div>
             <div>{session.user?.email}</div>
           </div>

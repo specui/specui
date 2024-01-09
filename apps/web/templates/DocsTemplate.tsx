@@ -7,11 +7,11 @@ export const DocsTemplate: FC<{
   children: ReactNode;
 }> = ({ children }) => {
   return (
-    <div className="flex">
-      <div className="w-1/4">
+    <div className="flex mx-auto max-w-6xl">
+      <div className="w-1/3">
         <DocsMenu />
       </div>
-      <div className="p-4 w-3/4">
+      <div className="p-4 w-2/3">
         <div className={styles.content}>{children}</div>
       </div>
     </div>
