@@ -1,6 +1,6 @@
 {
   "build": {
-    "devPath": "https://openai.com",
+    "devPath": "https://vercel.com/dashboard",
     "distDir": "../dist",
     "withGlobalTauri": false
   },
