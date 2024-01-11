@@ -1,5 +1,13 @@
 # @zappjs/license
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [317bbbc]
+  - @zappjs/core@2.2.0
+  - @zappjs/handlebars@0.2.4
+
 ## 0.1.1
 
 ### Patch Changes

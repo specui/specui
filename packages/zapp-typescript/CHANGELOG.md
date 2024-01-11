@@ -1,5 +1,13 @@
 # @zappjs/typescript
 
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies [317bbbc]
+  - @zappjs/core@2.2.0
+  - @zappjs/json@0.2.1
+
 ## 0.3.2
 
 ### Patch Changes

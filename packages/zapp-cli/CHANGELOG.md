@@ -1,5 +1,11 @@
 # @zappjs/cli
 
+## 2.3.0
+
+### Minor Changes
+
+- 317bbbc: adds support for buffer output
+
 ## 2.2.1
 
 ### Patch Changes

@@ -190,6 +190,7 @@ export default async function zapp(spec: Spec) {
     'package.json': await generate({
       engine: JsonEngine,
       spec: {
+        ...pkg,
         name: spec.name,
         version: spec.version,
         scripts: {
