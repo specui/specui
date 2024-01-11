@@ -43,7 +43,7 @@ program.name(pkg.name).description(pkg.description).version(pkg.version);
 program.command('generate').action(async () => {
   const zappFile = await loadZappFile();
 
-  const output: Record<string, string> = {};
+  const output: Record<string, Buffer | string> = {};
 
   // generate code
   await Promise.all(
@@ -51,7 +51,7 @@ program.command('generate').action(async () => {
       const fileContents = await generator;
       const filePath = normalize(fileName);
 
-      if (typeof fileContents !== 'string') {
+      if (typeof fileContents !== 'string' && !Buffer.isBuffer(fileContents)) {
         console.log(`Skipped: ${filePath}`);
         return;
       }

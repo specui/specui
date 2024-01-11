@@ -2,7 +2,7 @@ import { IEngine } from '../interfaces/IEngine';
 import { IProcessor } from '../interfaces/IProcessor';
 
 interface Generate {
-  (config: GenerateConfig): Promise<string>;
+  (config: GenerateConfig): Promise<Buffer | string>;
 }
 
 interface GenerateConfig {

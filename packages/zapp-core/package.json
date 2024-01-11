@@ -9,5 +9,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@types/node": "20"
   }
 }

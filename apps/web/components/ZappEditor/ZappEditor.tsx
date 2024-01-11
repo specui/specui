@@ -14,7 +14,7 @@ import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
 import { useSpecStore } from '@/stores/spec';
 
-type InputObject = { [key: string]: string };
+type InputObject = { [key: string]: Buffer | string };
 type OutputObject = {
   id: string;
   name: string;
@@ -113,7 +113,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
   useEffect(() => {
     if (generator === 'vanilla') {
       iframeRef.current?.contentWindow?.document.open();
-      iframeRef.current?.contentWindow?.document.write(code['index.html']);
+      iframeRef.current?.contentWindow?.document.write(code['index.html'] as string);
       iframeRef.current?.contentWindow?.document.close();
     } else {
       setTimeout(() => {
@@ -631,7 +631,7 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
                     readOnly: true,
                   }}
                   theme="my-theme"
-                  value={code[selected]}
+                  value={code[selected] as string}
                 />
               </div>
             </>

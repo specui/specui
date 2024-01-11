@@ -73,7 +73,7 @@ export default async function zapp(spec: ISpec) {
   const modelNamesPluralPascal = Object.keys(spec.models).map((model) => pascalCase(plural(model)));
 
   const auth: {
-    [file: string]: string;
+    [file: string]: Buffer | string;
   } = {};
   if (spec.auth) {
     auth['app/api/auth/[...nextauth]/route.ts'] = await generate({
@@ -163,7 +163,7 @@ export default async function zapp(spec: ISpec) {
   }
 
   const calls: {
-    [file: string]: string;
+    [file: string]: Buffer | string;
   } = {};
   await Promise.all(
     Object.entries(spec.calls).map(async ([callName, call]) => {
@@ -190,7 +190,7 @@ export default async function zapp(spec: ISpec) {
   );
 
   const pages: {
-    [name: string]: string;
+    [name: string]: Buffer | string;
   } = {};
   await Promise.all(
     Object.entries(spec.pages).map(async ([pageName, page]) => {
@@ -316,7 +316,7 @@ export default async function zapp(spec: ISpec) {
   );
 
   const schemas: {
-    [file: string]: string;
+    [file: string]: Buffer | string;
   } = {};
   await Promise.all(
     Object.entries(spec.calls).map(async ([callName, call]) => {
@@ -366,7 +366,7 @@ export default async function zapp(spec: ISpec) {
   );
 
   const tables: {
-    [file: string]: string;
+    [file: string]: Buffer | string;
   } = {};
   await Promise.all(
     Object.entries(spec.models).map(async ([modelName, model]) => {
