@@ -21,6 +21,10 @@ interface Spec {
   };
   repository: string;
   url: string;
+  window?: {
+    height: number;
+    width: number;
+  };
 }
 
 export default async function zapp(spec: Spec) {
@@ -163,10 +167,10 @@ export default async function zapp(spec: Spec) {
           windows: [
             {
               fullscreen: false,
-              height: 800,
+              height: spec.window?.height || 800,
               resizable: false,
               title: 'menubar',
-              width: 600,
+              width: spec.window?.width || 600,
               visible: false,
               hiddenTitle: true,
               decorations: false,
