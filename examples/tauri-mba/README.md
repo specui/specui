@@ -4,7 +4,7 @@
 
 ## Quickstart
 
-By default, this project is specced to generate a MBA for [Vercel](https://vercel.com/dashboard).
+By default, this project is specced to generate an MBA for [Vercel](https://vercel.com/dashboard).
 
 To run this project as-is:
 
@@ -15,7 +15,7 @@ npm run tauri dev
 
 ## Update Spec
 
-If you want to generate a MBA for another web app, edit the spec in `.zapp/spec.yml`.
+If you want to generate an MBA for another web app, edit the spec in `.zapp/spec.yml`.
 
 Here is an example for ChatGPT:
 
