@@ -118,12 +118,12 @@ program
           Object.entries(output).map(async ([filePath, fileContents]) => {
             const dir = dirname(filePath);
 
-            // if (
-            //   currentLock[filePath]?.integrity &&
-            //   hash[filePath]?.integrity === currentLock[filePath]?.integrity
-            // ) {
-            //   return;
-            // }
+            if (
+              currentLock[filePath]?.integrity &&
+              hash[filePath]?.integrity === currentLock[filePath]?.integrity
+            ) {
+              return;
+            }
 
             if (!existsSync(dir)) {
               await mkdir(dir, { recursive: true });

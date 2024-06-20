@@ -31,6 +31,7 @@ export interface ISpec {
         data?: {
           [name: string]: any;
         };
+        path?: string;
         where?: {
           [name: string]: any;
         };
@@ -257,6 +258,8 @@ export default async function zapp(spec: ISpec) {
     action?: string;
     component?: string;
     class?: string | string[];
+    defaultChecked?: string;
+    for?: string;
     props?: Record<
       string,
       {
@@ -264,6 +267,7 @@ export default async function zapp(spec: ISpec) {
       }
     >;
     href?: string;
+    htmlType?: string;
     name?: string;
     placeholder?: string;
     text?: string;
@@ -291,7 +295,19 @@ export default async function zapp(spec: ISpec) {
             .join(' ')}`
         : ''
     }${element.action ? ` action={${element.action}}` : ''}${
-      element.href ? ` href="${element.href}"` : ''
+      element.for ? ` htmlFor="${element.for}"` : ''
+    }${element.href ? ` href="${element.href}"` : ''}${
+      element.htmlType ? ` type="${element.htmlType}"` : ''
+    }${
+      element.defaultChecked
+        ? ` defaultChecked=${
+            element.defaultChecked.startsWith('$')
+              ? `{${element.defaultChecked.slice(1)}}`
+              : element.defaultChecked
+              ? `"${element.defaultChecked}"`
+              : ''
+          }`
+        : ''
     }${
       element.name
         ? ` name=${
@@ -319,7 +335,25 @@ export default async function zapp(spec: ISpec) {
           : element.text
           ? element.text
           : ''
-      }${Array.isArray(element.elements) ? element.elements.map(render).join('') : ''}
+      }${
+        Array.isArray(element.elements)
+          ? element.elements.map(render).join('')
+          : element.elements?.['$ref']
+          ? `{${(element.elements['$ref'] as any).model}.map(${
+              (element.elements['$ref'] as any).name
+            } => (
+            <${(element.elements['$ref'] as any).type} className="${
+              (element.elements['$ref'] as any).class
+            }" key=${
+              (element.elements['$ref'] as any).key.startsWith('$')
+                ? `{${(element.elements['$ref'] as any).key.slice(1)}}`
+                : `'${(element.elements['$ref'] as any).key}'`
+            }>
+              ${(element.elements['$ref'] as any).elements.map(render).join('')}
+            </${(element.elements['$ref'] as any).type}>
+          ))}`
+          : ''
+      }
     </${element.type === 'component' ? pascalCase(element.component || '') : element.type}>`;
   }
 
@@ -339,7 +373,9 @@ export default async function zapp(spec: ISpec) {
         }
 
         if (element.elements) {
-          collectImports(element.elements);
+          collectImports(
+            Array.isArray(element.elements) ? element.elements : [element.elements['$ref']],
+          );
         }
       });
     }
@@ -383,7 +419,15 @@ export default async function zapp(spec: ISpec) {
         engine: async () => `
           'use server';
 
-          ${action.operations.length > 0 ? `import { db } from '@/lib/db';` : ''}
+          ${
+            action.operations.some((op) => ['delete', 'insert', 'update'].includes(op.type))
+              ? `import { db } from '@/lib/db';`
+              : ''
+          }${
+            action.operations.some((op) => ['revalidate'].includes(op.type))
+              ? `import { revalidatePath } from 'next/cache';`
+              : ''
+          }          
 
           export default async function ${camelCase(actionName)}(
             formData: FormData
@@ -394,8 +438,10 @@ export default async function zapp(spec: ISpec) {
                 .join('\n')}
             };
 
-            ${action.operations.map(
-              (operation) => `
+            ${action.operations
+              .map((operation) =>
+                ['delete', 'insert', 'update'].includes(operation.type)
+                  ? `
                 await db.${getActionType(operation.type)}('${camelCase(
                   plural(operation.model || ''),
                 )}')
@@ -433,8 +479,10 @@ export default async function zapp(spec: ISpec) {
                         `
                       : ''
                   }.execute()
-              `,
-            )}
+              `
+                  : `revalidatePath('${operation.path}')`,
+              )
+              .join('\n')}
           }
         `,
       });
@@ -495,7 +543,7 @@ export default async function zapp(spec: ISpec) {
 
             ${Object.entries(page.dataSources || {}).map(
               ([dataSourceName, dataSource]) => `
-              const ${dataSourceName} = await db.selectFrom('${dataSource.model}').execute();
+              const ${dataSourceName} = await db.selectFrom('${dataSource.model}').selectAll().execute();
             `,
             )}
 
