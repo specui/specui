@@ -25,6 +25,7 @@
     "@zappjs/license": "^0.1.1",
     "@zappjs/prettier": "^0.6.0",
     "change-case": "^3.1.0",
-    "kysely": "^0.26.3"
+    "kysely": "^0.26.3",
+    "pluralize": "^8.0.0"
   }
 }

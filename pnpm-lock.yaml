@@ -241,19 +241,19 @@ importers:
         specifier: ^18.7.10
         version: 18.18.4
       '@zappjs/cli':
-        specifier: workspace:*
+        specifier: ^2.3.0
         version: link:../../packages/zapp-cli
       '@zappjs/core':
-        specifier: workspace:*
+        specifier: ^2.2.0
         version: link:../../packages/zapp-core
       '@zappjs/git':
-        specifier: ^0.1.4
+        specifier: ^0.1.5
         version: link:../../packages/zapp-git
       '@zappjs/json':
         specifier: ^0.2.1
         version: link:../../packages/zapp-json
       '@zappjs/license':
-        specifier: ^0.1.1
+        specifier: ^0.1.2
         version: link:../../packages/zapp-license
       '@zappjs/toml':
         specifier: ^0.1.1
@@ -328,6 +328,9 @@ importers:
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
+      pluralize:
+        specifier: ^8.0.0
+        version: 8.0.0
     devDependencies:
       '@types/pluralize':
         specifier: 0.0.29

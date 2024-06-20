@@ -5,6 +5,7 @@ import { JsonEngine } from '@zappjs/json';
 import { LicenseGenerator } from '@zappjs/license';
 import { PrettierProcessor } from '@zappjs/prettier';
 import { camelCase, pascalCase, titleCase } from 'change-case';
+import { existsSync } from 'fs';
 import { plural } from 'pluralize';
 
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
@@ -16,6 +17,26 @@ export interface ISpec {
   version: string;
   license: 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
   description: string;
+  actions?: {
+    [name: string]: {
+      props: {
+        [name: string]: {
+          required?: boolean;
+          type: 'boolean' | 'number' | 'string';
+        };
+      };
+      operations: {
+        type: 'delete' | 'insert' | 'update';
+        model?: string;
+        data?: {
+          [name: string]: any;
+        };
+        where?: {
+          [name: string]: any;
+        };
+      }[];
+    };
+  };
   author?: {
     name?: string;
     email?: string;
@@ -24,7 +45,7 @@ export interface ISpec {
   auth?: {
     providers: Provider[];
   };
-  calls: {
+  calls?: {
     [name: string]: {
       request: {
         [name: string]: {
@@ -40,37 +61,80 @@ export interface ISpec {
       };
     };
   };
-  models: {
+  components?: {
     [name: string]: {
-      attributes: {
-        [name: string]: {
-          key?: 'primary';
-          type: 'number' | 'string';
-          unique?: boolean;
-        };
-      };
-    };
-  };
-  pages: {
-    [name: string]: {
-      components: Array<{
+      props: Record<
+        string,
+        {
+          required?: boolean;
+          type: string;
+        }
+      >;
+      elements: Array<{
         type?: string;
         text?: string;
+        class?: string[];
         style?: {
           color?: string;
         };
       }>;
     };
   };
+  models?: {
+    [name: string]: {
+      attributes: {
+        [name: string]: {
+          key?: 'primary';
+          type: 'boolean' | 'number' | 'string';
+          unique?: boolean;
+        };
+      };
+    };
+  };
+  pages?: {
+    [name: string]: {
+      dataSources: Record<
+        string,
+        {
+          type: 'model';
+          model?: string;
+        }
+      >;
+      elements:
+        | Array<{
+            type?: string;
+            text?: string;
+            class?: string[];
+            style?: {
+              color?: string;
+            };
+          }>
+        | {
+            $ref: {
+              type?: string;
+              text?: string;
+              class?: string[];
+              style?: {
+                color?: string;
+              };
+            };
+          };
+    };
+  };
 }
 
 export default async function zapp(spec: ISpec) {
-  const pkg = process?.versions?.node ? require(`${process.cwd()}/package.json`) : {};
+  const pkg =
+    process?.versions?.node && existsSync(`${process.cwd()}/package.json`)
+      ? require(`${process.cwd()}/package.json`)
+      : {};
 
-  const modelNamesPluralCamelCase = Object.keys(spec.models).map((model) =>
+  const modelNamesPluralCamelCase = Object.keys(spec.models || {}).map((model) =>
     camelCase(plural(model)),
   );
-  const modelNamesPluralPascal = Object.keys(spec.models).map((model) => pascalCase(plural(model)));
+  const modelNamesPluralPascal = Object.keys(spec.models || {}).map((model) =>
+    pascalCase(plural(model)),
+  );
 
   const auth: {
     [file: string]: Buffer | string;
@@ -166,7 +230,7 @@ export default async function zapp(spec: ISpec) {
     [file: string]: Buffer | string;
   } = {};
   await Promise.all(
-    Object.entries(spec.calls).map(async ([callName, call]) => {
+    Object.entries(spec.calls || {}).map(async ([callName, call]) => {
       calls[`app/api/${callName}/route.ts`] = await generate({
         processor: PrettierProcessor(),
         engine: () => `
@@ -189,124 +253,255 @@ export default async function zapp(spec: ISpec) {
     }),
   );
 
+  interface Element {
+    action?: string;
+    component?: string;
+    class?: string | string[];
+    props?: Record<
+      string,
+      {
+        type: string;
+      }
+    >;
+    href?: string;
+    name?: string;
+    placeholder?: string;
+    text?: string;
+    type?: string;
+    elements?: Element[];
+  }
+
+  function render(element: Element): string {
+    return `<${element.type === 'component' ? pascalCase(element.component || '') : element.type}${
+      element.class
+        ? ` className=${
+            Array.isArray(element.class)
+              ? `{clsx(${element.class
+                  .map((className) =>
+                    className.startsWith('$') ? className.slice(1) : `'${className}'`,
+                  )
+                  .join(',')})}`
+              : `"${element.class}"`
+          }`
+        : ''
+    }${
+      element.props
+        ? ` ${Object.entries(element.props)
+            .map(([propName, propValue]) => `${propName}="${propValue}"`)
+            .join(' ')}`
+        : ''
+    }${element.action ? ` action={${element.action}}` : ''}${
+      element.href ? ` href="${element.href}"` : ''
+    }${
+      element.name
+        ? ` name=${
+            element.name.startsWith('$')
+              ? `{${element.name.slice(1)}}`
+              : element.name
+              ? `"${element.name}"`
+              : ''
+          }`
+        : ''
+    }${
+      element.placeholder
+        ? ` placeholder=${
+            element.placeholder.startsWith('$')
+              ? `{${element.placeholder.slice(1)}}`
+              : element.placeholder
+              ? `"${element.placeholder}"`
+              : ''
+          }`
+        : ''
+    }>
+      ${
+        element.text?.startsWith('$')
+          ? `{${element.text.slice(1)}}`
+          : element.text
+          ? element.text
+          : ''
+      }${Array.isArray(element.elements) ? element.elements.map(render).join('') : ''}
+    </${element.type === 'component' ? pascalCase(element.component || '') : element.type}>`;
+  }
+
+  function renderImports(elements: Element[]): string {
+    let imports: Record<string, string> = {};
+
+    function collectImports(elements: Element[]) {
+      (Array.isArray(elements) ? elements : []).forEach((element) => {
+        const component = pascalCase(element.component || '');
+
+        if (component && !imports[component]) {
+          imports[component] = `@/components/${component}`;
+        }
+
+        if (element.action) {
+          imports[element.action] = `@/actions/${element.action}`;
+        }
+
+        if (element.elements) {
+          collectImports(element.elements);
+        }
+      });
+    }
+
+    collectImports(elements);
+
+    return Object.entries(imports)
+      .map(([name, location]) => `import ${name} from '${location}'`)
+      .join('\n');
+  }
+
+  function renderClsx(elements: Element[]): string {
+    if (
+      (Array.isArray(elements) ? elements : []).some(
+        (element) => Array.isArray(element.class) || renderClsx(element.elements || []),
+      )
+    ) {
+      return `import { clsx } from 'clsx'`;
+    }
+
+    return '';
+  }
+
+  function getActionType(type: 'delete' | 'insert' | 'update') {
+    if (type === 'delete') {
+      return 'deleteFrom';
+    }
+    if (type === 'insert') {
+      return 'insertInto';
+    }
+    return 'update';
+  }
+
+  const actions: {
+    [name: string]: Buffer | string;
+  } = {};
+  await Promise.all(
+    Object.entries(spec.actions || {}).map(async ([actionName, action]) => {
+      actions[`actions/${camelCase(actionName)}.ts`] = await generate({
+        processor: PrettierProcessor(),
+        engine: async () => `
+          'use server';
+
+          ${action.operations.length > 0 ? `import { db } from '@/lib/db';` : ''}
+
+          export default async function ${camelCase(actionName)}(
+            formData: FormData
+          ) {
+            const props = {
+              ${Object.entries(action.props)
+                .map(([propName, prop]) => `${propName}: formData.get('${propName}') as string,`)
+                .join('\n')}
+            };
+
+            ${action.operations.map(
+              (operation) => `
+                await db.${getActionType(operation.type)}('${camelCase(
+                  plural(operation.model || ''),
+                )}')
+                  ${
+                    operation.data
+                      ? `.values({
+                          ${Object.entries(operation.data)
+                            .map(
+                              ([name, value]) =>
+                                `${name}: ${
+                                  typeof value === 'string' && value.startsWith('$')
+                                    ? value.slice(1)
+                                    : typeof value === 'string'
+                                    ? `'${value}'`
+                                    : value
+                                }`,
+                            )
+                            .join(',')}
+                        })`
+                      : ''
+                  }${
+                    operation.where
+                      ? `${Object.entries(operation.where)
+                          .map(
+                            ([name, value]) =>
+                              `.where('${name}', '=', ${
+                                typeof value === 'string' && value.startsWith('$')
+                                  ? value.slice(1)
+                                  : typeof value === 'string'
+                                  ? `'${value}'`
+                                  : value
+                              })`,
+                          )
+                          .join('\n')}
+                        `
+                      : ''
+                  }.execute()
+              `,
+            )}
+          }
+        `,
+      });
+    }),
+  );
+
+  const components: {
+    [name: string]: Buffer | string;
+  } = {};
+  await Promise.all(
+    Object.entries(spec.components || {}).map(async ([componentName, component]) => {
+      components[`components/${pascalCase(componentName)}.tsx`] = await generate({
+        processor: PrettierProcessor(),
+        engine: async () => `
+          ${renderClsx(component.elements)}
+
+          ${
+            Boolean(component.props)
+              ? `
+              export interface ${pascalCase(componentName)}Props {
+                ${Object.entries(component.props)
+                  .map(
+                    ([propName, prop]) => `${propName}${prop.required ? '' : '?'}: ${prop.type};`,
+                  )
+                  .join('\n')}
+              }
+            `
+              : ''
+          }
+
+          export default function ${pascalCase(componentName)}(
+            ${Boolean(component.props) ? `props: ${pascalCase(componentName)}Props` : ''}
+          ) {
+            return (
+              <>
+                ${(component.elements || []).map(render).join('')}
+              </>
+            )
+          }
+        `,
+      });
+    }),
+  );
+
   const pages: {
     [name: string]: Buffer | string;
   } = {};
   await Promise.all(
-    Object.entries(spec.pages).map(async ([pageName, page]) => {
+    Object.entries(spec.pages || {}).map(async ([pageName, page]) => {
       pages[`app/${pageName}/page.tsx`] = await generate({
         processor: PrettierProcessor(),
         engine: async () => `
-          import Image from 'next/image'
+          ${Array.isArray(page.elements) ? renderClsx(page.elements) : ''}
+          ${Array.isArray(page.elements) ? renderImports(page.elements) : ''}
+          ${page.dataSources ? `import { db } from '@/lib/db';` : ''}
 
-          export default function Home() {
+          export default${page.dataSources ? ' async ' : ' '}function Home() {
+
+            ${Object.entries(page.dataSources || {}).map(
+              ([dataSourceName, dataSource]) => `
+              const ${dataSourceName} = await db.selectFrom('${dataSource.model}').execute();
+            `,
+            )}
+
             return (
-              <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-                  <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                    Get started by editing&nbsp;
-                    <code className="font-mono font-bold">app/page.tsx</code>
-                  </p>
-                  <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-                    <a
-                      className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-                      href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      By{' '}
-                      <Image
-                        src="/vercel.svg"
-                        alt="Vercel Logo"
-                        className="dark:invert"
-                        width={100}
-                        height={24}
-                        priority
-                      />
-                    </a>
-                  </div>
-                </div>
-          
-                <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-                  <Image
-                    className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                    src="/next.svg"
-                    alt="Next.js Logo"
-                    width={180}
-                    height={37}
-                    priority
-                  />
-                </div>
-          
-                <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-                  <a
-                    href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <h2 className={\`mb-3 text-2xl font-semibold\`}>
-                      Docs{' '}
-                      <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                        -&gt;
-                      </span>
-                    </h2>
-                    <p className={\`m-0 max-w-[30ch] text-sm opacity-50\`}>
-                      Find in-depth information about Next.js features and API.
-                    </p>
-                  </a>
-          
-                  <a
-                    href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <h2 className={\`mb-3 text-2xl font-semibold\`}>
-                      Learn{' '}
-                      <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                        -&gt;
-                      </span>
-                    </h2>
-                    <p className={\`m-0 max-w-[30ch] text-sm opacity-50\`}>
-                      Learn about Next.js in an interactive course with&nbsp;quizzes!
-                    </p>
-                  </a>
-          
-                  <a
-                    href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <h2 className={\`mb-3 text-2xl font-semibold\`}>
-                      Templates{' '}
-                      <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                        -&gt;
-                      </span>
-                    </h2>
-                    <p className={\`m-0 max-w-[30ch] text-sm opacity-50\`}>
-                      Explore the Next.js 13 playground.
-                    </p>
-                  </a>
-          
-                  <a
-                    href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <h2 className={\`mb-3 text-2xl font-semibold\`}>
-                      Deploy{' '}
-                      <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                        -&gt;
-                      </span>
-                    </h2>
-                    <p className={\`m-0 max-w-[30ch] text-sm opacity-50\`}>
-                      Instantly deploy your Next.js site to a shareable URL with Vercel.
-                    </p>
-                  </a>
-                </div>
+              <main>
+                ${(Array.isArray(page.elements) ? page.elements : []).map(render).join('')}
               </main>
             )
           }
@@ -319,7 +514,7 @@ export default async function zapp(spec: ISpec) {
     [file: string]: Buffer | string;
   } = {};
   await Promise.all(
-    Object.entries(spec.calls).map(async ([callName, call]) => {
+    Object.entries(spec.calls || {}).map(async ([callName, call]) => {
       schemas[`lib/schemas/${callName}Schema.ts`] = await generate({
         processor: PrettierProcessor(),
         engine: () => `
@@ -369,7 +564,7 @@ export default async function zapp(spec: ISpec) {
     [file: string]: Buffer | string;
   } = {};
   await Promise.all(
-    Object.entries(spec.models).map(async ([modelName, model]) => {
+    Object.entries(spec.models || {}).map(async ([modelName, model]) => {
       const modelNamePlural = plural(modelName);
       const modelNamePluralPascal = pascalCase(modelNamePlural);
       tables[`lib/tables/${modelNamePluralPascal}Table.ts`] = await generate({
@@ -402,6 +597,8 @@ export default async function zapp(spec: ISpec) {
                     `.addColumn('${camelCase(attributeName)}', '${
                       attribute.key === 'primary'
                         ? 'serial'
+                        : attribute.type === 'boolean'
+                        ? 'boolean'
                         : attribute.type === 'number'
                         ? 'integer'
                         : 'varchar(255)'
@@ -420,8 +617,10 @@ export default async function zapp(spec: ISpec) {
   );
 
   return {
+    ...actions,
     ...auth,
     ...calls,
+    ...components,
     ...pages,
     'app/globals.css': await generate({
       processor: PrettierProcessor({
@@ -615,7 +814,7 @@ export default async function zapp(spec: ISpec) {
       engine: () => `
         import axios from "axios";
 
-        ${Object.entries(spec.calls)
+        ${Object.entries(spec.calls || {})
           .map(
             ([callName]) => `
             import {
@@ -644,7 +843,7 @@ export default async function zapp(spec: ISpec) {
           return res.data;
         };
 
-        ${Object.entries(spec.calls)
+        ${Object.entries(spec.calls || {})
           .map(
             ([callName]) => `
             export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
@@ -670,7 +869,7 @@ export default async function zapp(spec: ISpec) {
           
           export interface Database {
             ${modelNamesPluralPascal
-              .map((modelName) => `${modelName}: ${modelName}Table`)
+              .map((modelName) => `${camelCase(modelName)}: ${modelName}Table`)
               .join('\n')}
           }
           
@@ -795,6 +994,7 @@ export default async function zapp(spec: ISpec) {
           ...pkg.dependencies,
           '@vercel/postgres-kysely': '^0.5.0',
           axios: '^1.6.0',
+          clsx: '^2.1.1',
           kysely: '^0.26.3',
           next: '14.0.0',
           react: '^18',
