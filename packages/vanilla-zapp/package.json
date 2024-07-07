@@ -17,7 +17,7 @@
   "dependencies": {
     "@types/node": "^18.0.0",
     "@vercel/postgres-kysely": "^0.5.0",
-    "specui": "workspace:*",
+    "@specui/cli": "workspace:*",
     "@specui/core": "workspace:*",
     "@specui/git": "workspace:*",
     "@specui/handlebars": "workspace:*",

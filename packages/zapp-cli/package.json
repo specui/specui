@@ -1,5 +1,5 @@
 {
-  "name": "specui",
+  "name": "@specui/cli",
   "version": "0.0.0",
   "description": "continuous code generation ⚡️",
   "bin": {

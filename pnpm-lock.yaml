@@ -209,6 +209,9 @@ importers:
         specifier: ^3.21.4
         version: 3.22.4
     devDependencies:
+      '@specui/cli':
+        specifier: workspace:*
+        version: link:../../packages/zapp-cli
       '@types/node':
         specifier: ^20
         version: 20.8.9
@@ -230,9 +233,6 @@ importers:
       postcss:
         specifier: ^8.4.31
         version: 8.4.31
-      specui:
-        specifier: workspace:*
-        version: link:../../packages/zapp-cli
       tailwindcss:
         specifier: ^3.3.5
         version: 3.3.5
@@ -246,6 +246,9 @@ importers:
         specifier: ^1.2.0
         version: 1.5.3
     devDependencies:
+      '@specui/cli':
+        specifier: workspace:*
+        version: link:../../packages/zapp-cli
       '@specui/core':
         specifier: workspace:*
         version: link:../../packages/zapp-core
@@ -270,43 +273,15 @@ importers:
       sharp:
         specifier: ^0.33.1
         version: 0.33.1
-      specui:
-        specifier: workspace:*
-        version: link:../../packages/zapp-cli
       typescript:
         specifier: ^4.6.4
         version: 4.9.5
 
-  packages/create-zapp-app:
-    dependencies:
-      commander:
-        specifier: ^11.1.0
-        version: 11.1.0
-      js-yaml:
-        specifier: ^3.13.1
-        version: 3.14.1
-      picocolors:
-        specifier: ^1.0.0
-        version: 1.0.0
-      prompts:
-        specifier: ^2.4.2
-        version: 2.4.2
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-    devDependencies:
-      '@types/js-yaml':
-        specifier: ^3.12.1
-        version: 3.12.7
-      '@types/prompts':
-        specifier: ^2.4.8
-        version: 2.4.8
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-
   packages/next-zapp:
     dependencies:
+      '@specui/cli':
+        specifier: workspace:*
+        version: link:../zapp-cli
       '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
@@ -340,9 +315,6 @@ importers:
       pluralize:
         specifier: ^8.0.0
         version: 8.0.0
-      specui:
-        specifier: workspace:*
-        version: link:../zapp-cli
     devDependencies:
       '@types/pluralize':
         specifier: 0.0.29
@@ -355,6 +327,9 @@ importers:
 
   packages/vanilla-zapp:
     dependencies:
+      '@specui/cli':
+        specifier: workspace:*
+        version: link:../zapp-cli
       '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
@@ -385,9 +360,6 @@ importers:
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
-      specui:
-        specifier: workspace:*
-        version: link:../zapp-cli
     devDependencies:
       '@types/pluralize':
         specifier: 0.0.29
@@ -2851,13 +2823,6 @@ packages:
 
   /@types/pluralize@0.0.29:
     resolution: {integrity: sha512-BYOID+l2Aco2nBik+iYS4SZX0Lf20KPILP5RGmM1IgzdwNdTs0eebiFriOPcej1sX9mLnSoiNte5zcFxssgpGA==}
-    dev: true
-
-  /@types/prompts@2.4.8:
-    resolution: {integrity: sha512-fPOEzviubkEVCiLduO45h+zFHB0RZX8tFt3C783sO5cT7fUXf3EEECpD26djtYdh4Isa9Z9tasMQuZnYPtvYzw==}
-    dependencies:
-      '@types/node': 20.10.4
-      kleur: 3.0.3
     dev: true
 
   /@types/prop-types@15.7.5:
@@ -6355,6 +6320,7 @@ packages:
   /kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
+    dev: true
 
   /kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -7528,6 +7494,7 @@ packages:
     dependencies:
       kleur: 3.0.3
       sisteransi: 1.0.5
+    dev: true
 
   /prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -8094,6 +8061,7 @@ packages:
 
   /sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+    dev: true
 
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
