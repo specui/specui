@@ -16,5 +16,5 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
-  "packageManager": "pnpm@8.7.1"
+  "packageManager": "pnpm@9.5.0"
 }
