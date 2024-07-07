@@ -19,7 +19,7 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
   const { value: zapp } = await prompts({
     type: 'text',
     name: 'value',
-    initial: '@zappjs/next-zapp',
+    initial: '@specui/next-zapp',
     message: 'Which Zapp do you want to use?',
   });
 
@@ -39,8 +39,8 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
     description: 'Created by create-zapp-app',
     private: true,
     devDependencies: {
-      '@zappjs/cli': '^2.2.1',
-      '@zappjs/next-zapp': '^0.2.0',
+      specui: '^2.2.1',
+      '@specui/next-zapp': '^0.2.0',
     },
     scripts: {
       generate: 'zapp generate',
@@ -131,7 +131,7 @@ const program = new Command(pkg.name).version(pkg.version).action(async () => {
       },
     }),
   );
-  await writeFile(join(dir, '.zapp/zapp.ts'), `export { default } from '@zappjs/next-zapp';\n`);
+  await writeFile(join(dir, '.zapp/zapp.ts'), `export { default } from '@specui/next-zapp';\n`);
 });
 
 program.parse();

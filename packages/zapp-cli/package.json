@@ -1,9 +1,9 @@
 {
-  "name": "@zappjs/cli",
-  "version": "2.3.0",
+  "name": "specui",
+  "version": "0.0.0",
   "description": "continuous code generation ⚡️",
   "bin": {
-    "zapp": "bin/zapp"
+    "specui": "bin/specui"
   },
   "files": [
     "dist"

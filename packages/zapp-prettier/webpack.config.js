@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: 'standalone.js',
     path: path.resolve(__dirname, 'dist'),
-    library: '@zappjs/prettier',
+    library: '@specui/prettier',
     libraryTarget: 'umd',
     globalObject: 'this',
   },
@@ -27,8 +27,8 @@ module.exports = {
     extensions: ['.hbs', '.ts'],
   },
   externals: {
-    '@zappjs/core': '@zappjs/core',
-    '@zappjs/json': '@zappjs/json',
-    tsconfig: 'tsconfig'
+    '@specui/core': '@specui/core',
+    '@specui/json': '@specui/json',
+    tsconfig: 'tsconfig',
   },
 };

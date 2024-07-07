@@ -1,15 +1,15 @@
 <div align="center">
 
-<a href="https://zappjs.com">
-  <img height="120" src="https://zappjs.com/logo.png">
+<a href="https://specui.org">
+  <img height="120" src="https://specui.org/logo.png">
 </a>
 
-# ZappJS
+# SpecUI
 
-Write specs. Generate code.
+Write specs to build UIs.
 
-[![License](https://img.shields.io/github/license/zappjs/zappjs.svg?style=flat-square)](https://github.com/zappjs/zappjs/blob/mistress/LICENSE)
-[![npm](https://img.shields.io/npm/v/@zappjs/core?style=flat-square)](https://npm.im/@zappjs/core)
+[![License](https://img.shields.io/github/license/specui/specui.svg?style=flat-square)](https://github.com/specui/specui/blob/mistress/LICENSE)
+[![npm](https://img.shields.io/npm/v/@specui/core?style=flat-square)](https://npm.im/@specui/core)
 
 <sup>Spec. Preview. Ship.</sup>
 
@@ -17,13 +17,15 @@ Write specs. Generate code.
 
 ## Overview
 
-ZappJS is a continuous, spec-driven code generator.
+SpecUI is a dev tool for writing specs to build user interfaces.
 
 ✍️ <b>Write specs</b> in:
+
 - YAML, JSON and JS/TS
-- Or use the ZappJS [Visual Editor](https://zappjs.com/playground)
+- Or use the SpecUI [Visual Editor](https://specui.org/playground)
 
 ⚡️ <b>Generate code</b> for:
+
 - Any language: JavaScript, Go, Python, Ruby, Java
 - Any framework: Next.js, Astro, Vue, Angular, Gorm, Django
 - Any markup/format/other: HTML, JSON, YAML, CSS
@@ -32,19 +34,19 @@ ZappJS is a continuous, spec-driven code generator.
 
 ### Online Playground
 
-Go to https://zappjs.com/playground
+Go to https://specui.org/playground
 
 ### Get Started Locally
 
 The fastest way to create a Zapp-enabled project:
 
 ```bash
-npx create-zapp-app@latest
+npx specui@latest
 ```
 
 ## Docs
 
-Read the docs: https://zappjs.com/docs
+Read the docs: https://specui.org/docs
 
 ## Example
 
@@ -138,20 +140,14 @@ tsconfig.json
 - **Continuous Code Generation**: Update existing files based on new specs or logic.
 - **Spec-Driven**: Specs guide what Zapp generates, making sure everything is in line with your requirements.
 - **Versatile**: Generate everything from UI components to APIs, configurations, and even entire mobile apps.
-- **Language Agnostic**: Works for all programming languages and frameworks.
-
-## What Can You Generate?
-
-- Codebases: UIs, APIs, Configurations, Mobile Apps, Games
-- Documentation: READMEs, License files, OpenAPI/Swagger
-- Other: Models, Routes, Scripts, Workflow Definitions, Tests
+- **Framework Agnostic**: Use SpecUI to build UIs for React, Vue, Angular and Vanilla JS.
 
 ## How Does It Work?
 
-Zapp uses a spec to understand what to generate. Specs are versatile, and you can write them in TypeScript, JSON, or YAML. Zapp then processes this spec through various components like Generators, Templates, and Processors to produce the end code.
+SpecUI uses a spec to understand what to generate. Specs are versatile, and you can write them in TypeScript, JSON, or YAML. Zapp then processes this spec through various components like Generators, Templates, and Processors to produce the end code.
 
-<img src="https://github.com/zappjs/zappjs/blob/main/images/lifecycle.png" />
+<img src="https://github.com/specui/specui/blob/main/images/lifecycle.png" />
 
 ## License
 
-Zapp is released under the [MIT License](https://github.com/zappjs/zappjs/blob/main/LICENSE).
+SpecUI is released under the [MIT License](https://github.com/specui/specui/blob/main/LICENSE).

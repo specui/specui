@@ -36,7 +36,7 @@ export const LeaveFeature = () => {
     <div className="pb-32 px-4 mx-auto max-w-6xl">
       <FeatureTitle>Leave anytime</FeatureTitle>
       <FeatureDescription>
-        If you ever want to stop using ZappJS, just remove the `.zapp` directory and keep shipping.
+        If you ever want to stop using SpecUI, just remove the `.zapp` directory and keep shipping.
         We will miss you and are honored to be a part of your journey.
       </FeatureDescription>
       <div className="gap-4 grid grid-cols-3">

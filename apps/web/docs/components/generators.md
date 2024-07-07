@@ -1,10 +1,10 @@
 ## Generators
 
-Generators serve as the core engine in Zapp's code generation lifecycle, acting as the conduit between Specifications, Templates, and Engines. Generators are what make the magic happen—they turn your specs into functional code. This section is intended to guide you through the intricacies of Generators in Zapp, helping you harness their full potential.
+Generators serve as the core engine in SpecUI's code generation lifecycle, acting as the conduit between Specifications, Templates, and Engines. Generators are what make the magic happen—they turn your specs into functional code. This section is intended to guide you through the intricacies of Generators in SpecUI, helping you harness their full potential.
 
 ### What Are Generators?
 
-A Generator in Zapp is essentially a configurable component that takes Specifications and processes them through Templates using selected Engines. The output is the code you defined, formatted and processed by any associated Processors.
+A Generator in SpecUI is essentially a configurable component that takes Specifications and processes them through Templates using selected Engines. The output is the code you defined, formatted and processed by any associated Processors.
 
 ### Anatomy of a Generator
 
@@ -16,14 +16,14 @@ A Generator consists of:
 
 ### Configuring Generators
 
-Setting up a Generator involves defining it in your Zapp project's configuration files. Here’s a basic example to demonstrate:
+Setting up a Generator involves defining it in your SpecUI project's configuration files. Here’s a basic example to demonstrate:
 
 ```ts
-export const ServiceZapp: IServiceZapp = (spec) => {
+export const ServiceSpecUI: IServiceSpecUI = (spec) => {
   return {
     ['README.md']: ReadmeGenerator({
       /* ... */
-    })
+    }),
   };
 };
 ```
@@ -32,7 +32,7 @@ In this example, the Generator is named "MyServiceGenerator" and uses a Handleba
 
 ### Built-in and Custom Generators
 
-Zapp provides a collection of built-in Generators designed for common tasks. If these do not meet your specific requirements, you have the option of creating custom Generators tailored to your project's needs.
+SpecUI provides a collection of built-in Generators designed for common tasks. If these do not meet your specific requirements, you have the option of creating custom Generators tailored to your project's needs.
 
 ### Chain of Operations
 
@@ -52,4 +52,4 @@ When using Generators, consider the following:
 - **Testing**: Frequently test your Generators to ensure they are producing the expected code output.
 - **Processor Synergy**: Choose Processors that complement your Generator's output. For instance, if your Generator creates TypeScript code, configure a Processor that formats TypeScript code.
 
-By making effective use of Generators, you're enabling Zapp to serve as a powerful tool for automating and optimizing your codebase, ensuring it remains robust, consistent, and up-to-date.
+By making effective use of Generators, you're enabling SpecUI to serve as a powerful tool for automating and optimizing your codebase, ensuring it remains robust, consistent, and up-to-date.

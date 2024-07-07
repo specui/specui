@@ -1,10 +1,10 @@
 {
-  "name": "@zappjs/typescript",
-  "version": "0.3.3",
+  "name": "@specui/typescript",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@zappjs/core": "workspace:*",
-    "@zappjs/json": "workspace:*"
+    "@specui/core": "workspace:*",
+    "@specui/json": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",

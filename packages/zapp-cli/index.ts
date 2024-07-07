@@ -90,7 +90,7 @@ program
           : {};
 
         // check hash
-        const mismatchHashes = (
+        const mismatchHashes: [string] = (
           await Promise.all(
             Object.entries(hash).map(async ([filePath]) => {
               const content = existsSync(filePath) ? await readFile(filePath, 'utf8') : '';
@@ -100,15 +100,21 @@ program
               }
             }),
           )
-        ).filter((filePath) => Boolean(filePath));
+        ).filter((filePath) => Boolean(filePath)) as [string];
 
-        if (mismatchHashes.length && !options.force) {
-          console.log(
-            `Aborting due to manual edits:\n${mismatchHashes
-              .map((hash) => `- ${hash}`)
-              .join('\n')}`,
-          );
-          return;
+        if (mismatchHashes.length) {
+          if (options.force) {
+            mismatchHashes.forEach((mismatchHash) => {
+              delete hash[mismatchHash];
+            });
+          } else {
+            console.log(
+              `Aborting due to manual edits:\n${mismatchHashes
+                .map((hash) => `- ${hash}`)
+                .join('\n')}`,
+            );
+            return;
+          }
         }
 
         await writeFile('.zapp/lock.json', JSON.stringify(hash, null, 2));

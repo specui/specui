@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm install @zappjs/git
+npm install @specui/git
 ```
 
 ### Components

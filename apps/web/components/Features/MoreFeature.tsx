@@ -9,22 +9,13 @@ export const MoreFeature = () => {
         Check out the{' '}
         <Link
           className="text-white hover:text-blue-600"
-          href="https://github.com/zappjs/zappjs"
+          href="https://github.com/specui/specui"
           rel="noreferrer noopener"
           target="_blank"
         >
           source code
-        </Link>{' '}
-        and{' '}
-        <Link
-          className="text-white hover:text-blue-600"
-          href="https://x.com/zappjs"
-          rel="noreferrer noopener"
-          target="_blank"
-        >
-          follow us on X
         </Link>
-        !
+        .
       </p>
     </div>
   );

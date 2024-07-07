@@ -1,4 +1,4 @@
-import { IProcessor } from '@zappjs/core';
+import { IProcessor } from '@specui/core';
 import { format } from 'prettier';
 import * as rustPlugin from 'prettier-plugin-rust';
 

@@ -1,9 +1,9 @@
-import { generate } from '@zappjs/core';
-import { GitignoreGenerator } from '@zappjs/git';
-import { HandlebarsEngine } from '@zappjs/handlebars';
-import { JsonEngine } from '@zappjs/json';
-import { LicenseGenerator } from '@zappjs/license';
-import { PrettierProcessor } from '@zappjs/prettier';
+import { generate } from '@specui/core';
+import { GitignoreGenerator } from '@specui/git';
+import { HandlebarsEngine } from '@specui/handlebars';
+import { JsonEngine } from '@specui/json';
+import { LicenseGenerator } from '@specui/license';
+import { PrettierProcessor } from '@specui/prettier';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { existsSync } from 'fs';
 import { plural } from 'pluralize';
@@ -26,7 +26,7 @@ export interface ISpec {
         };
       };
       operations: {
-        type: 'delete' | 'insert' | 'update';
+        type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect';
         model?: string;
         data?: {
           [name: string]: any;
@@ -254,6 +254,9 @@ export default async function zapp(spec: ISpec) {
     }),
   );
 
+  type ElementPropType = 'for' | 'name' | 'placeholder' | 'type';
+  type ElementEventPropType = 'onClick';
+
   interface Element {
     action?: string;
     component?: string;
@@ -269,66 +272,96 @@ export default async function zapp(spec: ISpec) {
     href?: string;
     htmlType?: string;
     name?: string;
+    onClick?: {
+      action: string;
+      data?: any;
+    };
     placeholder?: string;
+    tag?: string;
     text?: string;
     type?: string;
     elements?: Element[];
   }
 
+  function renderElementProp(name: ElementPropType, element: Element) {
+    const prop = element[name];
+
+    if (!prop) {
+      return;
+    }
+
+    return prop.startsWith('$') ? `{${prop.slice(1)}}` : `"${prop}"`;
+  }
+
+  function renderElementEventProp(name: ElementEventPropType, element: Element) {
+    const prop = element[name];
+
+    if (!prop) {
+      return;
+    }
+
+    const action = prop.action.startsWith('$') ? prop.action.slice(1) : prop.action;
+
+    return `{() => ${action}?.()}`;
+  }
+
+  function renderElementProps(element: Element) {
+    const props: Record<string, string> = {};
+
+    if (element.action) {
+      props.action = `{${element.action}}`;
+    }
+
+    if (element.class) {
+      props.className = Array.isArray(element.class)
+        ? `{clsx(${element.class
+            .map((className) => (className.startsWith('$') ? className.slice(1) : `'${className}'`))
+            .join(',')})}`
+        : `"${element.class}"`;
+    }
+
+    ['defaultChecked', 'for', 'href', 'name', 'placeholder', 'type'].forEach((name) => {
+      const value = renderElementProp(name as ElementPropType, element);
+      if (value !== undefined) {
+        props[name === 'for' ? 'htmlFor' : name] = value;
+      }
+    });
+
+    ['onClick'].forEach((name) => {
+      const value = renderElementEventProp(name as ElementEventPropType, element);
+      if (value !== undefined) {
+        props[name] = value;
+      }
+    });
+
+    if (element.props) {
+      Object.entries(element.props).forEach(([propName, propValue]) => {
+        props[propName] = `"${propValue}"`;
+      });
+    }
+
+    return Object.entries(props)
+      .sort(([aName], [bName]) => aName.localeCompare(bName))
+      .map(([name, value]) => `${name}=${value}`)
+      .join(' ');
+  }
+
+  function renderPropType(type?: string) {
+    if (!type) {
+      return 'unknown';
+    }
+
+    if (type === 'function') {
+      return '() => {}';
+    }
+
+    return type;
+  }
+
   function render(element: Element): string {
-    return `<${element.type === 'component' ? pascalCase(element.component || '') : element.type}${
-      element.class
-        ? ` className=${
-            Array.isArray(element.class)
-              ? `{clsx(${element.class
-                  .map((className) =>
-                    className.startsWith('$') ? className.slice(1) : `'${className}'`,
-                  )
-                  .join(',')})}`
-              : `"${element.class}"`
-          }`
-        : ''
-    }${
-      element.props
-        ? ` ${Object.entries(element.props)
-            .map(([propName, propValue]) => `${propName}="${propValue}"`)
-            .join(' ')}`
-        : ''
-    }${element.action ? ` action={${element.action}}` : ''}${
-      element.for ? ` htmlFor="${element.for}"` : ''
-    }${element.href ? ` href="${element.href}"` : ''}${
-      element.htmlType ? ` type="${element.htmlType}"` : ''
-    }${
-      element.defaultChecked
-        ? ` defaultChecked=${
-            element.defaultChecked.startsWith('$')
-              ? `{${element.defaultChecked.slice(1)}}`
-              : element.defaultChecked
-              ? `"${element.defaultChecked}"`
-              : ''
-          }`
-        : ''
-    }${
-      element.name
-        ? ` name=${
-            element.name.startsWith('$')
-              ? `{${element.name.slice(1)}}`
-              : element.name
-              ? `"${element.name}"`
-              : ''
-          }`
-        : ''
-    }${
-      element.placeholder
-        ? ` placeholder=${
-            element.placeholder.startsWith('$')
-              ? `{${element.placeholder.slice(1)}}`
-              : element.placeholder
-              ? `"${element.placeholder}"`
-              : ''
-          }`
-        : ''
-    }>
+    const tag = element.tag === 'component' ? pascalCase(element.component || '') : element.tag;
+    const props = renderElementProps(element);
+    const children = `
       ${
         element.text?.startsWith('$')
           ? `{${element.text.slice(1)}}`
@@ -342,7 +375,7 @@ export default async function zapp(spec: ISpec) {
           ? `{${(element.elements['$ref'] as any).model}.map(${
               (element.elements['$ref'] as any).name
             } => (
-            <${(element.elements['$ref'] as any).type} className="${
+            <${(element.elements['$ref'] as any).tag} className="${
               (element.elements['$ref'] as any).class
             }" key=${
               (element.elements['$ref'] as any).key.startsWith('$')
@@ -350,11 +383,14 @@ export default async function zapp(spec: ISpec) {
                 : `'${(element.elements['$ref'] as any).key}'`
             }>
               ${(element.elements['$ref'] as any).elements.map(render).join('')}
-            </${(element.elements['$ref'] as any).type}>
+            </${(element.elements['$ref'] as any).tag}>
           ))}`
           : ''
       }
-    </${element.type === 'component' ? pascalCase(element.component || '') : element.type}>`;
+    `.trim();
+
+    return `<${tag} ${props}
+      ${children ? `>${children}</${tag}>` : ' />'}`;
   }
 
   function renderImports(elements: Element[]): string {
@@ -387,6 +423,18 @@ export default async function zapp(spec: ISpec) {
       .join('\n');
   }
 
+  function renderClient(elements: Element[]): string {
+    if (
+      (Array.isArray(elements) ? elements : []).some(
+        (element) => element.onClick !== undefined || renderClient(element.elements || []),
+      )
+    ) {
+      return `'use client';\n`;
+    }
+
+    return '';
+  }
+
   function renderClsx(elements: Element[]): string {
     if (
       (Array.isArray(elements) ? elements : []).some(
@@ -399,7 +447,7 @@ export default async function zapp(spec: ISpec) {
     return '';
   }
 
-  function getActionType(type: 'delete' | 'insert' | 'update') {
+  function getActionType(type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect') {
     if (type === 'delete') {
       return 'deleteFrom';
     }
@@ -426,6 +474,11 @@ export default async function zapp(spec: ISpec) {
           }${
             action.operations.some((op) => ['revalidate'].includes(op.type))
               ? `import { revalidatePath } from 'next/cache';`
+              : ''
+          }
+          ${
+            action.operations.some((op) => ['redirect'].includes(op.type))
+              ? `import { redirect } from 'next/navigation';`
               : ''
           }          
 
@@ -480,7 +533,11 @@ export default async function zapp(spec: ISpec) {
                       : ''
                   }.execute()
               `
-                  : `revalidatePath('${operation.path}')`,
+                  : operation.type === 'redirect'
+                  ? `redirect('${operation.path}')`
+                  : operation.type === 'revalidate'
+                  ? `revalidatePath('${operation.path}')`
+                  : '',
               )
               .join('\n')}
           }
@@ -497,6 +554,7 @@ export default async function zapp(spec: ISpec) {
       components[`components/${pascalCase(componentName)}.tsx`] = await generate({
         processor: PrettierProcessor(),
         engine: async () => `
+          ${renderClient(component.elements)}
           ${renderClsx(component.elements)}
 
           ${
@@ -505,7 +563,8 @@ export default async function zapp(spec: ISpec) {
               export interface ${pascalCase(componentName)}Props {
                 ${Object.entries(component.props)
                   .map(
-                    ([propName, prop]) => `${propName}${prop.required ? '' : '?'}: ${prop.type};`,
+                    ([propName, prop]) =>
+                      `${propName}${prop.required ? '' : '?'}: ${renderPropType(prop.type)};`,
                   )
                   .join('\n')}
               }
@@ -733,7 +792,7 @@ export default async function zapp(spec: ISpec) {
     }),
     'lib/errors/BadRequestError.ts': await generate({
       processor: PrettierProcessor(),
-      engine: () => `
+      engine: () => /* ts */ `
         import { HttpError } from "./HttpError";
 
         export class BadRequestError extends HttpError {
@@ -749,7 +808,7 @@ export default async function zapp(spec: ISpec) {
     }),
     'lib/errors/ConflictError.ts': await generate({
       processor: PrettierProcessor(),
-      engine: () => `
+      engine: () => /* ts */ `
         import { HttpError } from "./HttpError";
 
         export class ConflictError extends HttpError {

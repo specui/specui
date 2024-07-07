@@ -1,9 +1,9 @@
 {
-  "name": "@zappjs/handlebars",
-  "version": "0.2.4",
+  "name": "@specui/handlebars",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@zappjs/core": "workspace:*",
+    "@specui/core": "workspace:*",
     "change-case": "^5.1.2",
     "handlebars": "^4.7.8",
     "pluralize": "^8.0.0"

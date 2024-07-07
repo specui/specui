@@ -69,7 +69,7 @@ export const MigrationFeature = () => {
       <FeatureTitle>Breeze through migrations and upgrades</FeatureTitle>
       <FeatureDescription>
         Your needs and dependencies change constantly. It&apos;s easy to fall behind and can even
-        bring your app to a sudden hault. ZappJS enables you to effortlessly adapt your existing
+        bring your app to a sudden hault. SpecUI enables you to effortlessly adapt your existing
         codebase to new standards and upgrades, minimizing manual effort and reducing the scope for
         errors.
       </FeatureDescription>

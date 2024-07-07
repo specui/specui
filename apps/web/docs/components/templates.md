@@ -1,6 +1,6 @@
 ## Templates
 
-Templates serve as the blueprint for code generation in Zapp, dictating the structure and format of the output. This section aims to provide you with a comprehensive understanding of how to effectively use Templates in Zapp.
+Templates serve as the blueprint for code generation in SpecUI, dictating the structure and format of the output. This section aims to provide you with a comprehensive understanding of how to effectively use Templates in SpecUI.
 
 ### What Are Templates?
 
@@ -16,7 +16,7 @@ Utilizing Templates brings several benefits to your code generation workflow:
 
 ### Configuring Processors
 
-To configure Templates in your Zapp project, you need to define them with the `template` property in your generators's configuration. Here's a basic example of how to configure a Processor:
+To configure Templates in your SpecUI project, you need to define them with the `template` property in your generators's configuration. Here's a basic example of how to configure a Processor:
 
 ```typescript
 export const ModelGenerator: IGenerator<IModelSpec> = (spec) =>
@@ -49,11 +49,11 @@ This Handlebars template generates a TypeScript class with the specified class n
 
 ### Using Templates with Specifications and Schemas
 
-In Zapp, Templates often rely on Specifications and Schemas for contextual data. The template engine uses this data to fill in the placeholders and generate code that aligns with the defined schema.
+In SpecUI, Templates often rely on Specifications and Schemas for contextual data. The template engine uses this data to fill in the placeholders and generate code that aligns with the defined schema.
 
 ### Custom Templates
 
-Although Zapp offers a range of built-in templates, you may need to create custom templates for more complex or specialized scenarios. You can create custom templates using your preferred template engine and import them into your Zapp project.
+Although SpecUI offers a range of built-in templates, you may need to create custom templates for more complex or specialized scenarios. You can create custom templates using your preferred template engine and import them into your SpecUI project.
 
 ### Best Practices
 
@@ -64,4 +64,4 @@ When working with Templates, consider the following best practices:
 - **Comments**: Use comments to annotate the templates, making it easier for others to understand the template structure and purpose.
 - **Validation**: Test your templates against different Specifications and Schemas to ensure they generate the expected output.
 
-By adhering to these best practices, you can make the most out of Templates in Zapp, thereby improving the efficiency and consistency of your code generation process.
+By adhering to these best practices, you can make the most out of Templates in SpecUI, thereby improving the efficiency and consistency of your code generation process.

@@ -1,11 +1,11 @@
 {
-  "name": "@zappjs/git",
-  "version": "0.1.5",
+  "name": "@specui/git",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
-    "@zappjs/core": "workspace:*",
-    "@zappjs/handlebars": "workspace:*"
+    "@specui/core": "workspace:*",
+    "@specui/handlebars": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.5.2",

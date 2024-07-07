@@ -1,8 +1,8 @@
 'use client';
 
 import Editor from '@monaco-editor/react';
-import nextZapp from '@zappjs/next-zapp/dist/zapp-browser';
-import vanillaZapp from '@zappjs/vanilla-zapp/dist/zapp-browser';
+import nextZapp from '@specui/next-zapp/dist/zapp-browser';
+import vanillaZapp from '@specui/vanilla-zapp/dist/zapp-browser';
 import axios from 'axios';
 import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
@@ -562,7 +562,11 @@ export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
           {output === 'preview' ? (
             <>
               {generator === 'vanilla' ? (
-                <iframe className="w-full" ref={iframeRef} title="Code preview using Vanilla code generator" />
+                <iframe
+                  className="w-full"
+                  ref={iframeRef}
+                  title="Code preview using Vanilla code generator"
+                />
               ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_APP ? (
                 <div className="flex flex-col gap-4 items-center justify-center w-full">
                   <div className="text-lg">Next.js preview not available (yet)</div>

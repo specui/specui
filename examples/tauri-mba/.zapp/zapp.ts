@@ -1,7 +1,7 @@
-import { generate } from '@zappjs/core';
-import { JsonEngine } from '@zappjs/json';
-import { LicenseGenerator } from '@zappjs/license';
-import { TomlEngine } from '@zappjs/toml';
+import { generate } from '@specui/core';
+import { JsonEngine } from '@specui/json';
+import { LicenseGenerator } from '@specui/license';
+import { TomlEngine } from '@specui/toml';
 import { readFile } from 'fs/promises';
 
 import { IconGenerator } from './generators/IconGenerator';

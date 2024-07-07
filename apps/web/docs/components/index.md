@@ -1,6 +1,6 @@
-## Overview: Components of the Zapp Lifecycle
+## Overview: Components of the SpecUI Lifecycle
 
-Zapp employs a series of interconnected components to automate code generation. This overview provides a quick glance at these essential components and explains how they function together in the Zapp lifecycle. 
+SpecUI employs a series of interconnected components to automate code generation. This overview provides a quick glance at these essential components and explains how they function together in the SpecUI lifecycle.
 
 <br />
 <img src="/images/lifecycle.png" />
@@ -43,11 +43,11 @@ Processors are components that act on the code after it has been generated. They
 
 Once the Generators produce the code, Processors act on this output to finalize it. They ensure that the code meets specific quality standards and guidelines.
 
-#### Zapps
+#### SpecUIs
 
-Zapps are configurations or collections that organize all the aforementioned components (Specs, Schemas, Generators, Templates, Engines, and Processors) for a specific project or module.
+SpecUIs are configurations or collections that organize all the aforementioned components (Specs, Schemas, Generators, Templates, Engines, and Processors) for a specific project or module.
 
-Zapps serve as an umbrella that houses all other components. They make it easier to manage, update, and scale the entire code generation ecosystem for a project.
+SpecUIs serve as an umbrella that houses all other components. They make it easier to manage, update, and scale the entire code generation ecosystem for a project.
 
 ### The Workflow
 
@@ -55,6 +55,6 @@ Zapps serve as an umbrella that houses all other components. They make it easier
 2. Validated Specs are then picked up by **Generators**.
 3. **Generators** use **Engines** to populate **Templates**, creating the actual code.
 4. This generated code is then passed through **Processors** for any post-generation activities.
-5. All these components can be managed and organized effectively within a **Zapp**, making it easier to handle even complex projects.
+5. All these components can be managed and organized effectively within a **SpecUI**, making it easier to handle even complex projects.
 
-By understanding how each component plays its role and works in tandem with others, you can unlock the full potential of Zapp for your code generation needs.
+By understanding how each component plays its role and works in tandem with others, you can unlock the full potential of SpecUI for your code generation needs.

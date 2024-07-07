@@ -1,6 +1,6 @@
 {
   "name": "create-zapp-app",
-  "version": "0.2.2",
+  "version": "0.0.0",
   "description": "Creates a Zapp app",
   "bin": {
     "create-zapp-app": "./dist/index.js"

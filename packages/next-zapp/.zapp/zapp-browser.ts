@@ -1,9 +1,9 @@
-import { generate } from '@zappjs/core';
-import { GitignoreGenerator } from '@zappjs/git';
-import { HandlebarsEngine } from '@zappjs/handlebars';
-import { JsonEngine } from '@zappjs/json';
-import { LicenseGenerator } from '@zappjs/license';
-import { PrettierProcessor } from '@zappjs/prettier/dist/standalone';
+import { generate } from '@specui/core';
+import { GitignoreGenerator } from '@specui/git';
+import { HandlebarsEngine } from '@specui/handlebars';
+import { JsonEngine } from '@specui/json';
+import { LicenseGenerator } from '@specui/license';
+import { PrettierProcessor } from '@specui/prettier/dist/standalone';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 

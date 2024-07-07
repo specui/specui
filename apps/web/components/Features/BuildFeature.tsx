@@ -104,7 +104,7 @@ export const BuildFeature = () => {
       <FeatureTitle>Build anything</FeatureTitle>
       <FeatureDescription>
         Apps, websites, APIs, desktop applications, CLI tools, games. Anything you can code
-        manually, you can use ZappJS to generate all or part of your codebase.
+        manually, you can use SpecUI to generate all or part of your codebase.
       </FeatureDescription>
       <h3 className="mb-4 text-lg">Generate models for an API</h3>
       <div className="gap-4 grid grid-cols-2">

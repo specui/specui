@@ -1,6 +1,6 @@
 {
-  "name": "@zappjs/next-zapp",
-  "version": "0.2.0",
+  "name": "@specui/next-zapp",
+  "version": "0.0.0",
   "main": "./dist/zapp.js",
   "types": "./dist/zapp.d.ts",
   "files": [
@@ -17,13 +17,13 @@
   "dependencies": {
     "@types/node": "^18.0.0",
     "@vercel/postgres-kysely": "^0.5.0",
-    "@zappjs/cli": "^2.0.1",
-    "@zappjs/core": "^2.1.1",
-    "@zappjs/git": "^0.1.4",
-    "@zappjs/handlebars": "^0.2.3",
-    "@zappjs/json": "^0.2.1",
-    "@zappjs/license": "^0.1.1",
-    "@zappjs/prettier": "^0.6.0",
+    "specui": "workspace:*",
+    "@specui/core": "workspace:*",
+    "@specui/git": "workspace:*",
+    "@specui/handlebars": "workspace:*",
+    "@specui/json": "workspace:*",
+    "@specui/license": "workspace:*",
+    "@specui/prettier": "workspace:*",
     "change-case": "^3.1.0",
     "kysely": "^0.26.3",
     "pluralize": "^8.0.0"

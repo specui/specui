@@ -66,10 +66,10 @@ importers:
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.44.0)(react-dom@18.2.0)(react@18.2.0)
-      '@zappjs/next-zapp':
+      '@specui/next-zapp':
         specifier: workspace:*
         version: link:../../packages/next-zapp
-      '@zappjs/vanilla-zapp':
+      '@specui/vanilla-zapp':
         specifier: workspace:*
         version: link:../../packages/vanilla-zapp
       axios:
@@ -84,6 +84,9 @@ importers:
       framer-motion:
         specifier: ^10.16.16
         version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
+      geist:
+        specifier: ^1.3.0
+        version: 1.3.0(next@14.0.0)
       js-yaml:
         specifier: ^3.13.1
         version: 3.14.1
@@ -108,6 +111,12 @@ importers:
       react-markdown:
         specifier: ^9.0.0
         version: 9.0.0(@types/react@18.2.21)(react@18.2.0)
+      react-syntax-highlighter:
+        specifier: ^15.5.0
+        version: 15.5.0(react@18.2.0)
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.3.0
       zustand:
         specifier: ^4.4.4
         version: 4.4.4(@types/react@18.2.21)(react@18.2.0)
@@ -142,6 +151,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.2.7
+      '@types/react-syntax-highlighter':
+        specifier: ^15.5.13
+        version: 15.5.13
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -166,12 +178,12 @@ importers:
 
   examples/next-api:
     dependencies:
+      '@specui/next-zapp':
+        specifier: workspace:*
+        version: link:../../packages/next-zapp
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
-      '@zappjs/next-zapp':
-        specifier: workspace:*
-        version: link:../../packages/next-zapp
       axios:
         specifier: ^1.6.0
         version: 1.6.0
@@ -206,9 +218,6 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.2.7
-      '@zappjs/cli':
-        specifier: ^2.1.0
-        version: link:../../packages/zapp-cli
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -221,6 +230,9 @@ importers:
       postcss:
         specifier: ^8.4.31
         version: 8.4.31
+      specui:
+        specifier: workspace:*
+        version: link:../../packages/zapp-cli
       tailwindcss:
         specifier: ^3.3.5
         version: 3.3.5
@@ -234,33 +246,33 @@ importers:
         specifier: ^1.2.0
         version: 1.5.3
     devDependencies:
+      '@specui/core':
+        specifier: workspace:*
+        version: link:../../packages/zapp-core
+      '@specui/git':
+        specifier: workspace:*
+        version: link:../../packages/zapp-git
+      '@specui/json':
+        specifier: workspace:*
+        version: link:../../packages/zapp-json
+      '@specui/license':
+        specifier: workspace:*
+        version: link:../../packages/zapp-license
+      '@specui/toml':
+        specifier: workspace:*
+        version: link:../../packages/zapp-toml
       '@tauri-apps/cli':
         specifier: ^1.2.2
         version: 1.5.9
       '@types/node':
         specifier: ^18.7.10
         version: 18.18.4
-      '@zappjs/cli':
-        specifier: ^2.3.0
-        version: link:../../packages/zapp-cli
-      '@zappjs/core':
-        specifier: ^2.2.0
-        version: link:../../packages/zapp-core
-      '@zappjs/git':
-        specifier: ^0.1.5
-        version: link:../../packages/zapp-git
-      '@zappjs/json':
-        specifier: ^0.2.1
-        version: link:../../packages/zapp-json
-      '@zappjs/license':
-        specifier: ^0.1.2
-        version: link:../../packages/zapp-license
-      '@zappjs/toml':
-        specifier: ^0.1.1
-        version: link:../../packages/zapp-toml
       sharp:
         specifier: ^0.33.1
         version: 0.33.1
+      specui:
+        specifier: workspace:*
+        version: link:../../packages/zapp-cli
       typescript:
         specifier: ^4.6.4
         version: 4.9.5
@@ -295,33 +307,30 @@ importers:
 
   packages/next-zapp:
     dependencies:
+      '@specui/core':
+        specifier: workspace:*
+        version: link:../zapp-core
+      '@specui/git':
+        specifier: workspace:*
+        version: link:../zapp-git
+      '@specui/handlebars':
+        specifier: workspace:*
+        version: link:../zapp-handlebars
+      '@specui/json':
+        specifier: workspace:*
+        version: link:../zapp-json
+      '@specui/license':
+        specifier: workspace:*
+        version: link:../zapp-license
+      '@specui/prettier':
+        specifier: workspace:*
+        version: link:../zapp-prettier
       '@types/node':
         specifier: ^18.0.0
         version: 18.18.4
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
-      '@zappjs/cli':
-        specifier: ^2.0.1
-        version: link:../zapp-cli
-      '@zappjs/core':
-        specifier: ^2.1.1
-        version: link:../zapp-core
-      '@zappjs/git':
-        specifier: ^0.1.4
-        version: link:../zapp-git
-      '@zappjs/handlebars':
-        specifier: ^0.2.3
-        version: link:../zapp-handlebars
-      '@zappjs/json':
-        specifier: ^0.2.1
-        version: link:../zapp-json
-      '@zappjs/license':
-        specifier: ^0.1.1
-        version: link:../zapp-license
-      '@zappjs/prettier':
-        specifier: ^0.6.0
-        version: link:../zapp-prettier
       change-case:
         specifier: ^3.1.0
         version: 3.1.0
@@ -331,6 +340,9 @@ importers:
       pluralize:
         specifier: ^8.0.0
         version: 8.0.0
+      specui:
+        specifier: workspace:*
+        version: link:../zapp-cli
     devDependencies:
       '@types/pluralize':
         specifier: 0.0.29
@@ -343,39 +355,39 @@ importers:
 
   packages/vanilla-zapp:
     dependencies:
+      '@specui/core':
+        specifier: workspace:*
+        version: link:../zapp-core
+      '@specui/git':
+        specifier: workspace:*
+        version: link:../zapp-git
+      '@specui/handlebars':
+        specifier: workspace:*
+        version: link:../zapp-handlebars
+      '@specui/json':
+        specifier: workspace:*
+        version: link:../zapp-json
+      '@specui/license':
+        specifier: workspace:*
+        version: link:../zapp-license
+      '@specui/prettier':
+        specifier: workspace:*
+        version: link:../zapp-prettier
       '@types/node':
         specifier: ^18.0.0
         version: 18.18.4
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
-      '@zappjs/cli':
-        specifier: ^2.0.1
-        version: link:../zapp-cli
-      '@zappjs/core':
-        specifier: ^2.1.1
-        version: link:../zapp-core
-      '@zappjs/git':
-        specifier: ^0.1.4
-        version: link:../zapp-git
-      '@zappjs/handlebars':
-        specifier: ^0.2.3
-        version: link:../zapp-handlebars
-      '@zappjs/json':
-        specifier: ^0.2.1
-        version: link:../zapp-json
-      '@zappjs/license':
-        specifier: ^0.1.1
-        version: link:../zapp-license
-      '@zappjs/prettier':
-        specifier: ^0.6.0
-        version: link:../zapp-prettier
       change-case:
         specifier: ^3.1.0
         version: 3.1.0
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
+      specui:
+        specifier: workspace:*
+        version: link:../zapp-cli
     devDependencies:
       '@types/pluralize':
         specifier: 0.0.29
@@ -430,10 +442,10 @@ importers:
 
   packages/zapp-git:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/handlebars':
+      '@specui/handlebars':
         specifier: workspace:*
         version: link:../zapp-handlebars
     devDependencies:
@@ -461,7 +473,7 @@ importers:
 
   packages/zapp-handlebars:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
       change-case:
@@ -501,7 +513,7 @@ importers:
 
   packages/zapp-json:
     devDependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
       tsconfig:
@@ -513,10 +525,10 @@ importers:
 
   packages/zapp-license:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/handlebars':
+      '@specui/handlebars':
         specifier: workspace:*
         version: link:../zapp-handlebars
     devDependencies:
@@ -544,11 +556,11 @@ importers:
 
   packages/zapp-npm:
     dependencies:
-      '@zappjs/core':
-        specifier: ^2.1.1
+      '@specui/core':
+        specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/json':
-        specifier: ^0.2.1
+      '@specui/json':
+        specifier: workspace:*
         version: link:../zapp-json
     devDependencies:
       tsconfig:
@@ -560,10 +572,10 @@ importers:
 
   packages/zapp-prettier:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/json':
+      '@specui/json':
         specifier: workspace:*
         version: link:../zapp-json
       prettier:
@@ -591,10 +603,10 @@ importers:
 
   packages/zapp-prettier-rust:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/json':
+      '@specui/json':
         specifier: workspace:*
         version: link:../zapp-json
       prettier:
@@ -641,15 +653,15 @@ importers:
         specifier: ^2.2.5
         version: 2.2.5
     devDependencies:
+      '@specui/core':
+        specifier: workspace:*
+        version: link:../zapp-core
       '@types/jest':
         specifier: ^29.5.8
         version: 29.5.8
       '@types/node':
         specifier: ^18.18.4
         version: 18.18.4
-      '@zappjs/core':
-        specifier: ^2.1.1
-        version: link:../zapp-core
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.18.4)(ts-node@10.9.1)
@@ -665,10 +677,10 @@ importers:
 
   packages/zapp-typescript:
     dependencies:
-      '@zappjs/core':
+      '@specui/core':
         specifier: workspace:*
         version: link:../zapp-core
-      '@zappjs/json':
+      '@specui/json':
         specifier: workspace:*
         version: link:../zapp-json
     devDependencies:
@@ -685,12 +697,12 @@ importers:
         specifier: ^3.13.1
         version: 3.14.1
     devDependencies:
+      '@specui/core':
+        specifier: workspace:*
+        version: link:../zapp-core
       '@types/js-yaml':
         specifier: ^3.12.1
         version: 3.12.7
-      '@zappjs/core':
-        specifier: ^2.1.1
-        version: link:../zapp-core
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1024,6 +1036,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+
+  /@babel/runtime@7.24.7:
+    resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
@@ -2710,6 +2729,12 @@ packages:
       '@types/node': 20.10.4
     dev: true
 
+  /@types/hast@2.3.10:
+    resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
+    dependencies:
+      '@types/unist': 2.0.10
+    dev: false
+
   /@types/hast@3.0.0:
     resolution: {integrity: sha512-SoytUJRuf68HXYqcXicQIhCrLQjqeYU2anikr4G3p3Iz+OZO5QDQpDj++gv+RenHsnUBwNZ2dumBArF8VLSk2Q==}
     dependencies:
@@ -2856,6 +2881,12 @@ packages:
       '@types/react': 18.2.21
     dev: true
 
+  /@types/react-syntax-highlighter@15.5.13:
+    resolution: {integrity: sha512-uLGJ87j6Sz8UaBAooU0T6lWJ0dBmjZgN1PZTrj05TNql2/XpC6+4HhMT5syIdFUUt+FASfCeLLv4kBygNU+8qA==}
+    dependencies:
+      '@types/react': 18.2.21
+    dev: true
+
   /@types/react-transition-group@4.4.6:
     resolution: {integrity: sha512-VnCdSxfcm08KjsJVQcfBmhEQAPnLB8G08hAxn39azX1qYBQ/5RVQuoHuKIcfKOdncuaUvEpFKFzEvbtIMsfVew==}
     dependencies:
@@ -2900,6 +2931,10 @@ packages:
   /@types/stack-utils@2.0.3:
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
     dev: true
+
+  /@types/unist@2.0.10:
+    resolution: {integrity: sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==}
+    dev: false
 
   /@types/unist@3.0.0:
     resolution: {integrity: sha512-MFETx3tbTjE7Uk6vvnWINA/1iJ7LuMdO4fcq8UfF0pRbj01aGLduVvQcRyswuACJdpnHgg8E3rQLhaRdNEJS0w==}
@@ -3726,8 +3761,20 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /character-entities-legacy@1.1.4:
+    resolution: {integrity: sha512-3Xnr+7ZFS1uxeiUDvV02wQ+QDbc55o97tIV5zHScSPJpcLm/r0DFPcoY3tYRp+VZukxuMeKgXYmsXQHO05zQeA==}
+    dev: false
+
+  /character-entities@1.2.4:
+    resolution: {integrity: sha512-iBMyeEHxfVnIakwOuDXpVkc54HijNgCyQB2w0VfGQThle6NXn50zU6V/u+LDhxHcDUPojn6Kpga3PTAD8W1bQw==}
+    dev: false
+
   /character-entities@2.0.2:
     resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
+    dev: false
+
+  /character-reference-invalid@1.1.4:
+    resolution: {integrity: sha512-mKKUkUbhPpQlCOfIuZkvSEgktjPFIsZKRRbC6KWVEMvlzblj3i3asQv5ODsrwt0N3pHAEvjP8KTQPHkp0+6jOg==}
     dev: false
 
   /chardet@0.7.0:
@@ -3860,6 +3907,10 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
+    dev: false
+
+  /comma-separated-tokens@1.0.8:
+    resolution: {integrity: sha512-GHuDRO12Sypu2cV70d1dkA2EUmXHgntrzbpvOB+Qy+49ypNfGgFQIC2fhhXbnyrJRynDCAARsT7Ou0M6hirpfw==}
     dev: false
 
   /comma-separated-tokens@2.0.3:
@@ -4853,6 +4904,12 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  /fault@1.0.4:
+    resolution: {integrity: sha512-CJ0HCB5tL5fYTEA7ToAq5+kTwd++Borf1/bifxd9iT70QcXr4MRrO3Llf8Ifs70q+SJcGHFtnIE/Nw6giCtECA==}
+    dependencies:
+      format: 0.2.2
+    dev: false
+
   /fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
     dependencies:
@@ -4958,6 +5015,11 @@ packages:
       mime-types: 2.1.35
     dev: false
 
+  /format@0.2.2:
+    resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
+    engines: {node: '>=0.4.x'}
+    dev: false
+
   /forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
@@ -5036,6 +5098,14 @@ packages:
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
+
+  /geist@1.3.0(next@14.0.0):
+    resolution: {integrity: sha512-IoGBfcqVEYB4bEwsfHd35jF4+X9LHRPYZymHL4YOltHSs9LJa24DYs1Z7rEMQ/lsEvaAIc61Y9aUxgcJaQ8lrg==}
+    peerDependencies:
+      next: '>=13.2.0 <15.0.0-0'
+    dependencies:
+      next: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+    dev: false
 
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -5235,6 +5305,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
 
+  /hast-util-parse-selector@2.2.5:
+    resolution: {integrity: sha512-7j6mrk/qqkSehsM92wQjdIgWM2/BW61u/53G6xmC8i1OmEdKLHbk419QKQUjz6LglWsfqoiHmyMRkP1BGjecNQ==}
+    dev: false
+
   /hast-util-to-jsx-runtime@2.2.0:
     resolution: {integrity: sha512-wSlp23N45CMjDg/BPW8zvhEi3R+8eRE1qFbjEyAUzMCzu2l1Wzwakq+Tlia9nkCtEl5mDxa7nKHsvYJ6Gfn21A==}
     dependencies:
@@ -5255,11 +5329,25 @@ packages:
       '@types/hast': 3.0.0
     dev: false
 
+  /hastscript@6.0.0:
+    resolution: {integrity: sha512-nDM6bvd7lIqDUiYEiu5Sl/+6ReP0BMk/2f4U/Rooccxkj0P5nm+acM5PrGJ/t5I8qPGiqZSE6hVAwZEdZIvP4w==}
+    dependencies:
+      '@types/hast': 2.3.10
+      comma-separated-tokens: 1.0.8
+      hast-util-parse-selector: 2.2.5
+      property-information: 5.6.0
+      space-separated-tokens: 1.1.5
+    dev: false
+
   /header-case@1.0.1:
     resolution: {integrity: sha512-i0q9mkOeSuhXw6bGgiQCCBgY/jlZuV/7dZXyZ9c6LcBrqwvT8eT719E9uxE5LiZftdl+z81Ugbg/VvXV4OJOeQ==}
     dependencies:
       no-case: 2.3.2
       upper-case: 1.1.3
+    dev: false
+
+  /highlight.js@10.7.3:
+    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
     dev: false
 
   /hoist-non-react-statics@3.3.2:
@@ -5375,6 +5463,17 @@ packages:
     engines: {node: '>= 0.10'}
     dev: false
 
+  /is-alphabetical@1.0.4:
+    resolution: {integrity: sha512-DwzsA04LQ10FHTZuL0/grVDk4rFoVH1pjAToYwBrHSxcrBIGQuXrQMtD5U1b0U2XVgKZCTLLP8u2Qxqhy3l2Vg==}
+    dev: false
+
+  /is-alphanumerical@1.0.4:
+    resolution: {integrity: sha512-UzoZUr+XfVz3t3v4KyGEniVL9BDRoQtY7tOyrRybkVNjDFWyo1yhXNGrrBTQxp3ib9BLAWs7k2YKBQsFRkZG9A==}
+    dependencies:
+      is-alphabetical: 1.0.4
+      is-decimal: 1.0.4
+    dev: false
+
   /is-array-buffer@3.0.2:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
     dependencies:
@@ -5444,6 +5543,10 @@ packages:
       has-tostringtag: 1.0.0
     dev: true
 
+  /is-decimal@1.0.4:
+    resolution: {integrity: sha512-RGdriMmQQvZ2aqaQq3awNA6dCGtKpiDFcOzrTWrDAT2MiWrKQVPmxLGHl7Y2nNu6led0kEyoX0enY0qXYsv9zw==}
+    dev: false
+
   /is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
@@ -5478,6 +5581,10 @@ packages:
     dependencies:
       is-extglob: 2.1.1
     dev: true
+
+  /is-hexadecimal@1.0.4:
+    resolution: {integrity: sha512-gyPJuv83bHMpocVYoqof5VDiZveEoGoFL8m3BXNb2VW8Xs+rz9kqO8LOQ5DH6EsuvilT1ApazU0pyl+ytbPtlw==}
+    dev: false
 
   /is-lower-case@1.1.3:
     resolution: {integrity: sha512-+5A1e/WJpLLXZEDlgz4G//WYSHyQBD32qa4Jd3Lw06qQlv3fJHnp3YIHjTQSGzHMgzmVKz2ZP3rBxTHkPw/lxA==}
@@ -6357,6 +6464,13 @@ packages:
     resolution: {integrity: sha512-2Fgx1Ycm599x+WGpIYwJOvsjmXFzTSc34IwDWALRA/8AopUKAVPwfJ+h5+f85BCp0PWmmJcWzEpxOpoXycMpdA==}
     dev: false
 
+  /lowlight@1.20.0:
+    resolution: {integrity: sha512-8Ktj+prEb1RoCPkEOrPMYUN/nCggB7qAWe3a7OpMjWQkh3l2RD5wKRQ+o8Q8YuI9RG/xs95waaI/E6ym/7NsTw==}
+    dependencies:
+      fault: 1.0.4
+      highlight.js: 10.7.3
+    dev: false
+
   /lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
     dependencies:
@@ -7123,6 +7237,17 @@ packages:
       callsites: 3.1.0
     dev: true
 
+  /parse-entities@2.0.0:
+    resolution: {integrity: sha512-kkywGpCcRYhqQIchaWqZ875wzpS/bMKhz5HnN3p7wveJTkTtyAB/AlnS0f8DFSqYW1T82t6yEAkEcB+A1I3MbQ==}
+    dependencies:
+      character-entities: 1.2.4
+      character-entities-legacy: 1.1.4
+      character-reference-invalid: 1.1.4
+      is-alphanumerical: 1.0.4
+      is-decimal: 1.0.4
+      is-hexadecimal: 1.0.4
+    dev: false
+
   /parse-json@5.2.0:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
@@ -7387,6 +7512,16 @@ packages:
     resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
     dev: false
 
+  /prismjs@1.27.0:
+    resolution: {integrity: sha512-t13BGPUlFDR7wRB5kQDG4jjl7XeuH6jbJGt11JHPL96qwsEHNX2+68tFXqc1/k+/jALsbSWJKUOT/hcYAZ5LkA==}
+    engines: {node: '>=6'}
+    dev: false
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
@@ -7401,6 +7536,12 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
     dev: true
+
+  /property-information@5.6.0:
+    resolution: {integrity: sha512-YUHSPk+A30YPv+0Qf8i9Mbfe/C0hdPXk1s1jPVToV8pk8BQtpw10ct89Eo7OWkutrwqvT0eicAxlOg3dOAu8JA==}
+    dependencies:
+      xtend: 4.0.2
+    dev: false
 
   /property-information@6.3.0:
     resolution: {integrity: sha512-gVNZ74nqhRMiIUYWGQdosYetaKc83x8oT41a0LlV3AAFCAZwCpg4vmGkq8t34+cUhp3cnM4XDiU/7xlgK7HGrg==}
@@ -7533,6 +7674,19 @@ packages:
       - supports-color
     dev: false
 
+  /react-syntax-highlighter@15.5.0(react@18.2.0):
+    resolution: {integrity: sha512-+zq2myprEnQmH5yw6Gqc8lD55QHnpKaU8TOcFeC/Lg/MQSs8UknEA0JC4nTZGFAXC2J2Hyj/ijJ7NlabyPi2gg==}
+    peerDependencies:
+      react: '>= 0.14.0'
+    dependencies:
+      '@babel/runtime': 7.23.2
+      highlight.js: 10.7.3
+      lowlight: 1.20.0
+      prismjs: 1.29.0
+      react: 18.2.0
+      refractor: 3.6.0
+    dev: false
+
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
     peerDependencies:
@@ -7621,6 +7775,14 @@ packages:
       globalthis: 1.0.3
       which-builtin-type: 1.1.3
     dev: true
+
+  /refractor@3.6.0:
+    resolution: {integrity: sha512-MY9W41IOWxxk31o+YvFCNyNzdkc9M20NoZK5vq6jkv4I/uh2zkWcfudj0Q1fovjUQJrNewS9NMzeTtqPf+n5EA==}
+    dependencies:
+      hastscript: 6.0.0
+      parse-entities: 2.0.0
+      prismjs: 1.27.0
+    dev: false
 
   /regenerator-runtime@0.14.0:
     resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
@@ -7989,6 +8151,10 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
+  /space-separated-tokens@1.1.5:
+    resolution: {integrity: sha512-q/JSVd1Lptzhf5bkYm4ob4iWPjx0KiRe3sRFBNrVqbJkFaBm5vbbowy1mymoPNLRa52+oadOhJ+K49wsSeSjTA==}
+    dev: false
+
   /space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
     dev: false
@@ -8213,6 +8379,12 @@ packages:
     dependencies:
       lower-case: 1.1.4
       upper-case: 1.1.3
+    dev: false
+
+  /tailwind-merge@2.3.0:
+    resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
+    dependencies:
+      '@babel/runtime': 7.24.7
     dev: false
 
   /tailwindcss@3.3.5:

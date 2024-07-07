@@ -60,7 +60,7 @@ export const ManualFeature = () => {
     <div className="pb-32 px-4 mx-auto max-w-6xl">
       <FeatureTitle>Use alongside your handwritten code</FeatureTitle>
       <FeatureDescription>
-        Effortlessly blend automated and manual code. Designed for synergy, ZappJS allows you to
+        Effortlessly blend automated and manual code. Designed for synergy, SpecUI allows you to
         generate essential code structures automatically while providing the flexibility to write
         your custom code alongside.
       </FeatureDescription>
@@ -71,10 +71,18 @@ export const ManualFeature = () => {
         <CodeSnippet className="col-span-3 md:col-span-1" title="spec.yml">
           {spec}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" icon={<GoIcon color="white" />} title="post.go (generated)">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<GoIcon color="white" />}
+          title="post.go (generated)"
+        >
           {generatedCode}
         </CodeSnippet>
-        <CodeSnippet className="col-span-3 md:col-span-1" icon={<GoIcon color="white" />} title="post_handlers.go (handwritten)">
+        <CodeSnippet
+          className="col-span-3 md:col-span-1"
+          icon={<GoIcon color="white" />}
+          title="post_handlers.go (handwritten)"
+        >
           {handwrittenCode}
         </CodeSnippet>
       </div>

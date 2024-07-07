@@ -1,4 +1,4 @@
-import { IEngine } from '@zappjs/core';
+import { IEngine } from '@specui/core';
 import * as changeCase from 'change-case';
 import Handlebars from 'handlebars/dist/handlebars';
 import { plural, singular } from 'pluralize';

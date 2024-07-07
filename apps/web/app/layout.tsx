@@ -1,26 +1,21 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { Header } from '@/components/Header'
-
-const inter = Inter({ subsets: ['latin'] })
+import type { Metadata } from 'next';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import './globals.css';
+import { Header } from '@/components/Header';
 
 export const metadata: Metadata = {
-  title: 'ZappJS',
+  title: 'SpecUI',
   description: 'Turn specs into code',
-}
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`}>
         <Header />
         {children}
       </body>
     </html>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { IProcessor } from '@zappjs/core';
+import { IProcessor } from '@specui/core';
 import * as babelPlugin from 'prettier/plugins/babel';
 import * as postcssPlugin from 'prettier/plugins/postcss';
 import * as estreePlugin from 'prettier/plugins/estree';

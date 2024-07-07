@@ -1,6 +1,6 @@
 # Example: Tauri Menu Bar App
 
-> Use [ZappJS](https://zappjs.com) to generate a [Tauri](https://tauri.app) desktop app that runs in your menu bar
+> Use [SpecUI](https://specui.org) to generate a [Tauri](https://tauri.app) desktop app that runs in your menu bar
 
 ## Quickstart
 
@@ -44,4 +44,4 @@ To change the icon, swap out `.zapp/icon.svg` for another SVG icon.
 
 ## License
 
-ZappJS is released under the [MIT License](https://github.com/zappjs/zappjs/blob/main/LICENSE).
+SpecUI is released under the [MIT License](https://github.com/specui/specui/blob/main/LICENSE).

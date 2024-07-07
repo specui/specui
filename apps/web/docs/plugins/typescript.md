@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm install @zappjs/typescript
+npm install @specui/typescript
 ```
 
 ### Components

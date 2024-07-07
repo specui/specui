@@ -60,7 +60,7 @@ export const LanguageFeature = () => {
     <div className="pb-32 px-4 mx-auto max-w-6xl">
       <FeatureTitle>Generate code in any language</FeatureTitle>
       <FeatureDescription>
-        ZappJS breaks down the barriers of language-specific limitations, offering you the freedom
+        SpecUI breaks down the barriers of language-specific limitations, offering you the freedom
         to generate code in the language of your choice.
       </FeatureDescription>
       <ul className="gap-4 gap-y-24 grid grid-cols-5">

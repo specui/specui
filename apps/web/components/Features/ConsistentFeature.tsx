@@ -77,7 +77,7 @@ export const ConsistentFeature = () => {
       <FeatureTitle>Keep your codebase consistent</FeatureTitle>
       <FeatureDescription>
         Maintaining a consistent codebase is hard. But it is the key to efficiency and scalability.
-        Naming conventions, design patterns and coding standards are a big part of this. ZappJS
+        Naming conventions, design patterns and coding standards are a big part of this. SpecUI
         ensures uniformity across your entire project.
       </FeatureDescription>
       <div className="gap-4 grid grid-cols-3">

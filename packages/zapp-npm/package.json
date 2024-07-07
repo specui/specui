@@ -1,10 +1,10 @@
 {
-  "name": "@zappjs/npm",
-  "version": "0.4.1",
+  "name": "@specui/npm",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@zappjs/core": "^2.1.1",
-    "@zappjs/json": "^0.2.1"
+    "@specui/core": "workspace:*",
+    "@specui/json": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",

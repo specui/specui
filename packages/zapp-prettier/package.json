@@ -1,13 +1,13 @@
 {
-  "name": "@zappjs/prettier",
-  "version": "0.6.1",
+  "name": "@specui/prettier",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@zappjs/core": "workspace:*",
-    "@zappjs/json": "workspace:*",
+    "@specui/core": "workspace:*",
+    "@specui/json": "workspace:*",
     "prettier": "^3.0.3"
   },
   "devDependencies": {

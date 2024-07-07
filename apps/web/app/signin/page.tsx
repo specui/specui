@@ -11,7 +11,7 @@ export default function SignInPage() {
       <h1 className="text-center text-7xl">
         Sign in to
         <br />
-        ZappJS
+        SpecUI
       </h1>
       <p className="text-gray-400">Sign in or create an account to start generating code now.</p>
       <button

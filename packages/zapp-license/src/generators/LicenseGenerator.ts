@@ -1,5 +1,5 @@
-import { IGenerator, generate } from '@zappjs/core';
-import { HandlebarsEngine } from '@zappjs/handlebars';
+import { IGenerator, generate } from '@specui/core';
+import { HandlebarsEngine } from '@specui/handlebars';
 
 import { ILicenseSpec } from '../interfaces/ILicenseSpec';
 import { LicenseSchema } from '../schemas/LicenseSchema';

@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm install @zappjs/prettier
+npm install @specui/prettier
 ```
 
 ### Components

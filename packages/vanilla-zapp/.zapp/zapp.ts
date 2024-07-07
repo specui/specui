@@ -1,5 +1,5 @@
-import { generate } from '@zappjs/core';
-import { PrettierProcessor } from '@zappjs/prettier';
+import { generate } from '@specui/core';
+import { PrettierProcessor } from '@specui/prettier';
 import { paramCase } from 'change-case';
 
 export interface ISpec {

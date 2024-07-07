@@ -1,5 +1,5 @@
 {
-  "name": "@zappjs/live",
+  "name": "@specui/live",
   "private": true,
   "scripts": {
     "dev": "nodemon src/api.ts"

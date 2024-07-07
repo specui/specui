@@ -1,6 +1,6 @@
 ## Specs (Specifications)
 
-Specifications (or "Specs") are the heart of the Zapp code generation lifecycle. Specs are the instructions that guide the Generators in creating the code you need. They determine the logic, structure, and even metadata for the generated code. This section aims to provide a comprehensive understanding of how to work with Specs in Zapp effectively.
+Specifications (or "Specs") are the heart of the SpecUI code generation lifecycle. Specs are the instructions that guide the Generators in creating the code you need. They determine the logic, structure, and even metadata for the generated code. This section aims to provide a comprehensive understanding of how to work with Specs in SpecUI effectively.
 
 ### What Are Specs?
 
@@ -15,12 +15,12 @@ The primary use cases for Specs include:
 
 ### Creating Specs
 
-Creating Specs is the first step in using Zapp for your project. The Specs can be written in TypeScript and will soon support JSON, YAML, and other formats. Here's a basic example in TypeScript:
+Creating Specs is the first step in using SpecUI for your project. The Specs can be written in TypeScript and will soon support JSON, YAML, and other formats. Here's a basic example in TypeScript:
 
 ```typescript
-import { MyApiZapp } from '@/zapps/MyApiZapp';
+import { MyApiSpecUI } from '@/specs/MyApiSpecUI';
 
-export default ServiceZapp({
+export default ServiceSpecUI({
   name: 'my-api',
   models: {
     user: {
@@ -34,22 +34,22 @@ In this example, the Spec defines a data model with its fields and a controller 
 
 ### Built-in and Custom Specs
 
-Zapp provides some built-in Specs to get you started quickly. These cover common scenarios like CRUD operations, RESTful APIs, or MVC architectures. However, you can also create custom Specs tailored for your specific requirements.
+SpecUI provides some built-in Specs to get you started quickly. These cover common scenarios like CRUD operations, RESTful APIs, or MVC architectures. However, you can also create custom Specs tailored for your specific requirements.
 
 ### Validating Specs with Schemas
 
-To ensure the integrity and correctness of Specs, Zapp uses Schemas based on JSON Schema. These Schemas validate the Spec files to ensure they meet the required format and contain the necessary attributes.
+To ensure the integrity and correctness of Specs, SpecUI uses Schemas based on JSON Schema. These Schemas validate the Spec files to ensure they meet the required format and contain the necessary attributes.
 
-### Organizing Specs in Zapps
+### Organizing Specs in SpecUIs
 
-In a typical Zapp project, you may have multiple Specs for different aspects of your application. These Specs can be organized under a single Zapp for better modularity and easier management.
+In a typical SpecUI project, you may have multiple Specs for different aspects of your application. These Specs can be organized under a single SpecUI for better modularity and easier management.
 
 ### Best Practices
 
-When working with Specs in Zapp, consider the following best practices:
+When working with Specs in SpecUI, consider the following best practices:
 
 - Keep your Specs as modular and focused as possible.
 - Use Schemas to validate Specs rigorously for consistency and integrity.
 - Continuously update Specs as your project requirements evolve to keep the generated code up-to-date.
 
-By mastering Specs, you take a significant step toward leveraging Zapp's full potential in automating your code generation process, thereby keeping your project agile and maintainable.
+By mastering Specs, you take a significant step toward leveraging SpecUI's full potential in automating your code generation process, thereby keeping your project agile and maintainable.

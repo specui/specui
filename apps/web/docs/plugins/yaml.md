@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm install @zappjs/yaml
+npm install @specui/yaml
 ```
 
 ### Components

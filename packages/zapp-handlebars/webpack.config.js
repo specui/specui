@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: '@zappjs/handlebars',
+    library: '@specui/handlebars',
     libraryTarget: 'umd',
     globalObject: 'this',
   },
@@ -27,7 +27,7 @@ module.exports = {
     extensions: ['.js', '.ts'],
   },
   externals: {
-    '@zappjs/core': '@zappjs/core',
+    '@specui/core': '@specui/core',
     tsconfig: 'tsconfig',
   },
 };

@@ -11,14 +11,14 @@ export const Header: FC = () => (
       <div className="flex items-center gap-4">
         <h1 className="font-bold">
           <Link className="flex items-center gap-1" href="/" aria-label="Go back to homepage">
-            <Image alt="ZappJS Logo" height="32" width="32" src="/logo.png" />
-            <span>ZappJS</span>
+            <Image alt="SpecUI Logo" height="32" width="32" src="/logo.svg" />
+            <span>SpecUI</span>
           </Link>
         </h1>
       </div>
       <div className="flex gap-8 items-center">
         <Menu />
-        <Link href="https://github.com/zappjs/zappjs" rel="noreferrer noopener" target="_blank">
+        <Link href="https://github.com/specui/specui" rel="noreferrer noopener" target="_blank">
           <GitHubIcon size={24} />
         </Link>
       </div>

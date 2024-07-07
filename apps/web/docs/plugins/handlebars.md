@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm install @zappjs/handlebars
+npm install @specui/handlebars
 ```
 
 ### Components
