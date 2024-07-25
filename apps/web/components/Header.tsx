@@ -6,7 +6,7 @@ import { Menu } from '@/components/Menu';
 import { GitHubIcon } from '@/icons/GitHubIcon';
 
 export const Header: FC = () => (
-  <header className="backdrop-blur-lg bg-black bg-opacity-50 border-b border-b-gray-900 sticky top-0">
+  <header className="bg-black bg-opacity-50 border-b border-b-gray-900 sticky top-0">
     <div className="flex items-center justify-between p-4">
       <div className="flex items-center gap-4">
         <h1 className="font-bold">

@@ -10,7 +10,7 @@ export const Install = () => {
   const handleCopy = async () => {
     setIsCopied(true);
 
-    await navigator.clipboard.writeText('npx create-zapp-app@latest');
+    await navigator.clipboard.writeText('npx @specui/cli generate');
 
     setTimeout(() => setIsCopied(false), 3000);
   };
@@ -23,7 +23,7 @@ export const Install = () => {
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ delay: 0.5, duration: 0.5 }}
     >
-      npx specui@latest
+      npx @specui/cli generate
       {isCopied ? <Check /> : <ContentCopy />}
     </motion.button>
   );

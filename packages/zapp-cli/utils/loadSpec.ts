@@ -3,12 +3,11 @@ import { extname, join } from 'path';
 import { parse } from 'yaml';
 
 export const loadSpec = async (dir = process.cwd()) => {
-  const zappDir = join(dir, '.zapp');
-
-  const possibleFiles = ['spec.yaml', 'spec.yml', 'spec.json', 'zapp.js', 'zapp.ts'];
+  const files = ['spec.yaml', 'spec.yml', 'spec.json', 'zapp.js', 'zapp.ts'];
+  const possibleFiles = files.concat(files.map((file) => `.specui/${file}`));
 
   for (const file of possibleFiles) {
-    const filePath = join(zappDir, file);
+    const filePath = join(dir, file);
 
     if (existsSync(filePath)) {
       const extension = extname(filePath);
@@ -39,5 +38,5 @@ export const loadSpec = async (dir = process.cwd()) => {
     }
   }
 
-  throw new Error('No zapp file found.');
+  throw new Error('No spec found.');
 };

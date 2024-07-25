@@ -41,7 +41,7 @@ Go to https://specui.org/playground
 The fastest way to create a Zapp-enabled project:
 
 ```bash
-npx specui@latest
+npx @specui/cli
 ```
 
 ## Docs
