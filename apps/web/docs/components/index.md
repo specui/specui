@@ -2,9 +2,6 @@
 
 SpecUI employs a series of interconnected components to automate code generation. This overview provides a quick glance at these essential components and explains how they function together in the SpecUI lifecycle.
 
-<br />
-<img src="/images/lifecycle.png" />
-
 ### Components
 
 #### Specifications (Specs)

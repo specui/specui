@@ -1,8 +1,8 @@
 'use client';
 
 import Editor from '@monaco-editor/react';
-import nextZapp from '@specui/next-zapp/dist/zapp-browser';
-import vanillaZapp from '@specui/vanilla-zapp/dist/zapp-browser';
+import nextZapp from '@specui/next-zapp/dist/generator-browser';
+import vanillaZapp from '@specui/vanilla-zapp/dist/generator-browser';
 import axios from 'axios';
 import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
@@ -55,11 +55,11 @@ function transform(input: InputObject): OutputObject[] {
   return result;
 }
 
-export interface ZappEditorProps {
+export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
 }
 
-export const ZappEditor: FC<ZappEditorProps> = ({ generator }) => {
+export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const spec = useSpecStore((state) => state.spec);
   const setSpec = useSpecStore((state) => state.setSpec);
 

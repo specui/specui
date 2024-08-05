@@ -33,8 +33,8 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, normalize } from 'path';
 
 import { getNodeListOutput } from './utils/getNodeListOutput';
+import { loadGenerator } from './utils/loadGenerator';
 import { loadSpec } from './utils/loadSpec';
-import { loadZappFile } from './utils/loadZappFile';
 import { pathListToNodeList } from './utils/pathListToNodeList';
 
 import pkg from './package.json';
@@ -46,8 +46,8 @@ async function generate({ force }: { force?: boolean }) {
   try {
     const { spec } = await loadSpec();
 
-    const zappFile = await loadZappFile(spec['$generator']);
-    const zapp = await zappFile(spec);
+    const generator = await loadGenerator(spec['$generator']);
+    const zapp = await generator(spec);
 
     const hash: Record<
       string,

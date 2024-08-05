@@ -121,7 +121,7 @@ export const DocsMenu: FC = () => {
           {page.children ? (
             <>
               <button
-                className="flex justify-between p-2 w-full whitespace-nowrap"
+                className="flex font-bold justify-between mt-8 p-2 text-gray-500 text-sm w-full whitespace-nowrap"
                 onClick={() => toggleSection(page.text)}
               >
                 {page.text}
@@ -131,14 +131,16 @@ export const DocsMenu: FC = () => {
                 />
               </button>
               {!collapsed.includes(page.text) && (
-                <ul className="ml-4">
+                <ul>
                   {page.children?.map((child) => (
                     <li key={child.url}>
                       <Link
-                        className={classNames('block p-2 rounded-md whitespace-nowrap', {
-                          'bg-slate-800': pathname === child.url,
-                          'font-bold': pathname === child.url,
-                        })}
+                        className={classNames(
+                          'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
+                          {
+                            'text-white': pathname === child.url,
+                          },
+                        )}
                         href={child.url}
                       >
                         {child.text}
@@ -150,10 +152,12 @@ export const DocsMenu: FC = () => {
             </>
           ) : (
             <Link
-              className={classNames('block p-2 rounded-md whitespace-nowrap', {
-                'bg-slate-800': pathname === page.url,
-                'font-bold': pathname === page.url,
-              })}
+              className={classNames(
+                'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
+                {
+                  'text-white': pathname === page.url,
+                },
+              )}
               href={page.url}
             >
               {page.text}

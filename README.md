@@ -6,7 +6,7 @@
 
 # SpecUI
 
-Write specs to build UIs.
+Build UIs with Specs.
 
 [![License](https://img.shields.io/github/license/specui/specui.svg?style=flat-square)](https://github.com/specui/specui/blob/mistress/LICENSE)
 [![npm](https://img.shields.io/npm/v/@specui/core?style=flat-square)](https://npm.im/@specui/core)

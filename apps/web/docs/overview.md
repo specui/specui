@@ -1,8 +1,14 @@
 ## SpecUI
 
-SpecUI is a dev tool for writing specs to build UIs.
+### What is SpecUI?
 
-If you're looking to automate code generation, maintain a consistent design pattern, keep your codebase up-to-date, and even facilitate codebase migrations, you're in the right place. SpecUI is a robust code generation tool designed to enhance your development workflow, making it more streamlined, efficient, and error-free.
+SpecUI is an open-source development tool used to build UIs with specs.
+
+### Why specs?
+
+Raw code is error prone, and can be messy and hard to keep up-to-date. If you've ever migrated AngularJS to Angular, Vue 2 to Vue 3, started using React hooks instead of component lifecycle methods, or switched from one framework / UI library to another; you know what I'm talking about.
+
+Specs are guard rails for making your code more efficient and your workflow more streamlined. They also live outside your code so it doesn't add any overhead or latency to your app.
 
 ### How Does It Work?
 

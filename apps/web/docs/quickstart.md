@@ -7,7 +7,7 @@ For an effortless start with a new SpecUI application, we suggest using create-z
 To initiate a new project, execute:
 
 ```
-specui new
+npx @specui/cli new
 ```
 
 During the setup, you will encounter prompts such as:
@@ -24,5 +24,5 @@ Once you complete these prompts, `specui` will establish a new folder named afte
 To experience SpecUI firsthand, navigate into the newly created directory and run:
 
 ```
-specui generate
+npx @specui/cli generate
 ```

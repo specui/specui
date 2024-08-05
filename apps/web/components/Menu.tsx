@@ -37,7 +37,7 @@ export const Menu: FC = () => {
           <li
             className={clsx(
               'text-center',
-              pathname === page.url ? 'text-blue-600' : 'text-gray-200 hover:text-white',
+              pathname.startsWith(page.url) ? 'text-blue-600' : 'text-gray-200 hover:text-white',
             )}
             key={page.url}
           >

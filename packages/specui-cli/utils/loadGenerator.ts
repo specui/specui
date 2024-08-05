@@ -1,10 +1,10 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-export const loadZappFile = async (dir = process.cwd()) => {
-  const zappDir = join(dir, '.zapp');
+export const loadGenerator = async (dir = process.cwd()) => {
+  const zappDir = join(dir, '.specui');
 
-  const possibleFiles = ['zapp.js', 'zapp.ts'];
+  const possibleFiles = ['generator.js', 'generator.ts'];
 
   for (const file of possibleFiles) {
     const filePath = join(zappDir, file);
@@ -14,5 +14,5 @@ export const loadZappFile = async (dir = process.cwd()) => {
     }
   }
 
-  throw new Error('No zapp file found.');
+  throw new Error('No generator found.');
 };
