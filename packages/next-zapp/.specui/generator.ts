@@ -958,7 +958,12 @@ export default async function generator(
       processor: PrettierProcessor(),
       engine: () => /*ts*/ `
         /** @type {import('next').NextConfig} */
-        const nextConfig = {}
+        const nextConfig = {
+          experimental: {
+            useWasmBinary: true,
+          },
+          swcMinify: false
+        }
 
         module.exports = nextConfig
       `,
@@ -991,7 +996,7 @@ export default async function generator(
           axios: '^1.6.0',
           clsx: '^2.1.1',
           kysely: '^0.26.3',
-          next: '14.0.0',
+          next: '14.1.1',
           react: '^18',
           'react-dom': '^18',
           'react-markdown': '^9.0.0',

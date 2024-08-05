@@ -1,5 +1,6 @@
 'use client';
 
+import { WebContainer } from '@webcontainer/api';
 import Editor from '@monaco-editor/react';
 import nextZapp from '@specui/next-zapp/dist/generator-browser';
 import vanillaZapp from '@specui/vanilla-zapp/dist/generator-browser';
@@ -13,6 +14,7 @@ import { EditorTreeView } from '@/components/EditorTreeView';
 import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
 import { useSpecStore } from '@/stores/spec';
+import { buildFileSystemTree } from '@/utils/buildFileSystemTree';
 
 type InputObject = { [key: string]: Buffer | string };
 type OutputObject = {
@@ -77,6 +79,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
   }, [spec]);
 
+  const emulator = useRef<any>();
   const [editor, setEditor] = useState<'visual' | 'yaml'>('visual');
   const [output, setOutput] = useState<'preview' | 'code'>('preview');
 
@@ -110,19 +113,62 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     handleGenerate();
   }, [handleGenerate]);
 
+  async function init(code: any) {
+    if (!iframeRef.current || !Object.keys(code).length || emulator.current) {
+      return;
+    }
+
+    emulator.current = true;
+
+    const webcontainerInstance = await WebContainer.boot();
+    await webcontainerInstance.mount(buildFileSystemTree(code));
+
+    const installProcess = await webcontainerInstance.spawn('npm', ['install']);
+    installProcess.output.pipeTo(
+      new WritableStream({
+        write(data) {
+          console.log(data);
+        },
+      }),
+    );
+
+    const installExitCode = await installProcess.exit;
+
+    if (installExitCode !== 0) {
+      throw new Error('Unable to run npm install');
+    }
+
+    const devProcess = await webcontainerInstance.spawn('npm', ['run', 'dev'], {
+      env: {
+        NEXT_DISABLE_SWC_WASM: 'true',
+      },
+    });
+    devProcess.output.pipeTo(
+      new WritableStream({
+        write(data) {
+          console.log(data);
+        },
+      }),
+    );
+
+    webcontainerInstance.on('server-ready', (port, url) => {
+      console.log(port);
+      console.log(url);
+      iframeRef.current!.src = url;
+    });
+  }
+
   useEffect(() => {
+    if (!iframeRef.current) {
+      return;
+    }
+
     if (generator === 'vanilla') {
-      iframeRef.current?.contentWindow?.document.open();
-      iframeRef.current?.contentWindow?.document.write(code['index.html'] as string);
-      iframeRef.current?.contentWindow?.document.close();
+      iframeRef.current.contentWindow?.document.open();
+      iframeRef.current.contentWindow?.document.write(code['index.html'] as string);
+      iframeRef.current.contentWindow?.document.close();
     } else {
-      setTimeout(() => {
-        iframeRef.current?.setAttribute('src', `about:blank`);
-        iframeRef.current?.setAttribute(
-          'src',
-          `${process.env.NEXT_PUBLIC_ZAPP_LIVE_APP}/api/auth/signin`,
-        );
-      }, 100);
+      init(code);
     }
   }, [generator, iframeRef, output, code]);
 
@@ -560,32 +606,11 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
       <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
           {output === 'preview' ? (
-            <>
-              {generator === 'vanilla' ? (
-                <iframe
-                  className="w-full"
-                  ref={iframeRef}
-                  title="Code preview using Vanilla code generator"
-                />
-              ) : !process.env.NEXT_PUBLIC_ZAPP_LIVE_APP ? (
-                <div className="flex flex-col gap-4 items-center justify-center w-full">
-                  <div className="text-lg">Next.js preview not available (yet)</div>
-                  <button
-                    className="bg-gray-950 px-8 py-2 rounded-xl text-xs md:text-base sm:text-sm"
-                    onClick={() => setOutput('code')}
-                  >
-                    View Code
-                  </button>
-                </div>
-              ) : (
-                <iframe
-                  className="w-full"
-                  ref={iframeRef}
-                  src={`${process.env.NEXT_PUBLIC_ZAPP_LIVE_APP}/api/auth/signin`}
-                  title="Code preview using Next.js code generator"
-                />
-              )}
-            </>
+            <iframe
+              className="w-full"
+              ref={iframeRef}
+              title="Code preview using Vanilla code generator"
+            />
           ) : (
             <>
               <div className="border-r border-r-gray-950 w-1/3">
