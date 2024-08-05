@@ -26,7 +26,7 @@ export function Menu() {
       <button className="md:hidden" onClick={() => setShow(!show)}>
         <MenuRounded className="text-4xl xs:text-3xl sm:text-2xl" />
       </button>
-      <ul className="hidden md:flex">
+      <ul className="gap-4 hidden md:flex">
         <MenuContent />
       </ul>
       <MobileMenu onSelect={() => setShow(!show)} show={show} />
