@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`}>
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   );
