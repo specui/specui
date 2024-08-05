@@ -1,8 +1,8 @@
 {
   "name": "@specui/next-zapp",
   "version": "0.0.1",
-  "main": "./dist/zapp.js",
-  "types": "./dist/zapp.d.ts",
+  "main": "./dist/generator.js",
+  "types": "./dist/generator.d.ts",
   "files": [
     "dist"
   ],

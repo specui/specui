@@ -4,7 +4,7 @@ import { join } from 'path';
 export const loadGenerator = async (dir = process.cwd()) => {
   const zappDir = join(dir, '.specui');
 
-  const possibleFiles = ['generator.js', 'generator.ts'];
+  const possibleFiles = ['generator-node.js', 'generator-node.ts'];
 
   for (const file of possibleFiles) {
     const filePath = join(zappDir, file);
