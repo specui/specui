@@ -1,6 +1,6 @@
 {
   "name": "@specui/next-zapp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./dist/zapp.js",
   "types": "./dist/zapp.d.ts",
   "files": [
