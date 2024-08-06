@@ -65,9 +65,7 @@ export interface ISpec {
         type?: string;
         text?: string;
         class?: string[];
-        style?: {
-          color?: string;
-        };
+        style?: Properties;
       }>;
     };
   };
@@ -96,18 +94,14 @@ export interface ISpec {
             type?: string;
             text?: string;
             class?: string[];
-            style?: {
-              color?: string;
-            };
+            style?: Properties;
           }>
         | {
             $ref: {
               type?: string;
               text?: string;
               class?: string[];
-              style?: {
-                color?: string;
-              };
+              style?: Properties;
             };
           };
     };
