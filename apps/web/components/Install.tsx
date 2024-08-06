@@ -15,7 +15,7 @@ export const Install = () => {
   };
 
   return (
-    <div className="border border-gray-500 flex gap-2 px-4 py-2 rounded-xl text-white text-xs md:text-base sm:text-sm">
+    <div className="border border-gray-500 flex gap-2 items-center px-4 py-2 rounded-xl text-white text-xs md:text-base sm:text-sm">
       <span>$</span>
       <span>npx @specui/cli generate</span>
       <button onClick={handleCopy}>{isCopied ? <Check /> : <ContentCopy />}</button>

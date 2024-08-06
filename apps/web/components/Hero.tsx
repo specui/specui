@@ -49,7 +49,7 @@ export const Hero: FC = () => {
       </h1>
       <div className="flex justify-center gap-4">
         <Link
-          className="bg-white border border-white px-4 py-2 rounded-xl text-black text-xs md:text-base sm:text-sm"
+          className="bg-white border border-white flex items-center justify-center px-4 py-2 rounded-xl text-black text-xs md:text-base sm:text-sm"
           href="/docs"
         >
           Get Started

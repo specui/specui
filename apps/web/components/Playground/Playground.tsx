@@ -13,57 +13,20 @@ import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EditorTreeView } from '@/components/EditorTreeView';
 import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
-import { useSpecStore } from '@/stores/spec';
+// import { useSpecStore } from '@/stores/spec';
 import { buildFileSystemTree } from '@/utils/buildFileSystemTree';
-
-type InputObject = { [key: string]: Buffer | string };
-type OutputObject = {
-  id: string;
-  name: string;
-  children?: OutputObject[];
-};
-
-function transform(input: InputObject): OutputObject[] {
-  const result: OutputObject[] = [];
-
-  for (const path in input) {
-    const parts = path.split('/');
-    let currentLevel: OutputObject[] = result;
-
-    parts.forEach((part, index) => {
-      let existingPart = currentLevel.find((item) => item.name === part);
-
-      if (index === parts.length - 1) {
-        currentLevel.push({
-          id: parts.slice(0, index + 1).join('/'),
-          name: part,
-        });
-        return;
-      }
-
-      if (!existingPart) {
-        existingPart = {
-          id: parts.slice(0, index + 1).join('/'),
-          name: part,
-          children: [],
-        };
-        currentLevel.push(existingPart);
-      }
-
-      currentLevel = existingPart.children!;
-    });
-  }
-
-  return result;
-}
+import { VanillaSpec } from '@/specs/VanillaSpec';
+import { NextSpec } from '@/specs/NextSpec';
+import { getEditorLanguage } from '@/utils/getEditorLanguage';
+import { transform } from '@/utils/transform';
 
 export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
 }
 
 export const Playground: FC<PlaygroundProps> = ({ generator }) => {
-  const spec = useSpecStore((state) => state.spec);
-  const setSpec = useSpecStore((state) => state.setSpec);
+  // const spec = useSpecStore((state) => state.spec);
+  // const setSpec = useSpecStore((state) => state.setSpec);
 
   const code = useEditorStore((state) => state.code);
   const setCode = useEditorStore((state) => state.setCode);
@@ -75,17 +38,22 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const value = useMemo(() => {
-    return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
-  }, [spec]);
+  // const value = useMemo(() => {
+  //   return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
+  // }, [spec]);
+
+  const editorLanguage = useMemo(() => getEditorLanguage(selected), [selected]);
 
   const emulator = useRef<any>();
-  const [editor, setEditor] = useState<'visual' | 'yaml'>('visual');
+  const [editor, setEditor] = useState<'visual' | 'yaml'>('yaml');
   const [output, setOutput] = useState<'preview' | 'code'>('preview');
+  const [value, setValue] = useState('');
 
   const handleGenerate = useCallback(async () => {
     const result =
-      generator === 'next' ? await nextZapp(spec as any) : await vanillaZapp(spec as any);
+      generator === 'next'
+        ? await nextZapp(safeLoad(value || '') as any)
+        : await vanillaZapp(safeLoad(value || '') as any);
     const data = transform(result);
 
     if (process.env.NEXT_PUBLIC_ZAPP_LIVE_API) {
@@ -107,7 +75,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
         setSelected('README.md');
       }
     }
-  }, [generator, setCode, setData, setSelected, selected, spec]);
+  }, [generator, setCode, setData, setSelected, selected, value]);
 
   useEffect(() => {
     handleGenerate();
@@ -174,221 +142,16 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
 
   useMemo(() => {
     if (generator === 'vanilla') {
-      setSpec({
-        app: {
-          title: 'Zapp',
-          name: 'my-app',
-          version: '1.0.0',
-          description: 'this is my cool app',
-          author: {
-            name: 'Super Coder',
-            email: 'info@example.org',
-            url: 'https://example.org/',
-          },
-          license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
-        },
-        components: {
-          header: {
-            type: 'header',
-            style: {
-              backgroundColor: 'darkgray',
-            },
-          },
-        },
-        pages: {
-          index: {
-            elements: [
-              {
-                type: 'component',
-                component: 'header',
-              },
-              {
-                type: 'h1',
-                text: 'Spec. Preview. Ship.',
-                style: {
-                  color: 'white',
-                  fontFamily: 'Georgia, serif',
-                  fontSize: '2em',
-                  marginBottom: '.5em',
-                  textAlign: 'center',
-                },
-              },
-              {
-                type: 'h2',
-                text: 'Build at lightning-speed',
-                style: {
-                  color: 'gray',
-                  fontFamily: 'Verdana, sans-serif',
-                  fontSize: '1em',
-                  textAlign: 'center',
-                },
-              },
-            ],
-          },
-        },
-        styles: {
-          body: {
-            alignItems: 'center',
-            backgroundColor: 'black',
-            color: 'white',
-            display: 'flex',
-            flexDirection: 'column',
-            fontFamily: 'sans-serif',
-            height: '100%',
-            justifyContent: 'center',
-          },
-          html: {
-            height: '100%',
-          },
-        },
-      });
+      setValue(
+        '# yaml-language-server: $schema=/schemas/vanilla-zapp-schema.json\n' +
+          safeDump(VanillaSpec),
+      );
     } else {
-      setSpec({
-        name: 'my-app',
-        version: '1.0.0',
-        description: 'this is my cool app',
-        author: {
-          name: 'Super Coder',
-          email: 'info@example.org',
-          url: 'https://example.org/',
-        },
-        license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
-        auth: {
-          providers: ['facebook', 'github', 'google'],
-        },
-        calls: {
-          createPost: {
-            request: {
-              title: {
-                required: true,
-                type: 'string',
-              },
-              summary: {
-                type: 'string',
-              },
-              content: {
-                required: true,
-                type: 'string',
-              },
-            },
-            response: {
-              id: {
-                required: true,
-                type: 'number',
-              },
-            },
-          },
-          getPost: {
-            request: {
-              id: {
-                type: 'number',
-              },
-            },
-            response: {
-              id: {
-                required: true,
-                type: 'number',
-              },
-              title: {
-                required: true,
-                type: 'string',
-              },
-              summary: {
-                type: 'string',
-              },
-              content: {
-                required: true,
-                type: 'string',
-              },
-            },
-          },
-        },
-        models: {
-          comment: {
-            attributes: {
-              content: {
-                type: 'string',
-              },
-              postId: {
-                type: 'number',
-              },
-              userId: {
-                unique: true,
-                type: 'string',
-              },
-            },
-          },
-          post: {
-            attributes: {
-              id: {
-                key: 'primary',
-                type: 'number',
-              },
-              title: {
-                unique: true,
-                type: 'string',
-              },
-              summary: {
-                type: 'string',
-              },
-              content: {
-                type: 'string',
-              },
-              slug: {
-                unique: true,
-                type: 'string',
-              },
-            },
-          },
-          user: {
-            attributes: {
-              id: {
-                key: 'primary',
-                type: 'number',
-              },
-              username: {
-                type: 'string',
-                unique: true,
-              },
-              socialId: {
-                type: 'number',
-              },
-              source: {
-                type: 'string',
-              },
-            },
-          },
-        },
-        pages: {
-          index: {
-            components: [
-              {
-                type: 'h1',
-                text: 'Spec. Preview. Ship.',
-                style: {
-                  color: 'white',
-                  fontFamily: 'Georgia, serif',
-                  fontSize: '2em',
-                  marginBottom: '.5em',
-                  textAlign: 'center',
-                },
-              },
-              {
-                type: 'h2',
-                text: 'Build at lightning-speed',
-                style: {
-                  color: 'gray',
-                  fontFamily: 'Verdana, sans-serif',
-                  fontSize: '1em',
-                  textAlign: 'center',
-                },
-              },
-            ],
-          },
-        },
-      });
+      setValue(
+        '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(NextSpec),
+      );
     }
-  }, [generator, setSpec]);
+  }, [generator]);
 
   useEffect(() => {
     window.MonacoEnvironment = {
@@ -434,7 +197,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
         {editor === 'yaml' && (
           <Editor
             language="yaml"
-            onChange={(value) => setSpec(safeLoad(value || '') as any)}
+            onChange={(value) => setValue(value || '')}
             beforeMount={(monaco) => {
               monaco.editor.defineTheme('my-theme', {
                 base: 'vs-dark',
@@ -573,7 +336,10 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
                         },
                       },
                     },
-                    uri: '/schemas/next-zapp-schema.json',
+                    uri:
+                      generator === 'next'
+                        ? '/schemas/next-zapp-schema.json'
+                        : '/schemas/vanilla-zapp-schema.json',
                   },
                 ],
               });
@@ -588,7 +354,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
           />
         )}
         {editor === 'visual' && <SpecEditor />}
-        <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
+        {/* <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
           <button
             className={clsx('px-2 rounded-lg', { 'bg-slate-700': editor === 'visual' })}
             onClick={() => setEditor('visual')}
@@ -601,7 +367,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
           >
             YAML
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
@@ -628,31 +394,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
                       },
                     });
                   }}
-                  language={
-                    selected.endsWith('.css')
-                      ? 'css'
-                      : selected.endsWith('.gitignore')
-                      ? 'shell'
-                      : selected.endsWith('.html')
-                      ? 'html'
-                      : selected.endsWith('.js')
-                      ? 'javascript'
-                      : selected.endsWith('.json')
-                      ? 'json'
-                      : selected.endsWith('.md')
-                      ? 'markdown'
-                      : selected.endsWith('.sass')
-                      ? 'sass'
-                      : selected.endsWith('.scss')
-                      ? 'scss'
-                      : selected.endsWith('.svg')
-                      ? 'xml'
-                      : selected.endsWith('.ts') || selected.endsWith('.tsx')
-                      ? 'typescript'
-                      : selected.endsWith('.yaml') || selected.endsWith('.yml')
-                      ? 'yaml'
-                      : 'text'
-                  }
+                  language={editorLanguage}
                   options={{
                     minimap: {
                       enabled: false,
