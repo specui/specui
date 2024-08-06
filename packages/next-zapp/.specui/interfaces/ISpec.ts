@@ -1,3 +1,5 @@
+import type { Properties } from 'csstype';
+
 type Provider = 'facebook' | 'github' | 'google';
 
 export interface ISpec {

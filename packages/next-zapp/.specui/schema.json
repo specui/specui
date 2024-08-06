@@ -1,83 +1,403 @@
 {
+  "$ref": "#/definitions/ISpec",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/Schema",
   "definitions": {
-    "Schema": {
-      "type": "object",
+    "ISpec": {
       "additionalProperties": false,
       "properties": {
-        "name": {
-          "description": "the name of the api",
-          "type": "string"
-        },
-        "version": {
-          "description": "the api version",
-          "type": "string"
-        },
-        "description": {
-          "description": "a description of the api",
-          "type": "string"
-        },
-        "license": {
-          "description": "the license type",
-          "enum": ["Apache-2.0", "GPL-2.0-only", "GPL-3.0-only", "ISC", "MIT"],
-          "type": "string"
-        },
-        "ignore": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "auth": {
-          "type": "object",
-          "properties": {
-            "providers": {
-              "type": "object",
-              "properties": {
-                "github": {
+        "actions": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "operations": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "type": "object"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "delete",
+                        "insert",
+                        "update",
+                        "revalidate",
+                        "redirect"
+                      ],
+                      "type": "string"
+                    },
+                    "where": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
                   "type": "object"
                 },
-                "google": {
+                "type": "array"
+              },
+              "props": {
+                "additionalProperties": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "enum": [
+                        "boolean",
+                        "number",
+                        "string"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
                   "type": "object"
-                }
+                },
+                "type": "object"
               }
+            },
+            "required": [
+              "props",
+              "operations"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "auth": {
+          "additionalProperties": false,
+          "properties": {
+            "providers": {
+              "items": {
+                "enum": [
+                  "facebook",
+                  "github",
+                  "google"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
-          }
+          },
+          "required": [
+            "providers"
+          ],
+          "type": "object"
+        },
+        "author": {
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "calls": {
-          "type": "object",
           "additionalProperties": {
-            "type": "object",
             "additionalProperties": false,
             "properties": {
               "request": {
-                "type": "object",
                 "additionalProperties": {
-                  "type": "object",
                   "additionalProperties": false,
                   "properties": {
+                    "required": {
+                      "type": "boolean"
+                    },
                     "type": {
-                      "enum": ["number", "string"]
+                      "enum": [
+                        "boolean",
+                        "number",
+                        "string"
+                      ],
+                      "type": "string"
                     }
-                  }
-                }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              "response": {
+                "additionalProperties": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "enum": [
+                        "boolean",
+                        "number",
+                        "string"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "object"
               }
-            }
-          }
+            },
+            "required": [
+              "request",
+              "response"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "components": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "elements": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "class": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "style": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "color": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "props": {
+                "additionalProperties": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "props",
+              "elements"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "license": {
+          "enum": [
+            "Apache-2.0",
+            "GPL-2.0-only",
+            "GPL-3.0-only",
+            "ISC",
+            "MIT"
+          ],
+          "type": "string"
         },
         "models": {
-          "type": "object",
           "additionalProperties": {
-            "request": {
-              "type": "object",
-              "additionalProperties": {
-                "enum": ["string"]
+            "additionalProperties": false,
+            "properties": {
+              "attributes": {
+                "additionalProperties": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": {
+                      "const": "primary",
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "boolean",
+                        "number",
+                        "string"
+                      ],
+                      "type": "string"
+                    },
+                    "unique": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "object"
               }
-            }
-          }
+            },
+            "required": [
+              "attributes"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pages": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "dataSources": {
+                "additionalProperties": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "model": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "const": "model",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              "elements": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "class": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "style": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "color": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "$ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "class": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "style": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "color": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "$ref"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "dataSources",
+              "elements"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "version": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "name",
+        "version",
+        "license",
+        "description"
+      ],
+      "type": "object"
     }
   }
 }

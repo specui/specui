@@ -1,48 +1,7 @@
 import { generate } from '@specui/core';
 import { PrettierProcessor } from '@specui/prettier/dist/standalone';
 import { paramCase } from 'change-case';
-
-export interface ISpec {
-  app: {
-    title: string;
-    name: string;
-    version: string;
-    license: 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
-    description: string;
-    author?: {
-      name?: string;
-      email?: string;
-      url?: string;
-    };
-  };
-  components: {
-    [name: string]: {
-      type?: string;
-      text?: string;
-      style?: {
-        color?: string;
-      };
-    };
-  };
-  pages: {
-    [name: string]: {
-      elements: Array<{
-        type?: string;
-        component?: string;
-        text?: string;
-        style?: {
-          color?: string;
-        };
-      }>;
-    };
-  };
-  styles: Record<
-    string,
-    {
-      backgroundColor: string;
-    }
-  >;
-}
+import { ISpec } from './interfaces/ISpec';
 
 export default async function zapp(spec: ISpec) {
   const components: {

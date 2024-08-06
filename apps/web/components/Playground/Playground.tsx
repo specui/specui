@@ -3,7 +3,9 @@
 import { WebContainer } from '@webcontainer/api';
 import Editor from '@monaco-editor/react';
 import nextZapp from '@specui/next-zapp/dist/generator-browser';
+import NextSchema from '@specui/next-zapp/.specui/schema.json';
 import vanillaZapp from '@specui/vanilla-zapp/dist/generator-browser';
+import VanillaSchema from '@specui/vanilla-zapp/.specui/schema.json';
 import axios from 'axios';
 import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
@@ -214,128 +216,9 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
                 schemas: [
                   {
                     fileMatch: [],
-                    schema: {
-                      type: 'object',
-                      additionalProperties: false,
-                      properties: {
-                        name: {
-                          description: 'the name of the api',
-                          type: 'string',
-                        },
-                        version: {
-                          description: 'the api version',
-                          type: 'string',
-                        },
-                        description: {
-                          description: 'a description of the api',
-                          type: 'string',
-                        },
-                        license: {
-                          description: 'the license type',
-                          enum: ['Apache-2.0', 'GPL-2.0-only', 'GPL-3.0-only', 'ISC', 'MIT'],
-                          type: 'string',
-                        },
-                        author: {
-                          description: 'the author',
-                          type: 'object',
-                          properties: {
-                            name: {
-                              type: 'string',
-                            },
-                            email: {
-                              type: 'string',
-                            },
-                            url: {
-                              type: 'string',
-                            },
-                          },
-                        },
-                        ignore: {
-                          type: 'array',
-                          items: {
-                            type: 'string',
-                          },
-                        },
-                        auth: {
-                          type: 'object',
-                          properties: {
-                            providers: {
-                              type: 'array',
-                              items: {
-                                enum: ['facebook', 'github', 'google'],
-                                type: 'string',
-                              },
-                            },
-                          },
-                        },
-                        calls: {
-                          type: 'object',
-                          additionalProperties: {
-                            type: 'object',
-                            additionalProperties: false,
-                            properties: {
-                              request: {
-                                type: 'object',
-                                additionalProperties: {
-                                  type: 'object',
-                                  additionalProperties: false,
-                                  properties: {
-                                    required: {
-                                      type: 'boolean',
-                                    },
-                                    type: {
-                                      enum: ['number', 'string'],
-                                    },
-                                  },
-                                },
-                              },
-                              response: {
-                                type: 'object',
-                                additionalProperties: {
-                                  type: 'object',
-                                  additionalProperties: false,
-                                  properties: {
-                                    required: {
-                                      type: 'boolean',
-                                    },
-                                    type: {
-                                      enum: ['number', 'string'],
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                        models: {
-                          type: 'object',
-                          additionalProperties: {
-                            type: 'object',
-                            properties: {
-                              attributes: {
-                                type: 'object',
-                                additionalProperties: {
-                                  type: 'object',
-                                  properties: {
-                                    key: {
-                                      enum: ['primary'],
-                                      type: 'string',
-                                    },
-                                    type: {
-                                      enum: ['boolean', 'number', 'string'],
-                                      type: 'string',
-                                    },
-                                    unique: {
-                                      type: 'boolean',
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    schema: (generator === 'next'
+                      ? NextSchema.definitions.ISpec
+                      : VanillaSchema) as any,
                     uri:
                       generator === 'next'
                         ? '/schemas/next-zapp-schema.json'
