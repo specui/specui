@@ -52,30 +52,34 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const [value, setValue] = useState('');
 
   const handleGenerate = useCallback(async () => {
-    const result =
-      generator === 'next'
-        ? await nextGenerator(safeLoad(value || '') as any)
-        : await vanillaGenerator(safeLoad(value || '') as any);
-    const data = transform(result);
+    try {
+      const spec = safeLoad(value || '') as any;
 
-    if (process.env.NEXT_PUBLIC_SPECUI_LIVE_API) {
-      axios({
-        method: 'POST',
-        url: `${process.env.NEXT_PUBLIC_SPECUI_LIVE_API}/update`,
-        data: {
-          files: result,
-        },
-      });
-    }
+      const result =
+        generator === 'next' ? await nextGenerator(spec) : await vanillaGenerator(spec);
+      const data = transform(result);
 
-    setCode(result);
-    setData(data);
-    if (!selected) {
-      if (generator === 'vanilla') {
-        setSelected('index.html');
-      } else {
-        setSelected('README.md');
+      if (process.env.NEXT_PUBLIC_SPECUI_LIVE_API) {
+        axios({
+          method: 'POST',
+          url: `${process.env.NEXT_PUBLIC_SPECUI_LIVE_API}/update`,
+          data: {
+            files: result,
+          },
+        });
       }
+
+      setCode(result);
+      setData(data);
+      if (!selected) {
+        if (generator === 'vanilla') {
+          setSelected('index.html');
+        } else {
+          setSelected('README.md');
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   }, [generator, setCode, setData, setSelected, selected, value]);
 

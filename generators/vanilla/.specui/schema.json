@@ -921,6 +921,9 @@
     "Element": {
       "additionalProperties": false,
       "properties": {
+        "alt": {
+          "type": "string"
+        },
         "component": {
           "type": "string"
         },
@@ -931,6 +934,15 @@
           "type": "array"
         },
         "href": {
+          "type": "string"
+        },
+        "onClick": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "src": {
           "type": "string"
         },
         "style": {
@@ -1000,30 +1012,11 @@
               "type": "string"
             }
           },
-          "required": [
-            "title",
-            "name",
-            "version",
-            "license",
-            "description"
-          ],
           "type": "object"
         },
         "components": {
           "additionalProperties": {
-            "additionalProperties": false,
-            "properties": {
-              "style": {
-                "$ref": "#/definitions/Properties"
-              },
-              "tag": {
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              }
-            },
-            "type": "object"
+            "$ref": "#/definitions/Element"
           },
           "type": "object"
         },
@@ -1052,12 +1045,6 @@
           "type": "object"
         }
       },
-      "required": [
-        "app",
-        "components",
-        "pages",
-        "styles"
-      ],
       "type": "object"
     },
     "Properties": {

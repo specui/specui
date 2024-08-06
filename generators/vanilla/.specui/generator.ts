@@ -9,8 +9,8 @@ export default async function generator(spec: ISpec, PrettierProcessor: IProcess
   const components: {
     [name: string]: string;
   } = {};
-  Object.entries(spec.components).forEach(([name, component]) => {
-    components[name] = `<${component.tag}>${component.text || ''}</${component.tag}>`;
+  Object.entries(spec.components ?? {}).forEach(([name, component]) => {
+    components[name] = `<${component.tag}>${component.text ?? ''}</${component.tag}>`;
   });
 
   function renderElements(
@@ -21,36 +21,47 @@ export default async function generator(spec: ISpec, PrettierProcessor: IProcess
     html: string;
   }> {
     return elements.map((element, index) => {
-      const className = `${elementTag}${index}_${element.tag}`;
+      const tag = element.tag ?? 'div';
+      const className = `${elementTag}${index}_${tag}`;
 
       const children = element.elements
         ? renderElements(element.elements, `${className}_`)
         : undefined;
 
-      const attributes = {
+      const attributes = Object.entries({
+        alt: element.alt,
         class: className,
         href: element.href,
-      };
+        src: element.src,
+        onClick: element.onClick,
+      })
+        .filter(([, value]) => value !== undefined)
+        .map(([key, value]) =>
+          key === 'onClick' && typeof value === 'object'
+            ? `${key.toLowerCase()}="${Object.keys(value)[0]}('${Object.values(value)}')"`
+            : `${key}="${value}"`,
+        )
+        .join(' ');
 
       return {
         css:
-          `.${className} {${Object.entries(element.style || [])
+          `.${className} {${Object.entries(element.style ?? [])
             .map(([key, value]) => `${paramCase(key)}: ${value}`)
             .join(';')}}\n` +
           (children ? '\n' + children.map((child) => child.css).join('\n') : ''),
         html:
-          element.tag === 'component' && element.component
+          tag === 'component' && element.component
             ? components[element.component]
+            : ['img', 'input'].includes(tag ?? '')
+            ? `<${tag} ${attributes} />`
             : children
-            ? `<${element.tag} ${Object.entries(attributes)
-                .map(([key, value]) => `${key}="${value}"`)
-                .join(' ')}>${children.map((child) => child.html).join('\n')}</${element.tag}>`
-            : `<${element.tag} class=${className}>${element.text || ''}</${element.tag}>`,
+            ? `<${tag} ${attributes}>${children.map((child) => child.html).join('\n')}</${tag}>`
+            : `<${tag} ${attributes}>${element.text ?? ''}</${tag}>`,
       };
     });
   }
 
-  const elements = renderElements(spec.pages.index.elements);
+  const elements = renderElements(spec.pages?.index.elements ?? []);
 
   return {
     'index.html': await generate({
@@ -62,7 +73,7 @@ export default async function generator(spec: ISpec, PrettierProcessor: IProcess
 
         <html>
           <head>
-            <title>Home | ${spec.app.title}</title>
+            <title>Home | ${spec.app?.title}</title>
             <link rel="stylesheet" href="style.css" />
           </head>
           <body>
@@ -76,7 +87,7 @@ export default async function generator(spec: ISpec, PrettierProcessor: IProcess
         parser: 'css',
       }),
       engine: async () => /* css */ `
-        ${Object.entries(spec.styles)
+        ${Object.entries(spec.styles ?? {})
           .map(
             ([selector, style]) =>
               `${selector} {${Object.entries(style)

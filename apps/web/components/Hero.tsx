@@ -7,38 +7,42 @@ import { Install } from '@/components/Install';
 import Link from 'next/link';
 
 const spec1 = `
-name: my-app
-title: My App
-version: 1.0.0
+app:
+  name: my-app
+  title: My App
+  version: 1.0.0
 pages:
-  home:
-    title: Home
+  index:
     elements:
-      - tag: div
+      - tag: section
         style:
-          flex:
-            direction: column
-            items: center
-            justify: center
-        content:
+          alignItems: center
+          display: flex
+          flexDirection: column
+          justifyContent: center
+          height: 100dvh
+        elements:
           - tag: h1
-            content: Hello World
+            text: Hello World
           - tag: button
-            content: Click me
+            text: Click me
             onClick:
               alert: 🎉
-colors:
-  primary: '#3b82f6'
 styles:
+  body:
+    backgroundColor: black
+    color: white
+    fontFamily: sans-serif
+    margin: 0
   button:
-    background:
-      color: primary
-    border:
-      radius: 1rem
-    padding: 2rem
+    backgroundColor: '#3b82f6'
+    border: none
+    borderRadius: 1rem
+    color: white
+    cursor: pointer
+    padding: 1rem
   h1:
-    font:
-      size: 1.5rem
+    fontSize: 1.5rem
 `;
 
 export const Hero: FC = () => {
@@ -50,9 +54,9 @@ export const Hero: FC = () => {
       <div className="flex justify-center gap-4">
         <Link
           className="bg-white border border-white flex items-center justify-center px-4 py-2 rounded-xl text-black text-xs md:text-base sm:text-sm"
-          href="/docs"
+          href="/playground"
         >
-          Get Started
+          Try It Online
         </Link>
         <Install />
       </div>
