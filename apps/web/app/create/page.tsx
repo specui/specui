@@ -59,7 +59,7 @@ export default function Home() {
           <div>Create</div>
         </h1>
         <h2 className="text-center text-gray-400 text-xs w-1/3 md:text-base sm:text-sm">
-          Choose a Zapp code generator
+          Choose a SpecUI code generator
         </h2>
         <div className="flex justify-center gap-4">
           <Link

@@ -3,7 +3,7 @@
   "name": "vercel-dashboard-mba",
   "version": "0.0.0",
   "scripts": {
-    "generate": "zapp generate",
+    "generate": "specui generate",
     "tauri": "tauri"
   },
   "dependencies": {

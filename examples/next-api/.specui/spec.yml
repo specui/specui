@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../node_modules/@specui/next-zapp/.zapp/schema.json
+# yaml-language-server: $schema=../node_modules/@specui/next-generator/.specui/schema.json
 name: next-api-example
 version: 1.0.0
 description: example of a generated Next.js API

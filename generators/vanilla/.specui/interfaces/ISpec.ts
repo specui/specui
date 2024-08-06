@@ -1,5 +1,14 @@
 import type { Properties } from 'csstype';
 
+export interface Element {
+  tag?: string;
+  component?: string;
+  text?: string;
+  style?: Properties;
+  elements?: Element[];
+  href?: string;
+}
+
 export interface ISpec {
   app: {
     title: string;
@@ -15,19 +24,14 @@ export interface ISpec {
   };
   components: {
     [name: string]: {
-      type?: string;
+      tag?: string;
       text?: string;
       style?: Properties;
     };
   };
   pages: {
     [name: string]: {
-      elements: Array<{
-        type?: string;
-        component?: string;
-        text?: string;
-        style?: Properties;
-      }>;
+      elements: Array<Element>;
     };
   };
   styles: Record<string, Properties>;

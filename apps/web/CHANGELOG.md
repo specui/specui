@@ -4,5 +4,5 @@
 
 ### Patch Changes
 
-- @specui/next-zapp@0.0.1
-- @specui/vanilla-zapp@0.0.1
+- @specui/next-generator@0.0.1
+- @specui/vanilla-generator@0.0.1

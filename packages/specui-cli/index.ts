@@ -47,7 +47,7 @@ async function generate({ force }: { force?: boolean }) {
     const { spec } = await loadSpec();
 
     const generator = await loadGenerator(spec['$generator']);
-    const zapp = await generator(spec);
+    const files = await generator(spec);
 
     const hash: Record<
       string,
@@ -59,7 +59,7 @@ async function generate({ force }: { force?: boolean }) {
 
     // generate code
     await Promise.all(
-      Object.entries(zapp).map(async ([fileName, generator]) => {
+      Object.entries(files).map(async ([fileName, generator]) => {
         const fileContents = await generator;
         const filePath = normalize(fileName);
 

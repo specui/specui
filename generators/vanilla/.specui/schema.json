@@ -918,6 +918,33 @@
       ],
       "type": "string"
     },
+    "Element": {
+      "additionalProperties": false,
+      "properties": {
+        "component": {
+          "type": "string"
+        },
+        "elements": {
+          "items": {
+            "$ref": "#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "href": {
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/definitions/Properties"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "Globals": {
       "enum": [
         "-moz-initial",
@@ -989,10 +1016,10 @@
               "style": {
                 "$ref": "#/definitions/Properties"
               },
-              "text": {
+              "tag": {
                 "type": "string"
               },
-              "type": {
+              "text": {
                 "type": "string"
               }
             },
@@ -1006,22 +1033,7 @@
             "properties": {
               "elements": {
                 "items": {
-                  "additionalProperties": false,
-                  "properties": {
-                    "component": {
-                      "type": "string"
-                    },
-                    "style": {
-                      "$ref": "#/definitions/Properties"
-                    },
-                    "text": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
+                  "$ref": "#/definitions/Element"
                 },
                 "type": "array"
               }

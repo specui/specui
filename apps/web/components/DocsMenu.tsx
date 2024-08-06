@@ -46,10 +46,6 @@ const pages = [
         text: 'Processors',
         url: '/docs/components/processors',
       },
-      {
-        text: 'Zapps',
-        url: '/docs/components/zapps',
-      },
     ],
   },
   {

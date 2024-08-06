@@ -15,7 +15,7 @@ npm run tauri dev
 
 ## Update Spec
 
-If you want to generate an MBA for another web app, edit the spec in `.zapp/spec.yml`.
+If you want to generate an MBA for another web app, edit the spec in `.specui/spec.yml`.
 
 Here is an example for ChatGPT:
 
@@ -40,7 +40,7 @@ npm run tauri dev
 
 ## Change Icon
 
-To change the icon, swap out `.zapp/icon.svg` for another SVG icon.
+To change the icon, swap out `.specui/icon.svg` for another SVG icon.
 
 ## License
 

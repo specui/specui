@@ -1,4 +1,4 @@
-# @specui/next-zapp
+# @specui/next-generator
 
 ## 0.0.1
 

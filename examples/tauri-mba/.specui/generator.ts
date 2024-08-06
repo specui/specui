@@ -27,7 +27,7 @@ interface Spec {
   };
 }
 
-export default async function zapp(spec: Spec) {
+export default async function generator(spec: Spec) {
   const icon = await readFile(`${__dirname}/icon.svg`);
 
   const icons: Record<string, Buffer> = {};

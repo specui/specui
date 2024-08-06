@@ -1,1 +1,1 @@
-export { default } from '@specui/next-zapp';
+export { default } from '@specui/next-generator';

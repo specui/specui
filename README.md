@@ -38,10 +38,10 @@ Go to https://specui.org/playground
 
 ### Get Started Locally
 
-The fastest way to create a Zapp-enabled project:
+The fastest way to create a SpecUI project:
 
 ```bash
-npx @specui/cli
+npx @specui/cli new
 ```
 
 ## Docs
@@ -50,7 +50,7 @@ Read the docs: https://specui.org/docs
 
 ## Example
 
-Below is a very basic example using the **next-zapp** code generator to generate code for a Next.js app.
+Below is a very basic example using the **@specui/next-generator** code generator to generate code for a Next.js app.
 
 ### Input (Spec)
 
@@ -138,13 +138,13 @@ tsconfig.json
 ## Features
 
 - **Continuous Code Generation**: Update existing files based on new specs or logic.
-- **Spec-Driven**: Specs guide what Zapp generates, making sure everything is in line with your requirements.
+- **Spec-Driven**: Specs guide what SpecUI generates, making sure everything is in line with your requirements.
 - **Versatile**: Generate everything from UI components to APIs, configurations, and even entire mobile apps.
 - **Framework Agnostic**: Use SpecUI to build UIs for React, Vue, Angular and Vanilla JS.
 
 ## How Does It Work?
 
-SpecUI uses a spec to understand what to generate. Specs are versatile, and you can write them in TypeScript, JSON, or YAML. Zapp then processes this spec through various components like Generators, Templates, and Processors to produce the end code.
+SpecUI uses a spec to understand what to generate. Specs are versatile, and you can write them in TypeScript, JSON, or YAML. SpecUI then processes this spec through various components like Generators, Templates, and Processors to produce the end code.
 
 <img src="https://github.com/specui/specui/blob/main/images/lifecycle.png" />
 

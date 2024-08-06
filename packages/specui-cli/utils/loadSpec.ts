@@ -3,7 +3,7 @@ import { extname, join } from 'path';
 import { parse } from 'yaml';
 
 export const loadSpec = async (dir = process.cwd()) => {
-  const files = ['spec.yaml', 'spec.yml', 'spec.json', 'zapp.js', 'zapp.ts'];
+  const files = ['spec.yaml', 'spec.yml', 'spec.json', 'spec.js', 'spec.ts'];
   const possibleFiles = files.concat(files.map((file) => `.specui/${file}`));
 
   for (const file of possibleFiles) {
@@ -33,7 +33,7 @@ export const loadSpec = async (dir = process.cwd()) => {
           };
 
         default:
-          throw new Error(`Unsupported zapp format: ${extension}`);
+          throw new Error(`Unsupported SpecUI format: ${extension}`);
       }
     }
   }

@@ -2,10 +2,10 @@
 
 import { WebContainer } from '@webcontainer/api';
 import Editor from '@monaco-editor/react';
-import nextZapp from '@specui/next-zapp/dist/generator-browser';
-import NextSchema from '@specui/next-zapp/.specui/schema.json';
-import vanillaZapp from '@specui/vanilla-zapp/dist/generator-browser';
-import VanillaSchema from '@specui/vanilla-zapp/.specui/schema.json';
+import nextGenerator from '@specui/next-generator/dist/generator-browser';
+import NextSchema from '@specui/next-generator/.specui/schema.json';
+import vanillaGenerator from '@specui/vanilla-generator/dist/generator-browser';
+import VanillaSchema from '@specui/vanilla-generator/.specui/schema.json';
 import axios from 'axios';
 import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
@@ -41,7 +41,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // const value = useMemo(() => {
-  //   return '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(spec);
+  //   return '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + safeDump(spec);
   // }, [spec]);
 
   const editorLanguage = useMemo(() => getEditorLanguage(selected), [selected]);
@@ -54,14 +54,14 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const handleGenerate = useCallback(async () => {
     const result =
       generator === 'next'
-        ? await nextZapp(safeLoad(value || '') as any)
-        : await vanillaZapp(safeLoad(value || '') as any);
+        ? await nextGenerator(safeLoad(value || '') as any)
+        : await vanillaGenerator(safeLoad(value || '') as any);
     const data = transform(result);
 
-    if (process.env.NEXT_PUBLIC_ZAPP_LIVE_API) {
+    if (process.env.NEXT_PUBLIC_SPECUI_LIVE_API) {
       axios({
         method: 'POST',
-        url: `${process.env.NEXT_PUBLIC_ZAPP_LIVE_API}/update`,
+        url: `${process.env.NEXT_PUBLIC_SPECUI_LIVE_API}/update`,
         data: {
           files: result,
         },
@@ -136,6 +136,9 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     if (generator === 'vanilla') {
       iframeRef.current.contentWindow?.document.open();
       iframeRef.current.contentWindow?.document.write(code['index.html'] as string);
+      iframeRef.current.contentWindow?.document.write(
+        `<style type="text/css">${code['style.css'] as string}</style>`,
+      );
       iframeRef.current.contentWindow?.document.close();
     } else {
       init(code);
@@ -145,12 +148,13 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   useMemo(() => {
     if (generator === 'vanilla') {
       setValue(
-        '# yaml-language-server: $schema=/schemas/vanilla-zapp-schema.json\n' +
+        '# yaml-language-server: $schema=/schemas/vanilla-generator-schema.json\n' +
           safeDump(VanillaSpec),
       );
     } else {
       setValue(
-        '# yaml-language-server: $schema=/schemas/next-zapp-schema.json\n' + safeDump(NextSpec),
+        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' +
+          safeDump(NextSpec),
       );
     }
   }, [generator]);
@@ -221,8 +225,8 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
                       : VanillaSchema) as any,
                     uri:
                       generator === 'next'
-                        ? '/schemas/next-zapp-schema.json'
-                        : '/schemas/vanilla-zapp-schema.json',
+                        ? '/schemas/next-generator-schema.json'
+                        : '/schemas/vanilla-generator-schema.json',
                   },
                 ],
               });

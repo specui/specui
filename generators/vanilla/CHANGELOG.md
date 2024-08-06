@@ -1,4 +1,4 @@
-# @specui/vanilla-zapp
+# @specui/vanilla-generator
 
 ## 0.0.1
 

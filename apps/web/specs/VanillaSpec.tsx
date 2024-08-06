@@ -13,7 +13,7 @@ export const VanillaSpec = {
   },
   components: {
     header: {
-      type: 'header',
+      tag: 'header',
       style: {
         backgroundColor: 'darkgray',
       },
@@ -23,29 +23,30 @@ export const VanillaSpec = {
     index: {
       elements: [
         {
-          type: 'component',
-          component: 'header',
-        },
-        {
-          type: 'h1',
-          text: 'Spec. Preview. Ship.',
-          style: {
-            color: 'white',
-            fontFamily: 'Georgia, serif',
-            fontSize: '2em',
-            marginBottom: '.5em',
-            textAlign: 'center',
-          },
-        },
-        {
-          type: 'h2',
-          text: 'Build at lightning-speed',
-          style: {
-            color: 'gray',
-            fontFamily: 'Verdana, sans-serif',
-            fontSize: '1em',
-            textAlign: 'center',
-          },
+          tag: 'header',
+          elements: [
+            {
+              tag: 'h1',
+              text: 'Spec. Preview. Ship.',
+              style: {
+                color: 'white',
+                fontFamily: 'Georgia, serif',
+                fontSize: '2em',
+                marginBottom: '.5em',
+                textAlign: 'center',
+              },
+            },
+            {
+              tag: 'h2',
+              text: 'Build at lightning-speed',
+              style: {
+                color: 'gray',
+                fontFamily: 'Verdana, sans-serif',
+                fontSize: '1em',
+                textAlign: 'center',
+              },
+            },
+          ],
         },
       ],
     },

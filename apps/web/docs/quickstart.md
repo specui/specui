@@ -2,7 +2,7 @@
 
 ### Simplified Setup Process
 
-For an effortless start with a new SpecUI application, we suggest using create-zapp-app. This tool automatically configures your setup.
+For an effortless start with a new SpecUI application, we suggest using create-specui-app. This tool automatically configures your setup.
 
 To initiate a new project, execute:
 
