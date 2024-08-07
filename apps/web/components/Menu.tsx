@@ -43,7 +43,9 @@ function MenuContent({ onSelect }: { onSelect?: () => void }) {
         <li
           className={clsx(
             'text-center',
-            pathname.startsWith(page.url) ? 'text-blue-600' : 'text-gray-200 hover:text-white',
+            pathname.startsWith(page.url)
+              ? 'text-blue-400'
+              : 'text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-white',
           )}
           key={page.url}
         >

@@ -14,3 +14,11 @@
 .content h5 {
   font-size: 1.25rem !important;
 }
+
+.content pre {
+  background-color: rgb(var(--foreground-rgb));
+  border-radius: 10px;
+  color: rgb(var(--background-rgb));
+  font-size: 0.75rem !important;
+  padding: 10px;
+}

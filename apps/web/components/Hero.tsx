@@ -53,7 +53,7 @@ export const Hero: FC = () => {
       </h1>
       <div className="flex justify-center gap-4">
         <Link
-          className="bg-white border border-white flex items-center justify-center px-4 py-2 rounded-xl text-black text-xs md:text-base sm:text-sm"
+          className="bg-black border border-black flex items-center justify-center px-4 py-2 rounded-xl text-white text-xs md:text-base sm:text-sm dark:bg-white dark:border-white dark:text-black"
           href="/playground"
         >
           Try It Online
@@ -68,7 +68,7 @@ export const Hero: FC = () => {
           <CodeSnippet className="col-span-2 md:col-span-1" title="Home | My App">
             <div className="h-full">
               <div className="flex flex-col gap-2 h-96 items-center justify-center">
-                <h1 className="text-2xl">Hello World</h1>
+                <h1 className="text-black text-2xl dark:text-white">Hello World</h1>
                 <button className="bg-blue-500 p-2 rounded-xl" onClick={() => alert('🎉')}>
                   Click me
                 </button>

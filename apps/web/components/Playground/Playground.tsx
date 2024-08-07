@@ -17,6 +17,7 @@ import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
 // import { useSpecStore } from '@/stores/spec';
 import { buildFileSystemTree } from '@/utils/buildFileSystemTree';
+import cn from '@/utils/cn';
 import { VanillaSpec } from '@/specs/VanillaSpec';
 import { NextSpec } from '@/specs/NextSpec';
 import { getEditorLanguage } from '@/utils/getEditorLanguage';
@@ -38,6 +39,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const selected = useEditorStore((state) => state.selected);
   const setSelected = useEditorStore((state) => state.setSelected);
 
+  const bootRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // const value = useMemo(() => {
@@ -48,7 +50,10 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
 
   const emulator = useRef<any>();
   const [editor, setEditor] = useState<'visual' | 'yaml'>('yaml');
+  const [isBootingUp, setIsBootingUp] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
   const [output, setOutput] = useState<'preview' | 'code'>('preview');
+  const [theme, setTheme] = useState('');
   const [value, setValue] = useState('');
 
   const handleGenerate = useCallback(async () => {
@@ -94,6 +99,8 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
 
     emulator.current = true;
 
+    setIsBootingUp(true);
+
     const webcontainerInstance = await WebContainer.boot();
     await webcontainerInstance.mount(buildFileSystemTree(code));
 
@@ -101,7 +108,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     installProcess.output.pipeTo(
       new WritableStream({
         write(data) {
-          console.log(data);
+          setLog((current) => current.concat(data));
         },
       }),
     );
@@ -120,14 +127,17 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     devProcess.output.pipeTo(
       new WritableStream({
         write(data) {
-          console.log(data);
+          setLog((current) => {
+            if (data.includes('Compiled ')) {
+              setIsBootingUp(false);
+            }
+            return current.concat(data);
+          });
         },
       }),
     );
 
     webcontainerInstance.on('server-ready', (port, url) => {
-      console.log(port);
-      console.log(url);
       iframeRef.current!.src = url;
     });
   }
@@ -164,6 +174,22 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   }, [generator]);
 
   useEffect(() => {
+    if (!bootRef.current) {
+      return;
+    }
+    bootRef.current.scrollTo(0, bootRef.current.scrollHeight);
+  }, [log]);
+
+  useEffect(() => {
+    const updateTheme = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? 'my-dark-theme' : 'my-light-theme');
+    };
+
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    setTheme(prefersDarkScheme.matches ? 'my-dark-theme' : 'my-light-theme');
+
+    prefersDarkScheme.addEventListener('change', updateTheme);
+
     window.MonacoEnvironment = {
       getWorker(_, label) {
         switch (label) {
@@ -199,22 +225,35 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
         }
       },
     };
+
+    return () => {
+      prefersDarkScheme.removeEventListener('change', updateTheme);
+    };
   }, []);
 
   return (
-    <div className="bg-gray-900 flex flex-col md:flex-row" style={{ height: '100%' }}>
-      <div className="border-r border-r-gray-950 h-1/2 relative w-full md:h-full md:w-1/2">
-        {editor === 'yaml' && (
+    <div className="flex flex-col md:flex-row" style={{ height: '100%' }}>
+      <div className="border-r border-r-gray-200 divide-red-200 h-1/2 relative w-full md:h-full md:w-1/2 dark:border-r-gray-900">
+        {editor === 'yaml' && theme && (
           <Editor
             language="yaml"
             onChange={(value) => setValue(value || '')}
             beforeMount={(monaco) => {
-              monaco.editor.defineTheme('my-theme', {
+              monaco.editor.defineTheme('my-light-theme', {
+                base: 'vs',
+                inherit: true,
+                rules: [],
+                colors: {
+                  'editor.background': '#FFFFFF',
+                },
+              });
+
+              monaco.editor.defineTheme('my-dark-theme', {
                 base: 'vs-dark',
                 inherit: true,
                 rules: [],
                 colors: {
-                  'editor.background': '#111827',
+                  'editor.background': '#000000',
                 },
               });
             }}
@@ -236,11 +275,13 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
               });
             }}
             options={{
+              fontFamily: 'var(--font-geist-mono)',
+              fontWeight: '200',
               minimap: {
                 enabled: false,
               },
             }}
-            theme="my-theme"
+            theme={theme}
             value={value}
           />
         )}
@@ -262,37 +303,71 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
       </div>
       <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
-          {output === 'preview' ? (
-            <iframe
-              className="w-full"
-              ref={iframeRef}
-              title="Code preview using Vanilla code generator"
-            />
-          ) : (
+          {output === 'preview' && (
             <>
-              <div className="border-r border-r-gray-950 w-1/3">
+              {isBootingUp && (
+                <div className="h-full overflow-scroll w-full" ref={bootRef}>
+                  <ul className="font-mono text-xs">
+                    <li>Booting...</li>
+                    {log.map((l, index) => (
+                      <li key={`log-${index}`}>{l}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <iframe
+                className={cn('hidden w-full', {
+                  block: !isBootingUp,
+                })}
+                ref={iframeRef}
+                title="Code preview using Vanilla code generator"
+              />
+            </>
+          )}
+          {output === 'code' && (
+            <>
+              <div className="border-r border-r-gray-200 w-1/3 dark:border-r-gray-900">
                 <EditorTreeView />
               </div>
               <div className="w-2/3">
                 <Editor
                   beforeMount={(monaco) => {
-                    monaco.editor.defineTheme('my-theme', {
+                    monaco.editor.defineTheme('my-light-theme', {
+                      base: 'vs',
+                      inherit: true,
+                      rules: [],
+                      colors: {
+                        'editor.background': '#FFFFFF',
+                      },
+                    });
+
+                    monaco.editor.defineTheme('my-dark-theme', {
                       base: 'vs-dark',
                       inherit: true,
                       rules: [],
                       colors: {
-                        'editor.background': '#111827',
+                        'editor.background': '#000000',
                       },
+                    });
+
+                    monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+                      jsx: monaco.languages.typescript.JsxEmit.React,
+                      addExtraLib: true,
+                      noSemanticValidation: false,
+                      noSyntaxValidation: false,
                     });
                   }}
                   language={editorLanguage}
                   options={{
+                    fontFamily: 'var(--font-geist-mono)',
+                    fontWeight: '200',
                     minimap: {
                       enabled: false,
                     },
                     readOnly: true,
                   }}
-                  theme="my-theme"
+                  theme={theme}
                   value={code[selected] as string}
                 />
               </div>
@@ -301,13 +376,13 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
         </div>
         <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
           <button
-            className={clsx('px-2 rounded-lg', { 'bg-slate-700': output === 'preview' })}
+            className={clsx('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'preview' })}
             onClick={() => setOutput('preview')}
           >
             Preview
           </button>
           <button
-            className={clsx('px-2 rounded-lg', { 'bg-slate-700': output === 'code' })}
+            className={clsx('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'code' })}
             onClick={() => setOutput('code')}
           >
             Code

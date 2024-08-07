@@ -2,6 +2,31 @@ import type { Properties } from 'csstype';
 
 type Provider = 'facebook' | 'github' | 'google';
 
+export interface Page {
+  dataSources: Record<
+    string,
+    {
+      type: 'model';
+      model?: string;
+    }
+  >;
+  elements:
+    | Array<{
+        type?: string;
+        text?: string;
+        class?: string[];
+        style?: Properties;
+      }>
+    | {
+        $ref: {
+          type?: string;
+          text?: string;
+          class?: string[];
+          style?: Properties;
+        };
+      };
+}
+
 export interface ISpec {
   name: string;
   version: string;
@@ -81,29 +106,6 @@ export interface ISpec {
     };
   };
   pages?: {
-    [name: string]: {
-      dataSources: Record<
-        string,
-        {
-          type: 'model';
-          model?: string;
-        }
-      >;
-      elements:
-        | Array<{
-            type?: string;
-            text?: string;
-            class?: string[];
-            style?: Properties;
-          }>
-        | {
-            $ref: {
-              type?: string;
-              text?: string;
-              class?: string[];
-              style?: Properties;
-            };
-          };
-    };
+    [name: string]: Page;
   };
 }

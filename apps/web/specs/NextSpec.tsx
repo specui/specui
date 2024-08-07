@@ -117,27 +117,16 @@ export const NextSpec = {
   },
   pages: {
     index: {
-      components: [
+      elements: [
         {
-          type: 'h1',
+          tag: 'h1',
           text: 'Spec. Preview. Ship.',
-          style: {
-            color: 'white',
-            fontFamily: 'Georgia, serif',
-            fontSize: '2em',
-            marginBottom: '.5em',
-            textAlign: 'center',
-          },
+          class: ['font-sans', 'mb-2', 'text-2xl', 'text-center', 'text-white'],
         },
         {
-          type: 'h2',
+          tag: 'h2',
           text: 'Build at lightning-speed',
-          style: {
-            color: 'gray',
-            fontFamily: 'Verdana, sans-serif',
-            fontSize: '1em',
-            textAlign: 'center',
-          },
+          class: ['font-sans-serif', 'font-lg', 'text-center', 'text-gray'],
         },
       ],
     },

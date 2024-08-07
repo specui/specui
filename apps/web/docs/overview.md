@@ -4,6 +4,37 @@
 
 SpecUI is an open-source development tool used to build UIs with specs.
 
+Or, more simply put:
+
+Input: Specs > Output: UIs
+
+### What are specs?
+
+Specs (or "specifications") are documents that describe applications.
+
+The most well-known spec tool is OpenAPI / Swagger, used to describe APIs.
+
+SpecUI, however, uses specs to describe UIs. Here is a basic example:
+
+```yaml
+elements:
+  - tag: h1
+    text: Hello World
+  - tag: button
+    text: Click me
+    onClick:
+      alert: 🎉
+```
+
+This can be used to generate HTML such as:
+
+```html
+<h1>Hello World</h1>
+<button onclick="alert('🎉')">Click me</button>
+```
+
+YAML, JSON, JS and TS are supported.
+
 ### Why specs?
 
 Raw code is error prone, and can be messy and hard to keep up-to-date. If you've ever migrated AngularJS to Angular, Vue 2 to Vue 3, started using React hooks instead of component lifecycle methods, or switched from one framework / UI library to another; you know what I'm talking about.

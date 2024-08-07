@@ -22,12 +22,17 @@ export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   return (
-    <div className={cn('border border-gray-800 rounded-md text-white', className)}>
+    <div
+      className={cn('border border-gray-200 rounded-md text-white dark:border-gray-800', className)}
+    >
       <div
-        className={cn(`border-b border-gray-900 flex gap-2 items-center justify-center`, {
-          'p-x-3 p-t-3': Boolean(tabs),
-          'p-3': !tabs,
-        })}
+        className={cn(
+          `border-b border-gray-200 flex gap-2 items-center justify-center dark:border-gray-900`,
+          {
+            'p-x-3 p-t-3': Boolean(tabs),
+            'p-3': !tabs,
+          },
+        )}
       >
         <div className="border border-gray-600 rounded-full w-3 h-3" />
         <div className="border border-gray-600 rounded-full w-3 h-3" />
@@ -98,7 +103,7 @@ export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs 
               color: '#be4678',
             },
             'hljs-number': {
-              color: 'white',
+              color: 'rgb(var(--foreground-rgb)',
             },
             'hljs-meta': {
               color: '#aa573c',
@@ -119,7 +124,7 @@ export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs 
               color: '#aa573c',
             },
             'hljs-string': {
-              color: 'white',
+              color: 'rgb(var(--foreground-rgb)',
             },
             'hljs-symbol': {
               color: '#2a9292',
@@ -154,7 +159,7 @@ export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs 
             hljs: {
               display: 'block',
               overflowX: 'auto',
-              background: 'black',
+              // background: 'black',
               color: 'gray',
               padding: '0.5em',
             },

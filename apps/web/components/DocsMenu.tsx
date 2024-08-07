@@ -92,7 +92,7 @@ const pages = [
   },
 ];
 
-export const DocsMenu: FC = () => {
+export function DocsMenu({ onSelect = () => {} }) {
   const [collapsed, setCollapsed] = useState<string[]>([]);
   const pathname = usePathname();
 
@@ -134,10 +134,11 @@ export const DocsMenu: FC = () => {
                         className={classNames(
                           'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
                           {
-                            'text-white': pathname === child.url,
+                            'text-blue-400': pathname === child.url,
                           },
                         )}
                         href={child.url}
+                        onClick={onSelect}
                       >
                         {child.text}
                       </Link>
@@ -155,6 +156,7 @@ export const DocsMenu: FC = () => {
                 },
               )}
               href={page.url}
+              onClick={onSelect}
             >
               {page.text}
             </Link>
@@ -163,4 +165,4 @@ export const DocsMenu: FC = () => {
       ))}
     </ul>
   );
-};
+}

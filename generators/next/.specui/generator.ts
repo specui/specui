@@ -6,7 +6,7 @@ import { LicenseGenerator } from '@specui/license';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 
-import { ISpec } from './interfaces/ISpec';
+import { ISpec, Page } from './interfaces/ISpec';
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
 
 export default async function generator(
@@ -201,11 +201,17 @@ export default async function generator(
     }
 
     if (element.class) {
-      props.className = Array.isArray(element.class)
-        ? `{clsx(${element.class
-            .map((className) => (className.startsWith('$') ? className.slice(1) : `'${className}'`))
-            .join(',')})}`
-        : `"${element.class}"`;
+      props.className =
+        Array.isArray(element.class) &&
+        element.class.some((className) => typeof className !== 'string')
+          ? `{clsx(${element.class
+              .map((className) =>
+                className.startsWith('$') ? className.slice(1) : `'${className}'`,
+              )
+              .join(',')})}`
+          : Array.isArray(element.class)
+          ? `"${element.class.join(' ')}"`
+          : `"${element.class}"`;
     }
 
     ['defaultChecked', 'for', 'href', 'name', 'placeholder', 'type'].forEach((name) => {
@@ -474,36 +480,43 @@ export default async function generator(
     }),
   );
 
+  async function renderPage(page: Page, pagePath: string) {
+    pages[pagePath] = await generate({
+      processor: PrettierProcessor(),
+      engine: async () => `
+        ${Array.isArray(page.elements) ? renderClsx(page.elements) : ''}
+        ${Array.isArray(page.elements) ? renderImports(page.elements) : ''}
+        ${page.dataSources ? `import { db } from '@/lib/db';` : ''}
+
+        export default${page.dataSources ? ' async ' : ' '}function Home() {
+
+          ${Object.entries(page.dataSources || {}).map(
+            ([dataSourceName, dataSource]) => `
+            const ${dataSourceName} = await db.selectFrom('${dataSource.model}').selectAll().execute();
+          `,
+          )}
+
+          return (
+            <main>
+              ${(Array.isArray(page.elements) ? page.elements : []).map(render).join('')}
+            </main>
+          )
+        }
+      `,
+    });
+  }
+
   const pages: {
     [name: string]: Buffer | string;
   } = {};
   await Promise.all(
-    Object.entries(spec.pages || {}).map(async ([pageName, page]) => {
-      pages[`app/${pageName}/page.tsx`] = await generate({
-        processor: PrettierProcessor(),
-        engine: async () => `
-          ${Array.isArray(page.elements) ? renderClsx(page.elements) : ''}
-          ${Array.isArray(page.elements) ? renderImports(page.elements) : ''}
-          ${page.dataSources ? `import { db } from '@/lib/db';` : ''}
-
-          export default${page.dataSources ? ' async ' : ' '}function Home() {
-
-            ${Object.entries(page.dataSources || {}).map(
-              ([dataSourceName, dataSource]) => `
-              const ${dataSourceName} = await db.selectFrom('${dataSource.model}').selectAll().execute();
-            `,
-            )}
-
-            return (
-              <main>
-                ${(Array.isArray(page.elements) ? page.elements : []).map(render).join('')}
-              </main>
-            )
-          }
-        `,
-      });
-    }),
+    Object.entries(spec.pages || {})
+      .filter(([pageName]) => pageName !== 'index')
+      .map(async ([pageName, page]) => renderPage(page, `app/${pageName}/page.tsx`)),
   );
+  if (spec.pages?.index) {
+    await renderPage(spec.pages.index, `app/page.tsx`);
+  }
 
   const schemas: {
     [file: string]: Buffer | string;

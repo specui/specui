@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-export const GitHubIcon: FC<{ color?: string; size?: number }> = ({ color = 'white', size = 16 }) => {
+export const GitHubIcon: FC<{ color?: string; size?: number }> = ({ color, size = 16 }) => {
   return (
     <svg
       version="1.1"
@@ -15,6 +15,7 @@ export const GitHubIcon: FC<{ color?: string; size?: number }> = ({ color = 'whi
       height={size}
     >
       <path
+        className="fill-black dark:fill-white"
         fill={color}
         d="M255.968,5.329C114.624,5.329,0,120.401,0,262.353c0,113.536,73.344,209.856,175.104,243.872
 			c12.8,2.368,17.472-5.568,17.472-12.384c0-6.112-0.224-22.272-0.352-43.712c-71.2,15.52-86.24-34.464-86.24-34.464

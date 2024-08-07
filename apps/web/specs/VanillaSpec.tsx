@@ -30,7 +30,7 @@ export const VanillaSpec = {
               text: 'Spec. Preview. Ship.',
               style: {
                 color: 'white',
-                fontFamily: 'Georgia, serif',
+                fontFamily: 'Geist, sans-serif',
                 fontSize: '2em',
                 marginBottom: '.5em',
                 textAlign: 'center',
@@ -40,8 +40,9 @@ export const VanillaSpec = {
               tag: 'h2',
               text: 'Build at lightning-speed',
               style: {
-                color: 'gray',
+                color: 'lightgray',
                 fontFamily: 'Verdana, sans-serif',
+                fontWeight: 'normal',
                 fontSize: '1em',
                 textAlign: 'center',
               },
@@ -54,7 +55,7 @@ export const VanillaSpec = {
   styles: {
     body: {
       alignItems: 'center',
-      backgroundColor: 'black',
+      backgroundImage: 'linear-gradient(to bottom right, orange, purple)',
       color: 'white',
       display: 'flex',
       flexDirection: 'column',

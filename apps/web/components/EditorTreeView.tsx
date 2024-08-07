@@ -64,7 +64,17 @@ export const EditorTreeView: FC = () => {
               )
             }
             nodeId={node.id}
-            label={node.name}
+            label={
+              <div
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontSize: '1rem',
+                  fontWeight: '200',
+                }}
+              >
+                {node.name}
+              </div>
+            }
           >
             {Array.isArray(node.children) ? renderTree(node.children) : null}
           </TreeItem>
