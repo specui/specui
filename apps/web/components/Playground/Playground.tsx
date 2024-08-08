@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Convert from 'ansi-to-html';
 
 import { EditorTreeView } from '@/components/EditorTreeView';
 import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
@@ -26,6 +27,10 @@ import { transform } from '@/utils/transform';
 export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
 }
+
+const ansi = new Convert({
+  fg: 'rgb(var(--foreground-rgb))',
+});
 
 export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   // const spec = useSpecStore((state) => state.spec);
@@ -51,7 +56,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const emulator = useRef<any>();
   const [editor, setEditor] = useState<'visual' | 'yaml'>('yaml');
   const [isBootingUp, setIsBootingUp] = useState(false);
-  const [log, setLog] = useState<string[]>([]);
+  const [log, setLog] = useState('');
   const [output, setOutput] = useState<'preview' | 'code'>('preview');
   const [theme, setTheme] = useState('');
   const [value, setValue] = useState('');
@@ -104,11 +109,11 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     const webcontainerInstance = await WebContainer.boot();
     await webcontainerInstance.mount(buildFileSystemTree(code));
 
-    const installProcess = await webcontainerInstance.spawn('npm', ['install']);
+    const installProcess = await webcontainerInstance.spawn('npm', ['install', '--no-progress']);
     installProcess.output.pipeTo(
       new WritableStream({
         write(data) {
-          setLog((current) => current.concat(data));
+          setLog((current) => current.concat(ansi.toHtml(data)));
         },
       }),
     );
@@ -131,7 +136,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
             if (data.includes('Compiled ')) {
               setIsBootingUp(false);
             }
-            return current.concat(data);
+            return current.concat(ansi.toHtml(data));
           });
         },
       }),
@@ -307,12 +312,10 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
             <>
               {isBootingUp && (
                 <div className="h-full overflow-scroll w-full" ref={bootRef}>
-                  <ul className="font-mono text-xs">
-                    <li>Booting...</li>
-                    {log.map((l, index) => (
-                      <li key={`log-${index}`}>{l}</li>
-                    ))}
-                  </ul>
+                  <div className="font-mono text-xs">
+                    <div>Booting...</div>
+                    <pre dangerouslySetInnerHTML={{ __html: log }} />
+                  </div>
                 </div>
               )}
 
