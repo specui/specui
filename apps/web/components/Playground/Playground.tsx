@@ -59,6 +59,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
   const [log, setLog] = useState('');
   const [output, setOutput] = useState<'preview' | 'code'>('preview');
   const [theme, setTheme] = useState('');
+  const [webcontainerInstance, setWebcontainerInstance] = useState<WebContainer>();
   const [value, setValue] = useState('');
 
   const handleGenerate = useCallback(async () => {
@@ -135,6 +136,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
           setLog((current) => {
             if (data.includes('Compiled ')) {
               setIsBootingUp(false);
+              setWebcontainerInstance(webcontainerInstance);
             }
             return current.concat(ansi.toHtml(data));
           });
@@ -184,6 +186,18 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
     }
     bootRef.current.scrollTo(0, bootRef.current.scrollHeight);
   }, [log]);
+
+  useEffect(() => {
+    if (!webcontainerInstance) {
+      return;
+    }
+
+    async function update() {
+      await webcontainerInstance!.mount(buildFileSystemTree(code as any));
+    }
+
+    update();
+  }, [code, webcontainerInstance]);
 
   useEffect(() => {
     const updateTheme = (e: MediaQueryListEvent) => {
