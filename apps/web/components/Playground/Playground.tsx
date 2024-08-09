@@ -7,7 +7,6 @@ import NextSchema from '@specui/next-generator/.specui/schema.json';
 import vanillaGenerator from '@specui/vanilla-generator/dist/generator-browser';
 import VanillaSchema from '@specui/vanilla-generator/.specui/schema.json';
 import axios from 'axios';
-import clsx from 'clsx';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -282,9 +281,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
                 schemas: [
                   {
                     fileMatch: [],
-                    schema: (generator === 'next'
-                      ? NextSchema.definitions.ISpec
-                      : VanillaSchema) as any,
+                    schema: (generator === 'next' ? NextSchema : VanillaSchema) as any,
                     uri:
                       generator === 'next'
                         ? '/schemas/next-generator-schema.json'
@@ -322,84 +319,89 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
       </div>
       <div className="h-1/2 w-full md:h-full md:w-1/2">
         <div className="flex h-full">
-          {output === 'preview' && (
-            <>
-              {isBootingUp && (
-                <div className="h-full overflow-scroll w-full" ref={bootRef}>
-                  <div className="font-mono text-xs">
-                    <div>Booting...</div>
-                    <pre dangerouslySetInnerHTML={{ __html: log }} />
-                  </div>
-                </div>
-              )}
-
-              <iframe
-                className={cn('hidden w-full', {
-                  block: !isBootingUp,
-                })}
-                ref={iframeRef}
-                title="Code preview using Vanilla code generator"
-              />
-            </>
-          )}
-          {output === 'code' && (
-            <>
-              <div className="border-r border-r-gray-200 w-1/3 dark:border-r-gray-900">
-                <EditorTreeView />
+          {isBootingUp && (
+            <div
+              className={cn('h-full overflow-scroll p-2 w-full', {
+                hidden: output !== 'preview',
+              })}
+              ref={bootRef}
+            >
+              <div className="font-mono text-xs">
+                <div>Booting...</div>
+                <pre dangerouslySetInnerHTML={{ __html: log }} />
               </div>
-              <div className="w-2/3">
-                <Editor
-                  beforeMount={(monaco) => {
-                    monaco.editor.defineTheme('my-light-theme', {
-                      base: 'vs',
-                      inherit: true,
-                      rules: [],
-                      colors: {
-                        'editor.background': '#FFFFFF',
-                      },
-                    });
-
-                    monaco.editor.defineTheme('my-dark-theme', {
-                      base: 'vs-dark',
-                      inherit: true,
-                      rules: [],
-                      colors: {
-                        'editor.background': '#000000',
-                      },
-                    });
-
-                    monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-                      jsx: monaco.languages.typescript.JsxEmit.React,
-                      addExtraLib: true,
-                      noSemanticValidation: false,
-                      noSyntaxValidation: false,
-                    });
-                  }}
-                  language={editorLanguage}
-                  options={{
-                    fontFamily: 'var(--font-geist-mono)',
-                    fontWeight: '200',
-                    minimap: {
-                      enabled: false,
-                    },
-                    readOnly: true,
-                  }}
-                  theme={theme}
-                  value={code[selected] as string}
-                />
-              </div>
-            </>
+            </div>
           )}
+          <iframe
+            className={cn('hidden w-full', {
+              block: !isBootingUp,
+              hidden: output !== 'preview',
+            })}
+            ref={iframeRef}
+            title="Code preview using Vanilla code generator"
+          />
+          <div
+            className={cn('border-r border-r-gray-200 w-1/3 dark:border-r-gray-900', {
+              hidden: output !== 'code',
+            })}
+          >
+            <EditorTreeView />
+          </div>
+          <div
+            className={cn('w-2/3', {
+              hidden: output !== 'code',
+            })}
+          >
+            <Editor
+              beforeMount={(monaco) => {
+                monaco.editor.defineTheme('my-light-theme', {
+                  base: 'vs',
+                  inherit: true,
+                  rules: [],
+                  colors: {
+                    'editor.background': '#FFFFFF',
+                  },
+                });
+
+                monaco.editor.defineTheme('my-dark-theme', {
+                  base: 'vs-dark',
+                  inherit: true,
+                  rules: [],
+                  colors: {
+                    'editor.background': '#000000',
+                  },
+                });
+
+                monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+                  jsx: monaco.languages.typescript.JsxEmit.React,
+                  addExtraLib: true,
+                  noSemanticValidation: false,
+                  noSyntaxValidation: false,
+                });
+              }}
+              language={editorLanguage}
+              options={{
+                fontFamily: 'var(--font-geist-mono)',
+                fontWeight: '200',
+                minimap: {
+                  enabled: false,
+                },
+                readOnly: true,
+              }}
+              theme={theme}
+              value={code[selected] as string}
+            />
+          </div>
         </div>
         <div className="absolute bg-slate-800 p-1 bottom-4 rounded-lg right-6">
           <button
-            className={clsx('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'preview' })}
+            className={cn('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'preview' })}
             onClick={() => setOutput('preview')}
           >
             Preview
           </button>
           <button
-            className={clsx('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'code' })}
+            className={cn('px-2 rounded-lg text-white', { 'bg-slate-700': output === 'code' })}
             onClick={() => setOutput('code')}
           >
             Code

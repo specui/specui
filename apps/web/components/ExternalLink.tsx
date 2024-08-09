@@ -1,8 +1,12 @@
 import { FC, ReactNode } from 'react';
 
-export const ExternalLink: FC<{ children?: ReactNode; href?: string }> = ({ children, href }) => {
+export const ExternalLink: FC<{ children?: ReactNode; className?: string; href?: string }> = ({
+  children,
+  className,
+  href,
+}) => {
   return (
-    <a href={href} rel="noopener noreferrer" target="_blank">
+    <a className={className} href={href} rel="noopener noreferrer" target="_blank">
       {children}
     </a>
   );

@@ -6,7 +6,7 @@ import { LicenseGenerator } from '@specui/license';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 
-import { ISpec, Page } from './interfaces/ISpec';
+import { Element, ElementArrayOrRef, ISpec, Page } from './interfaces/ISpec';
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
 
 export default async function generator(
@@ -145,32 +145,6 @@ export default async function generator(
   type ElementPropType = 'for' | 'name' | 'placeholder' | 'type';
   type ElementEventPropType = 'onClick';
 
-  interface Element {
-    action?: string;
-    component?: string;
-    class?: string | string[];
-    defaultChecked?: string;
-    for?: string;
-    props?: Record<
-      string,
-      {
-        type: string;
-      }
-    >;
-    href?: string;
-    htmlType?: string;
-    name?: string;
-    onClick?: {
-      action: string;
-      data?: any;
-    };
-    placeholder?: string;
-    tag?: string;
-    text?: string;
-    type?: string;
-    elements?: Element[];
-  }
-
   function renderElementProp(name: ElementPropType, element: Element) {
     const prop = element[name];
 
@@ -234,6 +208,10 @@ export default async function generator(
       });
     }
 
+    if (element.style) {
+      props.style = `{${JSON.stringify(element.style)}}`;
+    }
+
     return Object.entries(props)
       .sort(([aName], [bName]) => aName.localeCompare(bName))
       .map(([name, value]) => `${name}=${value}`)
@@ -253,7 +231,14 @@ export default async function generator(
   }
 
   function render(element: Element): string {
-    const tag = element.tag === 'component' ? pascalCase(element.component || '') : element.tag;
+    const tag =
+      element.icon && element.icon.startsWith('$')
+        ? element.icon.slice(1)
+        : element.icon
+        ? pascalCase(element.icon, undefined, true)
+        : element.component
+        ? pascalCase(element.component || '', undefined, true)
+        : element.tag ?? 'div';
     const props = renderElementProps(element);
     const children = `
       ${
@@ -266,18 +251,26 @@ export default async function generator(
         Array.isArray(element.elements)
           ? element.elements.map(render).join('')
           : element.elements?.['$ref']
-          ? `{${(element.elements['$ref'] as any).model}.map(${
-              (element.elements['$ref'] as any).name
-            } => (
-            <${(element.elements['$ref'] as any).tag} className="${
-              (element.elements['$ref'] as any).class
+          ? `{${
+              element.elements['$ref'].data
+                ? JSON.stringify(element.elements['$ref'].data)
+                : element.elements['$ref'].model
+            }.map(${element.elements['$ref'].name} => (
+            <${element.elements['$ref'].tag} className="${
+              Array.isArray(element.elements['$ref'].class)
+                ? element.elements['$ref'].class.join(' ')
+                : element.elements['$ref']
             }" key=${
-              (element.elements['$ref'] as any).key.startsWith('$')
-                ? `{${(element.elements['$ref'] as any).key.slice(1)}}`
-                : `'${(element.elements['$ref'] as any).key}'`
+              element.elements['$ref'].key?.startsWith('$')
+                ? `{${element.elements['$ref'].key.slice(1)}}`
+                : `'${element.elements['$ref'].key}'`
             }>
-              ${(element.elements['$ref'] as any).elements.map(render).join('')}
-            </${(element.elements['$ref'] as any).tag}>
+              ${
+                Array.isArray(element.elements['$ref'].elements)
+                  ? element.elements['$ref'].elements?.map(render).join('')
+                  : ''
+              }
+            </${element.elements['$ref'].tag}>
           ))}`
           : ''
       }
@@ -287,19 +280,25 @@ export default async function generator(
       ${children ? `>${children}</${tag}>` : ' />'}`;
   }
 
-  function renderImports(elements: Element[]): string {
-    let imports: Record<string, string> = {};
+  function renderImports(elements: ElementArrayOrRef): string {
+    let imports: Record<string, string | string[]> = {};
 
-    function collectImports(elements: Element[]) {
+    function collectImports(elements: ElementArrayOrRef) {
       (Array.isArray(elements) ? elements : []).forEach((element) => {
         const component = pascalCase(element.component || '');
 
         if (component && !imports[component]) {
-          imports[component] = `@/components/${component}`;
+          imports[`@/components/${component}`] = component;
         }
 
         if (element.action) {
-          imports[element.action] = `@/actions/${element.action}`;
+          imports[`@/actions/${element.action}`] = element.action;
+        }
+
+        if (element.icon) {
+          imports[`react-icons/${element.icon.split('-')[0]}`] = [
+            pascalCase(element.icon, undefined, true),
+          ];
         }
 
         if (element.elements) {
@@ -313,11 +312,18 @@ export default async function generator(
     collectImports(elements);
 
     return Object.entries(imports)
-      .map(([name, location]) => `import ${name} from '${location}'`)
+      .map(
+        ([pkg, imports]) =>
+          `import ${Array.isArray(imports) ? `{ ${imports.join(',')} }` : imports} from '${pkg}'`,
+      )
       .join('\n');
   }
 
-  function renderClient(elements: Element[]): string {
+  function renderClient(elements?: ElementArrayOrRef): string {
+    if (!elements) {
+      return '';
+    }
+
     if (
       (Array.isArray(elements) ? elements : []).some(
         (element) => element.onClick !== undefined || renderClient(element.elements || []),
@@ -329,7 +335,11 @@ export default async function generator(
     return '';
   }
 
-  function renderClsx(elements: Element[]): string {
+  function renderClsx(elements?: ElementArrayOrRef): string {
+    if (!elements) {
+      return '';
+    }
+
     if (
       (Array.isArray(elements) ? elements : []).some(
         (element) => Array.isArray(element.class) || renderClsx(element.elements || []),
@@ -455,7 +465,7 @@ export default async function generator(
             Boolean(component.props)
               ? `
               export interface ${pascalCase(componentName)}Props {
-                ${Object.entries(component.props)
+                ${Object.entries(component.props || {})
                   .map(
                     ([propName, prop]) =>
                       `${propName}${prop.required ? '' : '?'}: ${renderPropType(prop.type)};`,
@@ -471,7 +481,11 @@ export default async function generator(
           ) {
             return (
               <>
-                ${(component.elements || []).map(render).join('')}
+                ${
+                  Array.isArray(component.elements)
+                    ? (component.elements || []).map(render).join('')
+                    : ''
+                }
               </>
             )
           }
@@ -640,27 +654,20 @@ export default async function generator(
         @tailwind utilities;
         
         :root {
+          --background-rgb: 255, 255, 255;
           --foreground-rgb: 0, 0, 0;
-          --background-start-rgb: 214, 219, 220;
-          --background-end-rgb: 255, 255, 255;
         }
         
         @media (prefers-color-scheme: dark) {
           :root {
+            --background-rgb: 0, 0, 0;
             --foreground-rgb: 255, 255, 255;
-            --background-start-rgb: 0, 0, 0;
-            --background-end-rgb: 0, 0, 0;
           }
         }
         
         body {
           color: rgb(var(--foreground-rgb));
-          background: linear-gradient(
-              to bottom,
-              transparent,
-              rgb(var(--background-end-rgb))
-            )
-            rgb(var(--background-start-rgb));
+          background: rgb(var(--background-rgb));
         }
       `,
     }),
@@ -674,8 +681,8 @@ export default async function generator(
         const inter = Inter({ subsets: ['latin'] })
         
         export const metadata: Metadata = {
-          title: 'Create Next App',
-          description: 'Generated by create next app',
+          title: '${spec.title ?? 'Create Next App'}',
+          description: '${spec.description ?? 'Generated by create next app'}',
         }
         
         export default function RootLayout({
@@ -1012,6 +1019,7 @@ export default async function generator(
           next: '14.1.1',
           react: '^18',
           'react-dom': '^18',
+          'react-icons': '^5.2.1',
           'react-markdown': '^9.0.0',
           'next-auth': '^4.23.1',
           zod: '^3.21.4',

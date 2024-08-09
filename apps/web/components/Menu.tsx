@@ -13,6 +13,10 @@ const pages = [
     url: '/docs',
   },
   {
+    text: 'Generators',
+    url: '/generators',
+  },
+  {
     text: 'Playground',
     url: '/playground',
   },

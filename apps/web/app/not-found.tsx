@@ -9,7 +9,7 @@ export default function NotFound() {
       <h2 className="text-4xl">Not Found</h2>
       <p className="text-gray-400">
         Go back{' '}
-        <Link className="text-yellow-300" href="/">
+        <Link className="text-blue-400" href="/">
           home
         </Link>
       </p>
