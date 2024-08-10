@@ -383,9 +383,6 @@ importers:
       '@specui/next-generator':
         specifier: workspace:*
         version: link:../../generators/next
-      '@specui/vanilla-generator':
-        specifier: workspace:*
-        version: link:../../generators/vanilla
       commander:
         specifier: ^11.1.0
         version: 11.1.0

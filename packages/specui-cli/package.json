@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@specui/next-generator": "workspace:*",
-    "@specui/vanilla-generator": "workspace:*",
     "commander": "^11.1.0",
     "ts-node": "^10.9.1",
     "yaml": "^2.3.2"
