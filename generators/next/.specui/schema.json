@@ -924,6 +924,9 @@
         "action": {
           "type": "string"
         },
+        "alt": {
+          "type": "string"
+        },
         "class": {
           "anyOf": [
             {
@@ -969,6 +972,9 @@
           "type": "string"
         },
         "icon": {
+          "type": "string"
+        },
+        "id": {
           "type": "string"
         },
         "key": {
@@ -1023,6 +1029,9 @@
             ]
           },
           "type": "object"
+        },
+        "src": {
+          "type": "string"
         },
         "style": {
           "$ref": "#/definitions/Properties"

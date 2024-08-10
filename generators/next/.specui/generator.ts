@@ -188,12 +188,14 @@ export default async function generator(
           : `"${element.class}"`;
     }
 
-    ['defaultChecked', 'for', 'href', 'name', 'placeholder', 'type'].forEach((name) => {
-      const value = renderElementProp(name as ElementPropType, element);
-      if (value !== undefined) {
-        props[name === 'for' ? 'htmlFor' : name] = value;
-      }
-    });
+    ['alt', 'defaultChecked', 'for', 'href', 'name', 'placeholder', 'type', 'src'].forEach(
+      (name) => {
+        const value = renderElementProp(name as ElementPropType, element);
+        if (value !== undefined) {
+          props[name === 'for' ? 'htmlFor' : name] = value;
+        }
+      },
+    );
 
     ['onClick'].forEach((name) => {
       const value = renderElementEventProp(name as ElementEventPropType, element);
@@ -296,9 +298,13 @@ export default async function generator(
         }
 
         if (element.icon) {
-          imports[`react-icons/${element.icon.split('-')[0]}`] = [
-            pascalCase(element.icon, undefined, true),
-          ];
+          const importName = `react-icons/${element.icon.split('-')[0]}`;
+          if (!imports[importName]) {
+            imports[importName] = [];
+          }
+          if (Array.isArray(imports[importName]) && !imports[importName].includes(element.icon)) {
+            imports[importName].push(pascalCase(element.icon, undefined, true));
+          }
         }
 
         if (element.elements) {
@@ -459,7 +465,8 @@ export default async function generator(
         processor: PrettierProcessor(),
         engine: async () => `
           ${renderClient(component.elements)}
-          ${renderClsx(component.elements)}
+          ${Array.isArray(component.elements) ? renderClsx(component.elements) : ''}
+          ${Array.isArray(component.elements) ? renderImports(component.elements) : ''}
 
           ${
             Boolean(component.props)

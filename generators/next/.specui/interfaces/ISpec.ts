@@ -16,12 +16,14 @@ export interface Page {
 
 export interface Element {
   action?: string;
+  alt?: string;
   component?: string;
   class?: string | string[] | TailwindClass | TailwindClass[];
   data?: any[];
   defaultChecked?: string;
   for?: string;
   icon?: string;
+  id?: string;
   key?: string;
   model?: string;
   props?: Record<
@@ -41,6 +43,7 @@ export interface Element {
     data?: any;
   };
   placeholder?: string;
+  src?: string;
   style?: Properties;
   tag?: string;
   text?: string;
