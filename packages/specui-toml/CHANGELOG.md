@@ -1,5 +1,11 @@
 # @specui/toml
 
+## 0.1.1
+
+### Patch Changes
+
+- fixes new command
+
 ## 0.1.0
 
 ### Minor Changes

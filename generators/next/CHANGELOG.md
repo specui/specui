@@ -1,5 +1,18 @@
 # @specui/next-generator
 
+## 0.1.1
+
+### Patch Changes
+
+- fixes new command
+- Updated dependencies
+  - @specui/core@0.1.1
+  - @specui/git@0.1.1
+  - @specui/handlebars@0.1.1
+  - @specui/json@0.1.1
+  - @specui/license@0.1.1
+  - @specui/prettier@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

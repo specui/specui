@@ -1,5 +1,14 @@
 # @specui/typescript
 
+## 0.1.1
+
+### Patch Changes
+
+- fixes new command
+- Updated dependencies
+  - @specui/core@0.1.1
+  - @specui/json@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
