@@ -55,84 +55,37 @@ Below is a very basic example using the **@specui/next-generator** code generato
 ### Input (Spec)
 
 ```yaml
-name: ecto-1-blog
+# yaml-language-server: $schema=/schemas/next-generator-schema.json
+title: My App
+name: my-app
 version: 1.0.0
-description: Scribbles by an Ex-Ghostbuster.
+description: this is my cool app
 license: MIT
-author:
-  name: Louis Tully
-  email: louis.tully@example.org
-  url: https://example.org/
-auth:
-  providers:
-    - github
-    - google
-    - facebook
-models:
-  post:
-    attributes:
-      id:
-        key: primary
-        type: number
-      name:
-        unique: true
-        type: string
-      slug:
-        unique: true
-        type: string
-```
-
-### Output (Code)
-
-```
-app/
-  api/
-    auth/
-      [...nextauth]/
-        route.ts
-    createPost/
-      route.ts
-    deletePost/
-      route.ts
-    getPost/
-      route.ts
-    listPosts/
-      route.ts
-  auth.ts
-  globals.css
-  layout.tsx
-  page.tsx
-lib/
-  errors/
-    BadRequestError.ts
-    ConflictError.ts
-    ForbiddenError.ts
-    HttpError.ts
-    MethodNotAllowedError.ts
-    NotFoundError.ts
-    UnauthorizedError.ts
-    UnprocessableContentError.ts
-  schemas/
-    createPostSchema.ts
-    deletePostSchema.ts
-    getPostSchema.ts
-    listPostsSchema.ts
-  tables/
-    PostsTable.ts
-  client.ts
-  db.ts
-public/
-  next.svg
-  vercel.svg
-.eslintrc.json
-.gitignore
-LICENSE
-next.config.js
-package.json
-postcss.config.js
-README.md
-tailwind.config.js
-tsconfig.json
+pages:
+  index:
+    elements:
+      - tag: section
+        class:
+          - flex
+          - flex-col
+          - h-dvh
+          - items-center
+          - justify-center
+        elements:
+          - tag: h1
+            text: Spec. Preview. Ship.
+            class:
+              - font-sans
+              - mb-2
+              - text-2xl
+              - text-center
+          - tag: h2
+            text: Build at lightning-speed
+            class:
+              - font-sans-serif
+              - font-lg
+              - text-center
+              - text-gray-400
 ```
 
 ## Features
