@@ -31,6 +31,7 @@ import { program } from 'commander';
 import { existsSync, watchFile } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, normalize } from 'path';
+import { stringify } from 'yaml';
 
 import { getNodeListOutput } from './utils/getNodeListOutput';
 import { loadGenerator } from './utils/loadGenerator';
@@ -44,10 +45,16 @@ program.name(pkg.name).description(pkg.description).version(pkg.version);
 
 async function generate({ force }: { force?: boolean }) {
   try {
-    const { spec } = await loadSpec();
+    const loadedSpec = await loadSpec();
 
-    const generator = await loadGenerator(spec['$generator']);
-    const files = await generator(spec);
+    if (!loadedSpec) {
+      throw new Error('No spec found.');
+    }
+
+    const generator = await loadGenerator(
+      normalize(`${__dirname}/../node_modules/${loadedSpec.spec['$generator']}`),
+    );
+    const files = await generator(loadedSpec.spec);
 
     const hash: Record<
       string,
@@ -148,15 +155,65 @@ program
   .option('-f, --force', 'force generation')
   .option('-w, --watch', 'watch for spec changes')
   .action(async (options) => {
-    const { file: specFile } = await loadSpec();
+    const loadedSpec = await loadSpec();
+
+    if (!loadedSpec) {
+      throw new Error('No spec found.');
+    }
 
     if (options.watch) {
-      watchFile(specFile, { interval: 1000 }, async () => {
+      watchFile(loadedSpec.file, { interval: 1000 }, async () => {
         generate({ force: options.force });
       });
     } else {
       generate({ force: options.force });
     }
   });
+
+program.command('new').action(async (options) => {
+  const loadedSpec = await loadSpec();
+
+  if (loadedSpec) {
+    throw new Error('Spec already exists.');
+  }
+
+  const specFile = normalize(`${process.cwd()}/.specui/spec.yml`);
+
+  await mkdir(dirname(specFile), { recursive: true });
+
+  await writeFile(
+    specFile,
+    stringify({
+      $generator: '@specui/next-generator',
+      title: 'My App',
+      name: 'my-app',
+      version: '1.0.0',
+      description: 'this is my cool app',
+      license: 'MIT',
+      pages: {
+        index: {
+          elements: [
+            {
+              tag: 'section',
+              class: ['flex', 'flex-col', 'h-dvh', 'items-center', 'justify-center'],
+              elements: [
+                {
+                  tag: 'h1',
+                  text: 'Spec. Preview. Ship.',
+                  class: ['font-sans', 'mb-2', 'text-2xl', 'text-center'],
+                },
+                {
+                  tag: 'h2',
+                  text: 'Build at lightning-speed',
+                  class: ['font-sans-serif', 'font-lg', 'text-center', 'text-gray-400'],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    }),
+  );
+});
 
 program.parse();

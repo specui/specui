@@ -2,7 +2,12 @@ import { existsSync, readFileSync } from 'fs';
 import { extname, join } from 'path';
 import { parse } from 'yaml';
 
-export const loadSpec = async (dir = process.cwd()) => {
+export interface LoadedSpec {
+  file: string;
+  spec: any;
+}
+
+export const loadSpec = async (dir = process.cwd()): Promise<LoadedSpec | undefined> => {
   const files = ['spec.yaml', 'spec.yml', 'spec.json', 'spec.js', 'spec.ts'];
   const possibleFiles = files.concat(files.map((file) => `.specui/${file}`));
 
@@ -37,6 +42,4 @@ export const loadSpec = async (dir = process.cwd()) => {
       }
     }
   }
-
-  throw new Error('No spec found.');
 };
