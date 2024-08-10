@@ -1,8 +1,8 @@
 {
   "name": "@specui/vanilla-generator",
   "version": "0.1.1",
-  "main": "./dist/specui.js",
-  "types": "./dist/specui.d.ts",
+  "main": "./dist/generator.js",
+  "types": "./dist/generator.d.ts",
   "files": [
     ".specui/schema.json",
     "dist"

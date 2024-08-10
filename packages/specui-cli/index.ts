@@ -51,9 +51,7 @@ async function generate({ force }: { force?: boolean }) {
       throw new Error('No spec found.');
     }
 
-    const generator = await loadGenerator(
-      normalize(`${__dirname}/../node_modules/${loadedSpec.spec['$generator']}`),
-    );
+    const generator = await loadGenerator(loadedSpec.spec['$generator']);
     const files = await generator(loadedSpec.spec);
 
     const hash: Record<

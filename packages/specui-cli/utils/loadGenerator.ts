@@ -1,7 +1,17 @@
+import nextGenerator from '@specui/next-generator';
+import vanillaGenerator from '@specui/vanilla-generator';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
 export const loadGenerator = async (dir = process.cwd()) => {
+  if (dir === '@specui/next-generator') {
+    return nextGenerator;
+  }
+
+  if (dir === '@specui/vanilla-generator') {
+    return vanillaGenerator;
+  }
+
   const specUiDir = join(dir, '.specui');
 
   const possibleFiles = ['generator-node.js', 'generator-node.ts'];
