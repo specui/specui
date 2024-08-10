@@ -1,13 +1,7 @@
-# @specui/cli
+# @specui/toml
 
 ## 0.1.0
 
 ### Minor Changes
 
 - generator improvements, icon support, quality of life improvements
-
-## 0.0.1
-
-### Patch Changes
-
-- fixes generate command

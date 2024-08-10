@@ -1,4 +1,4 @@
-# @specui/cli
+# @specui/license
 
 ## 0.1.0
 
@@ -6,8 +6,8 @@
 
 - generator improvements, icon support, quality of life improvements
 
-## 0.0.1
-
 ### Patch Changes
 
-- fixes generate command
+- Updated dependencies
+  - @specui/core@0.1.0
+  - @specui/handlebars@0.1.0
