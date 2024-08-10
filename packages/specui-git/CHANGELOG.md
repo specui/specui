@@ -1,5 +1,14 @@
 # @specui/git
 
+## 0.1.2
+
+### Patch Changes
+
+- fixes local generators
+- Updated dependencies
+  - @specui/core@0.1.2
+  - @specui/handlebars@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @specui/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- fixes local generators
+- Updated dependencies
+  - @specui/next-generator@0.1.2
+  - @specui/vanilla-generator@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
