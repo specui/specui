@@ -302,12 +302,8 @@ export default async function generator(
           if (!imports[importName]) {
             imports[importName] = [];
           }
-          if (
-            typeof imports[importName] === 'object' &&
-            Array.isArray(imports[importName]) &&
-            !imports[importName].includes(element.icon)
-          ) {
-            imports[importName].push(pascalCase(element.icon, undefined, true));
+          if (Array.isArray(imports[importName]) && !imports[importName].includes(element.icon)) {
+            (imports[importName] as string[]).push(pascalCase(element.icon, undefined, true));
           }
         }
 
