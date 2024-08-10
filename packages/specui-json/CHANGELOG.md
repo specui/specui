@@ -1,5 +1,11 @@
 # @specui/json
 
+## 0.1.3
+
+### Patch Changes
+
+- removes vanilla generator
+
 ## 0.1.2
 
 ### Patch Changes
