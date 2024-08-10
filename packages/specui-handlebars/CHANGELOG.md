@@ -1,5 +1,13 @@
 # @specui/handlebars
 
+## 0.1.4
+
+### Patch Changes
+
+- fixes next generator
+- Updated dependencies
+  - @specui/core@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

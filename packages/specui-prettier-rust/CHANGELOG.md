@@ -1,5 +1,14 @@
 # @specui/prettier-rust
 
+## 0.1.4
+
+### Patch Changes
+
+- fixes next generator
+- Updated dependencies
+  - @specui/core@0.1.4
+  - @specui/json@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

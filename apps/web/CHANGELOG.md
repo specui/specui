@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.1.4
+
+### Patch Changes
+
+- fixes next generator
+- Updated dependencies
+  - @specui/next-generator@0.1.4
+  - @specui/vanilla-generator@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

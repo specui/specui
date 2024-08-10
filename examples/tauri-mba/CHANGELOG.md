@@ -1,5 +1,11 @@
 # vercel-dashboard-mba
 
+## 0.1.4
+
+### Patch Changes
+
+- fixes next generator
+
 ## 0.1.3
 
 ### Patch Changes
