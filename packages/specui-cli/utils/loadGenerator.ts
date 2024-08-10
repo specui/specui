@@ -1,4 +1,4 @@
-import nextGenerator from '@specui/next-generator';
+import nextGenerator from '@specui/next-generator/dist/generator-node';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
