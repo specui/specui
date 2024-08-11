@@ -41,7 +41,7 @@ import { pathListToNodeList } from './utils/pathListToNodeList';
 import pkg from './package.json';
 import { getHash } from './utils/getHash';
 
-program.name(pkg.name).description(pkg.description).version(pkg.version);
+program.name('specui').description(pkg.description).version(pkg.version);
 
 async function generate({ force }: { force?: boolean }) {
   try {

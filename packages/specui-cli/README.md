@@ -2,12 +2,34 @@
 
 > the CLI of SpecUI
 
-## Get Started
+## Quickstart
+
+### Use `npx`
 
 ```
-npx @specui/cli
+npx @specui/cli [command]
+```
+
+### Install Globally
+
+First install:
+
+```
+npm i -g specui
+```
+
+Then run:
+
+```
+specui [command]
 ```
 
 ## Commands
 
-- `generate` - generates UI from spec
+### `generate`
+
+Generates UI from spec
+
+### `new`
+
+Creates a new SpecUI project

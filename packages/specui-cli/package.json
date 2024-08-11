@@ -1,7 +1,7 @@
 {
   "name": "@specui/cli",
   "version": "0.1.4",
-  "description": "continuous code generation ⚡️",
+  "description": "Build UIs with Specs",
   "bin": {
     "specui": "bin/specui"
   },
