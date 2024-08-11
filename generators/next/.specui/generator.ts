@@ -210,6 +210,14 @@ export default async function generator(
       });
     }
 
+    if (element.animate) {
+      props.animate = `{${JSON.stringify(element.animate)}}`;
+    }
+
+    if (element.initial) {
+      props.initial = `{${JSON.stringify(element.initial)}}`;
+    }
+
     if (element.style) {
       props.style = `{${JSON.stringify(element.style)}}`;
     }
@@ -278,8 +286,10 @@ export default async function generator(
       }
     `.trim();
 
-    return `<${tag} ${props}
-      ${children ? `>${children}</${tag}>` : ' />'}`;
+    const motionTag = element.initial || element.animate ? `motion.${tag}` : tag;
+
+    return `<${motionTag} ${props}
+      ${children ? `>${children}</${motionTag}>` : ' />'}`;
   }
 
   function renderImports(elements: ElementArrayOrRef): string {
@@ -295,6 +305,10 @@ export default async function generator(
 
         if (element.action) {
           imports[`@/actions/${element.action}`] = element.action;
+        }
+
+        if (element.animate || element.initial) {
+          imports['framer-motion'] = ['motion'];
         }
 
         if (element.icon) {
@@ -332,7 +346,11 @@ export default async function generator(
 
     if (
       (Array.isArray(elements) ? elements : []).some(
-        (element) => element.onClick !== undefined || renderClient(element.elements || []),
+        (element) =>
+          element.animate ||
+          element.initial ||
+          element.onClick !== undefined ||
+          renderClient(element.elements || []),
       )
     ) {
       return `'use client';\n`;
@@ -505,6 +523,7 @@ export default async function generator(
     pages[pagePath] = await generate({
       processor: PrettierProcessor(),
       engine: async () => `
+        ${Array.isArray(page.elements) ? renderClient(page.elements) : ''}
         ${Array.isArray(page.elements) ? renderClsx(page.elements) : ''}
         ${Array.isArray(page.elements) ? renderImports(page.elements) : ''}
         ${page.dataSources ? `import { db } from '@/lib/db';` : ''}
@@ -1022,6 +1041,7 @@ export default async function generator(
           '@vercel/postgres-kysely': '^0.5.0',
           axios: '^1.6.0',
           clsx: '^2.1.1',
+          'framer-motion': '^11.3.24',
           kysely: '^0.26.3',
           next: '14.1.1',
           react: '^18',

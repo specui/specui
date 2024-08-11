@@ -15,6 +15,14 @@ export const NextSpec = {
               tag: 'h1',
               text: 'Spec. Preview. Ship.',
               class: ['font-sans', 'mb-2', 'text-2xl', 'text-center'],
+              initial: {
+                opacity: 0,
+                translateY: 200,
+              },
+              animate: {
+                opacity: 1,
+                translateY: 0,
+              },
             },
             {
               tag: 'h2',
