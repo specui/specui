@@ -14,6 +14,21 @@ export interface Page {
   elements?: ElementArrayOrRef;
 }
 
+type BezierDefinition = [number, number, number, number];
+type Easing =
+  | BezierDefinition
+  | 'linear'
+  | 'easeIn'
+  | 'easeOut'
+  | 'easeInOut'
+  | 'circIn'
+  | 'circOut'
+  | 'circInOut'
+  | 'backIn'
+  | 'backOut'
+  | 'backInOut'
+  | 'anticipate';
+
 interface TransformProperties {
   x?: string | number;
   y?: string | number;
@@ -38,6 +53,76 @@ interface TransformProperties {
   perspective?: string | number;
   transformPerspective?: string | number;
 }
+
+interface Orchestration {
+  delay?: number;
+  when?: false | 'beforeChildren' | 'afterChildren' | string;
+  delayChildren?: number;
+  staggerChildren?: number;
+  staggerDirection?: number;
+}
+
+interface Repeat {
+  repeat?: number;
+  repeatType?: 'loop' | 'reverse' | 'mirror';
+  repeatDelay?: number;
+}
+
+interface Tween extends Repeat {
+  type?: 'tween';
+  duration?: number;
+  ease?: Easing | Easing[];
+  times?: number[];
+  easings?: Easing[];
+  from?: number | string;
+}
+
+interface Spring extends Repeat {
+  type: 'spring';
+  stiffness?: number;
+  damping?: number;
+  mass?: number;
+  duration?: number;
+  bounce?: number;
+  restSpeed?: number;
+  restDelta?: number;
+  from?: number | string;
+  velocity?: number;
+}
+
+interface Keyframes {
+  type: 'keyframes';
+  times?: number[];
+  ease?: Easing | Easing[];
+  duration?: number;
+  repeatDelay?: number;
+}
+
+interface Inertia {
+  type: 'inertia';
+  modifyTarget?(v: number): number;
+  bounceStiffness?: number;
+  bounceDamping?: number;
+  power?: number;
+  timeConstant?: number;
+  restDelta?: number;
+  min?: number;
+  max?: number;
+  from?: number | string;
+  velocity?: number;
+}
+
+interface Just {
+  type: 'just';
+}
+
+interface None {
+  type: false;
+}
+
+type TransitionDefinition = Tween | Spring | Keyframes | Inertia | Just | None;
+
+type Transition = Orchestration & Repeat & TransitionDefinition;
 
 export interface Element {
   action?: string;
@@ -74,6 +159,7 @@ export interface Element {
   style?: Properties;
   tag?: string;
   text?: string;
+  transition?: Transition;
   type?: string;
   elements?: ElementArrayOrRef;
 }

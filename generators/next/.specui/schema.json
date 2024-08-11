@@ -8036,6 +8036,680 @@
         "text": {
           "type": "string"
         },
+        "transition": {
+          "anyOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "duration": {
+                  "type": "number"
+                },
+                "ease": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    },
+                    {
+                      "const": "linear",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "anticipate",
+                      "type": "string"
+                    },
+                    {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "type": "number"
+                            },
+                            "maxItems": 4,
+                            "minItems": 4,
+                            "type": "array"
+                          },
+                          {
+                            "const": "linear",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "anticipate",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  ]
+                },
+                "easings": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "type": "number"
+                        },
+                        "maxItems": 4,
+                        "minItems": 4,
+                        "type": "array"
+                      },
+                      {
+                        "const": "linear",
+                        "type": "string"
+                      },
+                      {
+                        "const": "easeIn",
+                        "type": "string"
+                      },
+                      {
+                        "const": "easeOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "easeInOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "circIn",
+                        "type": "string"
+                      },
+                      {
+                        "const": "circOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "circInOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "backIn",
+                        "type": "string"
+                      },
+                      {
+                        "const": "backOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "backInOut",
+                        "type": "string"
+                      },
+                      {
+                        "const": "anticipate",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "from": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "times": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "const": "tween",
+                  "type": "string"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "bounce": {
+                  "type": "number"
+                },
+                "damping": {
+                  "type": "number"
+                },
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "duration": {
+                  "type": "number"
+                },
+                "from": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "mass": {
+                  "type": "number"
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "restDelta": {
+                  "type": "number"
+                },
+                "restSpeed": {
+                  "type": "number"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "stiffness": {
+                  "type": "number"
+                },
+                "type": {
+                  "const": "spring",
+                  "type": "string"
+                },
+                "velocity": {
+                  "type": "number"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "duration": {
+                  "type": "number"
+                },
+                "ease": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    },
+                    {
+                      "const": "linear",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "easeInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "circInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backIn",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "backInOut",
+                      "type": "string"
+                    },
+                    {
+                      "const": "anticipate",
+                      "type": "string"
+                    },
+                    {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "type": "number"
+                            },
+                            "maxItems": 4,
+                            "minItems": 4,
+                            "type": "array"
+                          },
+                          {
+                            "const": "linear",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "easeInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "circInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backIn",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "backInOut",
+                            "type": "string"
+                          },
+                          {
+                            "const": "anticipate",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  ]
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "times": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "const": "keyframes",
+                  "type": "string"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "bounceDamping": {
+                  "type": "number"
+                },
+                "bounceStiffness": {
+                  "type": "number"
+                },
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "from": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "max": {
+                  "type": "number"
+                },
+                "min": {
+                  "type": "number"
+                },
+                "power": {
+                  "type": "number"
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "restDelta": {
+                  "type": "number"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "timeConstant": {
+                  "type": "number"
+                },
+                "type": {
+                  "const": "inertia",
+                  "type": "string"
+                },
+                "velocity": {
+                  "type": "number"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "type": {
+                  "const": "just",
+                  "type": "string"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "delay": {
+                  "type": "number"
+                },
+                "delayChildren": {
+                  "type": "number"
+                },
+                "repeat": {
+                  "type": "number"
+                },
+                "repeatDelay": {
+                  "type": "number"
+                },
+                "repeatType": {
+                  "enum": [
+                    "loop",
+                    "reverse",
+                    "mirror"
+                  ],
+                  "type": "string"
+                },
+                "staggerChildren": {
+                  "type": "number"
+                },
+                "staggerDirection": {
+                  "type": "number"
+                },
+                "type": {
+                  "const": false,
+                  "type": "boolean"
+                },
+                "when": {
+                  "enum": [
+                    false,
+                    "beforeChildren",
+                    "afterChildren"
+                  ],
+                  "type": [
+                    "boolean",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "type": {
           "type": "string"
         }

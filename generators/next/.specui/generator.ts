@@ -218,6 +218,10 @@ export default async function generator(
       props.initial = `{${JSON.stringify(element.initial)}}`;
     }
 
+    if (element.transition) {
+      props.transition = `{${JSON.stringify(element.transition)}}`;
+    }
+
     if (element.style) {
       props.style = `{${JSON.stringify(element.style)}}`;
     }
