@@ -124,11 +124,13 @@ type TransitionDefinition = Tween | Spring | Keyframes | Inertia | Just | None;
 
 type Transition = Orchestration & Repeat & TransitionDefinition;
 
+type Component = 'accordion' | 'accordion-item' | 'accordion-trigger';
+
 export interface Element {
   action?: string;
   alt?: string;
   animate?: Properties & TransformProperties;
-  component?: string;
+  component?: string | Component;
   class?: string | string[] | TailwindClass | TailwindClass[];
   data?: any[];
   defaultChecked?: string;

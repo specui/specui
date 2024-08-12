@@ -7,6 +7,24 @@ import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 
 import { Element, ElementArrayOrRef, ISpec, Page } from './interfaces/ISpec';
+import AccordionTemplate from './templates/components/AccordionTemplate';
+import AlertTemplate from './templates/components/AlertTemplate';
+import AlertDialogTemplate from './templates/components/AlertDialogTemplate';
+import AspectRatioTemplate from './templates/components/AspectRatioTemplate';
+import AvatarTemplate from './templates/components/AvatarTemplate';
+import BadgeTemplate from './templates/components/BadgeTemplate';
+import BreadcrumbTemplate from './templates/components/BreadcrumbTemplate';
+import ButtonTemplate from './templates/components/ButtonTemplate';
+import CalendarTemplate from './templates/components/CalendarTemplate';
+import CardTemplate from './templates/components/CardTemplate';
+import CarouselTemplate from './templates/components/CarouselTemplate';
+import CheckboxTemplate from './templates/components/CheckboxTemplate';
+import CollapsableTemplate from './templates/components/CollapsableTemplate';
+import CommandTemplate from './templates/components/CommandTemplate';
+import ContextMenuTemplate from './templates/components/ContextMenuTemplate';
+import DialogTemplate from './templates/components/DialogTemplate';
+import DrawerTemplate from './templates/components/DrawerTemplate';
+import DropdownTemplate from './templates/components/DropdownTemplate';
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
 
 export default async function generator(
@@ -296,6 +314,209 @@ export default async function generator(
       ${children ? `>${children}</${motionTag}>` : ' />'}`;
   }
 
+  const uiComponents: Record<
+    string,
+    {
+      components: string[];
+      dependencies?: string[];
+      template: string;
+    }
+  > = {
+    accordion: {
+      components: ['Accordion', 'AccordionItem', 'AccordionTrigger', 'AccordionContent'],
+      dependencies: ['@radix-ui/react-accordion', '@radix-ui/react-icons'],
+      template: AccordionTemplate,
+    },
+    alert: {
+      components: ['Alert', 'AlertTitle', 'AlertDescription'],
+      dependencies: ['class-variance-authority'],
+      template: AlertTemplate,
+    },
+    alertDialog: {
+      components: [
+        'AlertDialog',
+        'AlertDialogPortal',
+        'AlertDialogOverlay',
+        'AlertDialogTrigger',
+        'AlertDialogContent',
+        'AlertDialogHeader',
+        'AlertDialogFooter',
+        'AlertDialogTitle',
+        'AlertDialogDescription',
+        'AlertDialogAction',
+        'AlertDialogCancel',
+      ],
+      dependencies: ['@radix-ui/react-alert-dialog'],
+      template: AlertDialogTemplate,
+    },
+    aspectRatio: {
+      components: ['AspectRatio'],
+      dependencies: ['@radix-ui/react-aspect-ratio'],
+      template: AspectRatioTemplate,
+    },
+    avatar: {
+      components: ['Avatar', 'AvatarImage', 'AvatarFallback'],
+      dependencies: ['@radix-ui/react-avatar'],
+      template: AvatarTemplate,
+    },
+    badge: {
+      components: ['Badge'],
+      dependencies: ['class-variance-authority'],
+      template: BadgeTemplate,
+    },
+    breadcrumb: {
+      components: [
+        'Breadcrumb',
+        'BreadcrumbList',
+        'BreadcrumbItem',
+        'BreadcrumbLink',
+        'BreadcrumbPage',
+        'BreadcrumbSeparator',
+        'BreadcrumbEllipsis',
+      ],
+      dependencies: ['@radix-ui/react-icons', '@radix-ui/react-slot'],
+      template: BreadcrumbTemplate,
+    },
+    button: {
+      components: ['Button'],
+      dependencies: ['@radix-ui/react-slot', 'class-variance-authority'],
+      template: ButtonTemplate,
+    },
+    calendar: {
+      components: ['Calendar'],
+      dependencies: ['@radix-ui/react-icons', 'react-day-picker'],
+      template: CalendarTemplate,
+    },
+    card: {
+      components: [
+        'Card',
+        'CardHeader',
+        'CardFooter',
+        'CardTitle',
+        'CardDescription',
+        'CardContent',
+      ],
+      template: CardTemplate,
+    },
+    carousel: {
+      components: [
+        'Carousel',
+        'CarouselContent',
+        'CarouselItem',
+        'CarouselPrevious',
+        'CarouselNext',
+      ],
+      dependencies: ['@radix-ui/react-icons', 'embla-carousel-react'],
+      template: CarouselTemplate,
+    },
+    checkbox: {
+      components: ['Checkbox'],
+      dependencies: ['@radix-ui/react-checkbox', '@radix-ui/react-icons'],
+      template: CheckboxTemplate,
+    },
+    collapsable: {
+      components: ['Collapsible', 'CollapsibleTrigger', 'CollapsibleContent'],
+      dependencies: ['@radix-ui/react-collapsible'],
+      template: CollapsableTemplate,
+    },
+    command: {
+      components: [
+        'Command',
+        'CommandDialog',
+        'CommandInput',
+        'CommandList',
+        'CommandEmpty',
+        'CommandGroup',
+        'CommandItem',
+        'CommandShortcut',
+        'CommandSeparator',
+      ],
+      dependencies: ['@radix-ui/react-dialog', '@radix-ui/react-icons', 'cmdk'],
+      template: CommandTemplate,
+    },
+    contextMenu: {
+      components: [
+        'ContextMenu',
+        'ContextMenuTrigger',
+        'ContextMenuContent',
+        'ContextMenuItem',
+        'ContextMenuCheckboxItem',
+        'ContextMenuRadioItem',
+        'ContextMenuLabel',
+        'ContextMenuSeparator',
+        'ContextMenuShortcut',
+        'ContextMenuGroup',
+        'ContextMenuPortal',
+        'ContextMenuSub',
+        'ContextMenuSubContent',
+        'ContextMenuSubTrigger',
+        'ContextMenuRadioGroup',
+      ],
+      dependencies: ['@radix-ui/react-context-menu', '@radix-ui/react-icons'],
+      template: ContextMenuTemplate,
+    },
+    dialog: {
+      components: [
+        'Dialog',
+        'DialogPortal',
+        'DialogOverlay',
+        'DialogTrigger',
+        'DialogClose',
+        'DialogContent',
+        'DialogHeader',
+        'DialogFooter',
+        'DialogTitle',
+        'DialogDescription',
+      ],
+      dependencies: ['@radix-ui/react-dialog', '@radix-ui/react-icons'],
+      template: DialogTemplate,
+    },
+    drawer: {
+      components: [
+        'Drawer',
+        'DrawerPortal',
+        'DrawerOverlay',
+        'DrawerTrigger',
+        'DrawerClose',
+        'DrawerContent',
+        'DrawerHeader',
+        'DrawerFooter',
+        'DrawerTitle',
+        'DrawerDescription',
+      ],
+      dependencies: ['vaul'],
+      template: DrawerTemplate,
+    },
+    dropdownMenu: {
+      components: [
+        'DropdownMenu',
+        'DropdownMenuTrigger',
+        'DropdownMenuContent',
+        'DropdownMenuItem',
+        'DropdownMenuCheckboxItem',
+        'DropdownMenuRadioItem',
+        'DropdownMenuLabel',
+        'DropdownMenuSeparator',
+        'DropdownMenuShortcut',
+        'DropdownMenuGroup',
+        'DropdownMenuPortal',
+        'DropdownMenuSub',
+        'DropdownMenuSubContent',
+        'DropdownMenuSubTrigger',
+        'DropdownMenuRadioGroup',
+      ],
+      dependencies: ['@radix-ui/react-dropdown-menu', '@radix-ui/react-icons'],
+      template: DropdownTemplate,
+    },
+  };
+
+  const predefinedComponents: Record<string, string> = {};
+  for (const [name, uiComponent] of Object.entries(uiComponents)) {
+    for (const component of uiComponent.components) {
+      predefinedComponents[component] = name;
+    }
+  }
+
   function renderImports(elements: ElementArrayOrRef): string {
     let imports: Record<string, string | string[]> = {};
 
@@ -304,7 +525,15 @@ export default async function generator(
         const component = pascalCase(element.component || '');
 
         if (component && !imports[component]) {
-          imports[`@/components/${component}`] = component;
+          if (predefinedComponents[component]) {
+            const ui = pascalCase(predefinedComponents[component]);
+            if (!imports[`@/components/${ui}`]) {
+              imports[`@/components/${ui}`] = [];
+            }
+            (imports[`@/components/${ui}`] as string[]).push(component);
+          } else {
+            imports[`@/components/${component}`] = component;
+          }
         }
 
         if (element.action) {
@@ -524,6 +753,18 @@ export default async function generator(
   );
 
   async function renderPage(page: Page, pagePath: string) {
+    if (page.elements && Array.isArray(page.elements)) {
+      for (let element of page.elements) {
+        if (
+          typeof element.component === 'string' &&
+          predefinedComponents[pascalCase(element.component)] &&
+          !externalComponents[`components/${pascalCase(element.component)}.tsx`]
+        ) {
+          externalComponents[`components/${pascalCase(element.component)}.tsx`] =
+            uiComponents[predefinedComponents[pascalCase(element.component)]].template;
+        }
+      }
+    }
     pages[pagePath] = await generate({
       processor: PrettierProcessor(),
       engine: async () => `
@@ -550,6 +791,7 @@ export default async function generator(
     });
   }
 
+  const externalComponents: Record<string, string> = {};
   const pages: {
     [name: string]: Buffer | string;
   } = {};
@@ -673,6 +915,7 @@ export default async function generator(
     ...auth,
     ...calls,
     ...components,
+    ...externalComponents,
     ...pages,
     'app/globals.css': await generate({
       processor: PrettierProcessor({
@@ -940,6 +1183,30 @@ export default async function generator(
         `;
       },
     }),
+    'lib/utils.ts': await generate({
+      processor: PrettierProcessor(),
+      engine: () => /* ts */ `
+        import clsx, { ClassValue } from 'clsx';
+        import { extendTailwindMerge, mergeConfigs } from 'tailwind-merge';
+
+        const twMerge = extendTailwindMerge((baseConfig) =>
+          mergeConfigs(baseConfig, {
+            extend: {
+              classGroups: {
+                'text-shadow': ['text-shadow', 'text-shadow-sm', 'text-shadow-lg'],
+              },
+              conflictingClassGroups: {
+                'text-color': ['text-shadow'],
+              },
+            },
+          }),
+        );
+
+        export function cn(...args: ClassValue[]) {
+          return twMerge(clsx(...args));
+        }
+      `,
+    }),
     'public/next.svg': await generate({
       processor: PrettierProcessor({
         parser: 'html',
@@ -1042,9 +1309,17 @@ export default async function generator(
         },
         dependencies: {
           ...pkg.dependencies,
+          '@radix-ui/react-alert-dialog': '^1.1.1',
+          '@radix-ui/react-accordion': '^1.2.0',
+          '@radix-ui/react-aspect-ratio': '^1.1.0',
+          '@radix-ui/react-checkbox': '^1.1.1',
+          '@radix-ui/react-icons': '^1.3.0',
+          '@radix-ui/react-slot': '^1.1.0',
           '@vercel/postgres-kysely': '^0.5.0',
           axios: '^1.6.0',
+          'class-variance-authority': '^0.7.0',
           clsx: '^2.1.1',
+          'embla-carousel-react': '^8.1.8',
           'framer-motion': '^11.3.24',
           kysely: '^0.26.3',
           next: '14.1.1',
@@ -1052,6 +1327,7 @@ export default async function generator(
           'react-dom': '^18',
           'react-icons': '^5.2.1',
           'react-markdown': '^9.0.0',
+          'tailwind-merge': '^2.5.0',
           'next-auth': '^4.23.1',
           zod: '^3.21.4',
         },
