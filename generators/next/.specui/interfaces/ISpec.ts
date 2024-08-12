@@ -163,6 +163,8 @@ export interface Element {
   text?: string;
   transition?: Transition;
   type?: string;
+  whileHover?: Properties & TransformProperties;
+  whileTap?: Properties & TransformProperties;
   elements?: ElementArrayOrRef;
 }
 

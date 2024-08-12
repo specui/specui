@@ -240,6 +240,14 @@ export default async function generator(
       props.transition = `{${JSON.stringify(element.transition)}}`;
     }
 
+    if (element.whileHover) {
+      props.whileHover = `{${JSON.stringify(element.whileHover)}}`;
+    }
+
+    if (element.whileTap) {
+      props.whileTap = `{${JSON.stringify(element.whileTap)}}`;
+    }
+
     if (element.style) {
       props.style = `{${JSON.stringify(element.style)}}`;
     }
@@ -308,7 +316,10 @@ export default async function generator(
       }
     `.trim();
 
-    const motionTag = element.initial || element.animate ? `motion.${tag}` : tag;
+    const motionTag =
+      element.initial || element.animate || element.whileHover || element.whileTap
+        ? `motion.${tag}`
+        : tag;
 
     return `<${motionTag} ${props}
       ${children ? `>${children}</${motionTag}>` : ' />'}`;
@@ -540,7 +551,7 @@ export default async function generator(
           imports[`@/actions/${element.action}`] = element.action;
         }
 
-        if (element.animate || element.initial) {
+        if (element.animate || element.initial || element.whileHover || element.whileTap) {
           imports['framer-motion'] = ['motion'];
         }
 
@@ -582,6 +593,8 @@ export default async function generator(
         (element) =>
           element.animate ||
           element.initial ||
+          element.whileHover ||
+          element.whileTap ||
           element.onClick !== undefined ||
           renderClient(element.elements || []),
       )
