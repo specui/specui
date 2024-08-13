@@ -7,6 +7,23 @@ import type {
   AlertComponent,
   AlertTitleComponent,
   AlertDescriptionComponent,
+  AlertDialogComponent,
+  AlertDialogContentComponent,
+  AlertDialogOverlayComponent,
+  AlertDialogPortalComponent,
+  AlertDialogTriggerComponent,
+  AspectRatioComponent,
+  AvatarComponent,
+  AvatarFallbackComponent,
+  AvatarImageComponent,
+  BadgeComponent,
+  BreadcrumbComponent,
+  BreadcrumbEllipsisComponent,
+  BreadcrumbItemComponent,
+  BreadcrumbLinkComponent,
+  BreadcrumbListComponent,
+  BreadcrumbPageComponent,
+  BreadcrumbSeparatorComponent,
 } from './shadcn';
 
 type Provider = 'facebook' | 'github' | 'google';
@@ -34,7 +51,24 @@ export type Element =
   | AccordionContentComponent
   | AlertComponent
   | AlertTitleComponent
-  | AlertDescriptionComponent;
+  | AlertDescriptionComponent
+  | AlertDialogComponent
+  | AlertDialogContentComponent
+  | AlertDialogOverlayComponent
+  | AlertDialogPortalComponent
+  | AlertDialogTriggerComponent
+  | AspectRatioComponent
+  | AvatarComponent
+  | AvatarFallbackComponent
+  | AvatarImageComponent
+  | BadgeComponent
+  | BreadcrumbComponent
+  | BreadcrumbEllipsisComponent
+  | BreadcrumbItemComponent
+  | BreadcrumbLinkComponent
+  | BreadcrumbListComponent
+  | BreadcrumbPageComponent
+  | BreadcrumbSeparatorComponent;
 
 export interface AElement extends BaseElement {
   tag: 'a';
