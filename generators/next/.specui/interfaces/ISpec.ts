@@ -24,6 +24,7 @@ import type {
   BreadcrumbListComponent,
   BreadcrumbPageComponent,
   BreadcrumbSeparatorComponent,
+  ButtonComponent,
 } from './shadcn';
 
 type Provider = 'facebook' | 'github' | 'google';

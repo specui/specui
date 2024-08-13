@@ -112,3 +112,11 @@ export interface BreadcrumbPageComponent extends BaseElement {
 export interface BreadcrumbEllipsisComponent extends BaseElement {
   component: 'breadcrumb-ellipsis';
 }
+
+export interface ButtonComponent extends BaseElement {
+  component: 'button';
+  asChild?: boolean;
+  disabled?: boolean;
+  variant?: 'link' | 'ghost' | 'outline' | 'secondary';
+  size?: 'icon';
+}
