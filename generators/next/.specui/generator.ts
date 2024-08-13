@@ -6,7 +6,7 @@ import { LicenseGenerator } from '@specui/license';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 
-import { Element, ElementArrayOrRef, ISpec, Page } from './interfaces/ISpec';
+import { Element, ElementArrayOrRef, InputElement, ISpec, Page } from './interfaces/ISpec';
 import AccordionTemplate from './templates/components/AccordionTemplate';
 import AlertTemplate from './templates/components/AlertTemplate';
 import AlertDialogTemplate from './templates/components/AlertDialogTemplate';
@@ -163,7 +163,7 @@ export default async function generator(
   type ElementPropType = 'for' | 'name' | 'placeholder' | 'type';
   type ElementEventPropType = 'onClick';
 
-  function renderElementProp(name: ElementPropType, element: Element) {
+  function renderElementProp(name: ElementPropType, element: InputElement) {
     const prop = element[name];
 
     if (!prop) {
@@ -206,9 +206,9 @@ export default async function generator(
           : `"${element.class}"`;
     }
 
-    ['alt', 'defaultChecked', 'for', 'href', 'name', 'placeholder', 'type', 'src'].forEach(
+    ['alt', 'defaultChecked', 'for', 'href', 'name', 'placeholder', 'type', 'src', 'value'].forEach(
       (name) => {
-        const value = renderElementProp(name as ElementPropType, element);
+        const value = renderElementProp(name as ElementPropType, element as InputElement);
         if (value !== undefined) {
           props[name === 'for' ? 'htmlFor' : name] = value;
         }
@@ -541,7 +541,9 @@ export default async function generator(
             if (!imports[`@/components/${ui}`]) {
               imports[`@/components/${ui}`] = [];
             }
-            (imports[`@/components/${ui}`] as string[]).push(component);
+            if (!(imports[`@/components/${ui}`] as string[]).includes(component)) {
+              (imports[`@/components/${ui}`] as string[]).push(component);
+            }
           } else {
             imports[`@/components/${component}`] = component;
           }
