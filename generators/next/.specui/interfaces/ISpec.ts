@@ -69,7 +69,8 @@ export type Element =
   | BreadcrumbLinkComponent
   | BreadcrumbListComponent
   | BreadcrumbPageComponent
-  | BreadcrumbSeparatorComponent;
+  | BreadcrumbSeparatorComponent
+  | ButtonComponent;
 
 export interface AElement extends BaseElement {
   tag: 'a';
