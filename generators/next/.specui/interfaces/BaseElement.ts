@@ -2,9 +2,38 @@ import type { Properties } from 'csstype';
 import type { TailwindClass } from '../types/TailwindClass';
 import type { ElementArrayOrRef } from './ISpec';
 
+type Style = Pick<
+  Properties,
+  | 'accentColor'
+  | 'alignContent'
+  | 'alignItems'
+  | 'alignSelf'
+  | 'alignTracks'
+  | 'background'
+  | 'backgroundAttachment'
+  | 'backgroundColor'
+  | 'backgroundImage'
+  | 'backgroundPosition'
+  | 'backgroundPositionX'
+  | 'backgroundPositionY'
+  | 'color'
+  | 'font'
+  | 'fontFamily'
+  | 'fontSize'
+  | 'fontStyle'
+  | 'justifyContent'
+  | 'justifyItems'
+  | 'justifySelf'
+  | 'justifyTracks'
+  | 'textAlign'
+  | 'textDecoration'
+  | 'textDecorationLine'
+  | 'textJustify'
+>;
+
 export interface BaseElement {
   action?: string;
-  animate?: Properties & TransformProperties;
+  animate?: Style & TransformProperties;
   component?: string;
   class?: string | string[] | TailwindClass | TailwindClass[];
   data?: any[];
@@ -24,18 +53,18 @@ export interface BaseElement {
       }
   >;
   htmlType?: string;
-  initial?: Properties & TransformProperties;
+  initial?: Style & TransformProperties;
   name?: string;
   onClick?: {
     action: string;
     data?: any;
   };
-  style?: Properties;
+  style?: Style;
   tag?: string;
   text?: string;
   transition?: Transition;
-  whileHover?: Properties & TransformProperties;
-  whileTap?: Properties & TransformProperties;
+  whileHover?: Style & TransformProperties;
+  whileTap?: Style & TransformProperties;
   elements?: ElementArrayOrRef;
 }
 
