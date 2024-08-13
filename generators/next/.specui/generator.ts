@@ -206,14 +206,23 @@ export default async function generator(
           : `"${element.class}"`;
     }
 
-    ['alt', 'defaultChecked', 'for', 'href', 'name', 'placeholder', 'type', 'src', 'value'].forEach(
-      (name) => {
-        const value = renderElementProp(name as ElementPropType, element as InputElement);
-        if (value !== undefined) {
-          props[name === 'for' ? 'htmlFor' : name] = value;
-        }
-      },
-    );
+    [
+      'alt',
+      'defaultChecked',
+      'for',
+      'href',
+      'name',
+      'placeholder',
+      'type',
+      'src',
+      'value',
+      'variant',
+    ].forEach((name) => {
+      const value = renderElementProp(name as ElementPropType, element as InputElement);
+      if (value !== undefined) {
+        props[name === 'for' ? 'htmlFor' : name] = value;
+      }
+    });
 
     ['onClick'].forEach((name) => {
       const value = renderElementEventProp(name as ElementEventPropType, element);
