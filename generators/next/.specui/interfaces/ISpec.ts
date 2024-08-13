@@ -25,6 +25,43 @@ import type {
   BreadcrumbPageComponent,
   BreadcrumbSeparatorComponent,
   ButtonComponent,
+  CalendarComponent,
+  CardComponent,
+  CardContentComponent,
+  CardDescriptionComponent,
+  CardFooterComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CarouselComponent,
+  CarouselContentComponent,
+  CarouselItemComponent,
+  CarouselNextComponent,
+  CarouselPreviousComponent,
+  CheckboxComponent,
+  CheckboxIndicatorComponent,
+  CollapsibleComponent,
+  CollapsibleContentComponent,
+  CollapsibleTriggerComponent,
+  CommandComponent,
+  CommandEmptyComponent,
+  CommandGroupComponent,
+  CommandInputComponent,
+  CommandItemComponent,
+  CommandListComponent,
+  CommandSeparatorComponent,
+  CommandShortcutComponent,
+  ContextMenuCheckboxItemComponent,
+  ContextMenuComponent,
+  ContextMenuContentComponent,
+  ContextMenuItemComponent,
+  ContextMenuLabelComponent,
+  ContextMenuRadioGroupComponent,
+  ContextMenuRadioItemComponent,
+  ContextMenuSeparatorComponent,
+  ContextMenuSubComponent,
+  ContextMenuSubContentComponent,
+  ContextMenuSubTriggerComponent,
+  ContextMenuTriggerComponent,
 } from './shadcn';
 
 type Provider = 'facebook' | 'github' | 'google';
@@ -70,7 +107,44 @@ export type Element =
   | BreadcrumbListComponent
   | BreadcrumbPageComponent
   | BreadcrumbSeparatorComponent
-  | ButtonComponent;
+  | ButtonComponent
+  | CalendarComponent
+  | CardComponent
+  | CardContentComponent
+  | CardDescriptionComponent
+  | CardFooterComponent
+  | CardHeaderComponent
+  | CardTitleComponent
+  | CarouselComponent
+  | CarouselContentComponent
+  | CarouselItemComponent
+  | CarouselNextComponent
+  | CarouselPreviousComponent
+  | CheckboxComponent
+  | CheckboxIndicatorComponent
+  | CollapsibleComponent
+  | CollapsibleContentComponent
+  | CollapsibleTriggerComponent
+  | CommandComponent
+  | CommandEmptyComponent
+  | CommandGroupComponent
+  | CommandInputComponent
+  | CommandItemComponent
+  | CommandListComponent
+  | CommandSeparatorComponent
+  | CommandShortcutComponent
+  | ContextMenuCheckboxItemComponent
+  | ContextMenuComponent
+  | ContextMenuContentComponent
+  | ContextMenuItemComponent
+  | ContextMenuLabelComponent
+  | ContextMenuRadioGroupComponent
+  | ContextMenuRadioItemComponent
+  | ContextMenuSeparatorComponent
+  | ContextMenuSubComponent
+  | ContextMenuSubContentComponent
+  | ContextMenuSubTriggerComponent
+  | ContextMenuTriggerComponent;
 
 export interface AElement extends BaseElement {
   tag: 'a';

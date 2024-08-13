@@ -120,3 +120,168 @@ export interface ButtonComponent extends BaseElement {
   variant?: 'link' | 'ghost' | 'outline' | 'secondary';
   size?: 'icon';
 }
+
+export interface CalendarComponent extends BaseElement {
+  component: 'calendar';
+}
+
+export interface CardComponent extends BaseElement {
+  component: 'card';
+}
+
+export interface CardHeaderComponent extends BaseElement {
+  component: 'card-header';
+}
+
+export interface CardTitleComponent extends BaseElement {
+  component: 'card-title';
+}
+
+export interface CardDescriptionComponent extends BaseElement {
+  component: 'card-description';
+}
+
+export interface CardContentComponent extends BaseElement {
+  component: 'card-content';
+}
+
+export interface CardFooterComponent extends BaseElement {
+  component: 'card-footer';
+}
+
+export interface CarouselComponent extends BaseElement {
+  component: 'carousel';
+}
+
+export interface CarouselContentComponent extends BaseElement {
+  component: 'carousel-content';
+}
+
+export interface CarouselItemComponent extends BaseElement {
+  component: 'carousel-item';
+}
+
+export interface CarouselNextComponent extends BaseElement {
+  component: 'carousel-next';
+}
+
+export interface CarouselPreviousComponent extends BaseElement {
+  component: 'carousel-previous';
+}
+
+export interface CheckboxComponent extends Omit<BaseElement, 'defaultChecked'> {
+  component: 'checkbox';
+  defaultChecked?: boolean;
+  checked?: boolean;
+  disabled?: boolean;
+  required?: boolean;
+  name?: string;
+  value?: string;
+}
+
+export interface CheckboxIndicatorComponent extends BaseElement {
+  component: 'checkbox-indicator';
+  forceMount?: boolean;
+}
+
+export interface CollapsibleComponent extends BaseElement {
+  component: 'collapsible';
+  defaultOpen?: boolean;
+  disabled?: boolean;
+  open?: boolean;
+}
+
+export interface CollapsibleTriggerComponent extends BaseElement {
+  component: 'collapsible-trigger';
+}
+
+export interface CollapsibleContentComponent extends BaseElement {
+  component: 'collapsible-content';
+  forceMount?: boolean;
+}
+
+export interface CommandComponent extends BaseElement {
+  component: 'command';
+}
+
+export interface CommandInputComponent extends BaseElement {
+  component: 'command-input';
+  placeholder?: string;
+}
+
+export interface CommandListComponent extends BaseElement {
+  component: 'command-list';
+}
+
+export interface CommandEmptyComponent extends BaseElement {
+  component: 'command-empty';
+}
+
+export interface CommandGroupComponent extends BaseElement {
+  component: 'command-group';
+  heading?: string;
+}
+
+export interface CommandItemComponent extends BaseElement {
+  component: 'command-item';
+}
+
+export interface CommandSeparatorComponent extends BaseElement {
+  component: 'command-separator';
+}
+
+export interface CommandShortcutComponent extends BaseElement {
+  component: 'command-shortcut';
+}
+
+export interface ContextMenuComponent extends BaseElement {
+  component: 'context-menu';
+}
+
+export interface ContextMenuCheckboxItemComponent extends BaseElement {
+  component: 'context-menu-checkbox-item';
+  checked?: boolean;
+}
+
+export interface ContextMenuContentComponent extends BaseElement {
+  component: 'context-menu-content';
+}
+
+export interface ContextMenuItemComponent extends BaseElement {
+  component: 'context-menu-item';
+  disabled?: boolean;
+  inset?: boolean;
+}
+
+export interface ContextMenuLabelComponent extends BaseElement {
+  component: 'context-menu-label';
+}
+
+export interface ContextMenuRadioGroupComponent extends BaseElement {
+  component: 'context-menu-radio-group';
+  value?: string;
+}
+
+export interface ContextMenuRadioItemComponent extends BaseElement {
+  component: 'context-menu-radio-item';
+}
+
+export interface ContextMenuSeparatorComponent extends BaseElement {
+  component: 'context-menu-separator';
+}
+
+export interface ContextMenuSubComponent extends BaseElement {
+  component: 'context-menu-sub';
+}
+
+export interface ContextMenuSubContentComponent extends BaseElement {
+  component: 'context-menu-sub-content';
+}
+
+export interface ContextMenuSubTriggerComponent extends BaseElement {
+  component: 'context-menu-sub-trigger';
+}
+
+export interface ContextMenuTriggerComponent extends BaseElement {
+  component: 'context-menu-trigger';
+}
