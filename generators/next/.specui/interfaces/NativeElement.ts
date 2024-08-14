@@ -1,4 +1,4 @@
-import type { BaseElement } from './ISpec';
+import type { BaseElement } from './BaseElement';
 
 export type NativeElement =
   | AElement

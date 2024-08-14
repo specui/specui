@@ -1,4 +1,4 @@
-import type { ElementArrayOrRef } from './ISpec';
+import type { ElementArrayOrRef } from './BaseElement';
 
 export interface Page {
   dataSources?: Record<

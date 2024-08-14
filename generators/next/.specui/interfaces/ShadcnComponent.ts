@@ -1,4 +1,4 @@
-import { BaseElement, Element } from './ISpec';
+import { BaseElement, Element } from './BaseElement';
 
 export type ShadcnComponent =
   | AccordionComponent
