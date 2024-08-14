@@ -4,6 +4,7 @@ import type { Call } from './Call';
 import type { Component } from './Component';
 import type { Model } from './Model';
 import type { Page } from './Page';
+import type { Vercel } from './Vercel';
 
 export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
 export type PrimitiveType = 'boolean' | 'number' | 'string';
@@ -27,4 +28,5 @@ export interface ISpec {
   models?: {
     [name: string]: Model;
   };
+  vercel?: Vercel;
 }

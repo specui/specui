@@ -974,6 +974,7 @@ export default async function generator(
     'app/layout.tsx': await generate({
       processor: PrettierProcessor(),
       engine: async () => /* ts */ `
+        ${spec.vercel?.analytics ? `import { Analytics } from '@vercel/analytics/react';` : ''}
         import type { Metadata } from 'next'
         import { Inter } from 'next/font/google'
         import './globals.css'
@@ -992,7 +993,10 @@ export default async function generator(
         }) {
           return (
             <html lang="en">
-              <body className={inter.className}>{children}</body>
+              <body className={inter.className}>
+                {children}
+                ${spec.vercel?.analytics ? '<Analytics />' : ''}
+              </body>
             </html>
           )
         }
@@ -1349,6 +1353,11 @@ export default async function generator(
           '@radix-ui/react-checkbox': '^1.1.1',
           '@radix-ui/react-icons': '^1.3.0',
           '@radix-ui/react-slot': '^1.1.0',
+          ...(spec.vercel?.analytics
+            ? {
+                '@vercel/analytics': '^1.3.1',
+              }
+            : {}),
           '@vercel/postgres-kysely': '^0.5.0',
           axios: '^1.6.0',
           'class-variance-authority': '^0.7.0',
