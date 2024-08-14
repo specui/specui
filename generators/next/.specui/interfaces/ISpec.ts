@@ -1,3 +1,9 @@
+import type { Action } from './Action';
+import type { Author } from './Author';
+import type { Call } from './Call';
+import type { Component } from './Component';
+import type { Model } from './Model';
+import type { Page } from './Page';
 import type { Style } from './Style';
 
 export interface Transition {
@@ -5,36 +11,8 @@ export interface Transition {
   duration?: number;
 }
 
-interface Author {
-  name?: string;
-  email?: string;
-  url?: string;
-}
-
 export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
 export type PrimitiveType = 'boolean' | 'number' | 'string';
-
-interface Component {
-  props?: Record<string, ComponentProp>;
-  elements?: ElementArrayOrRef;
-}
-
-interface ComponentProp {
-  required?: boolean;
-  type?: PrimitiveType;
-}
-
-export interface Page {
-  dataSources?: Record<
-    string,
-    {
-      type: 'model';
-      model?: string;
-    }
-  >;
-  title?: string;
-  elements?: ElementArrayOrRef;
-}
 
 export type ElementArrayOrRef =
   | Element[]
@@ -150,56 +128,13 @@ export interface ISpec {
   author?: Author;
   components?: Record<string, Component>;
   pages?: Record<string, Page>;
-  actions?: {
-    [name: string]: {
-      props: {
-        [name: string]: {
-          required?: boolean;
-          type: 'boolean' | 'number' | 'string';
-        };
-      };
-      operations: {
-        type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect';
-        model?: string;
-        data?: {
-          [name: string]: any;
-        };
-        path?: string;
-        where?: {
-          [name: string]: any;
-        };
-      }[];
-    };
-  };
+  actions?: Record<string, Action>;
   auth?: {
     providers: Provider[];
   };
-  calls?: {
-    [name: string]: {
-      request: {
-        [name: string]: {
-          required?: boolean;
-          type: 'boolean' | 'number' | 'string';
-        };
-      };
-      response: {
-        [name: string]: {
-          required?: boolean;
-          type: 'boolean' | 'number' | 'string';
-        };
-      };
-    };
-  };
+  calls?: Record<string, Call>;
   models?: {
-    [name: string]: {
-      attributes: {
-        [name: string]: {
-          key?: 'primary';
-          type: 'boolean' | 'number' | 'string';
-          unique?: boolean;
-        };
-      };
-    };
+    [name: string]: Model;
   };
 }
 
