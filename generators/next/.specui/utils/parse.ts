@@ -10,6 +10,7 @@ interface JsonSchemaProperty {
   enum?: string[];
   $ref?: string;
   oneOf?: JsonSchemaProperty[];
+  additionalProperties: boolean | JsonSchemaProperty;
 }
 
 const project = new Project();
@@ -27,11 +28,11 @@ function generateJsonSchemaForType(type: Type, visitedTypes: Set<string> = new S
       return {
         type: 'array',
         items: {
-          $ref: `#/definitions/${typeName.slice(0, -2)}`,
+          $ref: `#/definitions/${typeName.slice(0, -2).split('.').slice(-1)[0]}`,
         },
       };
     }
-    return { $ref: `#/definitions/${typeName}` };
+    return { $ref: `#/definitions/${typeName.split('.').slice(-1)[0]}` };
   }
 
   // Add the current type to the set of visited types
@@ -116,6 +117,20 @@ function processObjectType(type: Type, visitedTypes: Set<string>): any {
         .getProperties()
         .map((prop) => `${prop.getName()} - ${prop.getDeclarations()[0]?.getType().getText()}`),
     );
+
+  if (type.getText().startsWith('Record<')) {
+    const target = type.getText().slice(7, -1).split(' ')[1];
+
+    return {
+      type: 'object',
+      additionalProperties: ['boolean', 'number', 'string'].includes(target)
+        ? {
+            type: target,
+          }
+        : generateJsonSchema(sourceFile.getInterface(target)!, visitedTypes),
+    };
+  }
+
   type.getProperties().forEach((prop) => {
     const propType = prop.getDeclarations()[0]?.getType();
     const propName = prop.getName();
@@ -183,18 +198,20 @@ function processObjectType(type: Type, visitedTypes: Set<string>): any {
         return {
           type: 'array',
           items: {
-            $ref: `#/definitions/${symbolName.slice(0, -2)}`,
+            $ref: `#/definitions/${symbolName.slice(0, -2).split('.').slice(-1)[0]}`,
           },
         };
       }
       return {
-        $ref: `#/definitions/${symbolName}`,
+        $ref: `#/definitions/${symbolName.split('.').slice(-1)[0]}`,
       };
     }
   }
 
   return {
-    $ref: type.getBaseTypes().length ? `#/definitions/${type.getBaseTypes()[0]}` : undefined,
+    $ref: type.getBaseTypes().length
+      ? `#/definitions/${type.getBaseTypes()[0].getText().split('.').slice(-1)[0]}`
+      : undefined,
     type: 'object',
     properties: Object.keys(properties).length ? properties : undefined,
     required: required.length ? required : undefined,
@@ -212,10 +229,12 @@ function processUnionOrIntersectionType(type: Type, visitedTypes: Set<string>): 
 }
 
 // Recursive function to generate JSON schema for an interface
-function generateJsonSchema(interfaceDecl: InterfaceDeclaration): any {
+function generateJsonSchema(
+  interfaceDecl: InterfaceDeclaration,
+  visitedTypes: Set<string> = new Set(),
+): any {
   const properties: Record<string, JsonSchemaProperty> = {};
   const required: string[] = [];
-  const visitedTypes = new Set<string>();
 
   interfaceDecl.getProperties().forEach((property: PropertySignature) => {
     const propName = property.getName();
@@ -240,7 +259,11 @@ if (specInterface) {
   const jsonSchema = generateJsonSchema(specInterface);
   writeFileSync(
     `${__dirname}/schema.json`,
-    JSON.stringify({ ...jsonSchema, definitions }, null, 2),
+    JSON.stringify(
+      { $schema: 'http://json-schema.org/draft-07/schema#', ...jsonSchema, definitions },
+      null,
+      2,
+    ),
   );
 } else {
   console.error("Interface 'ISpec' not found.");

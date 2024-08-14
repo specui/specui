@@ -12,5 +12,19 @@
       "tag": "img",
       "src": ""
     }
-  ]
+  ],
+  "components": {
+    "header": {
+      "elements": [
+        {
+          "tag": "iframe",
+          "src": "a"
+        },
+        {
+          "component": "accordion",
+          "collapsible": true
+        }
+      ]
+    }
+  }
 }

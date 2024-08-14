@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "name": {
@@ -45,40 +46,501 @@
       "$ref": "#/definitions/Author"
     },
     "components": {
-      "type": "object"
-    },
-    "elements": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/AElement"
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "props": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "required": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "number"
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "boolean"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
           },
-          {
-            "$ref": "#/definitions/DivElement"
-          },
-          {
-            "$ref": "#/definitions/IframeElement"
-          },
-          {
-            "$ref": "#/definitions/ImgElement"
-          },
-          {
-            "$ref": "#/definitions/InputElement"
-          },
-          {
-            "$ref": "#/definitions/LiElement"
-          },
-          {
-            "$ref": "#/definitions/SectionElement"
-          },
-          {
-            "$ref": "#/definitions/SpanElement"
-          },
-          {
-            "$ref": "#/definitions/UlElement"
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/AElement"
+                },
+                {
+                  "$ref": "#/definitions/DivElement"
+                },
+                {
+                  "$ref": "#/definitions/HeadingElement"
+                },
+                {
+                  "$ref": "#/definitions/IframeElement"
+                },
+                {
+                  "$ref": "#/definitions/ImgElement"
+                },
+                {
+                  "$ref": "#/definitions/InputElement"
+                },
+                {
+                  "$ref": "#/definitions/LiElement"
+                },
+                {
+                  "$ref": "#/definitions/SectionElement"
+                },
+                {
+                  "$ref": "#/definitions/SpanElement"
+                },
+                {
+                  "$ref": "#/definitions/UlElement"
+                },
+                {
+                  "$ref": "#/definitions/AccordionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogPortalComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogOverlayComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AspectRatioComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarImageComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarFallbackComponent"
+                },
+                {
+                  "$ref": "#/definitions/BadgeComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbListComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbLinkComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbPageComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbEllipsisComponent"
+                },
+                {
+                  "$ref": "#/definitions/ButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/CalendarComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardHeaderComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardFooterComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselNextComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselPreviousComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxIndicatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandInputComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandListComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandEmptyComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandShortcutComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuCheckboxItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuLabelComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuTriggerComponent"
+                }
+              ]
+            }
           }
-        ]
+        }
+      }
+    },
+    "pages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/AElement"
+                },
+                {
+                  "$ref": "#/definitions/DivElement"
+                },
+                {
+                  "$ref": "#/definitions/HeadingElement"
+                },
+                {
+                  "$ref": "#/definitions/IframeElement"
+                },
+                {
+                  "$ref": "#/definitions/ImgElement"
+                },
+                {
+                  "$ref": "#/definitions/InputElement"
+                },
+                {
+                  "$ref": "#/definitions/LiElement"
+                },
+                {
+                  "$ref": "#/definitions/SectionElement"
+                },
+                {
+                  "$ref": "#/definitions/SpanElement"
+                },
+                {
+                  "$ref": "#/definitions/UlElement"
+                },
+                {
+                  "$ref": "#/definitions/AccordionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogPortalComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogOverlayComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AspectRatioComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarImageComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarFallbackComponent"
+                },
+                {
+                  "$ref": "#/definitions/BadgeComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbListComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbLinkComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbPageComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbEllipsisComponent"
+                },
+                {
+                  "$ref": "#/definitions/ButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/CalendarComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardHeaderComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardFooterComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselNextComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselPreviousComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxIndicatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandInputComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandListComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandEmptyComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandShortcutComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuCheckboxItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuLabelComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuTriggerComponent"
+                }
+              ]
+            }
+          }
+        }
       }
     }
   },
@@ -100,12 +562,179 @@
         }
       }
     },
+    "Style": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "backgroundAttachment": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "fixed"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "local"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "scroll"
+              ]
+            }
+          ]
+        },
+        "backgroundBlendMod": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "normal"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "multiply"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "screen"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "overlay"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "darken"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "lighten"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "color-dodge"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "color-burn"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "hard-light"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "soft-light"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "difference"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "exclusion"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "hue"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "saturation"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "color"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "luminosity"
+              ]
+            }
+          ]
+        },
+        "backgroundClip": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "text"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "border-box"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "padding-box"
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "content-box"
+              ]
+            }
+          ]
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "backgroundImage": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "fontFamily": {
+          "type": "string"
+        }
+      }
+    },
     "BaseElement": {
       "type": "object",
       "properties": {
-        "tag": {
-          "type": "string"
-        },
         "class": {
           "oneOf": [
             {
@@ -130,6 +759,9 @@
                 "$ref": "#/definitions/DivElement"
               },
               {
+                "$ref": "#/definitions/HeadingElement"
+              },
+              {
                 "$ref": "#/definitions/IframeElement"
               },
               {
@@ -149,13 +781,2150 @@
               },
               {
                 "$ref": "#/definitions/UlElement"
+              },
+              {
+                "$ref": "#/definitions/AccordionComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionItemComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionContentComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertTitleComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDescriptionComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogPortalComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogOverlayComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogContentComponent"
+              },
+              {
+                "$ref": "#/definitions/AspectRatioComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarImageComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarFallbackComponent"
+              },
+              {
+                "$ref": "#/definitions/BadgeComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbListComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbItemComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbLinkComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbPageComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbEllipsisComponent"
+              },
+              {
+                "$ref": "#/definitions/ButtonComponent"
+              },
+              {
+                "$ref": "#/definitions/CalendarComponent"
+              },
+              {
+                "$ref": "#/definitions/CardComponent"
+              },
+              {
+                "$ref": "#/definitions/CardHeaderComponent"
+              },
+              {
+                "$ref": "#/definitions/CardTitleComponent"
+              },
+              {
+                "$ref": "#/definitions/CardDescriptionComponent"
+              },
+              {
+                "$ref": "#/definitions/CardContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CardFooterComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselItemComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselNextComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselPreviousComponent"
+              },
+              {
+                "$ref": "#/definitions/CheckboxComponent"
+              },
+              {
+                "$ref": "#/definitions/CheckboxIndicatorComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandInputComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandListComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandEmptyComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandGroupComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandItemComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandShortcutComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuCheckboxItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuContentComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuLabelComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuRadioGroupComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuRadioItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubContentComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuTriggerComponent"
               }
             ]
           }
+        },
+        "style": {
+          "$ref": "#/definitions/Style"
+        },
+        "text": {
+          "type": "string"
         }
-      },
-      "required": [
-        "tag"
+      }
+    },
+    "ContextMenuTriggerComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-trigger"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuSubTriggerComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-sub-trigger"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuSubContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-sub-content"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuSubComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-sub"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuSeparatorComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-separator"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuRadioItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-radio-item"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuRadioGroupComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-radio-group"
+              ]
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuLabelComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-label"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-item"
+              ]
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "inset": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-content"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuCheckboxItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu-checkbox-item"
+              ]
+            },
+            "checked": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ContextMenuComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "context-menu"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandShortcutComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-shortcut"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandSeparatorComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-separator"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-item"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandGroupComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-group"
+              ]
+            },
+            "heading": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandEmptyComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-empty"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandListComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-list"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandInputComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command-input"
+              ]
+            },
+            "placeholder": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CommandComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "command"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CollapsibleContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "collapsible-content"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CollapsibleTriggerComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "collapsible-trigger"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CollapsibleComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "collapsible"
+              ]
+            },
+            "defaultOpen": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "open": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CheckboxIndicatorComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "checkbox-indicator"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BaseElement, \"defaultChecked\">": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/HeadingElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              },
+              {
+                "$ref": "#/definitions/AccordionComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionItemComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/AccordionContentComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertTitleComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDescriptionComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogPortalComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogOverlayComponent"
+              },
+              {
+                "$ref": "#/definitions/AlertDialogContentComponent"
+              },
+              {
+                "$ref": "#/definitions/AspectRatioComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarImageComponent"
+              },
+              {
+                "$ref": "#/definitions/AvatarFallbackComponent"
+              },
+              {
+                "$ref": "#/definitions/BadgeComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbListComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbItemComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbLinkComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbPageComponent"
+              },
+              {
+                "$ref": "#/definitions/BreadcrumbEllipsisComponent"
+              },
+              {
+                "$ref": "#/definitions/ButtonComponent"
+              },
+              {
+                "$ref": "#/definitions/CalendarComponent"
+              },
+              {
+                "$ref": "#/definitions/CardComponent"
+              },
+              {
+                "$ref": "#/definitions/CardHeaderComponent"
+              },
+              {
+                "$ref": "#/definitions/CardTitleComponent"
+              },
+              {
+                "$ref": "#/definitions/CardDescriptionComponent"
+              },
+              {
+                "$ref": "#/definitions/CardContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CardFooterComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselItemComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselNextComponent"
+              },
+              {
+                "$ref": "#/definitions/CarouselPreviousComponent"
+              },
+              {
+                "$ref": "#/definitions/CheckboxComponent"
+              },
+              {
+                "$ref": "#/definitions/CheckboxIndicatorComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/CollapsibleContentComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandInputComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandListComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandEmptyComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandGroupComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandItemComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/CommandShortcutComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuCheckboxItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuContentComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuLabelComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuRadioGroupComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuRadioItemComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSeparatorComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubContentComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuSubTriggerComponent"
+              },
+              {
+                "$ref": "#/definitions/ContextMenuTriggerComponent"
+              }
+            ]
+          }
+        },
+        "style": {
+          "$ref": "#/definitions/Style"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "CheckboxComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement, \"defaultChecked\">"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "checkbox"
+              ]
+            },
+            "defaultChecked": {
+              "type": "boolean"
+            },
+            "checked": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CarouselPreviousComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "carousel-previous"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CarouselNextComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "carousel-next"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CarouselItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "carousel-item"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CarouselContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "carousel-content"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CarouselComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "carousel"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardFooterComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card-footer"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card-content"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardDescriptionComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card-description"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardTitleComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card-title"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardHeaderComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card-header"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CardComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "card"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "CalendarComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "calendar"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "ButtonComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "button"
+              ]
+            },
+            "asChild": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "variant": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "link"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "ghost"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "outline"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "secondary"
+                  ]
+                }
+              ]
+            },
+            "size": {
+              "type": "string",
+              "enum": [
+                "icon"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbEllipsisComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-ellipsis"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbPageComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-page"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbSeparatorComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-separator"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbLinkComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-link"
+              ]
+            },
+            "href": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-item"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbListComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb-list"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BreadcrumbComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "breadcrumb"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "BadgeComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "badge"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AvatarFallbackComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "avatar-fallback"
+              ]
+            },
+            "delayMs": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AvatarImageComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "avatar-image"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AvatarComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "avatar"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AspectRatioComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "aspect-ratio"
+              ]
+            },
+            "ratio": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDialogContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-dialog-content"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDialogOverlayComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-dialog-overlay"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDialogPortalComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-dialog-portal"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            },
+            "container": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/AElement"
+                },
+                {
+                  "$ref": "#/definitions/DivElement"
+                },
+                {
+                  "$ref": "#/definitions/HeadingElement"
+                },
+                {
+                  "$ref": "#/definitions/IframeElement"
+                },
+                {
+                  "$ref": "#/definitions/ImgElement"
+                },
+                {
+                  "$ref": "#/definitions/InputElement"
+                },
+                {
+                  "$ref": "#/definitions/LiElement"
+                },
+                {
+                  "$ref": "#/definitions/SectionElement"
+                },
+                {
+                  "$ref": "#/definitions/SpanElement"
+                },
+                {
+                  "$ref": "#/definitions/UlElement"
+                },
+                {
+                  "$ref": "#/definitions/AccordionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AccordionContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogPortalComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogOverlayComponent"
+                },
+                {
+                  "$ref": "#/definitions/AlertDialogContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/AspectRatioComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarImageComponent"
+                },
+                {
+                  "$ref": "#/definitions/AvatarFallbackComponent"
+                },
+                {
+                  "$ref": "#/definitions/BadgeComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbListComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbLinkComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbPageComponent"
+                },
+                {
+                  "$ref": "#/definitions/BreadcrumbEllipsisComponent"
+                },
+                {
+                  "$ref": "#/definitions/ButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/CalendarComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardHeaderComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardTitleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardDescriptionComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CardFooterComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselNextComponent"
+                },
+                {
+                  "$ref": "#/definitions/CarouselPreviousComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxComponent"
+                },
+                {
+                  "$ref": "#/definitions/CheckboxIndicatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/CollapsibleContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandInputComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandListComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandEmptyComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/CommandShortcutComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuCheckboxItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuLabelComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioGroupComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuRadioItemComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSeparatorComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubContentComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuSubTriggerComponent"
+                },
+                {
+                  "$ref": "#/definitions/ContextMenuTriggerComponent"
+                }
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDialogTriggerComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-dialog-trigger"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDialogComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-dialog"
+              ]
+            },
+            "defaultOpen": {
+              "type": "boolean"
+            },
+            "open": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertDescriptionComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-description"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertTitleComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert-title"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AlertComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "alert"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AccordionContentComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "accordion-content"
+              ]
+            },
+            "forceMount": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AccordionTriggerComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "accordion-trigger"
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
+      ]
+    },
+    "AccordionItemComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "accordion-item"
+              ]
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "component",
+            "value"
+          ]
+        }
+      ]
+    },
+    "AccordionComponent": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "type": "string",
+              "enum": [
+                "accordion"
+              ]
+            },
+            "collapsible": {
+              "type": "boolean"
+            },
+            "dir": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "ltr"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "rtl"
+                  ]
+                }
+              ]
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "orientation": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "horizontal"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "vertical"
+                  ]
+                }
+              ]
+            },
+            "type": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "single"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "multiple"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "component"
+          ]
+        }
       ]
     },
     "UlElement": {
@@ -308,6 +3077,64 @@
               "type": "string",
               "enum": [
                 "iframe"
+              ]
+            },
+            "src": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
+          ]
+        }
+      ]
+    },
+    "HeadingElement": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "h1"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "h2"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "h3"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "h4"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "h5"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "h6"
+                  ]
+                }
               ]
             },
             "src": {
