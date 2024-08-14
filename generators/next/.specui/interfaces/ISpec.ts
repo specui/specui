@@ -3,6 +3,7 @@ import type { Author } from './Author';
 import type { Call } from './Call';
 import type { Component } from './Component';
 import type { Model } from './Model';
+import type { NativeElement } from './NativeElement';
 import type { Page } from './Page';
 import type { Style } from './Style';
 
@@ -20,18 +21,7 @@ export type ElementArrayOrRef =
       $ref: Element;
     };
 
-export type Element =
-  | AElement
-  | DivElement
-  | HeadingElement
-  | IframeElement
-  | ImgElement
-  | InputElement
-  | LiElement
-  | SectionElement
-  | SpanElement
-  | UlElement
-  | ShadcnComponent;
+export type Element = NativeElement | ShadcnComponent;
 
 export interface BaseElement {
   action?: string;
@@ -67,54 +57,6 @@ export interface BaseElement {
   text?: string;
   whileHover?: Style;
   whileTap?: Style;
-}
-
-interface AElement extends BaseElement {
-  tag: 'a';
-  href?: string;
-}
-
-interface DivElement extends BaseElement {
-  tag: 'div';
-}
-
-interface HeadingElement extends BaseElement {
-  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  src?: string;
-}
-
-interface IframeElement extends BaseElement {
-  tag: 'iframe';
-  src?: string;
-}
-
-interface ImgElement extends BaseElement {
-  tag: 'img';
-  src?: string;
-}
-
-export interface InputElement extends BaseElement {
-  tag: 'input';
-  name?: string;
-  placeholder?: string;
-  type?: string;
-}
-
-interface LiElement extends BaseElement {
-  tag: 'li';
-}
-
-interface SectionElement extends BaseElement {
-  tag: 'section';
-  src?: string;
-}
-
-interface SpanElement extends BaseElement {
-  tag: 'span';
-}
-
-interface UlElement extends BaseElement {
-  tag: 'ul';
 }
 
 type Provider = 'facebook' | 'github' | 'google';

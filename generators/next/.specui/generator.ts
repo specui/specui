@@ -6,8 +6,9 @@ import { LicenseGenerator } from '@specui/license';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
 
+import type { InputElement } from './interfaces/NativeElement';
 import type { Page } from './interfaces/Page';
-import type { Element, ElementArrayOrRef, InputElement, ISpec } from './interfaces/ISpec';
+import type { Element, ElementArrayOrRef, ISpec } from './interfaces/ISpec';
 import AccordionTemplate from './templates/components/AccordionTemplate';
 import AlertTemplate from './templates/components/AlertTemplate';
 import AlertDialogTemplate from './templates/components/AlertDialogTemplate';
