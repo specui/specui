@@ -99,9 +99,6 @@ function logTypePropertiesAndMethodsDynamically(type: Type) {
       } else {
         value = propValue;
       }
-      // if (value.toString().toLowerCase().includes('baseelement')) {
-      console.log(`${propName}:`, value);
-      // }
     } catch (error) {
       console.log(`${propName}: Error retrieving value - ${(error as Error).message}`);
     }
