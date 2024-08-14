@@ -12,13 +12,31 @@
         {
           "type": "string",
           "enum": [
-            "MIT"
+            "Apache-2.0"
           ]
         },
         {
           "type": "string",
           "enum": [
-            "Apache-2.0"
+            "GPL-2.0-only"
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "GPL-3.0-only"
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "ISC"
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "MIT"
           ]
         }
       ]
@@ -27,8 +45,7 @@
       "$ref": "#/definitions/Author"
     },
     "components": {
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "elements": {
       "type": "array",
@@ -83,17 +100,24 @@
         }
       }
     },
-    "UlElement": {
+    "BaseElement": {
       "type": "object",
       "properties": {
         "tag": {
-          "type": "string",
-          "enum": [
-            "ul"
-          ]
+          "type": "string"
         },
         "class": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "elements": {
           "type": "array",
@@ -132,432 +156,213 @@
       },
       "required": [
         "tag"
+      ]
+    },
+    "UlElement": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "ul"
+              ]
+            }
+          },
+          "required": [
+            "tag"
+          ]
+        }
       ]
     },
     "SpanElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "span"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "span"
+              ]
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "SectionElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "section"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "section"
+              ]
+            },
+            "src": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "src": {
-          "type": "string"
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "LiElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "li"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "li"
+              ]
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "InputElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "input"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "input"
+              ]
+            },
+            "placeholder": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "placeholder": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "ImgElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "img"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "img"
+              ]
+            },
+            "src": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "src": {
-          "type": "string"
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "IframeElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "iframe"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "iframe"
+              ]
+            },
+            "src": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "src": {
-          "type": "string"
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "DivElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "div"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "div"
+              ]
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     },
     "AElement": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": [
-            "a"
+      "allOf": [
+        {
+          "$ref": "#/definitions/BaseElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "enum": [
+                "a"
+              ]
+            },
+            "href": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tag"
           ]
-        },
-        "href": {
-          "type": "string"
-        },
-        "class": {
-          "type": "string"
-        },
-        "elements": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/definitions/AElement"
-              },
-              {
-                "$ref": "#/definitions/DivElement"
-              },
-              {
-                "$ref": "#/definitions/IframeElement"
-              },
-              {
-                "$ref": "#/definitions/ImgElement"
-              },
-              {
-                "$ref": "#/definitions/InputElement"
-              },
-              {
-                "$ref": "#/definitions/LiElement"
-              },
-              {
-                "$ref": "#/definitions/SectionElement"
-              },
-              {
-                "$ref": "#/definitions/SpanElement"
-              },
-              {
-                "$ref": "#/definitions/UlElement"
-              }
-            ]
-          }
         }
-      },
-      "required": [
-        "tag"
       ]
     }
   }

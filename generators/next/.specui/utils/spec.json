@@ -9,7 +9,8 @@
   },
   "elements": [
     {
-      "tag": "section"
+      "tag": "img",
+      "src": ""
     }
   ]
 }

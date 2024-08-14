@@ -83,13 +83,49 @@ function generateJsonSchemaForType(type: Type, visitedTypes: Set<string> = new S
   }
 }
 
+function logTypePropertiesAndMethodsDynamically(type: Type) {
+  // Get all properties and methods of the Type object
+  const proto = Object.getPrototypeOf(type);
+  const propNames = Object.getOwnPropertyNames(proto);
+
+  // Iterate over each property/method and log its value
+  propNames.forEach((propName) => {
+    try {
+      const propValue = (type as any)[propName];
+
+      let value = '';
+      if (typeof propValue === 'function') {
+        value = propValue.call(type);
+      } else {
+        value = propValue;
+      }
+      // if (value.toString().toLowerCase().includes('baseelement')) {
+      console.log(`${propName}:`, value);
+      // }
+    } catch (error) {
+      console.log(`${propName}: Error retrieving value - ${(error as Error).message}`);
+    }
+  });
+}
+
 // Process types that are objects or interfaces
 function processObjectType(type: Type, visitedTypes: Set<string>): any {
   const properties: Record<string, JsonSchemaProperty> = {};
   const required: string[] = [];
+  const baseProps = type
+    .getBaseTypes()
+    .flatMap((baseType) =>
+      baseType
+        .getProperties()
+        .map((prop) => `${prop.getName()} - ${prop.getDeclarations()[0]?.getType().getText()}`),
+    );
   type.getProperties().forEach((prop) => {
     const propType = prop.getDeclarations()[0]?.getType();
     const propName = prop.getName();
+    if (baseProps.includes(`${propName} - ${propType.getText()}`)) {
+      return;
+    }
+    // console.log('prop name:', propName);
     const isOptional =
       (prop.getDeclarations()[0] as PropertySignature)?.hasQuestionToken?.() || false;
     if (propType) {
@@ -101,13 +137,50 @@ function processObjectType(type: Type, visitedTypes: Set<string>): any {
   if (type.isInterface()) {
     const symbol = type.getSymbol();
     if (symbol) {
+      const baseName = type.getBaseTypes()[0]?.getText().split('.').slice(-1)[0];
       const symbolName = symbol.getName();
-      if (!definitions[symbolName]) {
-        definitions[symbolName] = {
+      if (baseName && !definitions[baseName]) {
+        const baseProperties: Record<string, JsonSchemaProperty> = {};
+        const baseRequired: string[] = [];
+
+        type.getBaseTypes().forEach((baseType) => {
+          baseType.getProperties().forEach((prop) => {
+            const propType = prop.getDeclarations()[0]?.getType();
+            const propName = prop.getName();
+            const isOptional =
+              (prop.getDeclarations()[0] as PropertySignature)?.hasQuestionToken?.() || false;
+            if (propType) {
+              baseProperties[propName] = generateJsonSchemaForType(propType, visitedTypes);
+              if (!isOptional) baseRequired.push(propName);
+            }
+          });
+        });
+
+        definitions[baseName] = {
           type: 'object',
-          properties,
-          required: required.length ? required : undefined,
+          properties: baseProperties,
+          required: baseRequired.length ? baseRequired : undefined,
         };
+      }
+      if (!definitions[symbolName]) {
+        definitions[symbolName] = type.getBaseTypes().length
+          ? {
+              allOf: [
+                {
+                  $ref: `#/definitions/${type.getBaseTypes()[0].getText().split('.').slice(-1)[0]}`,
+                },
+                {
+                  type: 'object',
+                  properties,
+                  required: required.length ? required : undefined,
+                },
+              ],
+            }
+          : {
+              type: 'object',
+              properties,
+              required: required.length ? required : undefined,
+            };
       }
       if (symbolName.endsWith('[]')) {
         return {
@@ -124,8 +197,9 @@ function processObjectType(type: Type, visitedTypes: Set<string>): any {
   }
 
   return {
+    $ref: type.getBaseTypes().length ? `#/definitions/${type.getBaseTypes()[0]}` : undefined,
     type: 'object',
-    properties,
+    properties: Object.keys(properties).length ? properties : undefined,
     required: required.length ? required : undefined,
   };
 }

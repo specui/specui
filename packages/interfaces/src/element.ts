@@ -9,7 +9,7 @@ export type Element =
   | SpanElement
   | UlElement;
 
-interface BaseElement {
+export interface BaseElement {
   tag: string;
   class?: string;
   elements?: Element[];
