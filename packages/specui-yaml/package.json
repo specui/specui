@@ -1,6 +1,13 @@
 {
   "name": "@specui/yaml",
   "version": "0.1.4",
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
+  "license": "MIT",
   "main": "dist/index.js",
   "devDependencies": {
     "@types/js-yaml": "^3.12.1",

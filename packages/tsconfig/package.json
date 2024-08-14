@@ -2,6 +2,12 @@
   "name": "tsconfig",
   "version": "0.1.4",
   "private": true,
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"

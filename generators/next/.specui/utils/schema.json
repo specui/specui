@@ -1,0 +1,564 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "license": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "MIT"
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Apache-2.0"
+          ]
+        }
+      ]
+    },
+    "author": {
+      "$ref": "#/definitions/Author"
+    },
+    "components": {
+      "type": "object",
+      "properties": {}
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/AElement"
+          },
+          {
+            "$ref": "#/definitions/DivElement"
+          },
+          {
+            "$ref": "#/definitions/IframeElement"
+          },
+          {
+            "$ref": "#/definitions/ImgElement"
+          },
+          {
+            "$ref": "#/definitions/InputElement"
+          },
+          {
+            "$ref": "#/definitions/LiElement"
+          },
+          {
+            "$ref": "#/definitions/SectionElement"
+          },
+          {
+            "$ref": "#/definitions/SpanElement"
+          },
+          {
+            "$ref": "#/definitions/UlElement"
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "definitions": {
+    "Author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "UlElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "ul"
+          ]
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "SpanElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "span"
+          ]
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "SectionElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "section"
+          ]
+        },
+        "src": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "LiElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "li"
+          ]
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "InputElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "input"
+          ]
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "ImgElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "img"
+          ]
+        },
+        "src": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "IframeElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "iframe"
+          ]
+        },
+        "src": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "DivElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "div"
+          ]
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    },
+    "AElement": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": [
+            "a"
+          ]
+        },
+        "href": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/AElement"
+              },
+              {
+                "$ref": "#/definitions/DivElement"
+              },
+              {
+                "$ref": "#/definitions/IframeElement"
+              },
+              {
+                "$ref": "#/definitions/ImgElement"
+              },
+              {
+                "$ref": "#/definitions/InputElement"
+              },
+              {
+                "$ref": "#/definitions/LiElement"
+              },
+              {
+                "$ref": "#/definitions/SectionElement"
+              },
+              {
+                "$ref": "#/definitions/SpanElement"
+              },
+              {
+                "$ref": "#/definitions/UlElement"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "tag"
+      ]
+    }
+  }
+}

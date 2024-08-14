@@ -1,0 +1,15 @@
+{
+  "$schema": "./schema.json",
+  "name": "Hi",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "hi",
+    "email": "a",
+    "url": "b"
+  },
+  "elements": [
+    {
+      "tag": "section"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
-  "name": "@specui/npm",
+  "name": "interfaces",
   "version": "0.1.4",
+  "private": true,
   "homepage": "https://specui.org",
   "author": {
     "name": "Chris Tate",
@@ -9,10 +10,6 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
-  "dependencies": {
-    "@specui/core": "workspace:*",
-    "@specui/json": "workspace:*"
-  },
   "devDependencies": {
     "tsconfig": "workspace:*",
     "typescript": "^5.2.2"
@@ -20,5 +17,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@types/node": "20"
   }
 }

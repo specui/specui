@@ -2,6 +2,13 @@
   "name": "@specui/cli",
   "version": "0.1.4",
   "description": "Build UIs with Specs",
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
+  "license": "MIT",
   "bin": {
     "specui": "bin/specui"
   },

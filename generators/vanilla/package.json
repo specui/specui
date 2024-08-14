@@ -1,6 +1,13 @@
 {
   "name": "@specui/vanilla-generator",
   "version": "0.1.4",
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
+  "license": "MIT",
   "main": "./dist/generator.js",
   "types": "./dist/generator.d.ts",
   "files": [

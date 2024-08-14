@@ -10,6 +10,9 @@
       "dependsOn": ["^build"]
     },
     "lint": {},
+    "parse": {
+      "dependsOn": ["^build"]
+    },
     "test": {
       "dependsOn": ["^build"]
     }

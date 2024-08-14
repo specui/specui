@@ -1,8 +1,14 @@
 {
   "name": "@specui/git",
   "version": "0.1.4",
-  "main": "dist/index.js",
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
   "license": "MIT",
+  "main": "dist/index.js",
   "dependencies": {
     "@specui/core": "workspace:*",
     "@specui/handlebars": "workspace:*"
