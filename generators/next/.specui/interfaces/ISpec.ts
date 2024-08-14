@@ -1,34 +1,4 @@
-type BlendMode =
-  | 'normal'
-  | 'multiply'
-  | 'screen'
-  | 'overlay'
-  | 'darken'
-  | 'lighten'
-  | 'color-dodge'
-  | 'color-burn'
-  | 'hard-light'
-  | 'soft-light'
-  | 'difference'
-  | 'exclusion'
-  | 'hue'
-  | 'saturation'
-  | 'color'
-  | 'luminosity';
-
-export interface Style {
-  background?: string;
-  backgroundAttachment?: 'fixed' | 'local' | 'scroll';
-  backgroundBlendMod?: BlendMode;
-  backgroundClip?: 'border-box' | 'padding-box' | 'content-box' | 'text';
-  backgroundColor?: string;
-  backgroundImage?: string;
-  color?: string;
-  fontFamily?: string;
-  opacity?: number;
-  translateX?: number;
-  translateY?: number;
-}
+import type { Style } from './Style';
 
 export interface Transition {
   delay?: number;
@@ -41,8 +11,8 @@ interface Author {
   url?: string;
 }
 
-type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
-type PrimitiveType = 'boolean' | 'number' | 'string';
+export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
+export type PrimitiveType = 'boolean' | 'number' | 'string';
 
 interface Component {
   props?: Record<string, ComponentProp>;

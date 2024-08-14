@@ -1294,12 +1294,14 @@ export default async function generator(
       '*.tsbuildinfo',
       'next-env.d.ts',
     ]),
-    LICENSE: spec.license
-      ? await LicenseGenerator({
-          author: spec.author,
-          license: spec.license,
-        })
-      : undefined,
+    ...(spec.license
+      ? {
+          LICENSE: await LicenseGenerator({
+            author: spec.author,
+            license: spec.license,
+          }),
+        }
+      : {}),
     'next.config.js': await generate({
       processor: PrettierProcessor(),
       engine: () => /*ts*/ `

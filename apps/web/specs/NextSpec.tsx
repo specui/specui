@@ -1,9 +1,11 @@
+import type { License } from '@specui/next-generator/dist/interfaces/ISpec';
+
 export const NextSpec = {
   title: 'My App',
   name: 'my-app',
   version: '1.0.0',
   description: 'this is my cool app',
-  license: 'MIT' as 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT',
+  license: 'MIT' as License,
   pages: {
     index: {
       elements: [
