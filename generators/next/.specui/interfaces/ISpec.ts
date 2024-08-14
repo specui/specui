@@ -25,6 +25,14 @@ export interface Style {
   backgroundImage?: string;
   color?: string;
   fontFamily?: string;
+  opacity?: number;
+  translateX?: number;
+  translateY?: number;
+}
+
+export interface Transition {
+  delay?: number;
+  duration?: number;
 }
 
 interface Author {
@@ -38,7 +46,7 @@ type PrimitiveType = 'boolean' | 'number' | 'string';
 
 interface Component {
   props?: Record<string, ComponentProp>;
-  elements?: Element[];
+  elements?: ElementArrayOrRef;
 }
 
 interface ComponentProp {
@@ -46,10 +54,23 @@ interface ComponentProp {
   type?: PrimitiveType;
 }
 
-interface Page {
+export interface Page {
+  dataSources?: Record<
+    string,
+    {
+      type: 'model';
+      model?: string;
+    }
+  >;
   title?: string;
-  elements?: Element[];
+  elements?: ElementArrayOrRef;
 }
+
+export type ElementArrayOrRef =
+  | Element[]
+  | {
+      $ref: Element;
+    };
 
 export type Element =
   | AElement
@@ -65,10 +86,39 @@ export type Element =
   | ShadcnComponent;
 
 export interface BaseElement {
+  action?: string;
+  animate?: Style;
   class?: string | string[];
-  elements?: Element[];
+  component?: string;
+  data?: any[];
+  defaultChecked?: string;
+  elements?: ElementArrayOrRef;
+  for?: string;
+  icon?: string;
+  id?: string;
+  key?: string;
+  model?: string;
+  name?: string;
+  props?: Record<
+    string,
+    | boolean
+    | number
+    | string
+    | {
+        type: string;
+      }
+  >;
+  initial?: Style;
+  onClick?: {
+    action: string;
+    data?: any;
+  };
+  transition?: Transition;
   style?: Style;
+  tag?: string;
   text?: string;
+  whileHover?: Style;
+  whileTap?: Style;
 }
 
 interface AElement extends BaseElement {
@@ -95,8 +145,9 @@ interface ImgElement extends BaseElement {
   src?: string;
 }
 
-interface InputElement extends BaseElement {
+export interface InputElement extends BaseElement {
   tag: 'input';
+  name?: string;
   placeholder?: string;
   type?: string;
 }
@@ -118,13 +169,68 @@ interface UlElement extends BaseElement {
   tag: 'ul';
 }
 
+type Provider = 'facebook' | 'github' | 'google';
+
 export interface ISpec {
-  name: string;
+  title?: string;
+  name?: string;
+  version?: string;
   description?: string;
   license?: License;
   author?: Author;
   components?: Record<string, Component>;
   pages?: Record<string, Page>;
+  actions?: {
+    [name: string]: {
+      props: {
+        [name: string]: {
+          required?: boolean;
+          type: 'boolean' | 'number' | 'string';
+        };
+      };
+      operations: {
+        type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect';
+        model?: string;
+        data?: {
+          [name: string]: any;
+        };
+        path?: string;
+        where?: {
+          [name: string]: any;
+        };
+      }[];
+    };
+  };
+  auth?: {
+    providers: Provider[];
+  };
+  calls?: {
+    [name: string]: {
+      request: {
+        [name: string]: {
+          required?: boolean;
+          type: 'boolean' | 'number' | 'string';
+        };
+      };
+      response: {
+        [name: string]: {
+          required?: boolean;
+          type: 'boolean' | 'number' | 'string';
+        };
+      };
+    };
+  };
+  models?: {
+    [name: string]: {
+      attributes: {
+        [name: string]: {
+          key?: 'primary';
+          type: 'boolean' | 'number' | 'string';
+          unique?: boolean;
+        };
+      };
+    };
+  };
 }
 
 export type ShadcnComponent =
