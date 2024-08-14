@@ -1,3 +1,4 @@
+import { TailwindClass } from '../types/TailwindClass';
 import type { NativeElement } from './NativeElement';
 import type { ShadcnComponent } from './ShadcnComponent';
 import type { Style } from './Style';
@@ -18,7 +19,7 @@ export type Element = NativeElement | ShadcnComponent;
 export interface BaseElement {
   action?: string;
   animate?: Style;
-  class?: string | string[];
+  class?: string | string[] | TailwindClass | TailwindClass[];
   component?: string;
   data?: any[];
   defaultChecked?: string;
