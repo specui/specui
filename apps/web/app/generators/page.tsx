@@ -1,9 +1,20 @@
 import { GitHub } from '@mui/icons-material';
+import { Metadata } from 'next';
 
 import { ExternalLink } from '@/components/ExternalLink';
 import { JsIcon } from '@/icons/JsIcon';
 import { NextIcon } from '@/icons/NextIcon';
 import { NpmIcon } from '@/icons/NpmIcon';
+
+export const metadata: Metadata = {
+  title: 'Generators - SpecUI',
+  description: 'Build UIs with Specs',
+  openGraph: {
+    images: ['https://specui.org/api/og?path=/generators'],
+    title: 'Generators - SpecUI',
+    url: 'https://specui.org/generators',
+  },
+};
 
 const generators = [
   {

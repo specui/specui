@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'SpecUI',
   description: 'Build UIs with Specs',
   openGraph: {
-    images: ['https://specui.org/logo.png'],
+    images: ['https://specui.org/api/og'],
     siteName: 'SpecUI',
     title: 'SpecUI',
     description: 'Build UIs with Specs',

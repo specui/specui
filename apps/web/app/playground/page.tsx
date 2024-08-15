@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import { Playground } from '@/components/Playground/Playground';
 
 export const metadata: Metadata = {
+  title: 'Playground - SpecUI',
+  description: 'Build UIs with Specs',
   openGraph: {
+    images: ['https://specui.org/api/og?path=/playground'],
     title: 'Playground - SpecUI',
     url: 'https://specui.org/playground',
   },

@@ -6,6 +6,17 @@ import { ManualFeature } from '@/components/Features/ManualFeature';
 import { MigrationFeature } from '@/components/Features/MigrationFeature';
 import { MoreFeature } from '@/components/Features/MoreFeature';
 import { SpecFeature } from '@/components/Features/SpecFeature';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Features - SpecUI',
+  description: 'Build UIs with Specs',
+  openGraph: {
+    images: ['https://specui.org/api/og?path=/features'],
+    title: 'Features - SpecUI',
+    url: 'https://specui.org/features',
+  },
+};
 
 export default function FeaturesPage() {
   return (

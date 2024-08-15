@@ -1,13 +1,24 @@
 'use client';
 
-import { DocsMenu } from '@/components/DocsMenu';
-
-import styles from './layout.module.css';
+import type { Metadata } from 'next';
 import { useState } from 'react';
+
+import { DocsMenu } from '@/components/DocsMenu';
+import styles from './layout.module.css';
 
 export interface DocsLayoutProps {
   children?: JSX.Element;
 }
+
+export const metadata: Metadata = {
+  title: 'Docs - SpecUI',
+  description: 'Build UIs with Specs',
+  openGraph: {
+    images: ['https://specui.org/api/og?path=/docs'],
+    title: 'Docs - SpecUI',
+    url: 'https://specui.org/docs',
+  },
+};
 
 export default function DocsLayout({ children }: DocsLayoutProps) {
   const [show, setShow] = useState(false);
