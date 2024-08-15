@@ -29,13 +29,14 @@ import { ArrowDropDown } from '@mui/icons-material';
 
 export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
+  spec?: any;
 }
 
 const ansi = new Convert({
   fg: 'rgb(var(--foreground-rgb))',
 });
 
-export const Playground: FC<PlaygroundProps> = ({ generator }) => {
+export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
   // const spec = useSpecStore((state) => state.spec);
   // const setSpec = useSpecStore((state) => state.setSpec);
 
@@ -179,11 +180,11 @@ export const Playground: FC<PlaygroundProps> = ({ generator }) => {
       );
     } else {
       setValue(
-        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' +
+        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + spec ||
           safeDump(NextSpec),
       );
     }
-  }, [generator]);
+  }, [generator, spec]);
 
   useEffect(() => {
     if (!bootRef.current) {

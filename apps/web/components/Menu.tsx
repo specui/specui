@@ -12,10 +12,10 @@ const pages = [
     text: 'Features',
     url: '/features',
   },
-  // {
-  //   text: 'Specs',
-  //   url: '/specs',
-  // },
+  {
+    text: 'Specs',
+    url: '/specs',
+  },
   {
     text: 'Generators',
     url: '/generators',

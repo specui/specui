@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   const titles: Record<string, string> = {
     '/docs': 'Docs',
     '/generators': 'Generators',
+    '/specs': 'Specs',
     '/playground': 'Playground',
     '/playground/next': 'Next.js Playground',
   };

@@ -785,18 +785,26 @@ export default async function generator(
   );
 
   async function renderPage(page: Page, pagePath: string) {
-    if (page.elements && Array.isArray(page.elements)) {
-      for (let element of page.elements) {
-        if (
-          typeof element.component === 'string' &&
-          predefinedComponents[pascalCase(element.component)] &&
-          !externalComponents[`components/${pascalCase(element.component)}.tsx`]
-        ) {
-          externalComponents[`components/${pascalCase(element.component)}.tsx`] =
-            uiComponents[predefinedComponents[pascalCase(element.component)]].template;
+    function renderPageComponents(elements?: ElementArrayOrRef) {
+      if (elements && Array.isArray(elements)) {
+        for (let element of elements) {
+          if (
+            typeof element.component === 'string' &&
+            predefinedComponents[pascalCase(element.component)] &&
+            !externalComponents[`components/${pascalCase(element.component)}.tsx`]
+          ) {
+            externalComponents[`components/${pascalCase(element.component)}.tsx`] =
+              uiComponents[predefinedComponents[pascalCase(element.component)]].template;
+          }
+          if (element.elements) {
+            renderPageComponents(element.elements);
+          }
         }
       }
     }
+
+    renderPageComponents(page.elements);
+
     pages[pagePath] = await generate({
       processor: PrettierProcessor(),
       engine: async () => `

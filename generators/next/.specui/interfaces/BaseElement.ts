@@ -19,6 +19,7 @@ export type Element = BaseElement | NativeElement | ShadcnComponent;
 export interface BaseElement {
   action?: string;
   animate?: Style;
+  alt?: string;
   class?: string | string[] | TailwindClass | TailwindClass[];
   collapsible?: boolean;
   component?: string;
@@ -26,11 +27,13 @@ export interface BaseElement {
   defaultChecked?: string;
   elements?: ElementArrayOrRef;
   for?: string;
+  href?: string;
   icon?: string;
   id?: string;
   key?: string;
   model?: string;
   name?: string;
+  placeholder?: string;
   props?: Record<
     string,
     | boolean
@@ -46,9 +49,11 @@ export interface BaseElement {
     data?: any;
   };
   transition?: Transition;
+  src?: string;
   style?: Style;
   tag?: string;
   text?: string;
+  type?: string;
   value?: string;
   whileHover?: Style;
   whileTap?: Style;
