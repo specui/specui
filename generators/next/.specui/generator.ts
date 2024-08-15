@@ -173,7 +173,11 @@ export default async function generator(
       return;
     }
 
-    return prop.startsWith('$') ? `{${prop.slice(1)}}` : `"${prop}"`;
+    return typeof prop === 'string' && prop.startsWith('$')
+      ? `{${prop.slice(1)}}`
+      : typeof prop === 'string'
+      ? `"${prop}"`
+      : `{${prop}}`;
   }
 
   function renderElementEventProp(name: ElementEventPropType, element: Element) {
@@ -211,6 +215,7 @@ export default async function generator(
 
     [
       'alt',
+      'collapsible',
       'defaultChecked',
       'for',
       'href',

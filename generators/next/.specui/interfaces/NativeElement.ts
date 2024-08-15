@@ -1,16 +1,30 @@
 import type { BaseElement } from './BaseElement';
 
-export type NativeElement =
-  | AElement
-  | DivElement
-  | HeadingElement
-  | IframeElement
-  | ImgElement
-  | InputElement
-  | LiElement
-  | SectionElement
-  | SpanElement
-  | UlElement;
+export interface NativeElement extends BaseElement {
+  tag:
+    | AElement['tag']
+    | DivElement['tag']
+    | HeadingElement['tag']
+    | IframeElement['tag']
+    | ImgElement['tag']
+    | InputElement['tag']
+    | LiElement['tag']
+    | SectionElement['tag']
+    | SpanElement['tag']
+    | UlElement['tag'];
+}
+
+// export type NativeElement =
+//   | AElement
+//   | DivElement
+//   | HeadingElement
+//   | IframeElement
+//   | ImgElement
+//   | InputElement
+//   | LiElement
+//   | SectionElement
+//   | SpanElement
+//   | UlElement;
 
 interface AElement extends BaseElement {
   tag: 'a';

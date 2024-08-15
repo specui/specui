@@ -14,12 +14,13 @@ export type ElementArrayOrRef =
       $ref: Element;
     };
 
-export type Element = NativeElement | ShadcnComponent;
+export type Element = BaseElement | NativeElement | ShadcnComponent;
 
 export interface BaseElement {
   action?: string;
   animate?: Style;
   class?: string | string[] | TailwindClass | TailwindClass[];
+  collapsible?: boolean;
   component?: string;
   data?: any[];
   defaultChecked?: string;
@@ -48,6 +49,7 @@ export interface BaseElement {
   style?: Style;
   tag?: string;
   text?: string;
+  value?: string;
   whileHover?: Style;
   whileTap?: Style;
 }
