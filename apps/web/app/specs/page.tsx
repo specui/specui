@@ -25,6 +25,11 @@ const specs = [
     generator: 'next',
   },
   {
+    name: 'Spinning Loader Example',
+    url: '/playground/next/spinning-loader-example',
+    generator: 'next',
+  },
+  {
     name: 'Vercel Analytics Example',
     url: '/playground/next/vercel-analytics-example',
     generator: 'next',

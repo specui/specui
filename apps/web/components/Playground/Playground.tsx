@@ -180,8 +180,8 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
       );
     } else {
       setValue(
-        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + spec ||
-          safeDump(NextSpec),
+        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' +
+          (spec || safeDump(NextSpec)),
       );
     }
   }, [generator, spec]);

@@ -377,6 +377,34 @@ vercel:
   analytics: true
 `;
 
+const SpinningLoaderExample = `
+title: Spinning Loader Example
+components:
+  loader:
+    props:
+      text:
+        type: string
+    elements:
+      - tag: div
+        class:
+          - flex
+          - h-dvh
+          - gap-2
+          - items-center
+          - justify-center
+        elements:
+          - tag: div
+            text: $props.text
+          - icon: fa-spinner
+            class: animate-spin
+pages:
+  index:
+    elements:
+      - component: loader
+        props:
+          text: Loading tweets
+`;
+
 export const metadata: Metadata = {
   title: 'Next.js Playground - SpecUI',
   description: 'Build UIs with Specs',
@@ -395,6 +423,7 @@ export default function PlaygroundNextPage({
   };
 }) {
   const specs: Record<string, string> = {
+    'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,
     'shadcn-accordion-example': ShadcnAccordionExampleSpec,
     'vercel-analytics-example': VercelAnalyticsExample,
