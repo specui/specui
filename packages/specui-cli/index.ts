@@ -30,7 +30,7 @@ require('ts-node').register({
 import { program } from 'commander';
 import { existsSync, watchFile } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { dirname, normalize } from 'path';
+import { dirname, join, normalize } from 'path';
 import { stringify } from 'yaml';
 
 import { getNodeListOutput } from './utils/getNodeListOutput';
@@ -40,17 +40,20 @@ import { pathListToNodeList } from './utils/pathListToNodeList';
 
 import pkg from './package.json';
 import { getHash } from './utils/getHash';
+import { loadConfig } from './utils/loadConfig';
 
 program.name('specui').description(pkg.description).version(pkg.version);
 
 async function generate({ force }: { force?: boolean }) {
   try {
+    const loadedConfig = await loadConfig();
     const loadedSpec = await loadSpec();
 
     if (!loadedSpec) {
       throw new Error('No spec found.');
     }
 
+    const outputPath = loadedConfig?.config.output?.path ?? '.';
     const generator = await loadGenerator(loadedSpec.spec['$generator']);
     const files = await generator(loadedSpec.spec);
 
@@ -66,7 +69,7 @@ async function generate({ force }: { force?: boolean }) {
     await Promise.all(
       Object.entries(files).map(async ([fileName, generator]) => {
         const fileContents = await generator;
-        const filePath = normalize(fileName);
+        const filePath = normalize(`${outputPath}/${fileName}`);
 
         if (typeof fileContents !== 'string' && !Buffer.isBuffer(fileContents)) {
           console.log(`Skipped: ${filePath}`);
