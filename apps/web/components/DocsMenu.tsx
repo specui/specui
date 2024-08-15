@@ -1,7 +1,7 @@
 'use client';
 
+import cn from '@/utils/cn';
 import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
-import classNames from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, useState } from 'react';
@@ -131,10 +131,10 @@ export function DocsMenu({ onSelect = () => {} }) {
                   {page.children?.map((child) => (
                     <li key={child.url}>
                       <Link
-                        className={classNames(
-                          'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
+                        className={cn(
+                          'block p-2 rounded-md text-gray-400 text-sm whitespace-nowrap dark:text-gray-500',
                           {
-                            'text-white': pathname === child.url,
+                            'text-black dark:text-white': pathname === child.url,
                           },
                         )}
                         href={child.url}
@@ -149,10 +149,10 @@ export function DocsMenu({ onSelect = () => {} }) {
             </>
           ) : (
             <Link
-              className={classNames(
-                'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
+              className={cn(
+                'block p-2 rounded-md text-gray-400 text-sm whitespace-nowrap dark:text-gray-500',
                 {
-                  'text-white': pathname === page.url,
+                  'text-black dark:text-white': pathname === page.url,
                 },
               )}
               href={page.url}

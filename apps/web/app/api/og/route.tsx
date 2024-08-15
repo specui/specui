@@ -1,3 +1,4 @@
+import { GeistSans } from 'geist/font/sans';
 import { ImageResponse } from 'next/og';
 
 export async function GET(request: Request) {
@@ -21,6 +22,7 @@ export async function GET(request: Request) {
           alignItems: 'flex-end',
           background: 'white',
           display: 'flex',
+          fontFamily: '"Geist"',
           height: '100%',
           justifyContent: 'flex-start',
           width: '100%',

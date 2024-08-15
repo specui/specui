@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuRounded } from '@mui/icons-material';
+import { GitHub, MenuRounded } from '@mui/icons-material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -63,14 +63,57 @@ function MenuContent({ onSelect }: { onSelect?: () => void }) {
 }
 
 function MobileMenu({ onSelect, show }: { onSelect?: () => void; show: boolean }) {
+  const pathname = usePathname();
+
   if (!show) {
     return null;
   }
 
   return createPortal(
-    <ul className="backdrop-blur-2xl bg-slate-900 bg-opacity-50 bottom-0 flex flex-col fixed gap-4 justify-center items-center left-0 right-0 text-4xl top-0 md:hidden z-10">
-      <MenuContent onSelect={onSelect} />
-    </ul>,
+    <>
+      <ul className="backdrop-blur-2xl bg-white bg-opacity-50 bottom-0 flex flex-col fixed gap-4 justify-center items-center left-0 right-0 text-4xl text-white top-0 md:hidden z-10 dark:bg-black dark:text-white">
+        <Link
+          className={clsx(
+            'text-center',
+            pathname === '/'
+              ? 'text-black dark:text-white'
+              : 'text-gray-400 hover:text-black dark:text-gray-500 dark:hover:text-white',
+          )}
+          href="/"
+          onClick={onSelect}
+        >
+          Home
+        </Link>
+        <MenuContent onSelect={onSelect} />
+        <Link
+          className={clsx(
+            'text-center',
+            pathname === '/docs'
+              ? 'text-black dark:text-white'
+              : 'text-gray-400 hover:text-black dark:text-gray-500 dark:hover:text-white',
+          )}
+          href="/docs"
+          onClick={onSelect}
+        >
+          Docs
+        </Link>
+        <Link
+          className="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded-md"
+          href="/playground"
+          onClick={onSelect}
+        >
+          Playground
+        </Link>
+        <Link
+          className="text-black dark:text-white"
+          href="https://github.com/specui/specui"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          <GitHub />
+        </Link>
+      </ul>
+    </>,
     document.body,
   );
 }
