@@ -9,16 +9,16 @@ import { createPortal } from 'react-dom';
 
 const pages = [
   {
-    text: 'Docs',
-    url: '/docs',
+    text: 'Features',
+    url: '/features',
   },
+  // {
+  //   text: 'Specs',
+  //   url: '/specs',
+  // },
   {
     text: 'Generators',
     url: '/generators',
-  },
-  {
-    text: 'Playground',
-    url: '/playground',
   },
 ];
 
@@ -47,9 +47,9 @@ function MenuContent({ onSelect }: { onSelect?: () => void }) {
         <li
           className={clsx(
             'text-center',
-            pathname.startsWith(page.url)
-              ? 'text-blue-400'
-              : 'text-gray-700 hover:text-black dark:text-gray-200 dark:hover:text-white',
+            pathname === page.url
+              ? 'text-black dark:text-white'
+              : 'text-gray-400 hover:text-black dark:text-gray-500 dark:hover:text-white',
           )}
           key={page.url}
         >

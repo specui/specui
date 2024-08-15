@@ -134,7 +134,7 @@ export function DocsMenu({ onSelect = () => {} }) {
                         className={classNames(
                           'block p-2 rounded-md text-gray-500 text-sm whitespace-nowrap',
                           {
-                            'text-blue-400': pathname === child.url,
+                            'text-white': pathname === child.url,
                           },
                         )}
                         href={child.url}

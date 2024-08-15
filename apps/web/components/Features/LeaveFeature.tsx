@@ -46,6 +46,7 @@ export const LeaveFeature = () => {
         <CodeSnippet
           className="col-span-3 md:col-span-1"
           icon={<GoIcon color="white" />}
+          language="go"
           title="post.go"
         >
           {code}

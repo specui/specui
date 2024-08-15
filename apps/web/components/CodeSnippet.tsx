@@ -14,11 +14,19 @@ interface Props {
   children?: ReactNode | string;
   className?: string;
   icon?: ReactNode;
+  language?: string;
   tabs?: Tab[];
   title?: string;
 }
 
-export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs }) => {
+export const CodeSnippet: FC<Props> = ({
+  children,
+  className,
+  icon,
+  language = 'yaml',
+  title,
+  tabs,
+}) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   return (
@@ -67,7 +75,7 @@ export const CodeSnippet: FC<Props> = ({ children, className, icon, title, tabs 
       {typeof children === 'string' ? (
         <SyntaxHighlighter
           className="overflow-auto p-3 text-xs w-full"
-          language="yaml"
+          language={language}
           style={{
             'hljs-comment': {
               color: '#7e7887',

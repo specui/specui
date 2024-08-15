@@ -3,19 +3,16 @@ import { FeatureTitle } from './FeatureTitle';
 
 export const MoreFeature = () => {
   return (
-    <div className="pb-32 px-4 mx-auto max-w-6xl">
+    <div className="pb-32 px-4 mx-auto max-w-6xl text-center">
       <FeatureTitle>Want to learn more?</FeatureTitle>
-      <p className="mb-8 text-gray-500 text-xl w-full md:w-2/3">
-        Check out the{' '}
+      <p className="flex items-center justify-center gap-4 mb-8 text-gray-500 text-xl w-full">
         <Link
-          className="text-white hover:text-blue-600"
-          href="https://github.com/specui/specui"
-          rel="noreferrer noopener"
-          target="_blank"
+          className="border border-black px-2 py-1 bottom-4 rounded-lg right-6 text-black dark:border-white dark:text-white"
+          href="/playground"
         >
-          source code
+          Try It Online
         </Link>
-        .
+        <Link href="/docs">Read the Docs</Link>
       </p>
     </div>
   );
