@@ -45,7 +45,7 @@ export default function SpecsPage() {
       <ul className="grid grid-cols-1 gap-4 justify-center mx-auto max-w-1/2 md:grid-cols-2">
         {specs.map((spec) => (
           <li key={spec.name}>
-            <Link
+            <a
               className="border border-gray-200 flex items-center gap-2 p-8 rounded-md dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600"
               href={spec.url}
             >
@@ -54,7 +54,7 @@ export default function SpecsPage() {
                 <div>{spec.name}</div>
                 <div className="text-gray-500">Next.js generator</div>
               </div>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
