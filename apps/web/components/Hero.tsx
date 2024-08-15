@@ -7,20 +7,16 @@ import { Install } from '@/components/Install';
 import Link from 'next/link';
 
 const spec1 = `
-app:
-  name: my-app
-  title: My App
-  version: 1.0.0
-pages:
-  index:
+components:
+  hero:
     elements:
       - tag: section
-        style:
-          alignItems: center
-          display: flex
-          flexDirection: column
-          justifyContent: center
-          height: 100dvh
+        class:
+          - flex
+          - flex-col
+          - h-dvh
+          - items-center
+          - justify-center
         elements:
           - tag: h1
             text: Hello World
@@ -28,21 +24,6 @@ pages:
             text: Click me
             onClick:
               alert: 🎉
-styles:
-  body:
-    backgroundColor: black
-    color: white
-    fontFamily: sans-serif
-    margin: 0
-  button:
-    backgroundColor: '#3b82f6'
-    border: none
-    borderRadius: 1rem
-    color: white
-    cursor: pointer
-    padding: 1rem
-  h1:
-    fontSize: 1.5rem
 `;
 
 export const Hero: FC = () => {
