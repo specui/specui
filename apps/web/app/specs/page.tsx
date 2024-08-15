@@ -42,12 +42,18 @@ export default function SpecsPage() {
       <h1 className="flex flex-col font-bold gap-2 text-center text-4xl md:text-7xl sm:text-6xl">
         <div>Specs</div>
       </h1>
-      <ul className="flex flex-col justify-center mx-auto max-w-1/2">
+      <ul className="grid grid-cols-1 gap-4 justify-center mx-auto max-w-1/2 md:grid-cols-2">
         {specs.map((spec) => (
           <li key={spec.name}>
-            <Link className="flex items-center gap-2" href={spec.url}>
-              <NextIcon size={32} />
-              {spec.name}
+            <Link
+              className="border border-gray-200 flex items-center gap-2 p-8 rounded-md dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600"
+              href={spec.url}
+            >
+              <NextIcon size={64} />
+              <div>
+                <div>{spec.name}</div>
+                <div className="text-gray-500">Next.js generator</div>
+              </div>
             </Link>
           </li>
         ))}
