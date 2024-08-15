@@ -1,4 +1,11 @@
+import { Metadata } from 'next';
 import { Playground } from '@/components/Playground/Playground';
+
+export const metadata: Metadata = {
+  openGraph: {
+    title: 'Next.js Playground - SpecUI',
+  },
+};
 
 export default function PlaygroundNextPage() {
   return (
