@@ -1,6 +1,6 @@
 {
   "name": "@specui/web",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "homepage": "https://specui.org",
   "author": {
@@ -20,6 +20,7 @@
     "@specui/next-generator": "workspace:*",
     "@specui/vanilla-generator": "workspace:*",
     "@vercel/analytics": "^1.3.1",
+    "@vercel/og": "^0.6.2",
     "@webcontainer/api": "1.3.0-internal.2",
     "ansi-to-html": "^0.7.2",
     "axios": "^1.6.0",

@@ -1,5 +1,18 @@
 # @specui/vanilla-generator
 
+## 0.1.5
+
+### Patch Changes
+
+- dx improvements
+- Updated dependencies
+  - @specui/core@0.1.5
+  - @specui/git@0.1.5
+  - @specui/handlebars@0.1.5
+  - @specui/json@0.1.5
+  - @specui/license@0.1.5
+  - @specui/prettier@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes

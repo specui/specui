@@ -1,5 +1,14 @@
 # @specui/prettier
 
+## 0.1.5
+
+### Patch Changes
+
+- dx improvements
+- Updated dependencies
+  - @specui/core@0.1.5
+  - @specui/json@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.1.5
+
+### Patch Changes
+
+- dx improvements
+- Updated dependencies
+  - @specui/next-generator@0.1.5
+  - @specui/vanilla-generator@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes
