@@ -13,14 +13,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: 20.x
+
+      - name: Setup pnpm 9.5.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.5.0
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i
 
       - name: Changeset
         uses: changesets/action@v1
