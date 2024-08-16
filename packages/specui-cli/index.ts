@@ -30,7 +30,7 @@ require('ts-node').register({
 import { program } from 'commander';
 import { existsSync, watchFile } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { dirname, join, normalize } from 'path';
+import { dirname, normalize } from 'path';
 import { stringify } from 'yaml';
 
 import { getNodeListOutput } from './utils/getNodeListOutput';
