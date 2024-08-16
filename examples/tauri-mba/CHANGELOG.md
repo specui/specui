@@ -1,5 +1,11 @@
 # vercel-dashboard-mba
 
+## 0.1.10
+
+### Patch Changes
+
+- fixes cli versioning
+
 ## 0.1.9
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @specui/cli
 
+## 0.1.10
+
+### Patch Changes
+
+- fixes cli versioning
+- Updated dependencies
+  - @specui/next-generator@0.1.10
+
 ## 0.1.9
 
 ### Patch Changes
