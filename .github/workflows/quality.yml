@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  release:
+  quality:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,5 +29,11 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Build
+        run: pnpm build
+
+      - name: Lint
+        run: pnpm lint
+
       - name: Test
-        run: turbo run build lint test
+        run: pnpm test
