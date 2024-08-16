@@ -1,11 +1,11 @@
 import { generate, IProcessor } from '@specui/core';
 import { customAlphabet } from 'nanoid';
 import { paramCase } from 'change-case';
-import { Element, ISpec } from './interfaces/ISpec';
+import { Element, Spec } from './interfaces/Spec';
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
 
-export default async function generator(spec: ISpec, PrettierProcessor: IProcessor<any>) {
+export default async function generator(spec: Spec, PrettierProcessor: IProcessor<any>) {
   const components: {
     [name: string]: string;
   } = {};

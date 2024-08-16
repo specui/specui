@@ -1,4 +1,4 @@
-import type { License } from '@specui/next-generator/dist/interfaces/ISpec';
+import type { License } from '@specui/next-generator/dist/interfaces/Spec';
 
 export const NextSpec = {
   title: 'My App',

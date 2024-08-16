@@ -11,9 +11,9 @@
     "build": "turbo run build",
     "changeset": "changeset",
     "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "generate": "turbo run generate",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "parse": "turbo run parse",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },

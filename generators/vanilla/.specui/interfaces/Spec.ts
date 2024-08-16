@@ -12,7 +12,7 @@ export interface Element {
   onClick?: Record<string, string>;
 }
 
-export interface ISpec {
+export interface Spec {
   app?: {
     title?: string;
     name?: string;

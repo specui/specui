@@ -1,7 +1,7 @@
 import { PrettierProcessor } from '@specui/prettier';
-import { ISpec } from './interfaces/ISpec';
+import { Spec } from './interfaces/Spec';
 import generator from './generator';
 
-export default async function generatorNode(spec: ISpec) {
+export default async function generatorNode(spec: Spec) {
   return generator(spec, PrettierProcessor);
 }
