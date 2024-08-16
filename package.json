@@ -15,7 +15,7 @@
     "generate": "turbo run generate",
     "lint": "turbo run lint",
     "parse": "turbo run parse",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "publish-packages": "turbo run build lint test && changeset version && pnpm install && changeset publish"
   },
   "packageManager": "pnpm@9.5.0"
 }
