@@ -15,19 +15,59 @@ The primary use cases for Specs include:
 
 ### Creating Specs
 
-Creating Specs is the first step in using SpecUI for your project. The Specs can be written in TypeScript and will soon support JSON, YAML, and other formats. Here's a basic example in TypeScript:
+Creating Specs is the first step in using SpecUI for your project. The Specs can be written in YAML, JSON, TypeScript and JavaScript.
+
+#### YAML Example
+
+YAML is the default format. It is human-readable and easy to implement.
+
+**.specui/spec.yml**
+
+```yaml
+$generator: '@specui/next-generator'
+pages:
+  index:
+    elements:
+      - tag: div
+        text: Hello world
+```
+
+#### TypeScript Example
+
+For advanced scenarios, TypeScript might be a better way to go. Specs written in TS can also be broken up into multiple files.
+
+**.specui/spec.ts**
 
 ```typescript
-import { MyApiSpecUI } from '@/specs/MyApiSpecUI';
+import { Spec } from "@specui/next-generator";
+import { IndexPage } from "./pages";
 
-export default ServiceSpecUI({
-  name: 'my-api',
-  models: {
-    user: {
-      type: 'string',
-    },
+const spec: Spec & {
+  $generator: string;
+} = {
+  $generator: "@specui/next-generator",
+  name: "test",
+  pages: {
+    index: IndexPage,
   },
-});
+};
+
+export default spec;
+```
+
+**.spectui/pages/index.ts**
+
+```typescript
+import type { Page } from "@specui/next-generator";
+
+export const IndexPage: Page = {
+  elements: [
+    {
+      tag: "div",
+      text: "Hello world",
+    },
+  ],
+};
 ```
 
 In this example, the Spec defines a data model with its fields and a controller with its actions.
