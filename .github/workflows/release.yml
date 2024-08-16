@@ -29,7 +29,8 @@ jobs:
       - name: Changeset
         uses: changesets/action@v1
         with:
-          publish-packages: pnpm run publish-packages
+          release: pnpm release
+          version: pnpm version
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

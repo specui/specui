@@ -9,12 +9,14 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "changeset": "changeset",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "generate": "turbo run generate",
     "lint": "turbo run lint",
     "parse": "turbo run parse",
-    "publish-packages": "changeset && turbo run build lint test && changeset version && turbo run build --filter @specui/cli && changeset publish"
+    "release": "turbo run build lint test && changeset publish",
+    "version": "changeset version && turbo run build --filter @specui/cli"
   },
   "packageManager": "pnpm@9.5.0"
 }
