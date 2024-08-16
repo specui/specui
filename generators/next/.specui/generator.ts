@@ -9,7 +9,7 @@ import { plural } from 'pluralize';
 import type { Element, ElementArrayOrRef } from './interfaces/BaseElement';
 import type { InputElement } from './interfaces/NativeElement';
 import type { Page } from './interfaces/Page';
-import type { ISpec } from './interfaces/ISpec';
+import type { Spec } from './interfaces/Spec';
 import AccordionTemplate from './templates/components/AccordionTemplate';
 import AlertTemplate from './templates/components/AlertTemplate';
 import AlertDialogTemplate from './templates/components/AlertDialogTemplate';
@@ -30,8 +30,10 @@ import DrawerTemplate from './templates/components/DrawerTemplate';
 import DropdownTemplate from './templates/components/DropdownTemplate';
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
 
+export * from './interfaces/Spec';
+
 export default async function generator(
-  spec: ISpec,
+  spec: Spec,
   PrettierProcessor: IProcessor<any>,
   existsSync?: (path: string) => boolean,
 ) {

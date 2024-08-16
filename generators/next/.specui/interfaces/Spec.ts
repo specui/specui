@@ -1,9 +1,9 @@
-import type { Action } from './Action';
+import type { Action, ActionProp } from './Action';
 import type { Author } from './Author';
-import type { Call } from './Call';
-import type { Component } from './Component';
-import type { Model } from './Model';
-import type { Page } from './Page';
+import type { Call, CallRequest, CallResponse } from './Call';
+import type { Component, ComponentProp } from './Component';
+import type { Model, ModelAttribute } from './Model';
+import type { Page, PageDataSource } from './Page';
 import type { Vercel } from './Vercel';
 
 export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
@@ -11,7 +11,23 @@ export type PrimitiveType = 'boolean' | 'number' | 'string';
 
 type Provider = 'facebook' | 'github' | 'google';
 
-export interface ISpec {
+export {
+  Action,
+  ActionProp,
+  Author,
+  Call,
+  CallRequest,
+  CallResponse,
+  Component,
+  ComponentProp,
+  Model,
+  ModelAttribute,
+  Page,
+  PageDataSource,
+  Vercel,
+};
+
+export interface Spec {
   title?: string;
   name?: string;
   version?: string;
@@ -25,8 +41,6 @@ export interface ISpec {
     providers: Provider[];
   };
   calls?: Record<string, Call>;
-  models?: {
-    [name: string]: Model;
-  };
+  models?: Record<string, Model>;
   vercel?: Vercel;
 }

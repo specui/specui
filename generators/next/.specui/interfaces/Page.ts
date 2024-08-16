@@ -1,13 +1,12 @@
 import type { ElementArrayOrRef } from './BaseElement';
 
 export interface Page {
-  dataSources?: Record<
-    string,
-    {
-      type: 'model';
-      model?: string;
-    }
-  >;
+  dataSources?: Record<string, PageDataSource>;
   title?: string;
   elements?: ElementArrayOrRef;
+}
+
+export interface PageDataSource {
+  type: 'model';
+  model?: string;
 }

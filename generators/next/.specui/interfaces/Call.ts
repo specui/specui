@@ -1,14 +1,14 @@
 export interface Call {
-  request: {
-    [name: string]: {
-      required?: boolean;
-      type: 'boolean' | 'number' | 'string';
-    };
-  };
-  response: {
-    [name: string]: {
-      required?: boolean;
-      type: 'boolean' | 'number' | 'string';
-    };
-  };
+  request: Record<string, CallRequest>;
+  response: Record<string, CallResponse>;
+}
+
+export interface CallRequest {
+  required?: boolean;
+  type: 'boolean' | 'number' | 'string';
+}
+
+export interface CallResponse {
+  required?: boolean;
+  type: 'boolean' | 'number' | 'string';
 }

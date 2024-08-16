@@ -1,19 +1,15 @@
 export interface Action {
-  props: {
-    [name: string]: {
-      required?: boolean;
-      type: 'boolean' | 'number' | 'string';
-    };
-  };
+  props: Record<string, ActionProp>;
   operations: {
     type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect';
     model?: string;
-    data?: {
-      [name: string]: any;
-    };
+    data?: Record<string, any>;
     path?: string;
-    where?: {
-      [name: string]: any;
-    };
+    where?: Record<string, any>;
   }[];
+}
+
+export interface ActionProp {
+  required?: boolean;
+  type: 'boolean' | 'number' | 'string';
 }

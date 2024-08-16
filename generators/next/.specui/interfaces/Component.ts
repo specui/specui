@@ -1,5 +1,5 @@
 import { ElementArrayOrRef } from './BaseElement';
-import type { PrimitiveType } from './ISpec';
+import type { PrimitiveType } from './Spec';
 
 export interface Component {
   props?: Record<string, ComponentProp>;
