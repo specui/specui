@@ -1,5 +1,32 @@
 # @specui/npm
 
+## 0.1.9
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/core@0.1.9
+  - @specui/json@0.1.9
+
+## 0.1.8
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/core@0.1.8
+  - @specui/json@0.1.8
+
+## 0.1.7
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/core@0.1.7
+  - @specui/json@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @specui/yaml
 
+## 0.1.9
+
+### Patch Changes
+
+- fixes versioning
+
+## 0.1.8
+
+### Patch Changes
+
+- fixes versioning
+
+## 0.1.7
+
+### Patch Changes
+
+- fixes versioning
+
 ## 0.1.6
 
 ### Patch Changes

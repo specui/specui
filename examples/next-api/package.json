@@ -1,6 +1,6 @@
 {
   "name": "next-api-example",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "description": "example of a generated Next.js API",
   "license": "MIT",
   "private": true,

@@ -1,5 +1,32 @@
 # @specui/web
 
+## 0.1.9
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/vanilla-generator@0.1.9
+  - @specui/next-generator@0.1.9
+
+## 0.1.8
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/vanilla-generator@0.1.8
+  - @specui/next-generator@0.1.8
+
+## 0.1.7
+
+### Patch Changes
+
+- fixes versioning
+- Updated dependencies
+  - @specui/next-generator@0.1.7
+  - @specui/vanilla-generator@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes
