@@ -1,5 +1,11 @@
 # @specui/yaml
 
+## 0.1.11
+
+### Patch Changes
+
+- adds packageManager / engines to next generator
+
 ## 0.1.10
 
 ### Patch Changes

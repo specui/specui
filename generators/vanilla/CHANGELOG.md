@@ -1,5 +1,18 @@
 # @specui/vanilla-generator
 
+## 0.1.11
+
+### Patch Changes
+
+- adds packageManager / engines to next generator
+- Updated dependencies
+  - @specui/core@0.1.11
+  - @specui/git@0.1.11
+  - @specui/handlebars@0.1.11
+  - @specui/json@0.1.11
+  - @specui/license@0.1.11
+  - @specui/prettier@0.1.11
+
 ## 0.1.10
 
 ### Patch Changes

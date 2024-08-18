@@ -1,5 +1,14 @@
 # @specui/prettier-rust
 
+## 0.1.11
+
+### Patch Changes
+
+- adds packageManager / engines to next generator
+- Updated dependencies
+  - @specui/core@0.1.11
+  - @specui/json@0.1.11
+
 ## 0.1.10
 
 ### Patch Changes

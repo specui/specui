@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.1.11
+
+### Patch Changes
+
+- adds packageManager / engines to next generator
+- Updated dependencies
+  - @specui/next-generator@0.1.11
+  - @specui/vanilla-generator@0.1.11
+
 ## 0.1.10
 
 ### Patch Changes
