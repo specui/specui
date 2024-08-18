@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { Logo } from '@/components/Logo';
 import { Menu } from '@/components/Menu';
+import { Stargazers } from '@/components/Stargazers';
 
 export const Header: FC = () => (
   <header className="backdrop-blur-md bg-white bg-opacity-50 border-b border-b-gray-100 sticky top-0 z-10 dark:bg-black dark:border-b-gray-900">
@@ -19,15 +20,18 @@ export const Header: FC = () => (
       <div className="flex justify-between gap-4 items-center md:flex-grow">
         <Menu />
         <div className="gap-4 hidden items-center md:flex">
-          <Link href="/docs">Docs</Link>
           <Link
-            className="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded-md"
+            className="text-gray-400 hover:text-black dark:text-gray-500 dark:hover:text-white"
+            href="/docs"
+          >
+            Docs
+          </Link>
+          <Stargazers owner="specui" repo="specui" />
+          <Link
+            className="bg-black text-white dark:bg-white dark:text-black px-4 py-1 rounded-md"
             href="/playground"
           >
             Playground
-          </Link>
-          <Link href="https://github.com/specui/specui" rel="noreferrer noopener" target="_blank">
-            <GitHub />
           </Link>
         </div>
       </div>

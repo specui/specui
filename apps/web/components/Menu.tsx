@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { Stargazers } from './Stargazers';
 
 const pages = [
   {
@@ -104,14 +105,7 @@ function MobileMenu({ onSelect, show }: { onSelect?: () => void; show: boolean }
         >
           Playground
         </Link>
-        <Link
-          className="text-black dark:text-white"
-          href="https://github.com/specui/specui"
-          rel="noreferrer noopener"
-          target="_blank"
-        >
-          <GitHub />
-        </Link>
+        <Stargazers owner="specui" repo="specui" />
       </ul>
     </>,
     document.body,
