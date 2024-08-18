@@ -3,6 +3,7 @@ import type { Author } from './Author';
 import type { Call, CallRequest, CallResponse } from './Call';
 import type { Component, ComponentProp } from './Component';
 import type { Model, ModelAttribute } from './Model';
+import { Package } from './Package';
 import type { Page, PageDataSource } from './Page';
 import type { Vercel } from './Vercel';
 
@@ -42,5 +43,6 @@ export interface Spec {
   };
   calls?: Record<string, Call>;
   models?: Record<string, Model>;
+  package?: Package;
   vercel?: Vercel;
 }

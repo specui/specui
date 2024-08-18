@@ -5,6 +5,7 @@ import { JsonEngine } from '@specui/json';
 import { LicenseGenerator } from '@specui/license';
 import { camelCase, pascalCase, titleCase } from 'change-case';
 import { plural } from 'pluralize';
+import semver from 'semver';
 
 import type { Element, ElementArrayOrRef } from './interfaces/BaseElement';
 import type { InputElement } from './interfaces/NativeElement';
@@ -1401,6 +1402,18 @@ export default async function generator(
           tailwindcss: '^3.3.5',
           typescript: '^5',
         },
+        engines:
+          spec.package?.manager?.name && spec.package?.manager?.version
+            ? {
+                [spec.package.manager.name]: `>=${semver
+                  .major(spec.package.manager.version)
+                  .toString()}.0.0`,
+              }
+            : undefined,
+        packageManager:
+          spec.package?.manager?.name && spec.package?.manager?.version
+            ? `${spec.package?.manager?.name}@${spec.package?.manager?.version}`
+            : undefined,
       },
     }),
     'postcss.config.js': await generate({
