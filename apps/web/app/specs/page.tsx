@@ -14,6 +14,11 @@ export const metadata: Metadata = {
 
 const specs = [
   {
+    name: 'Bun Example',
+    url: '/playground/next/bun-example',
+    generator: 'next',
+  },
+  {
     name: 'Photography Website Example',
     url: '/playground/next/photography-website-example',
     generator: 'next',
