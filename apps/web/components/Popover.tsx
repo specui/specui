@@ -65,7 +65,7 @@ export const Popover: React.FC<PopoverProps> = ({
 
   return createPortal(
     <div
-      className="bg-white border border-gray-200 fixed rounded-md dark:bg-gray-900"
+      className="bg-white border border-gray-200 flex flex-col fixed rounded-md z-10 dark:bg-gray-900"
       ref={contentRef}
       style={{
         left,

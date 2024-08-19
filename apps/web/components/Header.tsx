@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import { Menu } from '@/components/Menu';
 import { Stargazers } from '@/components/Stargazers';
+import { User } from './User';
 
 export const Header: FC = () => (
   <header className="backdrop-blur-md bg-white bg-opacity-50 border-b border-b-gray-100 sticky top-0 z-10 dark:bg-black dark:border-b-gray-900">
@@ -26,6 +27,7 @@ export const Header: FC = () => (
           >
             Docs
           </Link>
+          <User />
           <Stargazers owner="specui" repo="specui" />
           <Link
             className="bg-black text-white dark:bg-white dark:text-black px-4 py-1 rounded-md"

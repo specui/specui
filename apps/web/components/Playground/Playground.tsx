@@ -277,7 +277,11 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
           )}
           <ArrowDropDown />
         </button>
-        <Popover isOpen={showPopover} target={popoverTargetRef}>
+        <Popover
+          isOpen={showPopover}
+          onClose={() => setShowPopover(false)}
+          target={popoverTargetRef}
+        >
           <a
             className={cn('flex items-center gap-2 p-2 text-gray-400 dark:text-gray-500', {
               'text-black dark:text-white': generator === 'next',
