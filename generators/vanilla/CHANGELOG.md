@@ -1,5 +1,18 @@
 # @specui/vanilla-generator
 
+## 0.1.12
+
+### Patch Changes
+
+- updates package manager schema
+- Updated dependencies
+  - @specui/core@0.1.12
+  - @specui/git@0.1.12
+  - @specui/handlebars@0.1.12
+  - @specui/json@0.1.12
+  - @specui/license@0.1.12
+  - @specui/prettier@0.1.12
+
 ## 0.1.11
 
 ### Patch Changes

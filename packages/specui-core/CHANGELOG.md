@@ -1,5 +1,11 @@
 # @specui/core
 
+## 0.1.12
+
+### Patch Changes
+
+- updates package manager schema
+
 ## 0.1.11
 
 ### Patch Changes
