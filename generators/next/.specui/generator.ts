@@ -1402,18 +1402,32 @@ export default async function generator(
           tailwindcss: '^3.3.5',
           typescript: '^5',
         },
-        engines:
-          spec.package?.manager?.name && spec.package?.manager?.version
-            ? {
-                [spec.package.manager.name]: `>=${semver
-                  .major(spec.package.manager.version)
-                  .toString()}.0.0`,
-              }
-            : undefined,
-        packageManager:
-          spec.package?.manager?.name && spec.package?.manager?.version
-            ? `${spec.package?.manager?.name}@${spec.package?.manager?.version}`
-            : undefined,
+        engines: spec.package?.manager?.bun
+          ? {
+              bun: `>=${semver.major(spec.package.manager.bun).toString()}.0.0`,
+            }
+          : spec.package?.manager?.npm
+          ? {
+              bun: `>=${semver.major(spec.package.manager.npm).toString()}.0.0`,
+            }
+          : spec.package?.manager?.pnpm
+          ? {
+              bun: `>=${semver.major(spec.package.manager.pnpm).toString()}.0.0`,
+            }
+          : spec.package?.manager?.yarn
+          ? {
+              bun: `>=${semver.major(spec.package.manager.yarn).toString()}.0.0`,
+            }
+          : undefined,
+        packageManager: spec.package?.manager?.bun
+          ? `bun@${spec.package.manager.bun}`
+          : spec.package?.manager?.npm
+          ? `bun@${spec.package.manager.npm}`
+          : spec.package?.manager?.pnpm
+          ? `bun@${spec.package.manager.pnpm}`
+          : spec.package?.manager?.yarn
+          ? `bun@${spec.package.manager.yarn}`
+          : undefined,
       },
     }),
     'postcss.config.js': await generate({
