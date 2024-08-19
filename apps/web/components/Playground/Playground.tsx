@@ -26,6 +26,7 @@ import { transform } from '@/utils/transform';
 import { JsIcon } from '@/icons/JsIcon';
 import { NextIcon } from '@/icons/NextIcon';
 import { ArrowDropDown } from '@mui/icons-material';
+// import { Prompt } from '../Prompt';
 
 export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
@@ -258,6 +259,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
 
   return (
     <div className="flex flex-col" style={{ height: '100%' }}>
+      {/* <Prompt onChange={(value) => setValue(value)} value={value} /> */}
       <div className="border-b border-b-gray-100 flex justify-between px-4 py-2 dark:border-b-gray-900">
         <button
           className="flex items-center"
