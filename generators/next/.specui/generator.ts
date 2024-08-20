@@ -1325,6 +1325,9 @@ export default async function generator(
           }),
         }
       : {}),
+    '.npmrc': await generate({
+      engine: () => `engine-strict=true`,
+    }),
     'next.config.js': await generate({
       processor: PrettierProcessor(),
       engine: () => /*ts*/ `
@@ -1402,31 +1405,29 @@ export default async function generator(
           tailwindcss: '^3.3.5',
           typescript: '^5',
         },
-        engines: spec.package?.manager?.bun
+        engines: spec.package?.manager?.npm
           ? {
-              bun: `>=${semver.major(spec.package.manager.bun).toString()}.0.0`,
-            }
-          : spec.package?.manager?.npm
-          ? {
-              bun: `>=${semver.major(spec.package.manager.npm).toString()}.0.0`,
+              npm: `>=${semver.major(spec.package.manager.npm).toString()} <${(
+                semver.major(spec.package.manager.npm) + 1
+              ).toString()}`,
             }
           : spec.package?.manager?.pnpm
           ? {
-              bun: `>=${semver.major(spec.package.manager.pnpm).toString()}.0.0`,
+              pnpm: `>=${semver.major(spec.package.manager.pnpm).toString()} <${(
+                semver.major(spec.package.manager.pnpm) + 1
+              ).toString()}`,
             }
           : spec.package?.manager?.yarn
           ? {
-              bun: `>=${semver.major(spec.package.manager.yarn).toString()}.0.0`,
+              yarn: `>=${semver.major(spec.package.manager.yarn).toString()} <${(
+                semver.major(spec.package.manager.yarn) + 1
+              ).toString()}`,
             }
           : undefined,
-        packageManager: spec.package?.manager?.bun
-          ? `bun@${spec.package.manager.bun}`
-          : spec.package?.manager?.npm
-          ? `bun@${spec.package.manager.npm}`
-          : spec.package?.manager?.pnpm
-          ? `bun@${spec.package.manager.pnpm}`
+        packageManager: spec.package?.manager?.pnpm
+          ? `pnpm@${spec.package.manager.pnpm}`
           : spec.package?.manager?.yarn
-          ? `bun@${spec.package.manager.yarn}`
+          ? `yarn@${spec.package.manager.yarn}`
           : undefined,
       },
     }),
