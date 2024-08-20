@@ -3,6 +3,7 @@ import { Playground } from '@/components/Playground/Playground';
 import { safeDump } from 'js-yaml';
 import { FramerMotionAnimationExample } from '@/specs/FramerMotionAnimationExample';
 import { NextSpec } from '@/specs/NextSpec';
+import { TauriDesktopAppExample } from '@/specs/TauriDesktopAppExample';
 
 const PhotographyWebsiteExampleSpec = `
 title: LensCraft
@@ -428,6 +429,7 @@ export default function PlaygroundNextPage({
     'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,
     'shadcn-accordion-example': ShadcnAccordionExampleSpec,
+    'tauri-desktop-app-example': safeDump(TauriDesktopAppExample),
     'vercel-analytics-example': VercelAnalyticsExample,
   };
 
