@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 const specs = [
   {
-    name: 'Bun Example',
-    url: '/playground/next/bun-example',
+    name: 'Framer Motion: Animation Example',
+    url: '/playground/next/framer-motion-animation-example',
     generator: 'next',
   },
   {
@@ -24,7 +24,7 @@ const specs = [
     generator: 'next',
   },
   {
-    name: 'shadcn Accordion Example',
+    name: 'shadcn: Accordion Example',
     url: '/playground/next/shadcn-accordion-example',
     generator: 'next',
   },

@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { Playground } from '@/components/Playground/Playground';
 import { safeDump } from 'js-yaml';
+import { FramerMotionAnimationExample } from '@/specs/FramerMotionAnimationExample';
 import { NextSpec } from '@/specs/NextSpec';
-import { BunSpec } from '@/specs/BunSpec';
 
 const PhotographyWebsiteExampleSpec = `
 title: LensCraft
@@ -424,7 +424,7 @@ export default function PlaygroundNextPage({
   };
 }) {
   const specs: Record<string, string> = {
-    'bun-example': safeDump(BunSpec),
+    'framer-motion-animation-example': safeDump(FramerMotionAnimationExample),
     'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,
     'shadcn-accordion-example': ShadcnAccordionExampleSpec,
