@@ -34,6 +34,11 @@ const specs = [
     generator: 'next',
   },
   {
+    name: 'Tauri Desktop App Example',
+    url: '/playground/next/tauri-desktop-app-example',
+    generator: 'next',
+  },
+  {
     name: 'Vercel Analytics Example',
     url: '/playground/next/vercel-analytics-example',
     generator: 'next',
