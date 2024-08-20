@@ -1,5 +1,11 @@
 # @specui/yaml
 
+## 0.1.13
+
+### Patch Changes
+
+- fixes engines / packageManager
+
 ## 0.1.12
 
 ### Patch Changes

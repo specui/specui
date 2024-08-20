@@ -1,5 +1,14 @@
 # @specui/license
 
+## 0.1.13
+
+### Patch Changes
+
+- fixes engines / packageManager
+- Updated dependencies
+  - @specui/core@0.1.13
+  - @specui/handlebars@0.1.13
+
 ## 0.1.12
 
 ### Patch Changes
