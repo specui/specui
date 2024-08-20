@@ -1,5 +1,20 @@
 # @specui/next-generator
 
+## 0.1.14
+
+### Patch Changes
+
+- adds tauri to next generator
+- Updated dependencies
+  - @specui/core@0.1.14
+  - @specui/git@0.1.14
+  - @specui/handlebars@0.1.14
+  - @specui/json@0.1.14
+  - @specui/license@0.1.14
+  - @specui/prettier@0.1.14
+  - @specui/prettier-rust@0.1.14
+  - @specui/toml@0.1.14
+
 ## 0.1.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # vercel-dashboard-mba
 
+## 0.1.14
+
+### Patch Changes
+
+- adds tauri to next generator
+
 ## 0.1.13
 
 ### Patch Changes
