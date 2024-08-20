@@ -1,7 +1,7 @@
 import { TailwindClass } from '../types/TailwindClass';
 import type { NativeElement } from './NativeElement';
 import type { ShadcnComponent } from './ShadcnComponent';
-import type { Style } from './Style';
+import type { Style, StyleTransform } from './Style';
 
 export interface Transition {
   delay?: number;
@@ -55,6 +55,6 @@ export interface BaseElement {
   text?: string;
   type?: string;
   value?: string;
-  whileHover?: Style;
-  whileTap?: Style;
+  whileHover?: StyleTransform;
+  whileTap?: StyleTransform;
 }

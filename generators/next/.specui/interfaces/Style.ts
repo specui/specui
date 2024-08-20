@@ -23,9 +23,15 @@ export interface Style {
   backgroundClip?: 'border-box' | 'padding-box' | 'content-box' | 'text';
   backgroundColor?: string;
   backgroundImage?: string;
+  borderRadius?: string;
   color?: string;
   fontFamily?: string;
   opacity?: number;
   translateX?: number;
   translateY?: number;
+}
+
+export interface StyleTransform extends Style {
+  rotate?: number;
+  scale?: number;
 }
