@@ -15,7 +15,7 @@
   "dependencies": {
     "@specui/core": "workspace:*",
     "@specui/json": "workspace:*",
-    "prettier": "^2.7.1",
+    "prettier": "^3.0.3",
     "prettier-plugin-rust": "^0.1.9"
   },
   "devDependencies": {

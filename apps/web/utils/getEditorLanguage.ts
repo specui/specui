@@ -11,6 +11,8 @@ export function getEditorLanguage(file: string) {
     ? 'json'
     : file.endsWith('.md')
     ? 'markdown'
+    : file.endsWith('.rs')
+    ? 'rust'
     : file.endsWith('.sass')
     ? 'sass'
     : file.endsWith('.scss')

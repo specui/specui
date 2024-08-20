@@ -3,8 +3,10 @@ import type { Author } from './Author';
 import type { Call, CallRequest, CallResponse } from './Call';
 import type { Component, ComponentProp } from './Component';
 import type { Model, ModelAttribute } from './Model';
-import { Package } from './Package';
+import type { Package } from './Package';
 import type { Page, PageDataSource } from './Page';
+import { Platform } from './Platform';
+import type { Repository } from './Repository';
 import type { Vercel } from './Vercel';
 
 export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
@@ -34,6 +36,7 @@ export interface Spec {
   version?: string;
   description?: string;
   license?: License;
+  icon?: string;
   author?: Author;
   components?: Record<string, Component>;
   pages?: Record<string, Page>;
@@ -44,5 +47,7 @@ export interface Spec {
   calls?: Record<string, Call>;
   models?: Record<string, Model>;
   package?: Package;
+  platform?: Platform;
+  repository?: Repository;
   vercel?: Vercel;
 }
