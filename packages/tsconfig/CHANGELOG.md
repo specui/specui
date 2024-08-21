@@ -1,5 +1,11 @@
 # tsconfig
 
+## 0.1.15
+
+### Patch Changes
+
+- adds sendEmail action via resend
+
 ## 0.1.14
 
 ### Patch Changes

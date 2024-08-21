@@ -1,5 +1,13 @@
 # @specui/handlebars
 
+## 0.1.15
+
+### Patch Changes
+
+- adds sendEmail action via resend
+- Updated dependencies
+  - @specui/core@0.1.15
+
 ## 0.1.14
 
 ### Patch Changes
