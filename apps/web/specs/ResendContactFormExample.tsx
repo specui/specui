@@ -23,7 +23,7 @@ export const ResendContactFormExample = {
           data: {
             from: 'Acme <onboarding@resend.dev>',
             replyTo: '$props.email',
-            to: 'chris@ctate.dev',
+            to: 'you@example.org',
             subject: 'New Message',
             html: '$props.message',
           },
