@@ -1,5 +1,3 @@
-import type { License } from '@specui/next-generator/dist/interfaces/Spec';
-
 export const ResendContactFormExample = {
   actions: {
     sendMessage: {

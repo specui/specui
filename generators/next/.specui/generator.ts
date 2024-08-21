@@ -678,7 +678,7 @@ export default async function generator(
               : ''
           }${
             action.operations.some((op) => ['sendEmail'].includes(op.type))
-              ? `import { Resend } from 'resend';\n\nconst resend = new Resend(process.env.RESEND_API_KEY);`
+              ? `import { Resend } from 'resend';\n\nconst resend = new Resend(process.env.RESEND_API_KEY ?? "missing_api_key");`
               : ''
           }       
 
