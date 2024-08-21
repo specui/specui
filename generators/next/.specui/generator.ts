@@ -226,6 +226,7 @@ export default async function generator(
       'href',
       'name',
       'placeholder',
+      'required',
       'type',
       'src',
       'value',
@@ -641,7 +642,9 @@ export default async function generator(
     return '';
   }
 
-  function getActionType(type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect') {
+  function getActionType(
+    type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect' | 'sendEmail',
+  ) {
     if (type === 'delete') {
       return 'deleteFrom';
     }
@@ -669,12 +672,15 @@ export default async function generator(
             action.operations.some((op) => ['revalidate'].includes(op.type))
               ? `import { revalidatePath } from 'next/cache';`
               : ''
-          }
-          ${
+          }${
             action.operations.some((op) => ['redirect'].includes(op.type))
               ? `import { redirect } from 'next/navigation';`
               : ''
-          }          
+          }${
+            action.operations.some((op) => ['sendEmail'].includes(op.type))
+              ? `import { Resend } from 'resend';\n\nconst resend = new Resend(process.env.RESEND_API_KEY);`
+              : ''
+          }       
 
           export default async function ${camelCase(actionName)}(
             formData: FormData
@@ -731,6 +737,30 @@ export default async function generator(
                   ? `redirect('${operation.path}')`
                   : operation.type === 'revalidate'
                   ? `revalidatePath('${operation.path}')`
+                  : operation.type === 'sendEmail'
+                  ? `
+                    await resend.emails.send({
+                      from: '${operation.data?.from ?? 'Acme <onboarding@resend.dev>'}',
+                      to: ['${operation.data?.to}'],
+                      ${
+                        operation.data?.replyTo
+                          ? `replyTo: ${
+                              operation.data.replyTo.startsWith('$')
+                                ? operation.data.replyTo.slice(1)
+                                : `'${operation.data.replyTo}'`
+                            },`
+                          : ''
+                      }
+                      subject: '${operation.data?.subject ?? 'Hello'}',
+                      html: ${
+                        operation.data?.html.startsWith('$')
+                          ? operation.data.html.slice(1)
+                          : operation.data
+                          ? `${operation.data.html}`
+                          : '<p>It works!</p>'
+                      }
+                    });
+                  `
                   : '',
               )
               .join('\n')}
@@ -1567,6 +1597,11 @@ fn main() {
           'react-dom': '^18',
           'react-icons': '^5.2.1',
           'react-markdown': '^9.0.0',
+          resend: Object.values(spec.actions || {}).some((action) =>
+            action.operations.some((operation) => operation.type === 'sendEmail'),
+          )
+            ? '^4.0.0'
+            : undefined,
           'tailwind-merge': '^2.5.0',
           'next-auth': '^4.23.1',
           zod: '^3.21.4',

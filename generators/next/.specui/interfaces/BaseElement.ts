@@ -55,6 +55,7 @@ export interface BaseElement {
     action: string;
     data?: any;
   };
+  required?: boolean;
   transition?: Transition;
   src?: string;
   style?: Style;

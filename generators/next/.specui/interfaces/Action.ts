@@ -1,7 +1,7 @@
 export interface Action {
   props: Record<string, ActionProp>;
   operations: {
-    type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect';
+    type: 'delete' | 'insert' | 'update' | 'revalidate' | 'redirect' | 'sendEmail';
     model?: string;
     data?: Record<string, any>;
     path?: string;
