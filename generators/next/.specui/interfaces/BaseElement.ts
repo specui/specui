@@ -60,6 +60,7 @@ export interface BaseElement {
   src?: string;
   style?: Style;
   tag?: string;
+  target?: string;
   text?: string;
   type?: string;
   value?: string;

@@ -39,12 +39,20 @@ export const ResendContactFormExample = {
         {
           tag: 'div',
           class: ['flex', 'h-dvh', 'items-center', 'justify-center'],
+          style: {
+            background: 'radial-gradient(circle, rgba(0,166,255,1) 0%, rgba(22,27,32,1) 100%)',
+          },
           elements: [
             {
               tag: 'form',
               action: 'sendMessage',
               class: ['flex', 'flex-col', 'gap-2'],
               elements: [
+                {
+                  tag: 'h1',
+                  class: ['mb-2', 'text-center', 'text-3xl', 'text-white'],
+                  text: 'Contact Us',
+                },
                 {
                   tag: 'input',
                   class: 'p-2 rounded-lg dark:text-black',
@@ -69,7 +77,7 @@ export const ResendContactFormExample = {
                 {
                   tag: 'button',
                   class:
-                    'bg-purple-800 flex gap-2 items-center justify-center p-2 rounded-lg hover:bg-purple-600',
+                    'bg-black flex gap-2 items-center justify-center p-2 rounded-lg text-white hover:bg-gray-800',
                   elements: [
                     {
                       tag: 'span',
@@ -77,6 +85,23 @@ export const ResendContactFormExample = {
                     },
                     {
                       icon: 'fa-arrow-right',
+                    },
+                  ],
+                },
+                {
+                  tag: 'p',
+                  class: ['flex gap-1', 'justify-center', 'text-white', 'text-xs'],
+                  elements: [
+                    {
+                      tag: 'span',
+                      text: 'Powered by',
+                    },
+                    {
+                      tag: 'a',
+                      class: 'text-gray-200 hover:text-white underline',
+                      href: 'https://resend.com',
+                      text: 'Resend',
+                      target: '_blank',
                     },
                   ],
                 },
@@ -91,21 +116,24 @@ export const ResendContactFormExample = {
         {
           tag: 'div',
           class: ['flex', 'flex-col', 'gap-2', 'h-dvh', 'items-center', 'justify-center'],
+          style: {
+            background: 'radial-gradient(circle, rgba(0,166,255,1) 0%, rgba(22,27,32,1) 100%)',
+          },
           elements: [
             {
               tag: 'h1',
-              class: 'text-2xl',
+              class: 'text-2xl text-white',
               text: 'Thanks for your message!',
             },
             {
               tag: 'p',
-              class: 'text-gray-500',
+              class: 'text-gray-200',
               text: 'We will get back to you shortly',
             },
             {
               tag: 'a',
               class:
-                'bg-purple-800 flex gap-2 items-center justify-center mt-2 p-2 rounded-lg hover:bg-purple-600',
+                'bg-black flex gap-2 items-center justify-center mt-2 p-2 rounded-lg text-white hover:bg-gray-800',
               href: '/',
               elements: [
                 {
@@ -113,7 +141,7 @@ export const ResendContactFormExample = {
                   text: 'Start Over',
                 },
                 {
-                  icon: 'fa-arrow-right',
+                  icon: 'fa-redo',
                 },
               ],
             },
