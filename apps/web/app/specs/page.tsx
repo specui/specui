@@ -24,6 +24,11 @@ const specs = [
     generator: 'next',
   },
   {
+    name: 'Resend: Contact Form Example',
+    url: '/playground/next/resend-contact-form-example',
+    generator: 'next',
+  },
+  {
     name: 'shadcn: Accordion Example',
     url: '/playground/next/shadcn-accordion-example',
     generator: 'next',

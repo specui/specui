@@ -72,7 +72,7 @@ export async function GET(request: Request) {
             alignItems: 'center',
             color: 'black',
             display: 'flex',
-            fontSize: 35,
+            fontSize: 25,
             gap: '1em',
             justifyContent: 'flex-start',
             padding: '0 40px',
@@ -89,14 +89,17 @@ export async function GET(request: Request) {
               {(metadata.title as string)?.split(' - ')[0] ?? 'SpecUI'}
             </div>
             <div style={{ display: 'flex', gap: '.5em' }}>
-              <span style={{ color: 'gray', marginLeft: '1.25em' }}>url:</span>
-              <span>https://specui.org{path}</span>
+              <span style={{ color: 'gray', marginLeft: '1.25em' }}>path:</span>
+              <span>{path}</span>
             </div>
             <div style={{ display: 'flex', gap: '.5em' }}>
               <span style={{ color: 'gray' }}>site:</span>
             </div>
             <div style={{ display: 'flex', gap: '.5em', marginLeft: '1.25em' }}>
               <span style={{ color: 'gray' }}>name:</span> SpecUI
+            </div>
+            <div style={{ display: 'flex', gap: '.5em', marginLeft: '1.25em' }}>
+              <span style={{ color: 'gray' }}>url:</span> https://specui.org
             </div>
           </div>
         </div>
