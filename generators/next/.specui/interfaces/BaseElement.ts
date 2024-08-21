@@ -8,13 +8,20 @@ export interface Transition {
   duration?: number;
 }
 
-export type ElementArrayOrRef =
-  | Element[]
-  | {
-      $ref: Element;
-    };
+export type ElementArrayOrRef = Element[] | ElementIterator;
 
 export type Element = BaseElement | NativeElement | ShadcnComponent;
+
+export type ElementIterator = {
+  data?: any[];
+  model?: string;
+  component?: string;
+  name?: string;
+  key?: string;
+  tag?: string;
+  class?: string;
+  elements?: ElementArrayOrRef;
+};
 
 export interface BaseElement {
   action?: string;

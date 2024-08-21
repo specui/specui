@@ -3,6 +3,7 @@
   "display": "Default",
   "compilerOptions": {
     "lib": ["esnext", "dom"],
+    "target": "es2015",
     "module": "commonjs",
     "composite": false,
     "declaration": true,

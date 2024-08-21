@@ -312,27 +312,25 @@ export default async function generator(
       }${
         Array.isArray(element.elements)
           ? element.elements.map(render).join('')
-          : element.elements?.['$ref']
+          : element.elements
           ? `{${
-              element.elements['$ref'].data
-                ? JSON.stringify(element.elements['$ref'].data)
-                : element.elements['$ref'].model
-            }.map(${element.elements['$ref'].name} => (
-            <${element.elements['$ref'].tag} className="${
-              Array.isArray(element.elements['$ref'].class)
-                ? element.elements['$ref'].class.join(' ')
-                : element.elements['$ref']
+              element.elements.data ? JSON.stringify(element.elements.data) : element.elements.model
+            }.map(${element.elements.name} => (
+            <${element.elements.tag} className="${
+              Array.isArray(element.elements.class)
+                ? element.elements.class.join(' ')
+                : element.elements
             }" key=${
-              element.elements['$ref'].key?.startsWith('$')
-                ? `{${element.elements['$ref'].key.slice(1)}}`
-                : `'${element.elements['$ref'].key}'`
+              element.elements.key?.startsWith('$')
+                ? `{${element.elements.key.slice(1)}}`
+                : `'${element.elements.key}'`
             }>
               ${
-                Array.isArray(element.elements['$ref'].elements)
-                  ? element.elements['$ref'].elements?.map(render).join('')
+                Array.isArray(element.elements.elements)
+                  ? element.elements.elements?.map(render).join('')
                   : ''
               }
-            </${element.elements['$ref'].tag}>
+            </${element.elements.tag}>
           ))}`
           : ''
       }
@@ -590,9 +588,7 @@ export default async function generator(
         }
 
         if (element.elements) {
-          collectImports(
-            Array.isArray(element.elements) ? element.elements : [element.elements['$ref']],
-          );
+          collectImports(Array.isArray(element.elements) ? element.elements : [element.elements]);
         }
       });
     }
@@ -652,7 +648,7 @@ export default async function generator(
     if (type === 'insert') {
       return 'insertInto';
     }
-    return 'update';
+    return 'updateTable';
   }
 
   const actions: {
@@ -698,13 +694,13 @@ export default async function generator(
                 )}')
                   ${
                     operation.data
-                      ? `.values({
+                      ? `.${operation.type === 'update' ? 'set' : 'values'}({
                           ${Object.entries(operation.data)
                             .map(
                               ([name, value]) =>
                                 `${name}: ${
                                   typeof value === 'string' && value.startsWith('$')
-                                    ? value.slice(1)
+                                    ? `${value.slice(1)} as any`
                                     : typeof value === 'string'
                                     ? `'${value}'`
                                     : value
@@ -720,7 +716,7 @@ export default async function generator(
                             ([name, value]) =>
                               `.where('${name}', '=', ${
                                 typeof value === 'string' && value.startsWith('$')
-                                  ? value.slice(1)
+                                  ? `${value.slice(1)} as any`
                                   : typeof value === 'string'
                                   ? `'${value}'`
                                   : value
@@ -790,8 +786,11 @@ export default async function generator(
   );
 
   async function renderPage(page: Page, pagePath: string) {
-    function renderPageComponents(elements?: ElementArrayOrRef) {
-      if (elements && Array.isArray(elements)) {
+    function renderPageComponents(elementsArrayOrRef?: ElementArrayOrRef) {
+      if (elementsArrayOrRef) {
+        const elements = Array.isArray(elementsArrayOrRef)
+          ? elementsArrayOrRef
+          : [elementsArrayOrRef];
         for (let element of elements) {
           if (
             typeof element.component === 'string' &&
