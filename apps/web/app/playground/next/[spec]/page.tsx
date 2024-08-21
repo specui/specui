@@ -4,6 +4,7 @@ import { safeDump } from 'js-yaml';
 import { FramerMotionAnimationExample } from '@/specs/FramerMotionAnimationExample';
 import { NextSpec } from '@/specs/NextSpec';
 import { TauriDesktopAppExample } from '@/specs/TauriDesktopAppExample';
+import { ResendContactFormExample } from '@/specs/ResendContactFormExample';
 
 const PhotographyWebsiteExampleSpec = `
 title: LensCraft
@@ -407,15 +408,23 @@ pages:
           text: Loading tweets
 `;
 
-export const metadata: Metadata = {
-  title: 'Next.js Playground - SpecUI',
-  description: 'Build UIs with Specs',
-  openGraph: {
-    images: ['https://specui.org/api/og?path=/playground/next'],
+export function generateMetadata({
+  params,
+}: {
+  params: {
+    spec: string;
+  };
+}): Metadata {
+  return {
     title: 'Next.js Playground - SpecUI',
-    url: 'https://specui.org/playground/next',
-  },
-};
+    description: 'Build UIs with Specs',
+    openGraph: {
+      images: [`https://specui.org/api/og?path=/playground/next/${params.spec}`],
+      title: 'Next.js Playground - SpecUI',
+      url: 'https://specui.org/playground/next',
+    },
+  };
+}
 
 export default function PlaygroundNextPage({
   params,
@@ -428,6 +437,7 @@ export default function PlaygroundNextPage({
     'framer-motion-animation-example': safeDump(FramerMotionAnimationExample),
     'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,
+    'resend-contact-form-example': safeDump(ResendContactFormExample),
     'shadcn-accordion-example': ShadcnAccordionExampleSpec,
     'tauri-desktop-app-example': safeDump(TauriDesktopAppExample),
     'vercel-analytics-example': VercelAnalyticsExample,

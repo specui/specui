@@ -18,6 +18,34 @@ export async function GET(request: Request) {
     '/specs': specsMetadata,
     '/playground': playgroundMetadata,
     '/playground/next': playgroundNextMetadata,
+    '/playground/next/framer-motion-animation-example': {
+      ...playgroundNextMetadata,
+      title: 'Framer Motion: Animation Example',
+    },
+    '/playground/next/spinning-loader-example': {
+      ...playgroundNextMetadata,
+      title: 'Spinning Loader Example',
+    },
+    '/playground/next/photography-website-example': {
+      ...playgroundNextMetadata,
+      title: 'Photography Website Example',
+    },
+    '/playground/next/resend-contact-form-example': {
+      ...playgroundNextMetadata,
+      title: 'Resend: Contact Form Example',
+    },
+    '/playground/next/shadcn-accordion-example': {
+      ...playgroundNextMetadata,
+      title: 'shadcn: Accordion Example',
+    },
+    '/playground/next/tauri-desktop-app-example': {
+      ...playgroundNextMetadata,
+      title: 'Tauri Desktop App Example',
+    },
+    '/playground/next/vercel-analytics-example': {
+      ...playgroundNextMetadata,
+      title: 'Vercel Analytics Example',
+    },
   };
 
   const metadata = titles[path ?? ''] ?? homeMetadata;
