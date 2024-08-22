@@ -29,19 +29,18 @@ export function Prompt({
   }, [messages, onChange]);
 
   return (
-    <div className="flex items-center gap-2 mx-auto">
+    <div className="bg-blue-600 flex items-center p-2 gap-2 mx-auto w-full">
       <div className="flex gap-2">
-        <div>AI Prompt</div>
         <div>
-          <div className="bg-blue-600 inline-flex px-2 py-1 rounded-md text-white text-xs uppercase">
+          <div className="bg-white inline-flex px-2 py-1 rounded-md text-blue-600 text-xs uppercase">
             New
           </div>
         </div>
       </div>
-      <p className="text-gray-500 text-xs">Ask AI to generate a spec for you</p>
+      <p className="text-white text-xs">Ask AI to generate a spec for you</p>
       <form onSubmit={handleSubmit}>
         <input
-          className="px-4 py-2 rounded-full w-full"
+          className="px-4 py-2 rounded-full w-96"
           id="prompt"
           name="prompt"
           onChange={handleInputChange}
