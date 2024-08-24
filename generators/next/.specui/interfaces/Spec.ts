@@ -2,10 +2,11 @@ import type { Action, ActionProp } from './Action';
 import type { Author } from './Author';
 import type { Call, CallRequest, CallResponse } from './Call';
 import type { Component, ComponentProp } from './Component';
+import type { Database } from './Database';
 import type { Model, ModelAttribute } from './Model';
 import type { Package } from './Package';
 import type { Page, PageDataSource } from './Page';
-import { Platform } from './Platform';
+import type { Platform } from './Platform';
 import type { Repository } from './Repository';
 import type { Vercel } from './Vercel';
 
@@ -45,6 +46,7 @@ export interface Spec {
     providers: Provider[];
   };
   calls?: Record<string, Call>;
+  database?: Database;
   models?: Record<string, Model>;
   package?: Package;
   platform?: Platform;

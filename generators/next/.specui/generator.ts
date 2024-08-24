@@ -5,7 +5,7 @@ import { JsonEngine } from '@specui/json';
 import { LicenseGenerator } from '@specui/license';
 import { TomlEngine } from '@specui/toml';
 import { camelCase, pascalCase, titleCase } from 'change-case';
-import { plural } from 'pluralize';
+import { plural, singular } from 'pluralize';
 import semver from 'semver';
 
 import type { Element, ElementArrayOrRef } from './interfaces/BaseElement';
@@ -320,7 +320,7 @@ export default async function generator(
             <${element.elements.tag} className="${
               Array.isArray(element.elements.class)
                 ? element.elements.class.join(' ')
-                : element.elements
+                : element.elements.class
             }" key=${
               element.elements.key?.startsWith('$')
                 ? `{${element.elements.key.slice(1)}}`
@@ -666,7 +666,9 @@ export default async function generator(
 
           ${
             action.operations.some((op) => ['delete', 'insert', 'update'].includes(op.type))
-              ? `import { db } from '@/lib/db';`
+              ? spec.database?.type === 'mongodb'
+                ? `import { connectToMemoryDB } from '@/lib/mongo';`
+                : `import { db } from '@/lib/db';`
               : ''
           }${
             action.operations.some((op) => ['revalidate'].includes(op.type))
@@ -680,20 +682,55 @@ export default async function generator(
             action.operations.some((op) => ['sendEmail'].includes(op.type))
               ? `import { Resend } from 'resend';\n\nconst resend = new Resend(process.env.RESEND_API_KEY ?? "missing_api_key");`
               : ''
-          }       
+          }
+          ${action.operations
+            .filter((op) => ['delete', 'insert', 'update'].includes(op.type))
+            .map(
+              (operation) =>
+                `import { ${pascalCase(
+                  operation.model ?? '',
+                )}Model } from '@/lib/models/${pascalCase(operation.model ?? '')}Model'`,
+            )}
 
           export default async function ${camelCase(actionName)}(
             formData: FormData
           ) {
+            ${spec.database?.type === 'mongodb' ? 'await connectToMemoryDB();' : ''}
+
             const props = {
-              ${Object.entries(action.props)
-                .map(([propName, prop]) => `${propName}: formData.get('${propName}') as string,`)
+              ${Object.keys(action.props)
+                .map((propName) => `${propName}: formData.get('${propName}') as string,`)
                 .join('\n')}
             };
 
             ${action.operations
               .map((operation) =>
-                ['delete', 'insert', 'update'].includes(operation.type)
+                ['delete', 'insert', 'update'].includes(operation.type) &&
+                spec.database?.type === 'mongodb'
+                  ? `
+                    const ${operation.model} = new ${pascalCase(operation.model ?? '')}Model(${
+                      operation.data
+                        ? `({
+                            ${Object.entries(operation.data)
+                              .map(
+                                ([name, value]) =>
+                                  `${name}: ${
+                                    typeof value === 'string' && value.startsWith('$')
+                                      ? `${value.slice(1)} as any`
+                                      : typeof value === 'string'
+                                      ? `'${value}'`
+                                      : value
+                                  }`,
+                              )
+                              .join(',')}
+                          })`
+                        : ''
+                    }); 
+
+                    await ${operation.model}.save();
+                  `
+                  : ['delete', 'insert', 'update'].includes(operation.type) &&
+                    spec.database?.type !== 'mongodb'
                   ? `
                 await db.${getActionType(operation.type)}('${camelCase(
                   plural(operation.model || ''),
@@ -845,7 +882,13 @@ export default async function generator(
         ${Array.isArray(page.elements) ? renderClient(page.elements) : ''}
         ${Array.isArray(page.elements) ? renderClsx(page.elements) : ''}
         ${Array.isArray(page.elements) ? renderImports(page.elements) : ''}
-        ${page.dataSources ? `import { db } from '@/lib/db';` : ''}
+        ${
+          page.dataSources
+            ? spec.database?.type === 'mongodb'
+              ? `import { mongo } from '@/lib/mongo';`
+              : `import { db } from '@/lib/db';`
+            : ''
+        }
 
         export default${page.dataSources ? ' async ' : ' '}function Home() {
 
@@ -928,61 +971,117 @@ export default async function generator(
     }),
   );
 
-  const tables: {
+  function mapAttributeTypeToMongoType(type: string) {
+    if (type === 'boolean') {
+      return 'Boolean';
+    }
+    return 'String';
+  }
+
+  const models: {
     [file: string]: Buffer | string;
   } = {};
-  await Promise.all(
-    Object.entries(spec.models || {}).map(async ([modelName, model]) => {
-      const modelNamePlural = plural(modelName);
-      const modelNamePluralPascal = pascalCase(modelNamePlural);
-      tables[`lib/tables/${modelNamePluralPascal}Table.ts`] = await generate({
-        processor: PrettierProcessor(),
-        engine: async () => {
-          return `
-          import { ColumnType, Generated, sql } from 'kysely'
+  if (spec.database?.type === 'mongodb') {
+    await Promise.all(
+      Object.entries(spec.models || {}).map(async ([modelName, model]) => {
+        const modelNameSingular = singular(modelName);
+        const modelNameSingularPascal = pascalCase(modelNameSingular);
+        models[`lib/models/${modelNameSingularPascal}Model.ts`] = await generate({
+          processor: PrettierProcessor(),
+          engine: async () => /* ts */ `
+            import { Document, Schema, model } from 'mongoose';
 
-          import { db } from '@/lib/db'
-          
-          export interface ${modelNamePluralPascal}Table {
-            ${Object.entries(model.attributes)
-              .map(
-                ([attributeName, attribute]) =>
-                  `${camelCase(attributeName)}: ${
-                    attribute.key === 'primary' ? `Generated<${attribute.type}>` : attribute.type
-                  }`,
-              )
-              .join('\n')}
-            createdAt: ColumnType<Date, string | undefined, never>
-          }
-          
-          export const create${modelNamePluralPascal}Table = async () => {
-            await db.schema
-              .createTable('${modelNamePlural}')
-              .ifNotExists()
+            export interface ${modelNameSingularPascal}Document extends Document {
               ${Object.entries(model.attributes)
                 .map(
                   ([attributeName, attribute]) =>
-                    `.addColumn('${camelCase(attributeName)}', '${
-                      attribute.key === 'primary'
-                        ? 'serial'
-                        : attribute.type === 'boolean'
-                        ? 'boolean'
-                        : attribute.type === 'number'
-                        ? 'integer'
-                        : 'varchar(255)'
-                    }', (cb) => cb.${attribute.key === 'primary' ? 'primaryKey()' : 'notNull()'}${
-                      attribute.unique ? '.unique()' : ''
-                    })`,
+                    `${camelCase(attributeName)}: ${
+                      attribute.key === 'primary' ? `string` : attribute.type
+                    }`,
+                )
+                .join(';\n')}
+              createdAt: Date;
+            }
+            
+            export const ${modelNameSingularPascal}Model = model<${modelNameSingularPascal}Document>(
+              '${modelNameSingularPascal}',
+              new Schema<${modelNameSingularPascal}Document>({
+                ${Object.entries(model.attributes)
+                  .map(
+                    ([attributeName, attribute]) =>
+                      `${camelCase(attributeName)}: ${
+                        attribute.key === 'primary'
+                          ? `Schema.ObjectId`
+                          : mapAttributeTypeToMongoType(attribute.type)
+                      }`,
+                  )
+                  .join(',\n')}
+              })
+            );
+          
+          `,
+        });
+      }),
+    );
+  }
+
+  const tables: {
+    [file: string]: Buffer | string;
+  } = {};
+  if (spec.database?.type !== 'mongodb') {
+    await Promise.all(
+      Object.entries(spec.models || {}).map(async ([modelName, model]) => {
+        const modelNamePlural = plural(modelName);
+        const modelNamePluralPascal = pascalCase(modelNamePlural);
+        tables[`lib/tables/${modelNamePluralPascal}Table.ts`] = await generate({
+          processor: PrettierProcessor(),
+          engine: async () => {
+            return `
+            import { ColumnType, Generated, sql } from 'kysely'
+
+            import { db } from '@/lib/db'
+            
+            export interface ${modelNamePluralPascal}Table {
+              ${Object.entries(model.attributes)
+                .map(
+                  ([attributeName, attribute]) =>
+                    `${camelCase(attributeName)}: ${
+                      attribute.key === 'primary' ? `Generated<${attribute.type}>` : attribute.type
+                    }`,
                 )
                 .join('\n')}
-              .execute()
-          }
-        
-        `;
-        },
-      });
-    }),
-  );
+              createdAt: ColumnType<Date, string | undefined, never>
+            }
+            
+            export const create${modelNamePluralPascal}Table = async () => {
+              await db.schema
+                .createTable('${modelNamePlural}')
+                .ifNotExists()
+                ${Object.entries(model.attributes)
+                  .map(
+                    ([attributeName, attribute]) =>
+                      `.addColumn('${camelCase(attributeName)}', '${
+                        attribute.key === 'primary'
+                          ? 'serial'
+                          : attribute.type === 'boolean'
+                          ? 'boolean'
+                          : attribute.type === 'number'
+                          ? 'integer'
+                          : 'varchar(255)'
+                      }', (cb) => cb.${attribute.key === 'primary' ? 'primaryKey()' : 'notNull()'}${
+                        attribute.unique ? '.unique()' : ''
+                      })`,
+                  )
+                  .join('\n')}
+                .execute()
+            }
+          
+          `;
+          },
+        });
+      }),
+    );
+  }
 
   const tauri: Record<string, Buffer | string> = {};
   if (spec.platform?.desktop) {
@@ -1344,92 +1443,120 @@ fn main() {
       `,
     }),
     ...schemas,
+    ...models,
     ...tables,
-    'lib/client.ts': await generate({
-      processor: PrettierProcessor(),
-      engine: () => `
-        import axios from "axios";
+    'lib/client.ts':
+      spec.database?.type === 'postgres'
+        ? undefined
+        : await generate({
+            processor: PrettierProcessor(),
+            engine: () => `
+              import axios from "axios";
 
-        ${Object.entries(spec.calls || {})
-          .map(
-            ([callName]) => `
-            import {
-              ${pascalCase(callName)}Request,
-              ${pascalCase(callName)}Response,
-            } from "@/lib/schemas/${camelCase(callName)}Schema";
-          `,
-          )
-          .join('\n')} 
+              ${Object.entries(spec.calls || {})
+                .map(
+                  ([callName]) => `
+                  import {
+                    ${pascalCase(callName)}Request,
+                    ${pascalCase(callName)}Response,
+                  } from "@/lib/schemas/${camelCase(callName)}Schema";
+                `,
+                )
+                .join('\n')} 
 
-        export type Call = <T>(method: string, data: any) => Promise<T>;
-        
-        export const call: Call = async (method, data) => {
-          const res = await axios({
-            method: "POST",
-            headers:
-              typeof localStorage !== "undefined" && localStorage.getItem("accessToken")
-                ? {
-                    Authorization: \`Bearer \${localStorage.getItem("accessToken")}\`,
+              export type Call = <T>(method: string, data: any) => Promise<T>;
+              
+              export const call: Call = async (method, data) => {
+                const res = await axios({
+                  method: "POST",
+                  headers:
+                    typeof localStorage !== "undefined" && localStorage.getItem("accessToken")
+                      ? {
+                          Authorization: \`Bearer \${localStorage.getItem("accessToken")}\`,
+                        }
+                      : {},
+                  url: \`/api\${method}\`,
+                  data: data || {},
+                });
+              
+                return res.data;
+              };
+
+              ${Object.entries(spec.calls || {})
+                .map(
+                  ([callName]) => `
+                  export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
+                    return await call<${pascalCase(callName)}Response>("/${callName}", req);
+                  };
+                `,
+                )
+                .join('\n')} 
+            `,
+          }),
+    'lib/db.ts':
+      spec.database?.type === 'mongodb'
+        ? undefined
+        : await generate({
+            processor: PrettierProcessor(),
+            engine: async () => {
+              return /*ts*/ `
+                import { createKysely } from '@vercel/postgres-kysely'
+          
+                ${modelNamesPluralPascal
+                  .map(
+                    (modelName) =>
+                      `import { ${modelName}Table, create${modelName}Table } from '@/lib/tables/${modelName}Table'`,
+                  )
+                  .join('\n')}
+                
+                export interface Database {
+                  ${modelNamesPluralPascal
+                    .map((modelName) => `${camelCase(modelName)}: ${modelName}Table`)
+                    .join('\n')}
+                }
+                
+                export const db = createKysely<Database>()
+                
+                export const deinit = async () => {
+                  const tables = [
+                    ${modelNamesPluralCamelCase.map((modelName) => `'${modelName}'`).join(',')}
+                  ]
+                
+                  for (let i = 0; i < tables.length; i++) {
+                    await db.schema.dropTable(tables[i]).ifExists().execute()
                   }
-                : {},
-            url: \`/api\${method}\`,
-            data: data || {},
-          });
-        
-          return res.data;
-        };
-
-        ${Object.entries(spec.calls || {})
-          .map(
-            ([callName]) => `
-            export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
-              return await call<${pascalCase(callName)}Response>("/${callName}", req);
-            };
-          `,
-          )
-          .join('\n')} 
-      `,
-    }),
-    'lib/db.ts': await generate({
+                }
+                
+                export const init = async () => {
+                  ${modelNamesPluralPascal
+                    .map((modelName) => `await create${modelName}Table()`)
+                    .join('\n')}
+                }
+                
+                export const seed = async () => {}
+              `;
+            },
+          }),
+    'lib/mongo.ts': await generate({
       processor: PrettierProcessor(),
-      engine: async () => {
-        return /*ts*/ `
-          import { createKysely } from '@vercel/postgres-kysely'
-    
-          ${modelNamesPluralPascal
-            .map(
-              (modelName) =>
-                `import { ${modelName}Table, create${modelName}Table } from '@/lib/tables/${modelName}Table'`,
-            )
-            .join('\n')}
-          
-          export interface Database {
-            ${modelNamesPluralPascal
-              .map((modelName) => `${camelCase(modelName)}: ${modelName}Table`)
-              .join('\n')}
-          }
-          
-          export const db = createKysely<Database>()
-          
-          export const deinit = async () => {
-            const tables = [
-              ${modelNamesPluralCamelCase.map((modelName) => `'${modelName}'`).join(',')}
-            ]
-          
-            for (let i = 0; i < tables.length; i++) {
-              await db.schema.dropTable(tables[i]).ifExists().execute()
-            }
-          }
-          
-          export const init = async () => {
-            ${modelNamesPluralPascal
-              .map((modelName) => `await create${modelName}Table()`)
-              .join('\n')}
-          }
-          
-          export const seed = async () => {}
-        `;
-      },
+      engine: () => /* ts */ `
+        import { MongoMemoryServer } from 'mongodb-memory-server';
+        import mongoose from 'mongoose';
+        
+        let mongoServer: MongoMemoryServer;
+        
+        export const connectToMemoryDB = async () => {
+          mongoServer = await MongoMemoryServer.create();
+          const uri = mongoServer.getUri();
+        
+          await mongoose.connect(uri);
+        };
+        
+        export const disconnectFromMemoryDB = async () => {
+          await mongoose.disconnect();
+          await mongoServer.stop();
+        };
+      `,
     }),
     'lib/utils.ts': await generate({
       processor: PrettierProcessor(),
@@ -1585,13 +1712,20 @@ fn main() {
                 '@vercel/analytics': '^1.3.1',
               }
             : {}),
-          '@vercel/postgres-kysely': '^0.5.0',
+          ...(spec.database?.type === 'mongodb'
+            ? {
+                'mongodb-memory-server': '^10.0.0',
+                mongoose: '^8.5.3',
+              }
+            : {
+                '@vercel/postgres-kysely': '^0.5.0',
+                kysely: '^0.26.3',
+              }),
           axios: '^1.6.0',
           'class-variance-authority': '^0.7.0',
           clsx: '^2.1.1',
           'embla-carousel-react': '^8.1.8',
           'framer-motion': '^11.3.24',
-          kysely: '^0.26.3',
           next: '14.1.1',
           react: '^18',
           'react-dom': '^18',
