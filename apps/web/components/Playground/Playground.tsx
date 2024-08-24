@@ -30,7 +30,7 @@ import { ArrowDropDown } from '@mui/icons-material';
 
 export interface PlaygroundProps {
   generator: 'vanilla' | 'next';
-  spec?: any;
+  spec?: string;
 }
 
 const ansi = new Convert({
@@ -177,7 +177,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
     if (generator === 'vanilla') {
       setValue(
         '# yaml-language-server: $schema=/schemas/vanilla-generator-schema.json\n' +
-          safeDump(VanillaSpec),
+          (spec || safeDump(VanillaSpec)),
       );
     } else {
       setValue(

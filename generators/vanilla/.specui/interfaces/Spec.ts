@@ -1,15 +1,16 @@
 import type { Properties } from 'csstype';
 
 export interface Element {
-  tag?: string;
+  alt?: string;
   component?: string;
-  text?: string;
-  style?: Properties;
   elements?: Element[];
   href?: string;
-  src?: string;
-  alt?: string;
   onClick?: Record<string, string>;
+  src?: string;
+  style?: Properties;
+  tag?: string;
+  target?: string;
+  text?: string;
 }
 
 export interface Spec {

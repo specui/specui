@@ -1,4 +1,3 @@
-import { GitHub } from '@mui/icons-material';
 import { FC } from 'react';
 import Link from 'next/link';
 
@@ -29,12 +28,6 @@ export const Header: FC = () => (
           </Link>
           <User />
           <Stargazers owner="specui" repo="specui" />
-          <Link
-            className="bg-black text-white dark:bg-white dark:text-black px-4 py-1 rounded-md"
-            href="/playground"
-          >
-            Playground
-          </Link>
         </div>
       </div>
     </div>

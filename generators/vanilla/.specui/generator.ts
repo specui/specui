@@ -33,6 +33,7 @@ export default async function generator(spec: Spec, PrettierProcessor: IProcesso
         class: className,
         href: element.href,
         src: element.src,
+        target: element.target,
         onClick: element.onClick,
       })
         .filter(([, value]) => value !== undefined)
