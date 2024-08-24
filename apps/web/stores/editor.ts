@@ -9,7 +9,7 @@ export interface RenderTree {
 }
 
 type Code = {
-  [file: string]: Buffer | string;
+  [file: string]: Buffer | string | undefined;
 };
 
 export interface EditorState {

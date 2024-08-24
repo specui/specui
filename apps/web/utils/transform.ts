@@ -1,4 +1,4 @@
-type InputObject = { [key: string]: Buffer | string };
+type InputObject = { [key: string]: Buffer | string | undefined };
 type OutputObject = {
   id: string;
   name: string;
