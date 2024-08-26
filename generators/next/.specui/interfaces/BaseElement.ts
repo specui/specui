@@ -27,6 +27,7 @@ export interface BaseElement {
   action?: string;
   animate?: Style;
   alt?: string;
+  auth?: 'signedIn' | 'signedOut';
   class?: string | string[] | TailwindClass | TailwindClass[];
   collapsible?: boolean;
   component?: string;

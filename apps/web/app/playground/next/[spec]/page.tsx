@@ -6,6 +6,57 @@ import { NextSpec } from '@/specs/NextSpec';
 import { TauriDesktopAppExample } from '@/specs/TauriDesktopAppExample';
 import { ResendContactFormExample } from '@/specs/ResendContactFormExample';
 
+const ClerkAuthenticationExample = `
+title: MyProtectedApp
+name: my-protected-app
+version: 1.0.0
+description: my app is so protected
+license: MIT
+auth:
+  integration: clerk
+pages:
+  index:
+    elements:
+      - tag: div
+        auth: signedIn
+        elements:
+          - tag: header
+            class:
+              - flex
+              - justify-between
+              - p-2
+            elements:
+              - tag: h1
+                text: MyProtectedApp
+              - component: userButton
+          - tag: section
+            class:
+              - flex
+              - flex-col
+              - gap-2
+              - h-[calc(100dvh-44px)]
+              - items-center
+              - justify-center
+            elements:
+              - tag: h1
+                class: text-2xl
+                text: Welcome to MyProtectedApp
+      - tag: section
+        auth: signedOut
+        class:
+          - flex
+          - flex-col
+          - gap-2
+          - h-dvh
+          - items-center
+          - justify-center
+        elements:
+          - tag: h1
+            class: text-2xl
+            text: Sign In to MyProtectedApp
+          - component: signInButton
+`;
+
 const PhotographyWebsiteExampleSpec = `
 title: LensCraft
 name: LensCraft
@@ -434,6 +485,7 @@ export default function PlaygroundNextPage({
   };
 }) {
   const specs: Record<string, string> = {
+    'clerk-authentication-example': ClerkAuthenticationExample,
     'framer-motion-animation-example': safeDump(FramerMotionAnimationExample),
     'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,

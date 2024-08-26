@@ -18,6 +18,10 @@ export async function GET(request: Request) {
     '/specs': specsMetadata,
     '/playground': playgroundMetadata,
     '/playground/next': playgroundNextMetadata,
+    '/playground/next/clerk-authentication-example': {
+      ...playgroundNextMetadata,
+      title: 'Clerk Authentication Example',
+    },
     '/playground/next/framer-motion-animation-example': {
       ...playgroundNextMetadata,
       title: 'Framer Motion: Animation Example',

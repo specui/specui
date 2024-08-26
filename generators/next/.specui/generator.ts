@@ -54,7 +54,24 @@ export default async function generator(
   const auth: {
     [file: string]: Buffer | string;
   } = {};
-  if (spec.auth) {
+  if (spec.auth?.integration === 'clerk') {
+    auth['middleware.ts'] = await generate({
+      processor: PrettierProcessor(),
+      engine: async () => /* ts */ `
+        import { clerkMiddleware } from '@clerk/nextjs/server'
+
+        export default clerkMiddleware()
+
+        export const config = {
+          matcher: [
+            '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+            '/(api|trpc)(.*)',
+          ],
+        }
+      `,
+    });
+  }
+  if (spec.auth?.integration === 'next-auth') {
     auth['app/api/auth/[...nextauth]/route.ts'] = await generate({
       processor: PrettierProcessor(),
       engine: async () => {
@@ -342,8 +359,14 @@ export default async function generator(
         ? `motion.${tag}`
         : tag;
 
-    return `<${motionTag} ${props}
+    const innerHtml = `<${motionTag} ${props}
       ${children ? `>${children}</${motionTag}>` : ' />'}`;
+
+    return element.auth === 'signedIn'
+      ? `<SignedIn>${innerHtml}</SignedIn>`
+      : element.auth === 'signedOut'
+      ? `<SignedOut>${innerHtml}</SignedOut>`
+      : innerHtml;
   }
 
   const uiComponents: Record<
@@ -556,6 +579,24 @@ export default async function generator(
       (Array.isArray(elements) ? elements : []).forEach((element) => {
         const component = pascalCase(element.component || '');
 
+        if (element.auth) {
+          if (!imports['@clerk/nextjs']) {
+            imports['@clerk/nextjs'] = [];
+          }
+          if (
+            element.auth === 'signedIn' &&
+            !(imports['@clerk/nextjs'] as string[]).includes('SignedIn')
+          ) {
+            (imports['@clerk/nextjs'] as string[]).push('SignedIn');
+          }
+          if (
+            element.auth === 'signedOut' &&
+            !(imports['@clerk/nextjs'] as string[]).includes('SignedOut')
+          ) {
+            (imports['@clerk/nextjs'] as string[]).push('SignedOut');
+          }
+        }
+
         if (component && !imports[component]) {
           if (predefinedComponents[component]) {
             const ui = pascalCase(predefinedComponents[component]);
@@ -565,6 +606,11 @@ export default async function generator(
             if (!(imports[`@/components/${ui}`] as string[]).includes(component)) {
               (imports[`@/components/${ui}`] as string[]).push(component);
             }
+          } else if (
+            !(imports[`@clerk/nextjs`] as string[]).includes(component) &&
+            (component === 'SignInButton' || component === 'UserButton')
+          ) {
+            (imports[`@clerk/nextjs`] as string[]).push(component);
           } else {
             imports[`@/components/${component}`] = component;
           }
@@ -1290,6 +1336,9 @@ fn main() {
     'app/layout.tsx': await generate({
       processor: PrettierProcessor(),
       engine: async () => /* ts */ `
+        ${
+          spec.auth?.integration === 'clerk' ? `import { ClerkProvider } from '@clerk/nextjs';` : ''
+        }
         ${spec.vercel?.analytics ? `import { Analytics } from '@vercel/analytics/react';` : ''}
         import type { Metadata } from 'next'
         import { Inter } from 'next/font/google'
@@ -1308,12 +1357,14 @@ fn main() {
           children: React.ReactNode
         }) {
           return (
-            <html lang="en">
-              <body className={inter.className}>
-                {children}
-                ${spec.vercel?.analytics ? '<Analytics />' : ''}
-              </body>
-            </html>
+            ${spec.auth?.integration === 'clerk' ? '<ClerkProvider>' : ''}
+              <html lang="en">
+                <body className={inter.className}>
+                  {children}
+                  ${spec.vercel?.analytics ? '<Analytics />' : ''}
+                </body>
+              </html>
+            ${spec.auth?.integration === 'clerk' ? '</ClerkProvider>' : ''}
           )
         }
       `,
@@ -1696,6 +1747,7 @@ fn main() {
         },
         dependencies: {
           ...pkg.dependencies,
+          '@clerk/nextjs': spec.auth?.integration === 'clerk' ? '^5.3.3' : undefined,
           '@radix-ui/react-alert-dialog': '^1.1.1',
           '@radix-ui/react-accordion': '^1.2.0',
           '@radix-ui/react-aspect-ratio': '^1.1.0',
@@ -1737,7 +1789,7 @@ fn main() {
             ? '^4.0.0'
             : undefined,
           'tailwind-merge': '^2.5.0',
-          'next-auth': '^4.23.1',
+          'next-auth': spec.auth?.integration === 'next-auth' ? '^4.23.1' : undefined,
           zod: '^3.21.4',
         },
         devDependencies: {

@@ -14,6 +14,11 @@ export const metadata: Metadata = {
 
 const specs = [
   {
+    name: 'Clerk Authentication Example',
+    url: '/playground/next/clerk-authentication-example',
+    generator: 'next',
+  },
+  {
     name: 'Framer Motion: Animation Example',
     url: '/playground/next/framer-motion-animation-example',
     generator: 'next',

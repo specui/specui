@@ -1,4 +1,5 @@
 import type { Action, ActionProp } from './Action';
+import type { Auth } from './Auth';
 import type { Author } from './Author';
 import type { Call, CallRequest, CallResponse } from './Call';
 import type { Component, ComponentProp } from './Component';
@@ -12,8 +13,6 @@ import type { Vercel } from './Vercel';
 
 export type License = 'Apache-2.0' | 'GPL-2.0-only' | 'GPL-3.0-only' | 'ISC' | 'MIT';
 export type PrimitiveType = 'boolean' | 'number' | 'string';
-
-type Provider = 'facebook' | 'github' | 'google';
 
 export {
   Action,
@@ -42,9 +41,7 @@ export interface Spec {
   components?: Record<string, Component>;
   pages?: Record<string, Page>;
   actions?: Record<string, Action>;
-  auth?: {
-    providers: Provider[];
-  };
+  auth?: Auth;
   calls?: Record<string, Call>;
   database?: Database;
   models?: Record<string, Model>;
