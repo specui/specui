@@ -1,5 +1,13 @@
 # @specui/handlebars
 
+## 0.1.17
+
+### Patch Changes
+
+- nextjs layouts
+- Updated dependencies
+  - @specui/core@0.1.17
+
 ## 0.1.16
 
 ### Patch Changes

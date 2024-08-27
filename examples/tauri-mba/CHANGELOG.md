@@ -1,5 +1,11 @@
 # vercel-dashboard-mba
 
+## 0.1.17
+
+### Patch Changes
+
+- nextjs layouts
+
 ## 0.1.16
 
 ### Patch Changes

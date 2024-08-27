@@ -14,7 +14,7 @@
     "generate": "turbo run generate",
     "lint": "turbo run lint",
     "parse": "turbo run parse",
-    "release": "changeset && turbo run build lint test && changeset version && turbo run build --filter @specui/cli && changeset publish && pnpm install",
+    "release": "changeset && turbo run build lint test && changeset version && turbo run build --filter @specui/cli && changeset publish",
     "test": "turbo run test"
   },
   "packageManager": "pnpm@9.5.0"
