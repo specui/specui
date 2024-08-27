@@ -1,5 +1,18 @@
 # @specui/next-generator
 
+## 0.1.16
+
+### Patch Changes
+
+- adds clerk integration
+- Updated dependencies
+  - @specui/core@0.1.16
+  - @specui/git@0.1.16
+  - @specui/handlebars@0.1.16
+  - @specui/json@0.1.16
+  - @specui/license@0.1.16
+  - @specui/prettier@0.1.16
+
 ## 0.1.15
 
 ### Patch Changes

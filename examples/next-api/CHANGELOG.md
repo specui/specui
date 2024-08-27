@@ -1,5 +1,13 @@
 # next-api-example
 
+## 0.1.16
+
+### Patch Changes
+
+- adds clerk integration
+- Updated dependencies
+  - @specui/next-generator@0.1.16
+
 ## 0.1.15
 
 ### Patch Changes

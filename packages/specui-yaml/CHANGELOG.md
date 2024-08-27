@@ -1,5 +1,11 @@
 # @specui/yaml
 
+## 0.1.16
+
+### Patch Changes
+
+- adds clerk integration
+
 ## 0.1.15
 
 ### Patch Changes
