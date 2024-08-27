@@ -39,6 +39,7 @@ export interface Spec {
   icon?: string;
   author?: Author;
   components?: Record<string, Component>;
+  layouts?: Record<string, Page>;
   pages?: Record<string, Page>;
   actions?: Record<string, Action>;
   auth?: Auth;

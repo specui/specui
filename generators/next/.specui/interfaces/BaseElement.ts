@@ -8,7 +8,7 @@ export interface Transition {
   duration?: number;
 }
 
-export type ElementArrayOrRef = Element[] | ElementIterator;
+export type ElementArrayOrRef = Element[] | ElementIterator | string;
 
 export type Element = BaseElement | NativeElement | ShadcnComponent;
 
