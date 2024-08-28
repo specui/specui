@@ -952,19 +952,34 @@ export default async function generator(
         ${
           page.dataSources
             ? spec.database?.type === 'mongodb'
-              ? `import { mongo } from '@/lib/mongo';`
+              ? `import { connectToMemoryDB } from "@/lib/mongo";`
               : `import { db } from '@/lib/db';`
             : ''
         }
+        ${Object.entries(page.dataSources || {}).map(([dataSourceName, dataSource]) =>
+          spec.database?.type === 'mongodb'
+            ? `import { ${pascalCase(
+                singular(dataSource.model ?? ''),
+              )}Model } from "@/lib/models/${pascalCase(singular(dataSource.model ?? ''))}Model";`
+            : '',
+        )}
 
         export default${page.dataSources ? ' async ' : ' '}function ${pascalCase(pageName)}${
           type === 'layout' ? 'Layout' : 'Page'
         }(${type === 'layout' ? 'props: { children: React.ReactNode }' : ''}) {
 
-          ${Object.entries(page.dataSources || {}).map(
-            ([dataSourceName, dataSource]) => `
-            const ${dataSourceName} = await db.selectFrom('${dataSource.model}').selectAll().execute();
-          `,
+          ${
+            page.dataSources && spec.database?.type === 'mongodb'
+              ? 'await connectToMemoryDB();'
+              : ''
+          }
+
+          ${Object.entries(page.dataSources || {}).map(([dataSourceName, dataSource]) =>
+            spec.database?.type === 'mongodb'
+              ? `const ${dataSourceName} = await ${pascalCase(
+                  singular(dataSource.model ?? ''),
+                )}Model.find();`
+              : `const ${dataSourceName} = await db.selectFrom('${dataSource.model}').selectAll().execute();`,
           )}
 
           return (
@@ -1115,7 +1130,7 @@ export default async function generator(
         models[`lib/models/${modelNameSingularPascal}Model.ts`] = await generate({
           processor: PrettierProcessor(),
           engine: async () => /* ts */ `
-            import { Document, Schema, model } from 'mongoose';
+            import { Document, Schema, model, models } from 'mongoose';
 
             export interface ${modelNameSingularPascal}Document extends Document {
               ${Object.entries(model.attributes)
@@ -1129,7 +1144,7 @@ export default async function generator(
               createdAt: Date;
             }
             
-            export const ${modelNameSingularPascal}Model = model<${modelNameSingularPascal}Document>(
+            export const ${modelNameSingularPascal}Model = models.${modelNameSingularPascal} || model<${modelNameSingularPascal}Document>(
               '${modelNameSingularPascal}',
               new Schema<${modelNameSingularPascal}Document>({
                 ${Object.entries(model.attributes)
@@ -1378,11 +1393,129 @@ fn main() {
     });
   }
 
+  const db: Record<string, string | Buffer> = {};
+  if (spec.database?.type === 'mongodb') {
+    db['lib/client.ts'] = await generate({
+      processor: PrettierProcessor(),
+      engine: () => `
+        import axios from "axios";
+
+        ${Object.entries(spec.calls || {})
+          .map(
+            ([callName]) => `
+            import {
+              ${pascalCase(callName)}Request,
+              ${pascalCase(callName)}Response,
+            } from "@/lib/schemas/${camelCase(callName)}Schema";
+          `,
+          )
+          .join('\n')} 
+
+        export type Call = <T>(method: string, data: any) => Promise<T>;
+        
+        export const call: Call = async (method, data) => {
+          const res = await axios({
+            method: "POST",
+            headers:
+              typeof localStorage !== "undefined" && localStorage.getItem("accessToken")
+                ? {
+                    Authorization: \`Bearer \${localStorage.getItem("accessToken")}\`,
+                  }
+                : {},
+            url: \`/api\${method}\`,
+            data: data || {},
+          });
+        
+          return res.data;
+        };
+
+        ${Object.entries(spec.calls || {})
+          .map(
+            ([callName]) => `
+            export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
+              return await call<${pascalCase(callName)}Response>("/${callName}", req);
+            };
+          `,
+          )
+          .join('\n')} 
+      `,
+    });
+
+    db['lib/mongo.ts'] = await generate({
+      processor: PrettierProcessor(),
+      engine: () => /* ts */ `
+        import { MongoMemoryServer } from 'mongodb-memory-server';
+        import mongoose from 'mongoose';
+        
+        let mongoServer: MongoMemoryServer;
+        
+        export const connectToMemoryDB = async () => {
+          if (mongoServer) {
+            return;
+          }
+
+          mongoServer = await MongoMemoryServer.create();
+          const uri = mongoServer.getUri();
+        
+          await mongoose.connect(uri);
+        };
+        
+        export const disconnectFromMemoryDB = async () => {
+          await mongoose.disconnect();
+          await mongoServer.stop();
+        };
+      `,
+    });
+  } else {
+    db['lib/db.ts'] = await generate({
+      processor: PrettierProcessor(),
+      engine: async () => {
+        return /*ts*/ `
+          import { createKysely } from '@vercel/postgres-kysely'
+    
+          ${modelNamesPluralPascal
+            .map(
+              (modelName) =>
+                `import { ${modelName}Table, create${modelName}Table } from '@/lib/tables/${modelName}Table'`,
+            )
+            .join('\n')}
+          
+          export interface Database {
+            ${modelNamesPluralPascal
+              .map((modelName) => `${camelCase(modelName)}: ${modelName}Table`)
+              .join('\n')}
+          }
+          
+          export const db = createKysely<Database>()
+          
+          export const deinit = async () => {
+            const tables = [
+              ${modelNamesPluralCamelCase.map((modelName) => `'${modelName}'`).join(',')}
+            ]
+          
+            for (let i = 0; i < tables.length; i++) {
+              await db.schema.dropTable(tables[i]).ifExists().execute()
+            }
+          }
+          
+          export const init = async () => {
+            ${modelNamesPluralPascal
+              .map((modelName) => `await create${modelName}Table()`)
+              .join('\n')}
+          }
+          
+          export const seed = async () => {}
+        `;
+      },
+    });
+  }
+
   return {
     ...actions,
     ...auth,
     ...calls,
     ...components,
+    ...db,
     ...externalComponents,
     ...layouts,
     ...pages,
@@ -1541,119 +1674,6 @@ fn main() {
     ...schemas,
     ...models,
     ...tables,
-    'lib/client.ts':
-      spec.database?.type === 'postgres'
-        ? undefined
-        : await generate({
-            processor: PrettierProcessor(),
-            engine: () => `
-              import axios from "axios";
-
-              ${Object.entries(spec.calls || {})
-                .map(
-                  ([callName]) => `
-                  import {
-                    ${pascalCase(callName)}Request,
-                    ${pascalCase(callName)}Response,
-                  } from "@/lib/schemas/${camelCase(callName)}Schema";
-                `,
-                )
-                .join('\n')} 
-
-              export type Call = <T>(method: string, data: any) => Promise<T>;
-              
-              export const call: Call = async (method, data) => {
-                const res = await axios({
-                  method: "POST",
-                  headers:
-                    typeof localStorage !== "undefined" && localStorage.getItem("accessToken")
-                      ? {
-                          Authorization: \`Bearer \${localStorage.getItem("accessToken")}\`,
-                        }
-                      : {},
-                  url: \`/api\${method}\`,
-                  data: data || {},
-                });
-              
-                return res.data;
-              };
-
-              ${Object.entries(spec.calls || {})
-                .map(
-                  ([callName]) => `
-                  export const ${callName} = async (req?: ${pascalCase(callName)}Request) => {
-                    return await call<${pascalCase(callName)}Response>("/${callName}", req);
-                  };
-                `,
-                )
-                .join('\n')} 
-            `,
-          }),
-    'lib/db.ts':
-      spec.database?.type === 'mongodb'
-        ? undefined
-        : await generate({
-            processor: PrettierProcessor(),
-            engine: async () => {
-              return /*ts*/ `
-                import { createKysely } from '@vercel/postgres-kysely'
-          
-                ${modelNamesPluralPascal
-                  .map(
-                    (modelName) =>
-                      `import { ${modelName}Table, create${modelName}Table } from '@/lib/tables/${modelName}Table'`,
-                  )
-                  .join('\n')}
-                
-                export interface Database {
-                  ${modelNamesPluralPascal
-                    .map((modelName) => `${camelCase(modelName)}: ${modelName}Table`)
-                    .join('\n')}
-                }
-                
-                export const db = createKysely<Database>()
-                
-                export const deinit = async () => {
-                  const tables = [
-                    ${modelNamesPluralCamelCase.map((modelName) => `'${modelName}'`).join(',')}
-                  ]
-                
-                  for (let i = 0; i < tables.length; i++) {
-                    await db.schema.dropTable(tables[i]).ifExists().execute()
-                  }
-                }
-                
-                export const init = async () => {
-                  ${modelNamesPluralPascal
-                    .map((modelName) => `await create${modelName}Table()`)
-                    .join('\n')}
-                }
-                
-                export const seed = async () => {}
-              `;
-            },
-          }),
-    'lib/mongo.ts': await generate({
-      processor: PrettierProcessor(),
-      engine: () => /* ts */ `
-        import { MongoMemoryServer } from 'mongodb-memory-server';
-        import mongoose from 'mongoose';
-        
-        let mongoServer: MongoMemoryServer;
-        
-        export const connectToMemoryDB = async () => {
-          mongoServer = await MongoMemoryServer.create();
-          const uri = mongoServer.getUri();
-        
-          await mongoose.connect(uri);
-        };
-        
-        export const disconnectFromMemoryDB = async () => {
-          await mongoose.disconnect();
-          await mongoServer.stop();
-        };
-      `,
-    }),
     'lib/utils.ts': await generate({
       processor: PrettierProcessor(),
       engine: () => /* ts */ `

@@ -114,8 +114,9 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
 
     setIsBootingUp(true);
 
+    const fileSystemTree = buildFileSystemTree(code);
     const webcontainerInstance = await WebContainer.boot();
-    await webcontainerInstance.mount(buildFileSystemTree(code));
+    await webcontainerInstance.mount(fileSystemTree);
 
     const installProcess = await webcontainerInstance.spawn('npm', ['install', '--no-progress']);
     installProcess.output.pipeTo(
@@ -200,7 +201,8 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
     }
 
     async function update() {
-      await webcontainerInstance!.mount(buildFileSystemTree(code as any));
+      const fileSystemTree = buildFileSystemTree(code as any);
+      await webcontainerInstance!.mount(fileSystemTree);
     }
 
     update();

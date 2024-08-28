@@ -49,6 +49,11 @@ const specs = [
     generator: 'next',
   },
   {
+    name: 'Todo Example',
+    url: '/playground/next/todo-example',
+    generator: 'next',
+  },
+  {
     name: 'Vercel Analytics Example',
     url: '/playground/next/vercel-analytics-example',
     generator: 'next',

@@ -7,7 +7,7 @@ import {
   KeySharp,
 } from '@mui/icons-material';
 import { TreeItem, TreeView } from '@mui/x-tree-view';
-import { FC, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent, useMemo } from 'react';
 
 import { TsIcon } from '@/icons/TsIcon';
 import { JsIcon } from '@/icons/JsIcon';
@@ -17,6 +17,26 @@ import { CssIcon } from '@/icons/CssIcon';
 import { SvgIcon } from '@/icons/SvgIcon';
 import { RenderTree, useEditorStore } from '@/stores/editor';
 
+function sortRenderTree(tree: RenderTree[]): RenderTree[] {
+  return tree
+    .map((node) => ({
+      ...node,
+      children: node.children ? sortRenderTree([...node.children]) : undefined,
+    }))
+    .sort((a, b) => {
+      if ((a.children && b.children) || (!a.children && !b.children)) {
+        return a.name.localeCompare(b.name);
+      }
+      if (a.children && !b.children) {
+        return -1;
+      }
+      if (!a.children && b.children) {
+        return 1;
+      }
+      return 0;
+    });
+}
+
 export const EditorTreeView: FC = () => {
   const data = useEditorStore((state) => state.data);
 
@@ -25,6 +45,8 @@ export const EditorTreeView: FC = () => {
 
   const selected = useEditorStore((state) => state.selected);
   const setSelected = useEditorStore((state) => state.setSelected);
+
+  const sortedTree = useMemo(() => sortRenderTree(data), [data]);
 
   const handleToggle = (_: SyntheticEvent, nodeIds: string[]) => {
     setExpanded(nodeIds);
@@ -93,7 +115,7 @@ export const EditorTreeView: FC = () => {
       onNodeToggle={handleToggle}
       onNodeSelect={handleSelect}
     >
-      {renderTree(data)}
+      {renderTree(sortedTree)}
     </TreeView>
   );
 };
