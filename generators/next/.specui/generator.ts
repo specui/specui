@@ -983,9 +983,9 @@ export default async function generator(
           )}
 
           return (
-            <main>
+            <>
               ${(Array.isArray(page.elements) ? page.elements : []).map(render).join('')}
-            </main>
+            </>
           )
         }
       `,
@@ -1051,7 +1051,7 @@ export default async function generator(
             ${spec.auth?.integration === 'clerk' ? '<ClerkProvider>' : ''}
               <html lang="en">
                 <body className={inter.className}>
-                  {children}
+                  <main>{children}</main>
                   ${spec.vercel?.analytics ? '<Analytics />' : ''}
                 </body>
               </html>

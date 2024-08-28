@@ -29,6 +29,7 @@ import { ArrowDropDown } from '@mui/icons-material';
 // import { Prompt } from '../Prompt';
 
 export interface PlaygroundProps {
+  initialOutput?: 'code' | 'preview';
   generator: 'vanilla' | 'next';
   spec?: string;
 }
@@ -37,7 +38,7 @@ const ansi = new Convert({
   fg: 'rgb(var(--foreground-rgb))',
 });
 
-export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
+export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'preview', spec }) => {
   // const spec = useSpecStore((state) => state.spec);
   // const setSpec = useSpecStore((state) => state.setSpec);
 
@@ -52,18 +53,28 @@ export const Playground: FC<PlaygroundProps> = ({ generator, spec }) => {
   const bootRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
+  const [prevLanguage, setPrevLanguage] = useState<string | undefined>(undefined);
+
   // const value = useMemo(() => {
   //   return '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + safeDump(spec);
   // }, [spec]);
 
-  const editorLanguage = useMemo(() => getEditorLanguage(selected), [selected]);
+  const editorLanguage = useMemo(() => {
+    if (selected.includes('.')) {
+      const newLanguage = getEditorLanguage(selected);
+      setPrevLanguage(newLanguage);
+      return newLanguage;
+    } else {
+      return prevLanguage;
+    }
+  }, [selected, prevLanguage]);
 
   const popoverTargetRef = useRef<HTMLButtonElement>(null);
   const emulator = useRef<any>();
   const [editor, setEditor] = useState<'visual' | 'yaml'>('yaml');
   const [isBootingUp, setIsBootingUp] = useState(false);
   const [log, setLog] = useState('');
-  const [output, setOutput] = useState<'preview' | 'code'>('preview');
+  const [output, setOutput] = useState<'preview' | 'code'>(initialOutput);
   const [showPopover, setShowPopover] = useState(false);
   const [theme, setTheme] = useState('');
   const [webcontainerInstance, setWebcontainerInstance] = useState<WebContainer>();

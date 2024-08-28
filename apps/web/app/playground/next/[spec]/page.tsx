@@ -463,6 +463,8 @@ const TodoExample = `
 title: Todo
 name: todo-list
 description: a simple to-do list example
+database:
+  type: mongodb
 actions:
   createTask:
     props:
@@ -510,8 +512,6 @@ actions:
           id: $props.id
       - type: revalidate
         path: /tasks
-database:
-  type: mongodb
 models:
   task:
     attributes:
@@ -632,7 +632,11 @@ export default function PlaygroundNextPage({
       className="flex flex-col align-middle justify-center mx-auto"
       style={{ height: 'calc(100vh - 65px)' }}
     >
-      <Playground generator="next" spec={spec.trim()} />
+      <Playground
+        generator="next"
+        spec={spec.trim()}
+        initialOutput={params.spec === 'todo-example' ? 'code' : 'preview'}
+      />
     </main>
   );
 }
