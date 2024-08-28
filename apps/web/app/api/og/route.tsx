@@ -46,6 +46,10 @@ export async function GET(request: Request) {
       ...playgroundNextMetadata,
       title: 'Tauri Desktop App Example',
     },
+    '/playground/next/todo-example': {
+      ...playgroundNextMetadata,
+      title: 'To-do Example',
+    },
     '/playground/next/vercel-analytics-example': {
       ...playgroundNextMetadata,
       title: 'Vercel Analytics Example',
