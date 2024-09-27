@@ -12,6 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/specui/specui.git"
   },
+  "icon": "icon.png",
   "categories": [
     "AI",
     "Debuggers",
