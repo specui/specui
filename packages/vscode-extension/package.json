@@ -8,6 +8,10 @@
   "engines": {
     "vscode": "^1.93.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/specui/specui.git"
+  },
   "categories": [
     "Other"
   ],
