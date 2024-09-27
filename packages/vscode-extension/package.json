@@ -13,7 +13,11 @@
     "url": "git+https://github.com/specui/specui.git"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Debuggers",
+    "Extension Packs",
+    "Other",
+    "Programming Languages"
   ],
   "activationEvents": [
     "onLanguage:json",
