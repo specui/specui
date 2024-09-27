@@ -2,7 +2,7 @@
   "publisher": "specui",
   "name": "specui",
   "displayName": "SpecUI",
-  "description": "Spec. Preview. Ship.",
+  "description": "Build UIs with Specs",
   "version": "0.0.2",
   "license": "MIT",
   "engines": {
