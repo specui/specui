@@ -5,6 +5,10 @@
       "outputs": ["dist/**/*", ".next/**/*"],
       "dependsOn": ["^build"]
     },
+    "compile": {
+      "outputs": ["dist/**/*", ".next/**/*"],
+      "dependsOn": ["^build"]
+    },
     "dev": {},
     "generate": {
       "dependsOn": ["^build"]

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "compile": "turbo run compile",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "generate": "turbo run generate",

@@ -37,7 +37,7 @@ export * from './interfaces/Spec';
 export default async function generator(
   spec: Spec,
   PrettierProcessor: IProcessor<any>,
-  IconGenerator: any,
+  // IconGenerator: any,
   existsSync?: (path: string) => boolean,
 ) {
   const pkg = existsSync?.(`${process.cwd()}/package.json`)
@@ -1271,14 +1271,14 @@ export default async function generator(
       'StoreLogo.png': 48,
     };
 
-    await Promise.all(
-      Object.entries(iconSizes).map(async ([file, size]) => {
-        tauri[`src-tauri/icons/${file}`] = await IconGenerator({
-          icon,
-          size,
-        });
-      }),
-    );
+    // await Promise.all(
+    //   Object.entries(iconSizes).map(async ([file, size]) => {
+    //     tauri[`src-tauri/icons/${file}`] = await IconGenerator({
+    //       icon,
+    //       size,
+    //     });
+    //   }),
+    // );
 
     tauri['src-tauri/src/main.rs'] = await generate({
       engine: () => `// Prevents additional console window on Windows in release, DO NOT REMOVE!!
