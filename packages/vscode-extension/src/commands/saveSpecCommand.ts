@@ -22,8 +22,8 @@ export async function saveSpecCommand() {
     // Call the generate function with the workspace directory
     const result = await generate({
       force: true,
-      delete: true,
-      dir, // Pass the workspace directory here
+      // delete: true,
+      dir,
     });
 
     console.log(result);
