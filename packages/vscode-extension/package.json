@@ -1,8 +1,10 @@
 {
-  "name": "@specui/vscode-extension",
+  "publisher": "specui",
+  "name": "specui",
   "displayName": "SpecUI",
   "description": "Spec. Preview. Ship.",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.92.0"
   },
