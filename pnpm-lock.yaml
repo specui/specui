@@ -850,7 +850,7 @@ importers:
         specifier: 20.x
         version: 20.10.4
       '@types/vscode':
-        specifier: ^1.93.0
+        specifier: ^1.72.0
         version: 1.93.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.3.0
