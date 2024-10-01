@@ -93,37 +93,37 @@ pages:
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/photography-website-example
                         target: _parent
                         text: Photography Website Example
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/resend-contact-form-example
                         target: _parent
                         text: 'Resend: Contact Form Example'
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/shadcn-accordion-example
                         target: _parent
                         text: 'shadcn: Accordion Example'
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/spinning-loader-example
                         target: _parent
                         text: Spinning Loader Example
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/tauri-desktop-app-example
                         target: _parent
                         text: Tauri Desktop App Example
                   - tag: li
                     elements:
                       - tag: a
-                        href: /playground/next/framer-motion-animation-example
+                        href: /playground/next/vercel-analytics-example
                         target: _parent
                         text: Vercel Analytics Example
 styles:
