@@ -7,6 +7,7 @@ import NextSchema from '@specui/next-generator/.specui/schema.json';
 import vanillaGenerator from '@specui/vanilla-generator/dist/generator-browser';
 import VanillaSchema from '@specui/vanilla-generator/.specui/schema.json';
 import axios from 'axios';
+import { SpecEditor } from 'editor';
 import { safeDump, safeLoad } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -14,7 +15,6 @@ import Convert from 'ansi-to-html';
 
 import { EditorTreeView } from '@/components/EditorTreeView';
 import { Popover } from '@/components/Popover';
-import { SpecEditor } from '@/components/SpecEditor/SpecEditor';
 import { useEditorStore } from '@/stores/editor';
 // import { useSpecStore } from '@/stores/spec';
 import { buildFileSystemTree } from '@/utils/buildFileSystemTree';

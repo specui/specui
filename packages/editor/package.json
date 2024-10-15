@@ -1,0 +1,27 @@
+{
+  "name": "editor",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^5.14.9",
+    "clsx": "^2.0.0",
+    "tsup": "^8.3.0",
+    "zustand": "^4.4.4"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.7.35",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  },
+  "scripts": {
+    "build": "tsup index.tsx --format cjs,esm --dts"
+  }
+}
