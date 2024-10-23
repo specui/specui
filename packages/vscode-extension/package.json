@@ -3,7 +3,7 @@
   "name": "specui",
   "displayName": "SpecUI",
   "description": "Build UIs with Specs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "engines": {
     "vscode": "^1.72.0"
