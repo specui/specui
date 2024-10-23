@@ -38,6 +38,25 @@ export async function generateNewSpecCommand() {
   const specFilePath = path.join(specDirPath, 'spec.yml');
 
   try {
+    try {
+      await fs.access(specFilePath);
+
+      // Show a confirmation dialog if the file exists
+      const userChoice = await vscode.window.showWarningMessage(
+        `A spec.yml file already exists at ${specFilePath}. Do you want to overwrite it?`,
+        { modal: true }, // Show as a modal dialog
+        'Overwrite',
+        'Cancel',
+      );
+
+      if (userChoice !== 'Overwrite') {
+        vscode.window.showInformationMessage('Spec generation cancelled.');
+        return; // Exit if the user cancels
+      }
+    } catch {
+      // File doesn't exist, proceed with creation
+    }
+
     // Ensure the .specui directory exists
     await vscode.workspace.fs.createDirectory(vscode.Uri.file(specDirPath));
 

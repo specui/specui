@@ -172,7 +172,19 @@
           "description": "Select the OpenAI model to use for generating specifications. Choose from various GPT-3.5 and GPT-4 variants, including optimized versions for different use cases."
         }
       }
-    }
+    },
+    "keybindings": [
+      {
+        "command": "SpecUI.generateNewSpec",
+        "key": "cmd+ctrl+n",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "SpecUI.generateModifiedSpec",
+        "key": "cmd+ctrl+m",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
     "compile-tests": "tsc -p . --outDir out",
@@ -198,7 +210,8 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "yaml": "^2.3.2"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^0.0.51",

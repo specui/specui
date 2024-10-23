@@ -28,9 +28,29 @@ name: my-app
 version: 1.0.0
 description: this is my cool app
 license: MIT
+components:
+  hero:
+    props:
+      text:
+        required: true
+        type: string
+    elements:
+      - tag: div
+        class:
+          - bg-blue-800
+          - flex
+          - p-32
+          - justify-center
+          - items-center
+          - uppercase
+          - text-8xl
+        text: $props.text
 pages: # this is SUPER important. DO NOT FORGET THIS!!!!
   /:
     elements:
+      - component: hero
+        props:
+          text: Welcome to SpecUI
       - tag: section
         class:
           - flex

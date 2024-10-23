@@ -17,14 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
   specUIStatusBarItem.command = 'SpecUI.openSpec';
   specUIStatusBarItem.show();
 
-  const documentChangeListener = vscode.workspace.onDidChangeTextDocument((event) => {
-    const document = event.document;
-
-    if (isSpecFile(document)) {
-      document.save();
-    }
-  });
-
   const documentSaveListener = vscode.workspace.onDidSaveTextDocument((document) => {
     if (isSpecFile(document)) {
       vscode.commands.executeCommand('SpecUI.saveSpec');
@@ -32,7 +24,6 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(specUIStatusBarItem);
-  context.subscriptions.push(documentChangeListener);
   context.subscriptions.push(documentSaveListener);
 }
 
