@@ -1,3 +1,31 @@
+type Shade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
+
+type Color =
+  | `amber-${Shade}`
+  | 'black'
+  | `blue-${Shade}`
+  | `cyan-${Shade}`
+  | `emrald-${Shade}`
+  | `fuchsia-${Shade}`
+  | `gray-${Shade}`
+  | `green-${Shade}`
+  | `indigo-${Shade}`
+  | `lime-${Shade}`
+  | `neutral-${Shade}`
+  | `orange-${Shade}`
+  | `pink-${Shade}`
+  | `purple-${Shade}`
+  | `red-${Shade}`
+  | `rose-${Shade}`
+  | `sky-${Shade}`
+  | `slate-${Shade}`
+  | `stone-${Shade}`
+  | `teal-${Shade}`
+  | `violet-${Shade}`
+  | 'white'
+  | `yellow-${Shade}`
+  | `zinc-${Shade}`;
+
 type Size =
   | '0'
   | '0.5'
@@ -190,6 +218,7 @@ export type TailwindClass =
   | 'basis-auto'
   | 'basis-full'
   | 'basis-px'
+  | `bg-${Color}`
   | 'bg-auto'
   | 'bg-blend-color-burn'
   | 'bg-blend-color-dodge'
@@ -568,6 +597,7 @@ export type TailwindClass =
   | 'font-thin'
   | 'forced-color-adjust-auto'
   | 'forced-color-adjust-none'
+  | `gap-${Size}`
   | 'grayscale-0'
   | 'grayscale'
   | 'grid-cols-1'
@@ -1440,6 +1470,7 @@ export type TailwindClass =
   | 'table-row'
   | 'table'
   | 'tabular-nums'
+  | `text-${Color}`
   | 'text-2xl'
   | 'text-3xl'
   | 'text-4xl'

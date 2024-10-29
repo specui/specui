@@ -23,12 +23,15 @@ export type ElementIterator = {
   elements?: ElementArrayOrRef;
 };
 
+type Class = string | TailwindClass;
+type ClassExtended = Class | (Class | { dark: Class | Class[] } | { hover: Class | Class[] })[];
+
 export interface BaseElement {
   action?: string;
   animate?: Style;
   alt?: string;
   auth?: 'signedIn' | 'signedOut';
-  class?: string | string[] | TailwindClass | TailwindClass[];
+  class?: ClassExtended;
   collapsible?: boolean;
   component?: string;
   data?: any[];

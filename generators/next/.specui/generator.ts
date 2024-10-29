@@ -222,17 +222,40 @@ export default async function generator(
     }
 
     if (element.class) {
+      const classes = Array.isArray(element.class)
+        ? element.class
+            .map((className) => {
+              if (typeof className === 'object') {
+                if ('dark' in className) {
+                  if (Array.isArray(className.dark)) {
+                    return className.dark.map((dark) => `dark:${dark}`);
+                  }
+                  return `dark:${className.dark}`;
+                }
+
+                if ('hover' in className) {
+                  if (Array.isArray(className.hover)) {
+                    return className.hover.map((hover) => `hover:${hover}`);
+                  }
+                  return `hover:${className.hover}`;
+                }
+              }
+
+              return className;
+            })
+            .flat()
+        : element.class;
+
       props.className =
-        Array.isArray(element.class) &&
-        element.class.some((className) => typeof className !== 'string')
-          ? `{clsx(${element.class
+        Array.isArray(classes) && classes.some((className) => typeof className !== 'string')
+          ? `{clsx(${classes
               .map((className) =>
                 className.startsWith('$') ? className.slice(1) : `'${className}'`,
               )
               .join(',')})}`
-          : Array.isArray(element.class)
-          ? `"${element.class.join(' ')}"`
-          : `"${element.class}"`;
+          : Array.isArray(classes)
+          ? `"${classes.join(' ')}"`
+          : `"${classes}"`;
     }
 
     [
