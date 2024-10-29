@@ -10,7 +10,12 @@ export interface Transition {
 
 export type ElementArrayOrRef = Element[] | ElementIterator | string;
 
-export type Element = BaseElement | NativeElement | ShadcnComponent;
+interface TypingEffectComponent extends BaseElement {
+  component: 'typing-effect';
+  speed?: number;
+}
+
+export type Element = BaseElement | NativeElement | ShadcnComponent | TypingEffectComponent;
 
 export type ElementIterator = {
   data?: any[];

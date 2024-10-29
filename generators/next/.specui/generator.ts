@@ -30,6 +30,7 @@ import ContextMenuTemplate from './templates/components/ContextMenuTemplate';
 import DialogTemplate from './templates/components/DialogTemplate';
 import DrawerTemplate from './templates/components/DrawerTemplate';
 import DropdownTemplate from './templates/components/DropdownTemplate';
+import TypingEffectTemplate from './templates/components/TypingEffectTemplate';
 import { ReadmeTemplate } from './templates/ReadmeTemplate';
 
 export * from './interfaces/Spec';
@@ -589,6 +590,10 @@ export default async function generator(
       ],
       dependencies: ['@radix-ui/react-dropdown-menu', '@radix-ui/react-icons'],
       template: DropdownTemplate,
+    },
+    typingEffect: {
+      components: ['TypingEffect'],
+      template: TypingEffectTemplate,
     },
   };
 
