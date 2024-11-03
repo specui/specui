@@ -96,8 +96,32 @@ export default async function generator(
         ? `motion.${tag}`
         : tag;
 
+    const allChildren = [
+      element.header ? `<SidebarHeader>${element.header}</SidebarHeader>` : undefined,
+      element.groups
+        ? `<SidebarGroup>${element.groups.map(
+            (group) =>
+              `<SidebarGroupLabel>${group.label}</SidebarGroupLabel>${
+                group.menu
+                  ? `<SidebarMenu>${group.menu.items
+                      ?.map(
+                        (item) =>
+                          `<SidebarMenuItem><SidebarMenuButton asChild><Link href="${
+                            item.url
+                          }"><${pascalCase(item.icon ?? '')} /><span>${
+                            item.title
+                          }</span></Link></SidebarMenuButton></SidebarMenuItem>`,
+                      )
+                      .join('\n')}</SidebarMenu>`
+                  : ''
+              }`,
+          )}</SidebarGroup>`
+        : undefined,
+      children,
+    ].filter((child) => !!child);
+
     const innerHtml = `<${motionTag} ${props}
-      ${children ? `>${children}</${motionTag}>` : ' />'}`;
+      ${allChildren.length ? `>${allChildren.join('\n')}</${motionTag}>` : ' />'}`;
 
     return element.auth === 'signedIn'
       ? `<SignedIn>${innerHtml}</SignedIn>`

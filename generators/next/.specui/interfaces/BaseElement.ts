@@ -43,9 +43,20 @@ export interface BaseElement {
   defaultChecked?: string;
   elements?: ElementArrayOrRef;
   for?: string;
+  header?: string;
   href?: string;
   icon?: string;
   id?: string;
+  groups?: {
+    label?: string;
+    menu?: {
+      items?: {
+        icon?: string;
+        title?: string;
+        url?: string;
+      }[];
+    };
+  }[];
   key?: string;
   model?: string;
   name?: string;

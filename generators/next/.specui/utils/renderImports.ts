@@ -57,13 +57,62 @@ export function renderImports(
         imports['framer-motion'] = ['motion'];
       }
 
-      if (element.icon) {
-        const importName = `react-icons/${element.icon.split('-')[0]}`;
-        if (!imports[importName]) {
-          imports[importName] = [];
+      if (element.header) {
+        if (!imports['@/components/Sidebar']) {
+          imports['@/components/Sidebar'] = [];
         }
-        if (Array.isArray(imports[importName]) && !imports[importName].includes(element.icon)) {
-          (imports[importName] as string[]).push(pascalCase(element.icon, undefined, true));
+        (imports['@/components/Sidebar'] as string[]).push('SidebarHeader');
+      }
+
+      if (element.groups) {
+        if (!imports['@/components/Sidebar']) {
+          imports['@/components/Sidebar'] = [];
+        }
+        (imports['@/components/Sidebar'] as string[]).push('SidebarGroup');
+        element.groups.forEach((group) => {
+          if (group.label) {
+            (imports['@/components/Sidebar'] as string[]).push('SidebarGroupLabel');
+          }
+          if (group.menu) {
+            (imports['@/components/Sidebar'] as string[]).push('SidebarMenu');
+            if (group.menu.items) {
+              (imports['@/components/Sidebar'] as string[]).push('SidebarMenuItem');
+              (imports['@/components/Sidebar'] as string[]).push('SidebarMenuButton');
+
+              group.menu.items.forEach((item) => {
+                if (item.icon) {
+                  if (!imports['lucide-react']) {
+                    imports['lucide-react'] = [];
+                  }
+                  if (
+                    Array.isArray(imports['lucide-react']) &&
+                    !imports['lucide-react'].includes(item.icon)
+                  ) {
+                    (imports['lucide-react'] as string[]).push(
+                      pascalCase(item.icon, undefined, true),
+                    );
+                  }
+                }
+                if (item.url) {
+                  if (!imports['next/link']) {
+                    imports['next/link'] = 'Link';
+                  }
+                }
+              });
+            }
+          }
+        });
+      }
+
+      if (element.icon) {
+        if (!imports['lucide-react']) {
+          imports['lucide-react'] = [];
+        }
+        if (
+          Array.isArray(imports['lucide-react']) &&
+          !imports['lucide-react'].includes(element.icon)
+        ) {
+          (imports['lucide-react'] as string[]).push(pascalCase(element.icon, undefined, true));
         }
       }
 
