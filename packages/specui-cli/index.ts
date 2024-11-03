@@ -42,6 +42,7 @@ program.name('specui').description(pkg.description).version(pkg.version);
 
 program
   .command('generate')
+  .option('-d, --delete', 'delete files')
   .option('-f, --force', 'force generation')
   .option('-w, --watch', 'watch for spec changes')
   .action(async (options) => {
@@ -53,10 +54,10 @@ program
 
     if (options.watch) {
       watchFile(loadedSpec.file, { interval: 1000 }, async () => {
-        generate({ force: options.force });
+        generate({ delete: options.delete, force: options.force });
       });
     } else {
-      generate({ force: options.force });
+      generate({ delete: options.delete, force: options.force });
     }
   });
 

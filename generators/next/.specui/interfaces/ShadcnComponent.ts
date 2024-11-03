@@ -63,7 +63,15 @@ export interface ShadcnComponent extends BaseElement {
     | ContextMenuSubComponent['component']
     | ContextMenuSubContentComponent['component']
     | ContextMenuSubTriggerComponent['component']
-    | ContextMenuTriggerComponent['component'];
+    | ContextMenuTriggerComponent['component']
+    | Sidebar['component']
+    | SidebarContent['component']
+    | SidebarFooter['component']
+    | SidebarGroup['component']
+    | SidebarHeader['component']
+    | SidebarProvider['component']
+    | SidebarTrigger['component']
+    | Skeleton['component'];
 }
 
 // export type ShadcnComponent =
@@ -414,4 +422,36 @@ interface ContextMenuSubTriggerComponent extends BaseElement {
 
 interface ContextMenuTriggerComponent extends BaseElement {
   component: 'context-menu-trigger';
+}
+
+interface Sidebar extends BaseElement {
+  component: 'sidebar';
+}
+
+interface SidebarContent extends BaseElement {
+  component: 'sidebar-content';
+}
+
+interface SidebarFooter extends BaseElement {
+  component: 'sidebar-footer';
+}
+
+interface SidebarGroup extends BaseElement {
+  component: 'sidebar-group';
+}
+
+interface SidebarHeader extends BaseElement {
+  component: 'sidebar-header';
+}
+
+interface SidebarProvider extends BaseElement {
+  component: 'sidebar-provider';
+}
+
+interface SidebarTrigger extends BaseElement {
+  component: 'sidebar-trigger';
+}
+
+interface Skeleton extends BaseElement {
+  component: 'skeleton';
 }

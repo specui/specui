@@ -5,6 +5,7 @@ import type { Call, CallRequest, CallResponse } from './Call';
 import type { Component, ComponentProp } from './Component';
 import type { Database } from './Database';
 import type { Model, ModelAttribute } from './Model';
+import type { Next } from './Next';
 import type { Package } from './Package';
 import type { Page, PageDataSource } from './Page';
 import type { Platform } from './Platform';
@@ -46,6 +47,7 @@ export interface Spec {
   calls?: Record<string, Call>;
   database?: Database;
   models?: Record<string, Model>;
+  next?: Next;
   package?: Package;
   platform?: Platform;
   repository?: Repository;
