@@ -36,6 +36,11 @@
       },
       {
         "category": "SpecUI",
+        "title": "Open Spec Editor",
+        "command": "SpecUI.openSpecEditor"
+      },
+      {
+        "category": "SpecUI",
         "title": "Generate Modified Spec",
         "command": "SpecUI.generateModifiedSpec"
       },
@@ -183,10 +188,16 @@
         "command": "SpecUI.generateModifiedSpec",
         "key": "cmd+ctrl+m",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "SpecUI.openSpecEditor",
+        "key": "cmd+ctrl+e",
+        "when": "editorTextFocus"
       }
     ]
   },
   "scripts": {
+    "build": "node build.js",
     "compile-tests": "tsc -p . --outDir out",
     "compile": "webpack",
     "lint": "eslint src",
@@ -201,12 +212,18 @@
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
     "@types/react": "^18",
+    "@types/react-dom": "^18",
     "@types/vscode": "^1.72.0",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "@typescript-eslint/parser": "^8.3.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
+    "autoprefixer": "^10.4.16",
+    "esbuild": "^0.24.0",
+    "esbuild-postcss": "^0.0.4",
     "eslint": "^9.9.1",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
@@ -218,6 +235,9 @@
     "@ai-sdk/google": "^0.0.51",
     "@ai-sdk/openai": "^0.0.63",
     "ai": "^3.4.7",
-    "openai": "^4.65.0"
+    "editor": "workspace:*",
+    "openai": "^4.65.0",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }

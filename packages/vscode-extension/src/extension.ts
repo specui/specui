@@ -5,7 +5,7 @@ import { registerCommands } from './utils/registerCommands';
 
 export function activate(context: vscode.ExtensionContext) {
   // Register all commands from the commands directory
-  registerCommands();
+  registerCommands(context);
 
   // Create the status bar item
   const specUIStatusBarItem = vscode.window.createStatusBarItem(
