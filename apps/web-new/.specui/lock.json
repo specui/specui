@@ -1,0 +1,83 @@
+{
+  "components/Header.tsx": {
+    "integrity": "sha512-72c9aa28a8fac0aee1b112ffa38fe43603e6506bd3333e4191f2c2629cf98448ff6e9dbd544f7cef6ad5a1ebe729f60a60f37a30d432dc831ef0b83fa1a3be69"
+  },
+  "components/Hero.tsx": {
+    "integrity": "sha512-eff52ea5274b5cd5f5ab4c24c78a0b5787e197b70fea72a9f94ae9f2db131ab0316ce3e9c66b637cd2e49d3964795fc4930ab7fda8d8de7d26e9581db0d99924"
+  },
+  "lib/db.ts": {
+    "integrity": "sha512-d4de43e69dc329afb8552def4bd07777a822e1f73689bf242692d409091e7088d827c688a46301d1cfb0f4442fa701a8fd017cb4ea709f4691494da7613b3c6d"
+  },
+  "components/TypingEffect.tsx": {
+    "integrity": "sha512-b366c60ea6a7deb70b53faf79c84c1f26a5f0cf61289d79deb7e4cf65b08a59d1e616bbed7005a0439840b2f3db2cd5b5b26843d8ffa4e598a24d85fd522a21f"
+  },
+  "app/layout.tsx": {
+    "integrity": "sha512-deff886fd18d13b670a2a511038da380cb3cb608b9a072fd5fc55055fdfb8dc9de6a1e3177e1b3471ff43492b5f7f40d45e54b2bed263b38f1fd48e4a6b326d4"
+  },
+  "app/docs/page.tsx": {
+    "integrity": "sha512-0a6fee582fbccbbc6501fdcd08956021b617896e4e8319b44d4de1953eb2b1b2f76ed60b8e8036eef17e815d5c66b3bbc0f6daf8ac23601fe689b0ab217fba68"
+  },
+  "app/docs/quickstart/page.tsx": {
+    "integrity": "sha512-84e4d5f17f85b2e25f00c3ba62b5f8ca08a8abe5dcd640320481e12449d0d1ff53553971f967bf8cbfefe0733ee75e135c8e12513cf28f2a9e39e4d9a08d86af"
+  },
+  "app/page.tsx": {
+    "integrity": "sha512-539aa62954cdd84d0c49f906a5227f280ea2be79597aafe0b6845e2e975a275c331cdfde040cb1f01a7c238938b29c791bab9480b772683f7d3f4b0427a6dc56"
+  },
+  "app/globals.css": {
+    "integrity": "sha512-c128e70a62c0c8fe43f210abeee2b6a955cd4f63c3827cb95e5cf8252c20b30c062bc5da4d119e58b109f7ee74f471d76bea9d548a8c4d36a604918942a42ecc"
+  },
+  "lib/errors/BadRequestError.ts": {
+    "integrity": "sha512-34e3c7743ed33552a4245dccbd08dc77d2755f74ef7c2e8b06fb58f0dbe475aae59dec66bb1b82a5a92fa79bc7d925a0a0392f596dec8bd2bc70b229b40c656c"
+  },
+  "lib/errors/ConflictError.ts": {
+    "integrity": "sha512-7a1af241b01d2e3df8214b9334430282159931b491878b2f41b43fd64f3afdb47f206ebbf010378d222f827af93b78ba084f15e90cb96f6d6a20c9d44a92ba03"
+  },
+  "lib/errors/ForbiddenError.ts": {
+    "integrity": "sha512-375a20b9cc1a5ffc064ff6b150870a6e41023c25e0287688522ae02c6eeaf5c9bc488fb5a3c48223a2101141774843e16c13aac08cbbb1ef1c0cdb81fe5ad3c9"
+  },
+  "lib/errors/HttpError.ts": {
+    "integrity": "sha512-d2aecc42da56d2fab8032b879f3b2aaa18121f9339b27961a8eadf5ed534e4f200e586c3d9ecb63554f2bc2b83436d057c640b43a1aec7456c1addbd1ee5d795"
+  },
+  "lib/errors/MethodNotAllowedError.ts": {
+    "integrity": "sha512-577ed7db1621068c69d5320b15e1eb7a88c60a0e8c8b10d7de7929de7ba28764cfee8ef9be68db517adae7bb1756a87663cea0dcd679900a458572d19ec69b40"
+  },
+  "lib/errors/NotFoundError.ts": {
+    "integrity": "sha512-0a329ef1f5532f2edd75b730bd958b403577d7c8560dff8397798ea89f4310c9d8235e3643c3b39f38c299bbe1ff10ee17fd9f29946b89115140938b0a590cfe"
+  },
+  "lib/errors/UnauthorizedError.ts": {
+    "integrity": "sha512-7e4e155fdc125a337bc13ebb8022ba0d275e815f0384bca9fd7ca05e1e682f2ea1cebd7cf54fefe3bbfebf7f861f2bccfcf9e0cee8a9a0c23b44727aeb6793a0"
+  },
+  "lib/errors/UnprocessableContentError.ts": {
+    "integrity": "sha512-1424024cd417f28073e25731df11a10eb2ba4bc8da3749c1506c2ac0ac9a2e83419ab2a9122e0f3f40e23c4448392ef690617f836fbab7133164268a60117d98"
+  },
+  "lib/utils.ts": {
+    "integrity": "sha512-824fc450848645cbd4fc2a91f6fd97f6b0d1e9f2cb92891a5b6341bf144a76602955f81ba72b457d832052fbf74ba4c33cf8bddb75c29ef354e6cc50761f7591"
+  },
+  ".eslintrc.json": {
+    "integrity": "sha512-26d71225d1932ac653269903dea2fe1c165933e008294274f49642aae8ab22875ed9fed7ae61cac746292d8a590c3c70bb9141f03e78d61121d4dfd31cd4e356"
+  },
+  ".gitignore": {
+    "integrity": "sha512-9b357f2c98eb1a43e10cd32292d098d8746db5895701fd7d4431602273637259e46729bc3a366ee95631f8e7a46620740426c182480fdcea83996bb7dd628e15"
+  },
+  ".npmrc": {
+    "integrity": "sha512-b09929b74b5e44a933594684fa4a182add6552ecd7ff760139560c580a5a2b9dd2152338ce1af6928db3f829b0585c4a82f66b20cec926436cefdf2e67551cf7"
+  },
+  "next.config.ts": {
+    "integrity": "sha512-062143f8c6e2bc86e55b6963552ceed37c064ac0ab5c13f53ad872bc4091f426e41b92e258fef6697f4786ef4cef33b35ed75d91418b430401040902477e2d91"
+  },
+  "package.json": {
+    "integrity": "sha512-b6cb68b6985bd4065b2bbf0c9a5eb32b9898f3b8b29457fbb2e871c5e69161361dafa6e572a745fa0d84d33ef189e76be448f47d0e520d1c43775f17d5fc97eb"
+  },
+  "postcss.config.mjs": {
+    "integrity": "sha512-5fa1a1aef50136f6b1816aaa58a0c0fb03de4238601ec36bd7c65eb443b706e507a874f823bf32bc77ee9b4d69a751757cc803fe1bb82d8823ef70f7e1eff296"
+  },
+  "README.md": {
+    "integrity": "sha512-5496337daf6071a056aa404ce1c28e74db37888f9c0e44e4ca0c30f6454c8581d5ff3a37c0c4207f66708a1c2c5dfd6330c37a1868dbcc162640e196f872c05a"
+  },
+  "tailwind.config.ts": {
+    "integrity": "sha512-a764b2e27033567ff8a50e538a928c9e98b82beaff4e63ed66b041b5ed850ad8d275fe4ff1346414983a5f307df5d161a18870edc525335f9a5d282aa64d9762"
+  },
+  "tsconfig.json": {
+    "integrity": "sha512-cac113660dae7f145736ad17d10a67e08294d2c754c20e3128cce6eae8781fda465e3ed98a4f8b7d93d94b3746eb8beac9cb4d5d8a7b041520199aa7c7ce4b22"
+  }
+}
