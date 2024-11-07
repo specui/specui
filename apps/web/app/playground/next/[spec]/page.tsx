@@ -632,11 +632,7 @@ export default function PlaygroundNextPage({
       className="flex flex-col align-middle justify-center mx-auto"
       style={{ height: 'calc(100vh - 65px)' }}
     >
-      <Playground
-        generator="next"
-        spec={spec.trim()}
-        initialOutput={params.spec === 'todo-example' ? 'code' : 'preview'}
-      />
+      <Playground generator="next" spec={spec.trim()} />
     </main>
   );
 }

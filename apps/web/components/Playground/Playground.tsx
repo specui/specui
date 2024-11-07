@@ -38,7 +38,7 @@ const ansi = new Convert({
   fg: 'rgb(var(--foreground-rgb))',
 });
 
-export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'preview', spec }) => {
+export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'code', spec }) => {
   // const spec = useSpecStore((state) => state.spec);
   // const setSpec = useSpecStore((state) => state.setSpec);
 
@@ -181,7 +181,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'pr
       );
       iframeRef.current.contentWindow?.document.close();
     } else {
-      init(code);
+      // init(code);
     }
   }, [generator, iframeRef, output, code]);
 
@@ -316,7 +316,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'pr
             <span>@specui/vanilla-generator</span>
           </a>
         </Popover>
-        <div className="border border-gray-200 p-1 bottom-4 rounded-lg right-6 dark:border-gray-700">
+        {/* <div className="border border-gray-200 p-1 bottom-4 rounded-lg right-6 dark:border-gray-700">
           <button
             className={cn('px-2 rounded-lg text-black dark:text-white', {
               'bg-gray-700 text-white': output === 'preview',
@@ -333,7 +333,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'pr
           >
             Code
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-col flex-grow md:flex-row">
         <div className="border-r border-r-gray-200 divide-red-200 h-1/2 relative w-full md:h-full md:w-1/2 dark:border-r-gray-900">
