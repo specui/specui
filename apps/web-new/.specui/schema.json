@@ -660,6 +660,22 @@
       ],
       "type": "object"
     },
+    "Next": {
+      "additionalProperties": false,
+      "properties": {
+        "routing": {
+          "$ref": "#/definitions/NextRouting"
+        }
+      },
+      "type": "object"
+    },
+    "NextRouting": {
+      "enum": [
+        "app",
+        "pages"
+      ],
+      "type": "string"
+    },
     "Package": {
       "additionalProperties": false,
       "properties": {
@@ -1001,7 +1017,14 @@
             "context-menu-sub",
             "context-menu-sub-content",
             "context-menu-sub-trigger",
-            "context-menu-trigger"
+            "context-menu-trigger",
+            "sidebar",
+            "sidebar-content",
+            "sidebar-footer",
+            "sidebar-group",
+            "sidebar-header",
+            "sidebar-provider",
+            "sidebar-trigger"
           ],
           "type": "string"
         },
@@ -1135,6 +1158,9 @@
         },
         "name": {
           "type": "string"
+        },
+        "next": {
+          "$ref": "#/definitions/Next"
         },
         "package": {
           "$ref": "#/definitions/Package"
