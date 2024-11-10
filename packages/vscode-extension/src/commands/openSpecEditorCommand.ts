@@ -16,25 +16,25 @@ export function openSpecEditorCommand(context: vscode.ExtensionContext) {
 
     panel.webview.html = getWebviewContent(context, panel);
 
-    panel.webview.onDidReceiveMessage(
-      (message) => {
-        if (!isInitialized) {
-          return;
-        }
-        if (message.type === 'updateSpec') {
-          saveSpecToFile(message.spec);
-        }
-      },
-      undefined,
-      context.subscriptions,
-    );
+    // panel.webview.onDidReceiveMessage(
+    //   (message) => {
+    //     if (!isInitialized) {
+    //       return;
+    //     }
+    //     if (message.type === 'updateSpec') {
+    //       saveSpecToFile(message.spec);
+    //     }
+    //   },
+    //   undefined,
+    //   context.subscriptions,
+    // );
 
-    panel.onDidChangeViewState(() => {
-      if (panel.visible) {
-        loadSpecFromFile(panel);
-        isInitialized = true;
-      }
-    });
+    // panel.onDidChangeViewState(() => {
+    //   if (panel.visible) {
+    //     loadSpecFromFile(panel);
+    //     isInitialized = true;
+    //   }
+    // });
   };
 
   function getWebviewContent(context: vscode.ExtensionContext, panel: vscode.WebviewPanel): string {

@@ -1,14 +1,11 @@
-import { clsx } from 'clsx';
-import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import { TypingEffect } from '@/components/TypingEffect';
 
 export default function IndexPage() {
   return (
     <>
-      <Header />
       <Hero title="Welcome to SpecUI" />
-      <TypingEffect className="whitespace-pre">
+      <TypingEffect>
         # yaml-language-server: $schema=./schema.json title: Todo name: todo-list description: a
         simple to-do list example components: header: elements: - tag: header class: - bg-gray-900 -
         p-4 - flex - justify-between elements: - tag: h1 text: SpecUI - component: menu menu:

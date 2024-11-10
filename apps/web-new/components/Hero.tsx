@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 
 export interface HeroProps {
-  text?: string;
+  title?: string;
 }
 
 export default function Hero(props: HeroProps) {

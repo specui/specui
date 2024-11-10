@@ -29,19 +29,24 @@ require('ts-node').register({
 
 import { program } from 'commander';
 import { watchFile } from 'fs';
-import { mkdir, writeFile } from 'fs/promises';
-import { dirname, normalize } from 'path';
-import { stringify } from 'yaml';
 
 import { loadSpec } from './utils/loadSpec';
 
+import { prepareAction } from './actions/prepareAction';
+import { newAction } from './actions/newAction';
 import pkg from './package.json';
-import { generate } from './generate';
+import { generate } from './actions/generateAction';
 
 program.name('specui').description(pkg.description).version(pkg.version);
 
 program
+  .command('prepare')
+  .description('Prepares a generator for consumption')
+  .action(prepareAction);
+
+program
   .command('generate')
+  .description('Generates code based on a spec')
   .option('-d, --delete', 'delete files')
   .option('-f, --force', 'force generation')
   .option('-w, --watch', 'watch for spec changes')
@@ -61,49 +66,6 @@ program
     }
   });
 
-program.command('new').action(async (options) => {
-  const loadedSpec = await loadSpec();
-
-  if (loadedSpec) {
-    throw new Error('Spec already exists.');
-  }
-
-  const specFile = normalize(`${process.cwd()}/.specui/spec.yml`);
-
-  await mkdir(dirname(specFile), { recursive: true });
-
-  await writeFile(
-    specFile,
-    stringify({
-      title: 'My App',
-      name: 'my-app',
-      version: '1.0.0',
-      description: 'this is my cool app',
-      license: 'MIT',
-      pages: {
-        index: {
-          elements: [
-            {
-              tag: 'section',
-              class: ['flex', 'flex-col', 'h-dvh', 'items-center', 'justify-center'],
-              elements: [
-                {
-                  tag: 'h1',
-                  text: 'Spec. Preview. Ship.',
-                  class: ['font-sans', 'mb-2', 'text-2xl', 'text-center'],
-                },
-                {
-                  tag: 'h2',
-                  text: 'Build at lightning-speed',
-                  class: ['font-sans-serif', 'font-lg', 'text-center', 'text-gray-400'],
-                },
-              ],
-            },
-          ],
-        },
-      },
-    }),
-  );
-});
+program.command('new').description('Creates a new SpecUI project').action(newAction);
 
 program.parse();

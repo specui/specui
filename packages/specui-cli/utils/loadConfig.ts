@@ -3,7 +3,7 @@ import { extname, join } from 'path';
 import { parse } from 'yaml';
 
 interface Config {
-  generator?: '@specui/next-generator' | '@specui/vanilla-generator';
+  generator?: '@specui/drizzle-generator' | '@specui/next-generator' | '@specui/vanilla-generator';
   output?: ConfigOutput;
 }
 

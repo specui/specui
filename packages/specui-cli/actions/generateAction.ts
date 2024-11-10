@@ -3,13 +3,13 @@ import { existsSync, rmSync, readdirSync, statSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, normalize, resolve } from 'path';
 
-import { getNodeListOutput } from './utils/getNodeListOutput';
-import { loadGenerator } from './utils/loadGenerator';
-import { loadSpec } from './utils/loadSpec';
-import { pathListToNodeList } from './utils/pathListToNodeList';
+import { getNodeListOutput } from '../utils/getNodeListOutput';
+import { loadGenerator } from '../utils/loadGenerator';
+import { loadSpec } from '../utils/loadSpec';
+import { pathListToNodeList } from '../utils/pathListToNodeList';
 
-import { getHash } from './utils/getHash';
-import { loadConfig } from './utils/loadConfig';
+import { getHash } from '../utils/getHash';
+import { loadConfig } from '../utils/loadConfig';
 
 export async function generate({
   delete: shouldDelete,
@@ -35,6 +35,7 @@ export async function generate({
     const outputPath = loadedConfig?.config.output?.path ?? '.';
     const generator = await loadGenerator(
       loadedConfig?.config.generator || '@specui/next-generator',
+      loadedSpec.spec,
     );
     const files = await generator(loadedSpec.spec);
 

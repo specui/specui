@@ -7,9 +7,21 @@ export default function Header() {
         <h1>SpecUI</h1>
         <nav>
           <ul className="flex gap-2">
-            <li>Home</li>
-            <li>Docs</li>
-            <li>Contact</li>
+            <li>
+              <div>Home</div>
+            </li>
+            <li>
+              <div>Docs</div>
+            </li>
+            <li>
+              <div>Features</div>
+            </li>
+            <li>
+              <div>Specs</div>
+            </li>
+            <li>
+              <div>Generators</div>
+            </li>
           </ul>
         </nav>
       </header>

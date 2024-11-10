@@ -209,6 +209,7 @@
   },
   "devDependencies": {
     "@specui/cli": "workspace:*",
+    "@specui/drizzle-generator": "workspace:*",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
     "@types/react": "^18",
@@ -225,7 +226,6 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.5.4",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "yaml": "^2.3.2"
@@ -238,6 +238,8 @@
     "editor": "workspace:*",
     "openai": "^4.65.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.5.4"
   }
 }

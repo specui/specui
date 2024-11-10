@@ -971,7 +971,7 @@ export default async function generator(
           export const db = createKysely<Database>()
           
           export const deinit = async () => {
-            const tables = [
+            const tables: string[] = [
               ${modelNamesPluralCamelCase.map((modelName) => `'${modelName}'`).join(',')}
             ]
           

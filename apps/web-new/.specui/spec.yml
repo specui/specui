@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./schema.json
 title: SpecUI
-name: '@specui/web'
+name: '@specui/web-new'
 description: Build UIs with Specs
 components:
   header:
@@ -21,14 +21,28 @@ components:
                   - gap-2
                 elements:
                   - tag: li
-                    text: Home
+                    elements:
+                      - tag: div
+                        text: Home
                   - tag: li
-                    text: Docs
+                    elements:
+                      - tag: div
+                        text: Docs
                   - tag: li
-                    text: Contact
+                    elements:
+                      - tag: div
+                        text: Features
+                  - tag: li
+                    elements:
+                      - tag: div
+                        text: Specs
+                  - tag: li
+                    elements:
+                      - tag: div
+                        text: Generators
   hero:
     props:
-      text:
+      title:
         type: string
     elements:
       - tag: h1
@@ -44,13 +58,10 @@ components:
 pages:
   /:
     elements:
-      - component: header
       - component: hero
         props:
           title: Welcome to SpecUI
       - component: typing-effect
-        class:
-          - whitespace-pre
         text: |
           # yaml-language-server: $schema=./schema.json
           title: Todo
@@ -119,7 +130,6 @@ pages:
 
   /docs:
     elements:
-      - component: header
       - component: hero
         props:
           title: Welcome to SpecUI

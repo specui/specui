@@ -1,5 +1,5 @@
 {
-  "name": "@specui/web",
+  "name": "@specui/web-new",
   "description": "Build UIs with Specs",
   "scripts": {
     "dev": "next dev",

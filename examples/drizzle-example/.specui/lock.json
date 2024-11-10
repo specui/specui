@@ -1,0 +1,26 @@
+{
+  "src/db/tables/users.ts": {
+    "integrity": "sha512-3c5bbc13326a8f8d9a745e54aa56b494744243fbe7f817b55b4ebb6c76eea82418e9988f35d8299412d922689955d9acae2f09cfc70617df6b9dd65f761c2b6c"
+  },
+  "src/db/tables/posts.ts": {
+    "integrity": "sha512-9d03219a97517c1b908f50ee10932b30a645c7d50036716cc05593c173bf4d6e2f3678b93cabe3c5a681ee2459a9cc128d674702d72536521ebd4ead7c43f9af"
+  },
+  "src/db/tables/comments.ts": {
+    "integrity": "sha512-0a3978fa754c540019f299262ce82265cf66845d76e56749ce7da88c293c247675500b4225463ad247c749855cf33f3b650116fb57c7db274e78d8f0a332f021"
+  },
+  "README.md": {
+    "integrity": "sha512-55c84fa1a14e6677c7bbbb43d73d7accc199fd6d909b6d06bf1ce56bf2327dbede07e6eda6759d972a271c5e5ca63e1e16a347b7a8665578f29b928e9877bd29"
+  },
+  "drizzle.config.ts": {
+    "integrity": "sha512-4228ceaa4275b28dbaa194ed060c518947f2a10759542a5d38a7cc6d21e196eceaa49f2cdfa1377864b0fb00f9fb9a723539bfe5556b282401126c4f68e549ad"
+  },
+  "package.json": {
+    "integrity": "sha512-8a59e7e29da7e8916b9efce0a3f61a50a85108261ae1b3aeb6b17d462c01980232d152d2c8b98a22552dce68627b06d6dd5b06dad280e758a6afcdddbaf4d56a"
+  },
+  "src/index.ts": {
+    "integrity": "sha512-6baf325e16fd1fdf53bdcc86dca4f5796f28bbbe234936f89671b925436112139e92358b6cb2d9056fe0b3e082ff185eb060b663e19e15d176ca8449a1a4f638"
+  },
+  "tsconfig.json": {
+    "integrity": "sha512-cac113660dae7f145736ad17d10a67e08294d2c754c20e3128cce6eae8781fda465e3ed98a4f8b7d93d94b3746eb8beac9cb4d5d8a7b041520199aa7c7ce4b22"
+  }
+}

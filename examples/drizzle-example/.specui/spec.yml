@@ -1,0 +1,23 @@
+name: drizzle-example
+version: 1.0.0
+models:
+  user:
+    attributes:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      age:
+        type: number
+      location:
+        type: string
+  post:
+    attributes:
+      content:
+        type: string
+      title:
+        type: string
+  comments:
+    attributes:
+      message:
+        type: string
