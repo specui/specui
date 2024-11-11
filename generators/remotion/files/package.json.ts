@@ -31,7 +31,6 @@ export default async function PackageGenerator(spec: Spec) {
       scripts: {
         build: 'remotion bundle',
         dev: 'remotion studio',
-        lint: 'eslint src --ext ts,tsx,js,jsx && tsc',
         upgrade: 'remotion upgrade',
       },
       sideEffects: ['*.css'],
