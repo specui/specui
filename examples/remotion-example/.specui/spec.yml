@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=./schema.json
+name: remotion-example
+compositions:
+  helloWorld:
+    width: 1080
+    durationInFrames: 160
+    sequences:
+      - durationInFrames: 80
+        component: title
+        props:
+          bgColor: black
+          color: white
+          text: Hello
+      - durationInFrames: 80
+        from: 80
+        component: title
+        props:
+          bgColor: '#333'
+          color: black
+          text: World
+components:
+  title:
+    props:
+      bgColor:
+        type: string
+      color:
+        type: string
+      text:
+        type: string
+    elements:
+      - tag: div
+        style:
+          alignItems: center
+          background: $props.bgColor
+          color: $props.color
+          display: flex
+          fontFamily: Arial
+          fontSize: 24rem
+          justifyContent: center
+          width: 100%
+        text: $props.text

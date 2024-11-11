@@ -1,0 +1,32 @@
+{
+  "src/components/title.tsx": {
+    "integrity": "sha512-f338e11535557226dc0c59b2ff0873dd859e789ea7e4c454e08ea324485a1b028e42a933ce7d6f753d180e29b28d23873296603c3fe53e56f5c9cb6416684181"
+  },
+  "src/compositions/helloWorld.tsx": {
+    "integrity": "sha512-3a79d762957057d2f7b117db434cda198ceb6220e690e2f819890047f0bbd4351ec630fcc6060bc2843a23a575fb24e1668ce8b01dfaf523871ebdd7471e2160"
+  },
+  "README.md": {
+    "integrity": "sha512-27c74670adb75075fad058d5ceaf7b20c4e7786c83bae8a32f626f9782af34c9a33c2046ef60fd2a7878d378e29fec851806bbd9a67878f3a9f1cda4830763fd"
+  },
+  "package.json": {
+    "integrity": "sha512-808d719fe446446993300ed707810b380e57d66f6b6f48d37e416f3743048dd2021243090bd0d5398c312e89d8abe24d1fdb4e71990005269d9a44afdcd2a2a3"
+  },
+  "remotion.config": {
+    "integrity": "sha512-34ee7c60c892061911c5c1527a792ef76939dc14e2dfebbbcbc5fc50b33f589d3c4403fffeb01383bf7257de43412b891da9e24b5e51e62c051c093ebf5b7e44"
+  },
+  "src/Root.tsx": {
+    "integrity": "sha512-f837c4064b1669dbed4acc19ac7a0b3b2f4e7047e1544c0bb70a2b93834ce59383eb239d7cef3d74451ab31ddae32b19c957971a9e35da0d34b1320b9abbd9c4"
+  },
+  "src/index.ts": {
+    "integrity": "sha512-d6926550c296541e598f20dc6a0b726ee1ac978df35c551a19d8300f7b1287fce0457fad85a406bb0b714dfdea6f184768683e40b62609ebbdcabbd469306713"
+  },
+  "src/tailwind.css": {
+    "integrity": "sha512-b982d818ab4391727559cbd43ca129cb4bfc356a16714fc2339c76effd57dd82efa06f3e6841d60a028b9fecd534cef25ce632bd8f7eb48caecc6454cfa0e7ac"
+  },
+  "tailwind.config.js": {
+    "integrity": "sha512-8ab38f05319cf7da610cbe69aa03bea61bb89da55fd77477821e8d3edae8b6bd91c51b58105e510b2fa57745c8893f02e1f4345f804758ef61d6ccddad888435"
+  },
+  "tsconfig.json": {
+    "integrity": "sha512-26bcb8647b310f12b3f8b8bb7046d653a18e5d576767185863a8830ca20806b2411a172d3b58a19b22b23daba16618f11b9f0077df5ac93c9fd56f29099cffda"
+  }
+}

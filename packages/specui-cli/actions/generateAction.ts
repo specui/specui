@@ -1,4 +1,5 @@
 import NextSchema from '@specui/next-generator/.specui/schema.json';
+import RemotionSchema from '@specui/remotion-generator/schema.json';
 import { existsSync, rmSync, readdirSync, statSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, normalize, resolve } from 'path';
@@ -141,7 +142,16 @@ export async function generate({
     console.log('Generated Files:');
     console.log(getNodeListOutput(nodes));
 
-    await writeFile(normalize(`${specUiDir}/schema.json`), JSON.stringify(NextSchema, null, 2));
+    await writeFile(
+      normalize(`${specUiDir}/schema.json`),
+      JSON.stringify(
+        loadedConfig?.config.generator === '@specui/remotion-generator'
+          ? RemotionSchema
+          : NextSchema,
+        null,
+        2,
+      ),
+    );
   } catch (error) {
     console.log(error);
   }

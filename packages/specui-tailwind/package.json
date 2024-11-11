@@ -1,0 +1,22 @@
+{
+  "name": "@specui/tailwind",
+  "version": "0.1.17",
+  "homepage": "https://specui.org",
+  "author": {
+    "name": "Chris Tate",
+    "email": "chris@ctate.dev",
+    "url": "https://ctate.dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@specui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  }
+}

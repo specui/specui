@@ -36,7 +36,7 @@ export async function prepareAction() {
         .map(
           ([fileName, lib]) =>
             `import ${(lib as any).default.name}${
-              lib.getDynamic ? ', { getDynamic }' : ''
+              lib.getDynamic ? `, { getDynamic as getDynamic${(lib as any).default.name} }` : ''
             } from './files/${fileName}'`,
         )
         .join('\n')}
@@ -57,8 +57,10 @@ export default async function generator(spec: Spec) {
 ${Object.entries(compiledObject)
   .filter(([_, lib]) => lib.isDynamic)
   .map(
-    ([fileName, lib]) => `  const results = getDynamic(spec);\n  await Promise.all(
-    results.map(async result => {
+    ([fileName, lib]) => `  const resultsFor${lib.default.name} = getDynamic${
+      lib.default.name
+    }(spec);\n  await Promise.all(
+    resultsFor${lib.default.name}.map(async result => {
       output[replaceParams('${fileName}', result.params)] = await ${lib.default.name}(${
         lib.default.length > 0 ? 'result' : ''
       })
