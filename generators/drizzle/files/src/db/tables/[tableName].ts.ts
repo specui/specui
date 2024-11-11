@@ -14,7 +14,7 @@ export function getDynamic(spec: Spec) {
   }));
 }
 
-export default async function SchemaGenerator({
+export default async function SchemaFile({
   spec: model,
   params: { tableName },
 }: {

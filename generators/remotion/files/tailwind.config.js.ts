@@ -1,7 +1,7 @@
 import { generate } from '@specui/core';
 import { PrettierProcessor } from '@specui/prettier';
 
-export default async function TailwindConfigGenerator() {
+export default async function TailwindConfigFile() {
   return await generate({
     processor: PrettierProcessor(),
     template: /* ts */ `

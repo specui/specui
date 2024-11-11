@@ -7,19 +7,47 @@ compositions:
     width: 1080
     durationInFrames: 160
     sequences:
-      - durationInFrames: 80
+      - durationInFrames: 40
         component: title
         props:
           bgColor: black
           color: white
           text: Hello
-      - durationInFrames: 80
+      - durationInFrames: 40
+        from: 40
+        component: title
+        props:
+          bgColor: black
+          color: white
+          text: World
+      - durationInFrames: 20
         from: 80
         component: title
         props:
-          bgColor: '#333'
+          bgColor: orange
           color: black
-          text: World
+          text: How
+      - durationInFrames: 20
+        from: 100
+        component: title
+        props:
+          bgColor: orange
+          color: black
+          text: Are
+      - durationInFrames: 20
+        from: 120
+        component: title
+        props:
+          bgColor: orange
+          color: black
+          text: You
+      - durationInFrames: 20
+        from: 140
+        component: title
+        props:
+          bgColor: orange
+          color: black
+          text: Today?
 components:
   title:
     props:
@@ -36,8 +64,8 @@ components:
           background: $props.bgColor
           color: $props.color
           display: flex
-          fontFamily: Arial
-          fontSize: 24rem
+          fontFamily: Verdana
+          fontSize: 20rem
           justifyContent: center
           width: 100%
         text: $props.text

@@ -13,7 +13,7 @@ export function getDynamic(spec: Spec) {
   }));
 }
 
-export default async function CompositionGenerator({
+export default async function CompositionFile({
   spec,
   params,
 }: {

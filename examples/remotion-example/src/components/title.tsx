@@ -13,8 +13,8 @@ export function Title(props: TitleProps): JSX.Element {
           background: props.bgColor,
           color: props.color,
           display: 'flex',
-          fontFamily: 'Arial',
-          fontSize: '24rem',
+          fontFamily: 'Verdana',
+          fontSize: '20rem',
           justifyContent: 'center',
           width: '100%',
         }}

@@ -1,10 +1,10 @@
-import GitIgnoreGenerator from './files/.gitignore'
-import ReadmeGenerator from './files/README.md'
-import DrizzleConfigGenerator from './files/drizzle.config.ts'
-import PackageGenerator from './files/package.json'
-import SchemaGenerator, { getDynamic as getDynamicSchemaGenerator } from './files/src/db/tables/[tableName].ts'
-import MainGenerator from './files/src/index.ts'
-import TsConfigGenerator from './files/tsconfig.json'
+import GitIgnoreFile from './files/.gitignore'
+import ReadmeFile from './files/README.md'
+import DrizzleConfigFile from './files/drizzle.config.ts'
+import PackageFile from './files/package.json'
+import SchemaFile, { getDynamic as getDynamicSchemaFile } from './files/src/db/tables/[tableName].ts'
+import MainFile from './files/src/index.ts'
+import TsConfigFile from './files/tsconfig.json'
 
 import { Spec } from './interfaces/Spec';
 
@@ -19,20 +19,20 @@ const replaceParams = (filePath: string, params: Record<string, string>): string
 export default async function generator(spec: Spec) {
   const output: Record<string, Buffer | string> = {};
 
-  const resultsForSchemaGenerator = getDynamicSchemaGenerator(spec);
+  const resultsForSchemaFile = getDynamicSchemaFile(spec);
   await Promise.all(
-    resultsForSchemaGenerator.map(async result => {
-      output[replaceParams('src/db/tables/[tableName].ts', result.params)] = await SchemaGenerator(result)
+    resultsForSchemaFile.map(async result => {
+      output[replaceParams('src/db/tables/[tableName].ts', result.params)] = await SchemaFile(result)
     })
   );
   
   return {
     ...output,
-    '.gitignore': await GitIgnoreGenerator(),
-    'README.md': await ReadmeGenerator(spec),
-    'drizzle.config.ts': await DrizzleConfigGenerator(),
-    'package.json': await PackageGenerator(spec),
-    'src/index.ts': await MainGenerator(),
-    'tsconfig.json': await TsConfigGenerator(),
+    '.gitignore': await GitIgnoreFile(),
+    'README.md': await ReadmeFile(spec),
+    'drizzle.config.ts': await DrizzleConfigFile(),
+    'package.json': await PackageFile(spec),
+    'src/index.ts': await MainFile(),
+    'tsconfig.json': await TsConfigFile(),
   }
 }

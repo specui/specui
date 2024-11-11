@@ -3,7 +3,7 @@ import { PrettierProcessor } from '@specui/prettier';
 
 import { Spec } from '../../interfaces/Spec';
 
-export default async function RootGenerator(spec: Spec) {
+export default async function RootFile(spec: Spec) {
   return await generate({
     processor: PrettierProcessor(),
     template: /* ts */ `

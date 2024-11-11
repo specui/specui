@@ -1,7 +1,7 @@
 import { generate } from '@specui/core';
 import { PrettierProcessor } from '@specui/prettier';
 
-export default async function RemotionConfigGenerator() {
+export default async function RemotionConfigFile() {
   return await generate({
     processor: PrettierProcessor(),
     template: /* ts */ `

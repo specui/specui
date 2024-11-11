@@ -3,7 +3,7 @@ import { JsonEngine } from '@specui/json';
 
 import { Spec } from '../interfaces/Spec';
 
-export default async function PackageGenerator(spec: Spec) {
+export default async function PackageFile(spec: Spec) {
   return await generate({
     engine: JsonEngine,
     spec: {

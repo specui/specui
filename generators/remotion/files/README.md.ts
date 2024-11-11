@@ -1,7 +1,7 @@
 import { generate } from '@specui/core';
 import { JsonEngine } from '@specui/json';
 
-export default async function ReadmeGenerator() {
+export default async function ReadmeFile() {
   return await generate({
     engine: JsonEngine,
     template: `

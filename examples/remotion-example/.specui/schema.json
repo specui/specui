@@ -689,6 +689,9 @@
         "name": {
           "type": "string"
         },
+        "private": {
+          "type": "boolean"
+        },
         "title": {
           "type": "string"
         },

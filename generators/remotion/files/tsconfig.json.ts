@@ -1,7 +1,7 @@
 import { generate } from '@specui/core';
 import { JsonEngine } from '@specui/json';
 
-export default async function TsConfigGenerator() {
+export default async function TsConfigFile() {
   return await generate({
     engine: JsonEngine,
     spec: {

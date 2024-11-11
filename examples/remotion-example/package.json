@@ -1,6 +1,6 @@
 {
   "name": "remotion-example",
-  "version": "0.1.18",
+  "version": "0.1.17",
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.228",

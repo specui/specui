@@ -14,7 +14,7 @@ export function getDynamic(spec: Spec) {
   }));
 }
 
-export default async function ComponentGenerator({
+export default async function ComponentFile({
   spec,
   params,
 }: {

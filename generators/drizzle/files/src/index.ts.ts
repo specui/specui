@@ -2,7 +2,7 @@ import { generate } from '@specui/core';
 import { HandlebarsEngine } from '@specui/handlebars';
 import { PrettierProcessor } from '@specui/prettier';
 
-export default async function MainGenerator() {
+export default async function MainFile() {
   return await generate({
     engine: HandlebarsEngine,
     processor: PrettierProcessor(),

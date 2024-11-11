@@ -2,7 +2,7 @@ import { generate } from '@specui/core';
 import { HandlebarsEngine } from '@specui/handlebars';
 import { PrettierProcessor } from '@specui/prettier';
 
-export default async function DrizzleConfigGenerator() {
+export default async function DrizzleConfigFile() {
   return await generate({
     engine: HandlebarsEngine,
     processor: PrettierProcessor(),

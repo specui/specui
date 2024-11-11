@@ -1,7 +1,7 @@
 import { generate } from '@specui/core';
 import { PrettierProcessor } from '@specui/prettier';
 
-export default async function IndexGenerator() {
+export default async function IndexFile() {
   return await generate({
     processor: PrettierProcessor(),
     template: /* js */ `
