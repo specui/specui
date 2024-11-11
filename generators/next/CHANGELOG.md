@@ -1,5 +1,23 @@
 # @specui/next-generator
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
+### Patch Changes
+
+- Updated dependencies
+  - @specui/core@0.2.0
+  - @specui/git@0.2.0
+  - @specui/handlebars@0.2.0
+  - @specui/json@0.2.0
+  - @specui/license@0.2.0
+  - @specui/prettier@0.2.0
+  - @specui/prettier-rust@0.2.0
+  - @specui/toml@0.2.0
+
 ## 0.1.17
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @specui/license
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
+### Patch Changes
+
+- Updated dependencies
+  - @specui/core@0.2.0
+  - @specui/handlebars@0.2.0
+
 ## 0.1.17
 
 ### Patch Changes

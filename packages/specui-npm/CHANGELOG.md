@@ -1,5 +1,17 @@
 # @specui/npm
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
+### Patch Changes
+
+- Updated dependencies
+  - @specui/core@0.2.0
+  - @specui/json@0.2.0
+
 ## 0.1.17
 
 ### Patch Changes

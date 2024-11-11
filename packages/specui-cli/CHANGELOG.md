@@ -1,5 +1,18 @@
 # @specui/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
+### Patch Changes
+
+- Updated dependencies
+  - @specui/next-generator@0.2.0
+  - @specui/drizzle-generator@null
+  - @specui/remotion-generator@null
+
 ## 0.1.17
 
 ### Patch Changes

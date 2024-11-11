@@ -1,5 +1,11 @@
 # tsconfig
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
 ## 0.1.17
 
 ### Patch Changes

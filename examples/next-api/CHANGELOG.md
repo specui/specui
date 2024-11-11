@@ -1,5 +1,16 @@
 # next-api-example
 
+## 0.2.0
+
+### Minor Changes
+
+- improves generator dx
+
+### Patch Changes
+
+- Updated dependencies
+  - @specui/next-generator@0.2.0
+
 ## 0.1.17
 
 ### Patch Changes
