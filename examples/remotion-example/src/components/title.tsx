@@ -1,5 +1,4 @@
 export interface TitleProps {
-  bgColor?: string;
   color?: string;
   text?: string;
 }
@@ -10,13 +9,14 @@ export function Title(props: TitleProps): JSX.Element {
       <div
         style={{
           alignItems: 'center',
-          background: props.bgColor,
           color: props.color,
           display: 'flex',
-          fontFamily: 'Verdana',
-          fontSize: '20rem',
+          fontFamily: 'Geist Mono',
+          fontSize: '16rem',
+          height: 1080,
           justifyContent: 'center',
-          width: '100%',
+          position: 'fixed',
+          width: 1080,
         }}
       >
         {props.text}

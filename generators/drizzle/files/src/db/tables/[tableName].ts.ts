@@ -3,8 +3,6 @@ import { PrettierProcessor } from '@specui/prettier';
 import { plural } from 'pluralize';
 import type { Model, ModelAttribute, ModelAttributeType, Spec } from '../../../../interfaces/Spec';
 
-let camelCase: (input: string) => string;
-
 export function getDynamic(spec: Spec) {
   return Object.entries(spec.models || {}).map(([modelName, model]) => ({
     spec: model,

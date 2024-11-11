@@ -10,7 +10,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@specui/core": "workspace:*"
+    "@specui/core": "workspace:*",
+    "@specui/utils": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",

@@ -126,15 +126,19 @@ export async function generate({
 
     // delete files that are not generated, except .specui
     if (shouldDelete) {
-      deleteUnmatchedFiles(normalize(`${workspaceDir}/${outputPath}`), Object.keys(output), [
-        specUiDir,
-        `${workspaceDir}/${outputPath}/.git`,
-        `${workspaceDir}/${outputPath}/.next`,
-        `${workspaceDir}/${outputPath}/.env.local`,
-        `${workspaceDir}/${outputPath}/node_modules`,
-        `${workspaceDir}/${outputPath}/next-env.d.ts`,
-        `${workspaceDir}/${outputPath}/pnpm-lock.yaml`,
-      ]);
+      deleteUnmatchedFiles(
+        normalize(`${workspaceDir}/${outputPath}`),
+        Object.keys(output),
+        [
+          specUiDir,
+          `${workspaceDir}/${outputPath}/.git`,
+          `${workspaceDir}/${outputPath}/.next`,
+          `${workspaceDir}/${outputPath}/.env.local`,
+          `${workspaceDir}/${outputPath}/node_modules`,
+          `${workspaceDir}/${outputPath}/next-env.d.ts`,
+          `${workspaceDir}/${outputPath}/pnpm-lock.yaml`,
+        ].concat(loadedConfig?.config.ignore ?? []),
+      );
     }
 
     // print generated files

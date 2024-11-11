@@ -9,18 +9,19 @@ interface Config {
     | '@specui/remotion-generator'
     | '@specui/vanilla-generator';
   output?: ConfigOutput;
+  ignore?: string[];
 }
 
 interface ConfigOutput {
   path?: string;
 }
 
-export interface LoadedSpec {
+export interface LoadedConfig {
   file: string;
   config: Config;
 }
 
-export const loadConfig = async (dir = process.cwd()): Promise<LoadedSpec | undefined> => {
+export const loadConfig = async (dir = process.cwd()): Promise<LoadedConfig | undefined> => {
   const files = ['config.yaml', 'config.yml', 'config.json', 'config.js', 'config.ts'];
   const possibleFiles = files.concat(files.map((file) => `.specui/${file}`));
 

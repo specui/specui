@@ -589,6 +589,26 @@
       ],
       "type": "object"
     },
+    "ObjectFit": {
+      "enum": [
+        "contain",
+        "cover",
+        "fill",
+        "none",
+        "scale-down"
+      ],
+      "type": "string"
+    },
+    "Position": {
+      "enum": [
+        "static",
+        "relative",
+        "absolute",
+        "fixed",
+        "sticky"
+      ],
+      "type": "string"
+    },
     "PrimitiveType": {
       "enum": [
         "boolean",
@@ -739,6 +759,12 @@
         "borderRadius": {
           "type": "string"
         },
+        "bottom": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
         "color": {
           "type": "string"
         },
@@ -760,8 +786,32 @@
         "justifyContent": {
           "$ref": "#/definitions/Alignment"
         },
+        "left": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "objectFit": {
+          "$ref": "#/definitions/ObjectFit"
+        },
         "opacity": {
           "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/Position"
+        },
+        "right": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "top": {
+          "type": [
+            "number",
+            "string"
+          ]
         },
         "translateX": {
           "type": "number"
@@ -776,9 +826,6 @@
           ]
         }
       },
-      "required": [
-        "justifyContent"
-      ],
       "type": "object"
     },
     "StyleTransform": {
@@ -819,6 +866,12 @@
         "borderRadius": {
           "type": "string"
         },
+        "bottom": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
         "color": {
           "type": "string"
         },
@@ -840,14 +893,38 @@
         "justifyContent": {
           "$ref": "#/definitions/Alignment"
         },
+        "left": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "objectFit": {
+          "$ref": "#/definitions/ObjectFit"
+        },
         "opacity": {
           "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/Position"
+        },
+        "right": {
+          "type": [
+            "number",
+            "string"
+          ]
         },
         "rotate": {
           "type": "number"
         },
         "scale": {
           "type": "number"
+        },
+        "top": {
+          "type": [
+            "number",
+            "string"
+          ]
         },
         "translateX": {
           "type": "number"
@@ -862,9 +939,6 @@
           ]
         }
       },
-      "required": [
-        "justifyContent"
-      ],
       "type": "object"
     },
     "Transition": {

@@ -1,1 +1,3 @@
 generator: '@specui/remotion-generator'
+ignore:
+  - public/videos/

@@ -24,6 +24,14 @@ export default async function ComponentFile({
   return await generate({
     processor: PrettierProcessor(),
     template: /* ts */ `
+      ${(Array.isArray(spec.elements) ? spec.elements : [])
+        .map((element) =>
+          element.component
+            ? `import { ${pascalCase(element.component)}, staticFile } from 'remotion';`
+            : '',
+        )
+        .join('\n')}
+
       ${
         spec.props
           ? `
@@ -44,7 +52,9 @@ export default async function ComponentFile({
       ): JSX.Element {
         return (
           <>
-            ${renderElements(spec.elements)}
+            ${renderElements(spec.elements, {
+              src: (value: string) => `{staticFile(${value})}`,
+            })}
           </>
         );
       };

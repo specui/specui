@@ -7,52 +7,63 @@ compositions:
     width: 1080
     durationInFrames: 160
     sequences:
+      - durationInFrames: 81
+        component: bg
+        props:
+          video: videos/planet.mp4
+      - durationInFrames: 81
+        from: 80
+        component: bg
+        props:
+          video: videos/city.mp4
       - durationInFrames: 40
         component: title
         props:
-          bgColor: black
           color: white
           text: Hello
       - durationInFrames: 40
         from: 40
         component: title
         props:
-          bgColor: black
           color: white
           text: World
       - durationInFrames: 20
         from: 80
         component: title
         props:
-          bgColor: orange
-          color: black
+          color: white
           text: How
       - durationInFrames: 20
         from: 100
         component: title
         props:
-          bgColor: orange
-          color: black
+          color: white
           text: Are
       - durationInFrames: 20
         from: 120
         component: title
         props:
-          bgColor: orange
-          color: black
+          color: white
           text: You
       - durationInFrames: 20
         from: 140
         component: title
         props:
-          bgColor: orange
-          color: black
+          color: white
           text: Today?
 components:
+  bg:
+    props:
+      video:
+        required: true
+        type: string
+    elements:
+      - component: video
+        src: $props.video
+        style:
+          height: 1080
   title:
     props:
-      bgColor:
-        type: string
       color:
         type: string
       text:
@@ -61,11 +72,12 @@ components:
       - tag: div
         style:
           alignItems: center
-          background: $props.bgColor
           color: $props.color
           display: flex
-          fontFamily: Verdana
-          fontSize: 20rem
+          fontFamily: Geist Mono
+          fontSize: 16rem
+          height: 1080
           justifyContent: center
-          width: 100%
+          position: fixed
+          width: 1080
         text: $props.text

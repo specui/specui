@@ -1046,6 +1046,9 @@ importers:
       '@specui/core':
         specifier: workspace:*
         version: link:../specui-core
+      '@specui/utils':
+        specifier: workspace:*
+        version: link:../specui-utils
     devDependencies:
       tsconfig:
         specifier: workspace:*

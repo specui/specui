@@ -45,6 +45,10 @@ export type Display =
   | 'table'
   | 'table-row';
 
+export type ObjectFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+
+export type Position = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
+
 export interface Style {
   alignItems?: Alignment;
   background?: string;
@@ -54,13 +58,19 @@ export interface Style {
   backgroundColor?: string;
   backgroundImage?: string;
   borderRadius?: string;
+  bottom?: number | string;
   color?: string;
   display?: Display;
   fontFamily?: string;
   fontSize?: string;
   height?: number | string;
-  justifyContent: Alignment;
+  justifyContent?: Alignment;
+  left?: number | string;
   opacity?: number;
+  objectFit?: ObjectFit;
+  position?: Position;
+  right?: number | string;
+  top?: number | string;
   translateX?: number;
   translateY?: number;
   width?: number | string;
