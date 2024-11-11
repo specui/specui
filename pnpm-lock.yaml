@@ -505,8 +505,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/specui-prettier-rust
       '@specui/toml':
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.2.3
+        version: 0.2.3
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
@@ -763,7 +763,7 @@ importers:
         version: 8.4.41
       tailwindcss:
         specifier: ^3.3.5
-        version: 3.3.5(ts-node@10.9.1(@types/node@20.10.4)(typescript@5.5.4))
+        version: 3.3.5(ts-node@10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4))
       typescript:
         specifier: ^5
         version: 5.5.4
@@ -1231,7 +1231,7 @@ importers:
         version: 8.4.41
       tailwindcss:
         specifier: ^3.3.5
-        version: 3.3.5(ts-node@10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4))
+        version: 3.3.5(ts-node@10.9.1(@types/node@20.10.4)(typescript@5.5.4))
       ts-loader:
         specifier: ^9.5.1
         version: 9.5.1(typescript@5.5.4)(webpack@5.94.0(@swc/core@1.7.35)(esbuild@0.24.0)(webpack-cli@5.1.4))
@@ -3962,8 +3962,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@specui/toml@0.2.2':
-    resolution: {integrity: sha512-3qygG0uP1G3oKGXkAu0wH3hLzpn7Unc6MX8gJMjDyMe/rm5rlXTQDSHOfjiMi9BfCVmr+YFojwktbVpU5OZfng==}
+  '@specui/toml@0.2.3':
+    resolution: {integrity: sha512-cWgQdmUqche54BYX2lzciHuprOwyXw93I3ObDvzY92jcN5QoWaDGsvG4/eyhMALe1PK1VIwse3qwIuESMisxow==}
 
   '@swc/core-darwin-arm64@1.7.35':
     resolution: {integrity: sha512-BQSSozVxjxS+SVQz6e3GC/+OBWGIK3jfe52pWdANmycdjF3ch7lrCKTHTU7eHwyoJ96mofszPf5AsiVJF34Fwg==}
@@ -12041,7 +12041,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.0
 
-  '@specui/toml@0.2.2':
+  '@specui/toml@0.2.3':
     dependencies:
       '@iarna/toml': 2.2.5
 
@@ -16964,13 +16964,13 @@ snapshots:
       postcss: 8.4.41
       ts-node: 10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)
 
-  postcss-load-config@4.0.1(postcss@8.4.41)(ts-node@10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)):
+  postcss-load-config@4.0.1(postcss@8.4.41)(ts-node@10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4)):
     dependencies:
       lilconfig: 2.1.0
       yaml: 2.3.2
     optionalDependencies:
       postcss: 8.4.41
-      ts-node: 10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)
+      ts-node: 10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4)
 
   postcss-load-config@4.0.1(postcss@8.4.41)(ts-node@10.9.1(@types/node@20.10.4)(typescript@5.5.4)):
     dependencies:
@@ -16978,7 +16978,7 @@ snapshots:
       yaml: 2.3.2
     optionalDependencies:
       postcss: 8.4.41
-      ts-node: 10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4)
+      ts-node: 10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)
 
   postcss-load-config@4.0.1(postcss@8.4.41)(ts-node@10.9.1(@types/node@20.6.0)(typescript@5.2.2)):
     dependencies:
@@ -17002,7 +17002,7 @@ snapshots:
       yaml: 2.3.2
     optionalDependencies:
       postcss: 8.4.47
-      ts-node: 10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4)
+      ts-node: 10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)
 
   postcss-load-config@6.0.1(jiti@1.21.6)(postcss@8.4.41)(tsx@4.19.2):
     dependencies:
@@ -18114,7 +18114,7 @@ snapshots:
 
   tailwind-merge@2.5.4: {}
 
-  tailwindcss@3.3.5(ts-node@10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4)):
+  tailwindcss@3.3.5(ts-node@10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -18133,7 +18133,7 @@ snapshots:
       postcss: 8.4.41
       postcss-import: 15.1.0(postcss@8.4.41)
       postcss-js: 4.0.1(postcss@8.4.41)
-      postcss-load-config: 4.0.1(postcss@8.4.41)(ts-node@10.9.1(@swc/core@1.7.35)(@types/node@20.10.4)(typescript@5.5.4))
+      postcss-load-config: 4.0.1(postcss@8.4.41)(ts-node@10.9.1(@swc/core@1.7.35(@swc/helpers@0.5.13))(@types/node@20.10.4)(typescript@5.5.4))
       postcss-nested: 6.0.1(postcss@8.4.41)
       postcss-selector-parser: 6.0.13
       resolve: 1.22.4
