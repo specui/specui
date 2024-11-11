@@ -28,6 +28,7 @@
     "parse": "ts-json-schema-generator --path interfaces/Spec.ts --type Spec -o schema.json --no-ref-encode -j none --expose all --minify"
   },
   "files": [
+    "schema.json",
     "dist"
   ]
 }

@@ -1,3 +1,4 @@
+import DrizzleSchema from '@specui/drizzle-generator/schema.json';
 import NextSchema from '@specui/next-generator/.specui/schema.json';
 import RemotionSchema from '@specui/remotion-generator/schema.json';
 import { existsSync, rmSync, readdirSync, statSync } from 'fs';
@@ -145,7 +146,9 @@ export async function generate({
     await writeFile(
       normalize(`${specUiDir}/schema.json`),
       JSON.stringify(
-        loadedConfig?.config.generator === '@specui/remotion-generator'
+        loadedConfig?.config.generator === '@specui/drizzle-generator'
+          ? DrizzleSchema
+          : loadedConfig?.config.generator === '@specui/remotion-generator'
           ? RemotionSchema
           : NextSchema,
         null,
