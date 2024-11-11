@@ -502,8 +502,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/specui-prettier-rust
       '@specui/toml':
-        specifier: ^0.1.17
-        version: 0.1.17
+        specifier: ^0.2.0
+        version: 0.2.0
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
@@ -3959,8 +3959,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@specui/toml@0.1.17':
-    resolution: {integrity: sha512-KT2iQxj/nJxf+cUOLMMKfcCTsRjWeKRl0f/4TKj5X0PY3yO2kwIcTJNj5Y9UX6Oc8hmnU1SsLiEASIjFkN1cdg==}
+  '@specui/toml@0.2.0':
+    resolution: {integrity: sha512-ZuJcccRzrn4l5qyTTw/1+0i+Op2C0CieZKu04hPj7kHG7S+1AerKOUfqpe/JgDHu9Joh+VTBTyledJJgK41p5w==}
 
   '@swc/core-darwin-arm64@1.7.35':
     resolution: {integrity: sha512-BQSSozVxjxS+SVQz6e3GC/+OBWGIK3jfe52pWdANmycdjF3ch7lrCKTHTU7eHwyoJ96mofszPf5AsiVJF34Fwg==}
@@ -12038,7 +12038,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.0
 
-  '@specui/toml@0.1.17':
+  '@specui/toml@0.2.0':
     dependencies:
       '@iarna/toml': 2.2.5
 
