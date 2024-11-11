@@ -10,6 +10,7 @@ export default async function PackageGenerator(spec: Spec) {
       name: spec.name,
       version: spec.version,
       description: spec.description,
+      private: spec.private,
       dependencies: {
         '@remotion/cli': '4.0.228',
         '@remotion/tailwind': '4.0.228',

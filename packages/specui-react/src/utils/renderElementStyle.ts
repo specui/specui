@@ -16,7 +16,6 @@ export function renderElementStyle(style?: Style) {
     results.push(`${name}: ${finalValue}`);
   });
 
-  console.log(` style={{${results.join(', ')}}}`);
   return `
     style={{
       ${results.join(',\n')}

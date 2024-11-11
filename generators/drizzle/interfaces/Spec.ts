@@ -20,5 +20,6 @@ export type ModelAttributeType = 'number' | 'string';
 export interface Spec {
   name?: string;
   version?: string;
+  private?: boolean;
   models?: Record<string, Model>;
 }

@@ -1,3 +1,4 @@
+import GitIgnoreGenerator from './files/.gitignore'
 import ReadmeGenerator from './files/README.md'
 import PackageGenerator from './files/package.json'
 import RemotionConfigGenerator from './files/remotion.config'
@@ -37,6 +38,7 @@ export default async function generator(spec: Spec) {
   
   return {
     ...output,
+    '.gitignore': await GitIgnoreGenerator(),
     'README.md': await ReadmeGenerator(),
     'package.json': await PackageGenerator(spec),
     'remotion.config': await RemotionConfigGenerator(),

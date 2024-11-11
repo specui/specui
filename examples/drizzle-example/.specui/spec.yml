@@ -1,5 +1,6 @@
 name: drizzle-example
 version: 0.1.17
+private: true
 models:
   user:
     attributes:

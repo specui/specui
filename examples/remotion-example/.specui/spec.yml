@@ -1,5 +1,7 @@
 # yaml-language-server: $schema=./schema.json
 name: remotion-example
+version: 0.1.17
+private: true
 compositions:
   helloWorld:
     width: 1080

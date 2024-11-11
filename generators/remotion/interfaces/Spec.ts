@@ -44,6 +44,7 @@ export interface Spec {
   name?: string;
   version?: string;
   description?: string;
+  private?: boolean;
   components?: Record<string, Component>;
   compositions?: Record<string, Composition>;
 }

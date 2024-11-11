@@ -9,6 +9,7 @@ export default async function PackageGenerator(spec: Spec) {
     spec: {
       name: spec.name,
       version: spec.version,
+      private: spec.private,
       dependencies: {
         dotenv: '^16.4.5',
         'drizzle-orm': '^0.36.1',
