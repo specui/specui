@@ -11,9 +11,6 @@
   ".gitignore": {
     "integrity": "sha512-efc4a340c4597b4a81ca35b799cac6241f9c706957027910a30d61080d707515e5176466af6cf4b3c453cee37da3c0d82741c50fb95f8d75d24d8ff52b83dc2e"
   },
-  "README.md": {
-    "integrity": "sha512-c4702ae37175cccb49f2fe4ea9850b4d2b9d16b89682d19d6bba636e760c06a36d0336d860c632172d73fdbfdf388c589de398fd4cfebab8b6698351cefc90a7"
-  },
   "package.json": {
     "integrity": "sha512-d1c732e023f96e043a110e18d34e1bc92848e0307c58fb7c83876ed36755cb72cd3ef81e0cd03b27e6b7fa8d8bf59ab2ecf247caafccdd51dc8f92b174036c92"
   },
