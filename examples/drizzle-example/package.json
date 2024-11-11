@@ -1,6 +1,6 @@
 {
   "name": "drizzle-example",
-  "version": "1.0.0",
+  "version": "0.1.17",
   "dependencies": {
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.1",
