@@ -1,5 +1,14 @@
 # @specui/license
 
+## 0.2.2
+
+### Patch Changes
+
+- fixes included schemas
+- Updated dependencies
+  - @specui/core@0.2.2
+  - @specui/handlebars@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

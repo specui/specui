@@ -1,5 +1,11 @@
 # remotion-example
 
+## 0.2.2
+
+### Patch Changes
+
+- fixes included schemas
+
 ## 0.2.1
 
 ### Patch Changes

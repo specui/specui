@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.2.2
+
+### Patch Changes
+
+- fixes included schemas
+- Updated dependencies
+  - @specui/next-generator@0.2.2
+  - @specui/vanilla-generator@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

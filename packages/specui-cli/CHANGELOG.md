@@ -1,5 +1,15 @@
 # @specui/cli
 
+## 0.2.2
+
+### Patch Changes
+
+- fixes included schemas
+- Updated dependencies
+  - @specui/drizzle-generator@0.2.2
+  - @specui/next-generator@0.2.2
+  - @specui/remotion-generator@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
