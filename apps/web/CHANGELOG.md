@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.2.3
+
+### Patch Changes
+
+- adds private to remotion schema
+- Updated dependencies
+  - @specui/next-generator@0.2.3
+  - @specui/vanilla-generator@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes

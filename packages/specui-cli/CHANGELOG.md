@@ -1,5 +1,15 @@
 # @specui/cli
 
+## 0.2.3
+
+### Patch Changes
+
+- adds private to remotion schema
+- Updated dependencies
+  - @specui/remotion-generator@0.2.3
+  - @specui/drizzle-generator@0.2.3
+  - @specui/next-generator@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes

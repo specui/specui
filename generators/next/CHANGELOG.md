@@ -1,5 +1,20 @@
 # @specui/next-generator
 
+## 0.2.3
+
+### Patch Changes
+
+- adds private to remotion schema
+- Updated dependencies
+  - @specui/core@0.2.3
+  - @specui/git@0.2.3
+  - @specui/handlebars@0.2.3
+  - @specui/json@0.2.3
+  - @specui/license@0.2.3
+  - @specui/prettier@0.2.3
+  - @specui/prettier-rust@0.2.3
+  - @specui/toml@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes

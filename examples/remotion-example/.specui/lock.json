@@ -11,9 +11,6 @@
   "README.md": {
     "integrity": "sha512-27c74670adb75075fad058d5ceaf7b20c4e7786c83bae8a32f626f9782af34c9a33c2046ef60fd2a7878d378e29fec851806bbd9a67878f3a9f1cda4830763fd"
   },
-  "package.json": {
-    "integrity": "sha512-d1c732e023f96e043a110e18d34e1bc92848e0307c58fb7c83876ed36755cb72cd3ef81e0cd03b27e6b7fa8d8bf59ab2ecf247caafccdd51dc8f92b174036c92"
-  },
   "remotion.config": {
     "integrity": "sha512-34ee7c60c892061911c5c1527a792ef76939dc14e2dfebbbcbc5fc50b33f589d3c4403fffeb01383bf7257de43412b891da9e24b5e51e62c051c093ebf5b7e44"
   },

@@ -1,5 +1,11 @@
 # interfaces
 
+## 0.2.3
+
+### Patch Changes
+
+- adds private to remotion schema
+
 ## 0.2.2
 
 ### Patch Changes

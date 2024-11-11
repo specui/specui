@@ -1,6 +1,6 @@
 {
   "name": "@specui/remotion-generator",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "./dist/generator",
   "dependencies": {
     "@specui/core": "workspace:*",
