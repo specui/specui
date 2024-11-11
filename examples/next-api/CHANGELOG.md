@@ -1,5 +1,13 @@
 # next-api-example
 
+## 0.2.1
+
+### Patch Changes
+
+- fixes remotion/drizzle pkg
+- Updated dependencies
+  - @specui/next-generator@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

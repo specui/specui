@@ -1,5 +1,15 @@
 # @specui/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- fixes remotion/drizzle pkg
+- Updated dependencies
+  - @specui/drizzle-generator@0.2.1
+  - @specui/next-generator@0.2.1
+  - @specui/remotion-generator@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

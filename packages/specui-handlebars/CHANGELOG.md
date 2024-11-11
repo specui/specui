@@ -1,5 +1,13 @@
 # @specui/handlebars
 
+## 0.2.1
+
+### Patch Changes
+
+- fixes remotion/drizzle pkg
+- Updated dependencies
+  - @specui/core@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
