@@ -2,6 +2,7 @@
 title: SpecUI
 name: '@specui/web-new'
 description: Build UIs with Specs
+license: MIT
 components:
   header:
     elements:
@@ -60,73 +61,86 @@ pages:
     elements:
       - component: hero
         props:
-          title: Welcome to SpecUI
-      - component: typing-effect
-        text: |
-          # yaml-language-server: $schema=./schema.json
-          title: Todo
-          name: todo-list
-          description: a simple to-do list example
-          components:
-            header:
-              elements:
-                - tag: header
-                  class:
-                    - bg-gray-900
-                    - p-4
-                    - flex
-                    - justify-between
+          title: Build UIs with Specs
+      - tag: div
+        class:
+          - flex
+          - gap-4
+          - mx-auto
+          - max-w-6xl
+        elements:
+          - tag: nav
+            elements:
+              - tag: ul
+                elements:
+                  - tag: li
+                    text: Home
+          - component: typing-effect
+            text: |
+              # yaml-language-server: $schema=./schema.json
+              title: Todo
+              name: todo-list
+              description: a simple to-do list example
+              components:
+                header:
                   elements:
-                    - tag: h1
-                      text: SpecUI
-                    - component: menu
-            menu:
-              elements:
-                - tag: nav
-                  elements:
-                    - tag: ul
-                      class: flex gap-2
+                    - tag: header
+                      class:
+                        - bg-gray-900
+                        - p-4
+                        - flex
+                        - justify-between
                       elements:
-                        - tag: li
+                        - tag: h1
+                          text: SpecUI
+                        - component: menu
+                menu:
+                  elements:
+                    - tag: nav
+                      elements:
+                        - tag: ul
+                          class: flex gap-2
                           elements:
-                            - tag: a
-                              href: /
-                              text: Home
-                        - tag: li
-                          elements:
-                            - tag: a
-                              href: /features
-                              text: Features
-                        - tag: li
-                          elements:
-                            - tag: a
-                              href: /about
-                              text: About
-                        - tag: li
-                          elements:
-                            - tag: a
-                              href: /contact
-                              text: Contact
-          pages:
-            /:
-              elements:
-                - component: header
-                - tag: div
-                  class:
-                    - bg-blue-800
-                    - flex
-                    - p-32
-                    - justify-center
-                    - items-center
-                    - uppercase
-                    - text-8xl
-                  text: Spec. Preview. Ship.
-            /about:
-              elements:
-                - component: header
-            /contact:
-              elements:
-                - component: header
+                            - tag: li
+                              elements:
+                                - tag: a
+                                  href: /
+                                  text: Home
+                            - tag: li
+                              elements:
+                                - tag: a
+                                  href: /features
+                                  text: Features
+                            - tag: li
+                              elements:
+                                - tag: a
+                                  href: /about
+                                  text: About
+                            - tag: li
+                              elements:
+                                - tag: a
+                                  href: /contact
+                                  text: Contact
+              pages:
+                /:
+                  elements:
+                    - component: header
+                    - tag: div
+                      class:
+                        - bg-blue-800
+                        - flex
+                        - p-32
+                        - justify-center
+                        - items-center
+                        - uppercase
+                        - text-8xl
+                      text: Spec. Preview. Ship.
+                /about:
+                  elements:
+                    - component: header
+                /contact:
+                  elements:
+                    - component: header
 
   /docs:
     elements:
@@ -136,31 +150,4 @@ pages:
   /docs/quickstart:
     elements:
       - tag: div
-        text: |
-          ## Quickstart
-
-          ### VS Code / Cursor Extension
-
-          Install SpecUI extension:
-
-          [https://marketplace.visualstudio.com/items?itemName=specui.specui](https://marketplace.visualstudio.com/items?itemName=specui.specui)
-
-          ### CLI
-
-          #### New Project
-
-          Start a new project:
-
-          ```
-          npx @specui/cli new
-          ```
-
-          This creates a folder for your project and installs dependencies. For example, choosing the `next` SpecUI sets up a Next.js code generator.
-
-          #### Try It Out
-
-          Navigate to the new folder and run:
-
-          ```
-          npx @specui/cli generate
-          ```
+        text: Quickstart
