@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=./schema.json
-name: remotion-example
+name: '@specui/remotion-example'
 version: 0.1.17
 private: true
 compositions:

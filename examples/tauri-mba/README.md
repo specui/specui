@@ -1,4 +1,4 @@
-# vercel-dashboard-mba
+# @specui/tauri-mba-example
 
 >
 

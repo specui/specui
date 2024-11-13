@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "vercel-dashboard-mba",
+  "name": "@specui/tauri-mba-example",
   "version": "0.1.0",
   "scripts": {
     "generate": "specui generate",

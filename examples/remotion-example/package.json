@@ -1,5 +1,5 @@
 {
-  "name": "remotion-example",
+  "name": "@specui/remotion-example",
   "version": "0.1.17",
   "private": true,
   "dependencies": {

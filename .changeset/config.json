@@ -7,5 +7,13 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "@specui/drizzle-example",
+    "@specui/next-clerk-authentication-example",
+    "@specui/next-hello-world-example",
+    "@specui/next-spinning-loader-example",
+    "@specui/next-vercel-analytics-example",
+    "@specui/remotion-example",
+    "@specui/tauri-mba-example"
+  ]
 }
