@@ -1,5 +1,11 @@
 # @specui/toml
 
+## 0.2.4
+
+### Patch Changes
+
+- improves new command
+
 ## 0.2.3
 
 ### Patch Changes

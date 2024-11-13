@@ -1,5 +1,13 @@
 # @specui/tailwind
 
+## 0.2.4
+
+### Patch Changes
+
+- improves new command
+- Updated dependencies
+  - @specui/core@0.2.4
+
 ## 0.2.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.2.4
+
+### Patch Changes
+
+- improves new command
+- Updated dependencies
+  - @specui/next-generator@0.2.4
+  - @specui/vanilla-generator@0.2.4
+
 ## 0.2.3
 
 ### Patch Changes

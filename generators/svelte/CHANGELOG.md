@@ -1,5 +1,18 @@
 # @specui/next-generator
 
+## 0.2.4
+
+### Patch Changes
+
+- improves new command
+- Updated dependencies
+  - @specui/core@0.2.4
+  - @specui/git@0.2.4
+  - @specui/handlebars@0.2.4
+  - @specui/json@0.2.4
+  - @specui/license@0.2.4
+  - @specui/prettier@0.2.4
+
 ## 0.2.3
 
 ### Patch Changes
