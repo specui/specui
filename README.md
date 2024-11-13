@@ -6,7 +6,7 @@
 
 # SpecUI
 
-Build UIs with Specs.
+Build apps with YAML.
 
 [![License](https://img.shields.io/github/license/specui/specui.svg?style=flat-square)](https://github.com/specui/specui/blob/mistress/LICENSE)
 [![npm](https://img.shields.io/npm/v/@specui/core?style=flat-square)](https://npm.im/@specui/core)
@@ -21,8 +21,9 @@ SpecUI is a powerful development tool designed to transform specs into fully fun
 
 ✍️ <b>Write specs</b> in:
 
-- YAML, JSON, or JS/TS
-- Or use the SpecUI [Visual Editor](https://specui.org/playground)
+- YAML
+- JSON
+- Or, JS/TS
 
 ⚡️ <b>Generate code</b> for:
 
