@@ -43,5 +43,6 @@
     "tailwindcss": "^3.3.5",
     "typescript": "^5"
   },
-  "name": "@specui/next-vercel-analytics-example"
+  "name": "@specui/next-vercel-analytics-example",
+  "private": true
 }

@@ -42,5 +42,6 @@
     "tailwindcss": "^3.3.5",
     "typescript": "^5"
   },
-  "name": "@specui/next-spinning-loader-example"
+  "name": "@specui/next-spinning-loader-example",
+  "private": true
 }

@@ -141,6 +141,45 @@
         "for": {
           "type": "string"
         },
+        "groups": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "menu": {
+                "additionalProperties": false,
+                "properties": {
+                  "items": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "icon": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "header": {
+          "type": "string"
+        },
         "href": {
           "type": "string"
         },
@@ -179,7 +218,7 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1373-1405-1627176069-1327-1405-1627176069-1307-1409-1627176069-1297-1410-1627176069-889-1715-1627176069-0-1716)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1548-1580-1627176069-1502-1580-1627176069-1482-1584-1627176069-1472-1585-1627176069-889-1890-1627176069-0-1891)>"
         },
         "required": {
           "type": "boolean"
@@ -564,6 +603,45 @@
         "for": {
           "type": "string"
         },
+        "groups": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "menu": {
+                "additionalProperties": false,
+                "properties": {
+                  "items": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "icon": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "header": {
+          "type": "string"
+        },
         "href": {
           "type": "string"
         },
@@ -602,7 +680,7 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1373-1405-1627176069-1327-1405-1627176069-1307-1409-1627176069-1297-1410-1627176069-889-1715-1627176069-0-1716)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1548-1580-1627176069-1502-1580-1627176069-1482-1584-1627176069-1472-1585-1627176069-889-1890-1627176069-0-1891)>"
         },
         "required": {
           "type": "boolean"
@@ -817,7 +895,7 @@
       ],
       "type": "string"
     },
-    "Record<string,(boolean|number|string|structure-1627176069-1373-1405-1627176069-1327-1405-1627176069-1307-1409-1627176069-1297-1410-1627176069-889-1715-1627176069-0-1716)>": {
+    "Record<string,(boolean|number|string|structure-1627176069-1548-1580-1627176069-1502-1580-1627176069-1482-1584-1627176069-1472-1585-1627176069-889-1890-1627176069-0-1891)>": {
       "additionalProperties": {
         "anyOf": [
           {
@@ -1024,7 +1102,8 @@
             "sidebar-group",
             "sidebar-header",
             "sidebar-provider",
-            "sidebar-trigger"
+            "sidebar-trigger",
+            "skeleton"
           ],
           "type": "string"
         },
@@ -1039,6 +1118,45 @@
           "$ref": "#/definitions/ElementArrayOrRef"
         },
         "for": {
+          "type": "string"
+        },
+        "groups": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "menu": {
+                "additionalProperties": false,
+                "properties": {
+                  "items": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "icon": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "header": {
           "type": "string"
         },
         "href": {
@@ -1079,7 +1197,7 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1373-1405-1627176069-1327-1405-1627176069-1307-1409-1627176069-1297-1410-1627176069-889-1715-1627176069-0-1716)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1548-1580-1627176069-1502-1580-1627176069-1482-1584-1627176069-1472-1585-1627176069-889-1890-1627176069-0-1891)>"
         },
         "required": {
           "type": "boolean"
@@ -1170,6 +1288,9 @@
         },
         "platform": {
           "$ref": "#/definitions/Platform"
+        },
+        "private": {
+          "type": "boolean"
         },
         "repository": {
           "$ref": "#/definitions/Repository"
@@ -3905,6 +4026,45 @@
         "for": {
           "type": "string"
         },
+        "groups": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "menu": {
+                "additionalProperties": false,
+                "properties": {
+                  "items": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "icon": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "header": {
+          "type": "string"
+        },
         "href": {
           "type": "string"
         },
@@ -3943,7 +4103,7 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1373-1405-1627176069-1327-1405-1627176069-1307-1409-1627176069-1297-1410-1627176069-889-1715-1627176069-0-1716)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-1627176069-1548-1580-1627176069-1502-1580-1627176069-1482-1584-1627176069-1472-1585-1627176069-889-1890-1627176069-0-1891)>"
         },
         "required": {
           "type": "boolean"

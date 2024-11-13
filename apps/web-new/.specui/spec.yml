@@ -2,6 +2,7 @@
 title: SpecUI
 name: '@specui/web-new'
 description: Build UIs with Specs
+private: true
 license: MIT
 components:
   header:

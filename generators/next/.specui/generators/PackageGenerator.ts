@@ -22,6 +22,7 @@ export async function PackageGenerator({
       name: spec.name,
       version: spec.version,
       description: spec.description,
+      private: spec.private,
       license: spec.license,
       author: spec.author
         ? {
