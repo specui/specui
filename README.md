@@ -17,11 +17,11 @@ Build UIs with Specs.
 
 ## Overview
 
-SpecUI is a dev tool for writing specs to build user interfaces.
+SpecUI is a powerful development tool designed to transform specs into fully functional user interfaces.
 
 ✍️ <b>Write specs</b> in:
 
-- YAML, JSON and JS/TS
+- YAML, JSON, or JS/TS
 - Or use the SpecUI [Visual Editor](https://specui.org/playground)
 
 ⚡️ <b>Generate code</b> for:
@@ -34,7 +34,7 @@ SpecUI is a dev tool for writing specs to build user interfaces.
 
 ### CLI
 
-The fastest way to create a SpecUI project:
+Get up and running with SpecUI in seconds:
 
 ```bash
 npx @specui/cli new
@@ -45,7 +45,7 @@ pnpm dev
 
 ### VS Code Extension
 
-[Download](https://marketplace.visualstudio.com/items?itemName=specui.specui) the SpecUI extension for VS Code / Cursor
+Supercharge your workflow with our [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=specui.specui).
 
 ## Docs
 
@@ -53,16 +53,14 @@ Read the docs: https://specui.org/docs
 
 ## Features
 
-- **Continuous Code Generation**: Update existing files based on new specs or logic.
-- **Spec-Driven**: Specs guide what SpecUI generates, making sure everything is in line with your requirements.
-- **Versatile**: Generate everything from UI components to APIs, configurations, and even entire mobile apps.
-- **Framework Agnostic**: Use SpecUI to build UIs for React, Vue, Angular and Vanilla JS.
+- **Continuous Code Generation**: Seamlessly update files when your specs or logic change.
+- **Spec-Driven**: Keep everything aligned with your vision using structured, spec-based guidance.
+- **Versatile**: Generate UI components, APIs, configuration files, and even entire mobile applications.
+- **Framework Agnostic**: Build for React, Vue, Angular, or just Vanilla JS.
 
 ## How Does It Work?
 
-SpecUI uses a spec to understand what to generate. Specs are versatile, and you can write them in TypeScript, JSON, or YAML. SpecUI then processes this spec through various components like Generators, Templates, and Processors to produce the end code.
-
-<img src="https://github.com/specui/specui/blob/main/images/lifecycle.png" />
+SpecUI processes your specs using a series of Generators, Templates, and Processors to output clean, production-ready code. It's a spec-first approach that empowers you to ship faster than ever.
 
 ## License
 
