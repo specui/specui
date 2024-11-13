@@ -28,6 +28,7 @@ import { renderClsx } from './utils/renderClsx';
 import { parseActions } from './utils/parseActions';
 import { renderImports } from './utils/renderImports';
 import { LaunchGenerator } from './generators/LaunchGenerator';
+import { encodeHtmlEntities } from './utils/encodeHtmlEntities';
 
 export * from './interfaces/Spec';
 
@@ -58,7 +59,7 @@ export default async function generator(
         element.text?.startsWith('$')
           ? `{${element.text.slice(1)}}`
           : element.text
-          ? element.text
+          ? encodeHtmlEntities(element.text)
           : ''
       }${
         typeof element.elements === 'string' && element.elements.startsWith('$')

@@ -1,0 +1,25 @@
+{
+  "title": "Vercel Analytics Example",
+  "name": "@specui/next-vercel-analytics-example",
+  "private": true,
+  "pages": {
+    "index": {
+      "elements": [
+        {
+          "tag": "section",
+          "class": [
+            "flex",
+            "flex-col",
+            "h-dvh",
+            "items-center",
+            "justify-center"
+          ],
+          "text": "Hello World"
+        }
+      ]
+    }
+  },
+  "vercel": {
+    "analytics": true
+  }
+}

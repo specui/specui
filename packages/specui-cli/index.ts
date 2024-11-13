@@ -47,9 +47,9 @@ program
 program
   .command('generate')
   .description('Generates code based on a spec')
-  .option('-d, --delete', 'delete files')
-  .option('-f, --force', 'force generation')
-  .option('-w, --watch', 'watch for spec changes')
+  .option('-d, --delete', 'Delete files')
+  .option('-f, --force', 'Force generation')
+  .option('-w, --watch', 'Watch for spec changes')
   .action(async (options) => {
     const loadedSpec = await loadSpec();
 
@@ -66,6 +66,11 @@ program
     }
   });
 
-program.command('new').description('Creates a new SpecUI project').action(newAction);
+program
+  .command('new')
+  .description('Creates a new SpecUI project')
+  .option('-g, --generator <name>', 'Specify which generator to use')
+  .option('-e, --example <name>', 'Specify which example to use')
+  .action(newAction);
 
 program.parse();

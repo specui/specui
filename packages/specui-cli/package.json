@@ -19,7 +19,9 @@
   "devDependencies": {
     "@types/jest": "^29.5.8",
     "@types/node": "^18.18.4",
+    "@types/prompts": "^2.4.9",
     "jest": "^29.7.0",
+    "prettier": "^3.3.3",
     "ts-jest": "^29.1.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.2.2"
@@ -27,13 +29,16 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "parse": "ts-node --project tsconfig.json ./scripts/parse.ts",
     "test": "jest"
   },
   "dependencies": {
     "@specui/drizzle-generator": "workspace:*",
     "@specui/next-generator": "workspace:*",
     "@specui/remotion-generator": "workspace:*",
+    "@specui/utils": "workspace:*",
     "commander": "^11.1.0",
+    "prompts": "^2.4.2",
     "ts-node": "^10.9.1",
     "yaml": "^2.3.2"
   },

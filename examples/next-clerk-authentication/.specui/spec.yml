@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=./schema.json
+title: Clerk Authentication Example
+name: '@specui/next-clerk-authentication-example'
+version: 1.0.0
+description: my app is so protected
+private: true
+license: MIT
+auth:
+  integration: clerk
+pages:
+  index:
+    elements:
+      - tag: div
+        auth: signedIn
+        elements:
+          - tag: header
+            class:
+              - flex
+              - justify-between
+              - p-2
+            elements:
+              - tag: h1
+                text: MyProtectedApp
+              - component: userButton
+          - tag: section
+            class:
+              - flex
+              - flex-col
+              - gap-2
+              - h-[calc(100dvh-44px)]
+              - items-center
+              - justify-center
+            elements:
+              - tag: h1
+                class: text-2xl
+                text: Welcome to MyProtectedApp
+      - tag: section
+        auth: signedOut
+        class:
+          - flex
+          - flex-col
+          - gap-2
+          - h-dvh
+          - items-center
+          - justify-center
+        elements:
+          - tag: h1
+            class: text-2xl
+            text: Sign In to MyProtectedApp
+          - component: signInButton

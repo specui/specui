@@ -1,4 +1,4 @@
-# drizzle-example
+# @specui/drizzle-example
 
 >
 

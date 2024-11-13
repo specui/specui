@@ -1,4 +1,5 @@
-name: drizzle-example
+title: Drizzle Example
+name: '@specui/drizzle-example'
 version: 0.1.17
 private: true
 models:

@@ -1,0 +1,41 @@
+{
+  "title": "Drizzle Example",
+  "name": "@specui/drizzle-example",
+  "version": "0.1.17",
+  "private": true,
+  "models": {
+    "user": {
+      "attributes": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "location": {
+          "type": "string"
+        }
+      }
+    },
+    "post": {
+      "attributes": {
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "comments": {
+      "attributes": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

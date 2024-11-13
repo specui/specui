@@ -1,0 +1,48 @@
+{
+  "title": "Spinning Loader Example",
+  "name": "@specui/next-spinning-loader-example",
+  "private": true,
+  "components": {
+    "spinner": {
+      "props": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "elements": [
+        {
+          "tag": "div",
+          "class": [
+            "flex",
+            "h-dvh",
+            "gap-2",
+            "items-center",
+            "justify-center"
+          ],
+          "elements": [
+            {
+              "tag": "div",
+              "text": "$props.text"
+            },
+            {
+              "icon": "loader",
+              "class": "animate-spin"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pages": {
+    "index": {
+      "elements": [
+        {
+          "component": "spinner",
+          "props": {
+            "text": "Loading tweets"
+          }
+        }
+      ]
+    }
+  }
+}

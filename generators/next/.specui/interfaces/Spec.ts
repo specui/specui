@@ -36,6 +36,7 @@ export interface Spec {
   name?: string;
   version?: string;
   description?: string;
+  private?: boolean;
   license?: License;
   icon?: string;
   author?: Author;
