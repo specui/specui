@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 
-import { Playground } from '@/components/Playground/Playground';
-import { safeDump } from 'js-yaml';
+import { TypingEffect } from '@/components/TypingEffect';
+import { CopyAll } from '@mui/icons-material';
+import Bg from '@/components/Bg';
+import { Install } from '@/components/Install';
 
 export const metadata: Metadata = {
   title: 'Home - SpecUI',
@@ -15,8 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const HomeSpec = `
-title: Todo
+const HomeSpec = `title: Todo
 name: todo-list
 description: a simple to-do list example
 database:
@@ -97,9 +98,7 @@ components:
       - tag: label
         text: $props.label
       - tag: input
-        class:
-          - p-2 rounded-lg text-black
-          - $props.className
+        class: p-2 rounded-lg text-black $props.className
         name: $props.name
         placeholder: $props.placeholder
         value: $props.value
@@ -146,11 +145,35 @@ pages:
 
 export default function Home() {
   return (
-    <main
-      className="flex flex-col align-middle justify-center mx-auto"
-      style={{ height: 'calc(100vh - 65px)' }}
-    >
-      <Playground generator="next" spec={HomeSpec.trim()} />
-    </main>
+    <>
+      <Bg />
+      <main
+        className="flex flex-col gap-4 items-center justify-center px-4 py-8"
+        style={{ minHeight: 'calc(50vh - 65px)' }}
+      >
+        <h1 className="text-6xl text-center">Build apps with YAML</h1>
+        <p className="text-md text-center md:text-lg">
+          Say goodbye to syntax errors, minimize dependency management &amp; simplify migrations
+        </p>
+        <div className="flex gap-4">
+          <a className="border border-black px-4 py-2 rounded-2xl dark:border-white" href="/docs">
+            Learn More
+          </a>
+          <Install />
+        </div>
+      </main>
+      <div className="flex items-center justify-center mb-32 px-4">
+        <div className="bg-black border rounded-xl max-w-4xl w-full">
+          <div className="border-b flex gap-2 p-4">
+            <div className="border h-4 rounded-full w-4" />
+            <div className="border h-4 rounded-full w-4" />
+            <div className="border h-4 rounded-full w-4" />
+          </div>
+          <pre className="overflow-hidden p-4 text-xs">
+            <TypingEffect speed={0.5} text={HomeSpec} />
+          </pre>
+        </div>
+      </div>
+    </>
   );
 }
