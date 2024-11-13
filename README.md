@@ -32,61 +32,24 @@ SpecUI is a dev tool for writing specs to build user interfaces.
 
 ## Quickstart
 
-### Online Playground
-
-Go to https://specui.org/playground
-
-### Get Started Locally
+### CLI
 
 The fastest way to create a SpecUI project:
 
 ```bash
 npx @specui/cli new
+npx @specui/cli generate
+pnpm install
+pnpm dev
 ```
+
+### VS Code Extension
+
+[Download](https://marketplace.visualstudio.com/items?itemName=specui.specui) the SpecUI extension for VS Code / Cursor
 
 ## Docs
 
 Read the docs: https://specui.org/docs
-
-## Example
-
-Below is a very basic example using the **@specui/next-generator** code generator to generate code for a Next.js app.
-
-### Input (Spec)
-
-```yaml
-# yaml-language-server: $schema=/schemas/next-generator-schema.json
-title: My App
-name: my-app
-version: 1.0.0
-description: this is my cool app
-license: MIT
-pages:
-  index:
-    elements:
-      - tag: section
-        class:
-          - flex
-          - flex-col
-          - h-dvh
-          - items-center
-          - justify-center
-        elements:
-          - tag: h1
-            text: Spec. Preview. Ship.
-            class:
-              - font-sans
-              - mb-2
-              - text-2xl
-              - text-center
-          - tag: h2
-            text: Build at lightning-speed
-            class:
-              - font-sans-serif
-              - font-lg
-              - text-center
-              - text-gray-400
-```
 
 ## Features
 
