@@ -153,8 +153,10 @@ export async function generate({
         loadedConfig?.config.generator === '@specui/drizzle-generator'
           ? DrizzleSchema
           : loadedConfig?.config.generator === '@specui/remotion-generator'
-          ? RemotionSchema
-          : NextSchema,
+            ? RemotionSchema
+            : loadedConfig?.config.generator === '@specui/svelte-generator'
+              ? DrizzleSchema
+              : NextSchema,
         null,
         2,
       ),

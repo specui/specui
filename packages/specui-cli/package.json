@@ -21,6 +21,7 @@
     "@specui/drizzle-generator": "workspace:*",
     "@specui/next-generator": "workspace:*",
     "@specui/remotion-generator": "workspace:*",
+    "@specui/svelte-generator": "workspace:*",
     "@specui/utils": "workspace:*",
     "commander": "^11.1.0",
     "prompts": "^2.4.2",
@@ -35,10 +36,11 @@
     "prettier": "^3.3.3",
     "ts-jest": "^29.1.1",
     "tsconfig": "workspace:*",
+    "tsup": "^8.3.0",
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "dev": "tsc --watch",
     "parse": "ts-node --project tsconfig.json ./scripts/parse.ts",
     "test": "jest"

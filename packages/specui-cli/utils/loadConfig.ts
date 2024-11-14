@@ -7,6 +7,7 @@ interface Config {
     | '@specui/drizzle-generator'
     | '@specui/next-generator'
     | '@specui/remotion-generator'
+    | '@specui/svelte-generator'
     | '@specui/vanilla-generator';
   output?: ConfigOutput;
   ignore?: string[];

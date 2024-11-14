@@ -1,0 +1,53 @@
+{
+  ".gitignore": {
+    "integrity": "sha512-c1734810ab2fa1476cb72cd287b416cce873d6fcbe568287560af9926920955ffb1b3b471a53639730e7350950981e9d746ef7ffeff89924c2e9684ade229204"
+  },
+  ".npmrc": {
+    "integrity": "sha512-b09929b74b5e44a933594684fa4a182add6552ecd7ff760139560c580a5a2b9dd2152338ce1af6928db3f829b0585c4a82f66b20cec926436cefdf2e67551cf7"
+  },
+  ".prettierignore": {
+    "integrity": "sha512-00fd5b20ec9834ccecb6ad212b960d640f2061af602a1b88dd36c6646d1f72f4d4d5d1ff35c065aae579e25b40babe179ebd205d20f4c33bf0e4517c0073356f"
+  },
+  ".prettierrc": {
+    "integrity": "sha512-a526e9a1b787056251496d27b3aa54587c4b95447f00fc149faadfd4e021cf9f01cebf696be9ff1b9149ecaba6333c7b3ff896d1c611dfd43d0be875ffb83a9d"
+  },
+  ".svelte-kit/tsconfig.json": {
+    "integrity": "sha512-76fdf03a129157576969890785f963c9e969059f8ff2342a95fb3b90cb9b8fe4440e2a46d26133976412a065aee73a2b643d1cd7271cee56fd748a350e32ebc6"
+  },
+  "README.md": {
+    "integrity": "sha512-462a73d4775824200ee0d9738a45bb62107e1a99025d8a571dacb391e5859dac20f7132dad2993763229dfc4f33547043abcb3e098832ed7198049fce9bf212e"
+  },
+  "eslint.config.js": {
+    "integrity": "sha512-14cb215520422b7fad9d863bfc7abd7d9dad302c2eeedaaae718d4b3bee71db21eb7ffa0a4bd1a13972f2d4c5d0130e297659c04c33febe7cd5c97a1f32f0c78"
+  },
+  "package.json": {
+    "integrity": "sha512-affcbeb6ab033001cf23e40ae9005189fc1e055fde2bda03c8441a7bfd737bb95cc5186aa39992564cfbe1f4894a96cc10264b0e9aa7ca4cfc2fc8bc6be22f8f"
+  },
+  "postcss.config.js": {
+    "integrity": "sha512-76c7d177dc28bc7feaf7deaf88c848dad5c613bb5fd0ef0d439c39e871494064578b2af02b9a5f58ce18a5788709906a672d5b42a26db19532b8fd6b80321b55"
+  },
+  "src/app.css": {
+    "integrity": "sha512-62c92e59eaff9d6884047ebc2a66e8402e0909b89db3fe0e43c53744d7551f03f383405d5669efebd36483b6a1f8436b26319ae205e95e262532cae071fb15a9"
+  },
+  "src/app.html": {
+    "integrity": "sha512-f650162ed5c02c8ed45c6e0299b2cc7d572e63afc0414d4b93ca3776bf68341ffbbed8b72b423565175eca813ff0acc6b642a1685cb57fe0384f28ea41075402"
+  },
+  "src/routes/+layout.svelte": {
+    "integrity": "sha512-3bc037435b2688578ea5c6e4ce87b962168f93c9abac3616109104c8958240473a54e4fcf19b64224cf6d9a4b536f549cccba6f9abb26f25487d47a9d1f85adb"
+  },
+  "src/routes/+page.svelte": {
+    "integrity": "sha512-7dabc424d7d51cb2cc871e25757957103181dfab96181a4e3c6e6f6b83cd75e77e7f426f82298cbd90b67b450b55b0c15dd2f1a50b4b2a5a5b731182b79192e4"
+  },
+  "svelte.config.js": {
+    "integrity": "sha512-6c300442c91c01ffa1a21f7bc0fd3683796daf05156b6d9c60fc56ba5e37c33a0995f6bd3a33d3a92d55fe55fbf6177bf276adceaf293c53bbca6a8e462df880"
+  },
+  "tailwind.config.js": {
+    "integrity": "sha512-bb44b10dbbd872964ef590f5903f5f0092305ce2882624a4b79caa3267ca6805812ba76b845e7fd3aa976628db6d8def5617e359eecffed23c06636f17e868a3"
+  },
+  "tsconfig.json": {
+    "integrity": "sha512-06f6917f2b1040ae84640cd1d70f8de0fb2a9ba50b91bd135736551ddd1c7e895a3a1568223cc7d3370c170a67f5f8c5a73ca4de0ec64ebb639af9237d7f8925"
+  },
+  "vite.config.ts": {
+    "integrity": "sha512-e032dbdb6e94db05dd62aa6abb66aeaeca09f137478f1ca11d16f7f38f6643f43256bf46aceb5371b50b9b68aaaac25744db10fd518494e8345bb5226a67736a"
+  }
+}

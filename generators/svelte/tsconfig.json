@@ -1,8 +1,11 @@
 {
   "extends": "./node_modules/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "include": [".specui/**/*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "build", "node_modules"]
 }

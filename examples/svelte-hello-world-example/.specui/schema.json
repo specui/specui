@@ -1,0 +1,86 @@
+{
+  "$ref": "#/definitions/Spec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Model": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "$ref": "#/definitions/Record<string,ModelAttribute>"
+        }
+      },
+      "type": "object"
+    },
+    "ModelAttribute": {
+      "additionalProperties": false,
+      "properties": {
+        "association": {
+          "$ref": "#/definitions/ModelAttributeAssociation"
+        },
+        "primaryKey": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "$ref": "#/definitions/ModelAttributeType"
+        },
+        "unique": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "ModelAttributeAssociation": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "type": {
+          "const": "belongsTo",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ModelAttributeType": {
+      "enum": [
+        "number",
+        "string"
+      ],
+      "type": "string"
+    },
+    "Record<string,Model>": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Model"
+      },
+      "type": "object"
+    },
+    "Record<string,ModelAttribute>": {
+      "additionalProperties": {
+        "$ref": "#/definitions/ModelAttribute"
+      },
+      "type": "object"
+    },
+    "Spec": {
+      "additionalProperties": false,
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/Record<string,Model>"
+        },
+        "name": {
+          "type": "string"
+        },
+        "private": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

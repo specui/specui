@@ -1,11 +1,13 @@
 import { getAi, stream } from '@specui/ai';
 
-import { askQuestion } from '../utils/askQuestion';
+import { prompter } from '../utils/askQuestion';
 import { loadSpec } from '../utils/loadSpec';
 import { generate } from './generateAction';
 
 export async function aiAction(options: { delete?: boolean; force?: boolean; message?: string }) {
   if (!options.message) {
+    const askQuestion = prompter();
+
     while (true) {
       const message = await askQuestion('> ');
 

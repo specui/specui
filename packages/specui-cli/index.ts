@@ -1,34 +1,6 @@
-require('ts-node').register({
-  $schema: 'https://json.schemastore.org/tsconfig',
-  display: 'Default',
-  compilerOptions: {
-    lib: ['esnext', 'dom'],
-    module: 'commonjs',
-    composite: false,
-    declaration: true,
-    declarationMap: true,
-    esModuleInterop: true,
-    forceConsistentCasingInFileNames: true,
-    inlineSources: false,
-    isolatedModules: true,
-    moduleResolution: 'node',
-    noUnusedLocals: false,
-    noUnusedParameters: false,
-    preserveWatchOutput: true,
-    resolveJsonModule: true,
-    skipLibCheck: true,
-    strict: true,
-    strictNullChecks: true,
-    outDir: 'dist/',
-    paths: {
-      '@/*': ['./*'],
-    },
-  },
-  exclude: ['node_modules'],
-});
-
 import { program } from 'commander';
-import { watchFile } from 'fs';
+import { existsSync, watchFile, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
 import { loadSpec } from './utils/loadSpec';
 
@@ -36,6 +8,43 @@ import { aiAction } from './actions/aiAction';
 import { generate } from './actions/generateAction';
 import { newAction } from './actions/newAction';
 import { prepareAction } from './actions/prepareAction';
+
+const tsConfigPath = resolve(process.cwd(), 'tsconfig.json');
+const tsConfigExists = existsSync(tsConfigPath);
+
+if (!tsConfigExists) {
+  writeFileSync(
+    tsConfigPath,
+    JSON.stringify({
+      compilerOptions: {
+        lib: ['esnext', 'dom'],
+        module: 'commonjs',
+        composite: false,
+        declaration: true,
+        declarationMap: true,
+        esModuleInterop: true,
+        forceConsistentCasingInFileNames: true,
+        inlineSources: false,
+        isolatedModules: true,
+        moduleResolution: 'node',
+        noUnusedLocals: false,
+        noUnusedParameters: false,
+        preserveWatchOutput: true,
+        resolveJsonModule: true,
+        skipLibCheck: true,
+        strict: true,
+        strictNullChecks: true,
+        outDir: 'dist/',
+        paths: {
+          '@/*': ['./*'],
+        },
+      },
+      exclude: ['node_modules'],
+    }),
+  );
+}
+
+require('ts-node').register();
 
 program.name('specui').description('Build UIs with Specs');
 

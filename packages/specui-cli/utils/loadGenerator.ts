@@ -1,6 +1,7 @@
 import drizzleGenerator from '@specui/drizzle-generator';
 import nextGenerator from '@specui/next-generator/dist/generator-node';
 import remotionGenerator from '@specui/remotion-generator';
+import svelteGenerator from '@specui/svelte-generator';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -15,6 +16,10 @@ export const loadGenerator = async (dir = process.cwd(), spec?: any) => {
 
   if (dir === '@specui/remotion-generator') {
     return remotionGenerator;
+  }
+
+  if (dir === '@specui/svelte-generator') {
+    return svelteGenerator;
   }
 
   const specUiDir = join(dir, '.specui');
