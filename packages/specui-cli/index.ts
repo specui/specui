@@ -32,12 +32,20 @@ import { watchFile } from 'fs';
 
 import { loadSpec } from './utils/loadSpec';
 
-import { prepareAction } from './actions/prepareAction';
-import { newAction } from './actions/newAction';
-import pkg from './package.json';
+import { aiAction } from './actions/aiAction';
 import { generate } from './actions/generateAction';
+import { newAction } from './actions/newAction';
+import { prepareAction } from './actions/prepareAction';
 
-program.name('specui').description(pkg.description).version(pkg.version);
+program.name('specui').description('Build UIs with Specs');
+
+program
+  .command('ai')
+  .description('Uses AI to write specs')
+  .option('-d, --delete', 'Delete files')
+  .option('-f, --force', 'Force generation')
+  .option('-m, --message <message>', 'Your AI message')
+  .action(aiAction);
 
 program
   .command('prepare')

@@ -1,3 +1,4 @@
+import { setNested } from '@specui/utils';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as vscode from 'vscode';
@@ -6,36 +7,6 @@ import { getAiModel } from '../utils/getAiModel';
 import { systemPrompt } from '../prompts/system';
 import { saveSpecCommand } from './saveSpecCommand';
 import { streamText } from 'ai';
-
-// Function to set nested values using a path array
-export function setNested(obj: any, path: (number | string)[], value: any): void {
-  if (path.length === 0) {
-    throw new Error('Path cannot be empty');
-  }
-
-  let current = obj;
-  for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i];
-
-    // If the key does not exist or is not an object, create an empty object
-    if (!(key in current) || typeof current[key] !== 'object') {
-      current[key] = {};
-    }
-
-    current = current[key];
-  }
-
-  // Set the value at the final key
-  if (value === '<<<undefined>>>') {
-    if (Array.isArray(current)) {
-      current.splice(Number(path[path.length - 1]), 1);
-    } else {
-      delete current[path[path.length - 1]];
-    }
-  } else {
-    current[path[path.length - 1]] = value;
-  }
-}
 
 export async function generateModifiedSpecCommand() {
   const model = await getAiModel();

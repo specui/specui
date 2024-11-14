@@ -210,6 +210,7 @@
   "devDependencies": {
     "@specui/cli": "workspace:*",
     "@specui/drizzle-generator": "workspace:*",
+    "@specui/utils": "workspace:*",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
     "@types/react": "^18",
