@@ -9,6 +9,7 @@ export default async function PackageFile(spec: Spec) {
     spec: {
       name: spec.name,
       version: spec.version,
+      private: spec.private,
       type: 'module',
       scripts: {
         dev: 'vite dev',

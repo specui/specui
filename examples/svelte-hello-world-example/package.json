@@ -1,5 +1,6 @@
 {
   "name": "@specui/svelte-hello-world-example",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
