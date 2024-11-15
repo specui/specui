@@ -3,8 +3,11 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { getFilesRecursively } from '../utils/getFilesRecursively';
+import { registerTsNode } from '@/utils/registerTsNode';
 
 export async function prepareAction() {
+  registerTsNode();
+
   const filesDir = join(process.cwd(), 'files');
   const jsFiles = getFilesRecursively(filesDir, filesDir);
 

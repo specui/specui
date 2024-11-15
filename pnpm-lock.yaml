@@ -754,6 +754,12 @@ importers:
 
   examples/svelte-hello-world-example:
     devDependencies:
+      '@skeletonlabs/skeleton':
+        specifier: ^2.10.3
+        version: 2.10.3(svelte@5.1.16)
+      '@skeletonlabs/tw-plugin':
+        specifier: ^0.4.0
+        version: 0.4.0(tailwindcss@3.4.13(ts-node@10.9.1(@types/node@22.9.0)(typescript@5.5.4)))
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.3.1(@sveltejs/kit@2.8.1(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.16)(vite@5.4.11(@types/node@22.9.0)(terser@5.33.0)))(svelte@5.1.16)(vite@5.4.11(@types/node@22.9.0)(terser@5.33.0)))
@@ -1136,6 +1142,12 @@ importers:
       '@specui/prettier':
         specifier: workspace:*
         version: link:../../packages/specui-prettier
+      '@specui/tailwind':
+        specifier: workspace:*
+        version: link:../../packages/specui-tailwind
+      '@specui/utils':
+        specifier: workspace:*
+        version: link:../../packages/specui-utils
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
@@ -1222,6 +1234,9 @@ importers:
       ts-json-schema-generator:
         specifier: ^2.3.0
         version: 2.3.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -4748,6 +4763,16 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
+  '@skeletonlabs/skeleton@2.10.3':
+    resolution: {integrity: sha512-O1RecF68zEVvZl3GgRS4emqWMUIQLHvTOFoqGOw/2OXCPE06IxUQrHQf2hnxCPxtGZNXY2YX8UNV38l+eH8GNQ==}
+    peerDependencies:
+      svelte: ^3.56.0 || ^4.0.0 || ^5.0.0
+
+  '@skeletonlabs/tw-plugin@0.4.0':
+    resolution: {integrity: sha512-v6Y4deBq9ByRx3kTRGgekhhYkWEYgNNNu8UXOwJngCStB7w8SwmbNFSeHkluxMbgCgMnJyp220EMpw9nj/rEsQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0'
+
   '@specui/toml@0.2.4':
     resolution: {integrity: sha512-4hYKGXi6i4nJ6y7g1b0ce6M7nwVhnyajEk3sjkeFHuNxdgskSxD8lPzvZwMshRm3lHIxSppz5r8ZXsskLMv1tw==}
 
@@ -6902,6 +6927,9 @@ packages:
     peerDependenciesMeta:
       jiti:
         optional: true
+
+  esm-env@1.0.0:
+    resolution: {integrity: sha512-Cf6VksWPsTuW01vU9Mk/3vRue91Zevka5SjyNf3nEpokFRuqt/KjUQoGAwq9qMmhpLTHmXzSIrFRw8zxWzmFBA==}
 
   esm-env@1.1.4:
     resolution: {integrity: sha512-oO82nKPHKkzIj/hbtuDYy/JHqBHFlMIW36SDiPCVsj87ntDLcWN+sJ1erdVryd4NxODacFTsdrIE3b7IamqbOg==}
@@ -13709,6 +13737,15 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.0
 
+  '@skeletonlabs/skeleton@2.10.3(svelte@5.1.16)':
+    dependencies:
+      esm-env: 1.0.0
+      svelte: 5.1.16
+
+  '@skeletonlabs/tw-plugin@0.4.0(tailwindcss@3.4.13(ts-node@10.9.1(@types/node@22.9.0)(typescript@5.5.4)))':
+    dependencies:
+      tailwindcss: 3.4.13(ts-node@10.9.1(@types/node@22.9.0)(typescript@5.5.4))
+
   '@specui/toml@0.2.4':
     dependencies:
       '@iarna/toml': 2.2.5
@@ -13911,7 +13948,7 @@ snapshots:
   '@types/eslint-scope@3.7.6':
     dependencies:
       '@types/eslint': 9.6.1
-      '@types/estree': 1.0.1
+      '@types/estree': 1.0.6
 
   '@types/eslint-scope@3.7.7':
     dependencies:
@@ -16877,6 +16914,8 @@ snapshots:
       jiti: 1.21.6
     transitivePeerDependencies:
       - supports-color
+
+  esm-env@1.0.0: {}
 
   esm-env@1.1.4: {}
 

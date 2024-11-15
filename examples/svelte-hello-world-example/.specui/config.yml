@@ -1,1 +1,3 @@
 generator: '@specui/svelte-generator'
+ignore:
+  - .svelte-kit/

@@ -14,17 +14,6 @@
     ".specui/schema.json",
     "dist"
   ],
-  "devDependencies": {
-    "@types/pluralize": "0.0.29",
-    "csstype": "^3.1.3",
-    "ts-json-schema-generator": "^2.3.0",
-    "typescript": "^5.2.2"
-  },
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "parse": "ts-json-schema-generator --path .specui/interfaces/Spec.ts --type Spec -o .specui/schema.json --no-ref-encode -j none --expose all --minify"
-  },
   "dependencies": {
     "@specui/core": "workspace:*",
     "@specui/git": "workspace:*",
@@ -37,5 +26,17 @@
     "change-case": "^3.1.0",
     "kysely": "^0.26.3",
     "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/pluralize": "0.0.29",
+    "csstype": "^3.1.3",
+    "tsconfig": "workspace:*",
+    "ts-json-schema-generator": "^2.3.0",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "parse": "ts-json-schema-generator --path .specui/interfaces/Spec.ts --type Spec -o .specui/schema.json --no-ref-encode -j none --expose all --minify"
   }
 }

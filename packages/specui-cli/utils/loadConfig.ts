@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { extname, join } from 'path';
 import { parse } from 'yaml';
+import { registerTsNode } from './registerTsNode';
 
 interface Config {
   generator?:
@@ -46,7 +47,14 @@ export const loadConfig = async (dir = process.cwd()): Promise<LoadedConfig | un
           };
 
         case '.js':
+          return {
+            file: filePath,
+            config: require(filePath).default,
+          };
+
         case '.ts':
+          registerTsNode();
+
           return {
             file: filePath,
             config: require(filePath).default,

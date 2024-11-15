@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from 'fs';
 import { extname, join } from 'path';
 import { parse } from 'yaml';
 
+import { registerTsNode } from './registerTsNode';
+
 export interface LoadedSpec {
   file: string;
   spec: any;
@@ -31,7 +33,14 @@ export const loadSpec = async (dir = process.cwd()): Promise<LoadedSpec | undefi
           };
 
         case '.js':
+          return {
+            file: filePath,
+            spec: require(filePath).default,
+          };
+
         case '.ts':
+          registerTsNode();
+
           return {
             file: filePath,
             spec: require(filePath).default,

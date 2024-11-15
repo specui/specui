@@ -2,6 +2,7 @@
   "name": "@specui/tailwind",
   "version": "0.2.4",
   "homepage": "https://specui.org",
+  "main": "dist/index.js",
   "author": {
     "name": "Chris Tate",
     "email": "chris@ctate.dev",

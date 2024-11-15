@@ -1,5 +1,6 @@
 import DrizzleSchema from '@specui/drizzle-generator/schema.json';
 import NextSchema from '@specui/next-generator/.specui/schema.json';
+import SvelteSchema from '@specui/svelte-generator/schema.json';
 import RemotionSchema from '@specui/remotion-generator/schema.json';
 import { existsSync, rmSync, readdirSync, statSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
@@ -155,7 +156,7 @@ export async function generate({
           : loadedConfig?.config.generator === '@specui/remotion-generator'
             ? RemotionSchema
             : loadedConfig?.config.generator === '@specui/svelte-generator'
-              ? DrizzleSchema
+              ? SvelteSchema
               : NextSchema,
         null,
         2,

@@ -28,7 +28,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "pnpm parse && tsc",
     "dev": "tsc --watch",
     "parse": "ts-json-schema-generator --path .specui/interfaces/Spec.ts --type Spec -o .specui/schema.json --no-ref-encode -j none --expose all --minify"
   },

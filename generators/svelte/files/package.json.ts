@@ -20,6 +20,8 @@ export default async function PackageFile(spec: Spec) {
         lint: 'prettier --check . && eslint .',
       },
       devDependencies: {
+        '@skeletonlabs/skeleton': '^2.10.3',
+        '@skeletonlabs/tw-plugin': '^0.4.0',
         '@sveltejs/adapter-auto': '^3.0.0',
         '@sveltejs/kit': '^2.0.0',
         '@sveltejs/vite-plugin-svelte': '^4.0.0',

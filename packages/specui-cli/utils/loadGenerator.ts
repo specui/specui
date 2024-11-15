@@ -5,6 +5,8 @@ import svelteGenerator from '@specui/svelte-generator';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
+import { registerTsNode } from './registerTsNode';
+
 export const loadGenerator = async (dir = process.cwd(), spec?: any) => {
   if (dir === '@specui/drizzle-generator') {
     return drizzleGenerator;
@@ -28,6 +30,9 @@ export const loadGenerator = async (dir = process.cwd(), spec?: any) => {
     const filePath = join(specUiDir, file);
 
     if (existsSync(filePath)) {
+      if (filePath.endsWith('.ts')) {
+        registerTsNode();
+      }
       return require(filePath).default;
     }
   }
