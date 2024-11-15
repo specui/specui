@@ -1,5 +1,16 @@
 # @specui/drizzle-generator
 
+## 0.2.5
+
+### Patch Changes
+
+- adds svelte + skeleton generator
+- Updated dependencies
+  - @specui/core@0.2.5
+  - @specui/handlebars@0.2.5
+  - @specui/json@0.2.5
+  - @specui/prettier@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes

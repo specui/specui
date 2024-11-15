@@ -1,5 +1,18 @@
 # @specui/cli
 
+## 0.2.5
+
+### Patch Changes
+
+- adds svelte + skeleton generator
+- Updated dependencies
+  - @specui/drizzle-generator@0.2.5
+  - @specui/next-generator@0.2.5
+  - @specui/remotion-generator@0.2.5
+  - @specui/svelte-generator@0.2.5
+  - @specui/ai@0.2.5
+  - @specui/utils@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes

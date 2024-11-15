@@ -1,5 +1,14 @@
 # @specui/web
 
+## 0.2.5
+
+### Patch Changes
+
+- adds svelte + skeleton generator
+- Updated dependencies
+  - @specui/next-generator@0.2.5
+  - @specui/vanilla-generator@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1015,8 +1015,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/specui-prettier-rust
       '@specui/toml':
-        specifier: ^0.2.4
-        version: 0.2.4
+        specifier: ^0.2.5
+        version: 0.2.5
       '@vercel/postgres-kysely':
         specifier: ^0.5.0
         version: 0.5.0(kysely@0.26.3)
@@ -4773,8 +4773,8 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0'
 
-  '@specui/toml@0.2.4':
-    resolution: {integrity: sha512-4hYKGXi6i4nJ6y7g1b0ce6M7nwVhnyajEk3sjkeFHuNxdgskSxD8lPzvZwMshRm3lHIxSppz5r8ZXsskLMv1tw==}
+  '@specui/toml@0.2.5':
+    resolution: {integrity: sha512-xVMsx9cSb7X+ax6unvtnoZmPwat2Yy7WfopjKrxw05taDJ2C66VmKJ3VTma3HF5V4lLfG5z69HI2zY5uyHUVPA==}
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -13746,7 +13746,7 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.13(ts-node@10.9.1(@types/node@22.9.0)(typescript@5.5.4))
 
-  '@specui/toml@0.2.4':
+  '@specui/toml@0.2.5':
     dependencies:
       '@iarna/toml': 2.2.5
 
