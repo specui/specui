@@ -4,6 +4,7 @@ import NextHelloWorld from './next-hello-world.json';
 import NextSpinningLoader from './next-spinning-loader.json';
 import NextVercelAnalytics from './next-vercel-analytics.json';
 import RemotionExample from './remotion-example.json';
+import SvelteHelloWorldExample from './svelte-hello-world-example.json';
 import TauriMba from './tauri-mba.json';
 
 export const examples: Record<string, any> = {
@@ -13,6 +14,7 @@ export const examples: Record<string, any> = {
   'next-spinning-loader': NextSpinningLoader,
   'next-vercel-analytics': NextVercelAnalytics,
   'remotion-example': RemotionExample,
+  'svelte-hello-world-example': SvelteHelloWorldExample,
   'tauri-mba': TauriMba,
 };
 
@@ -26,5 +28,7 @@ export const next = [
 ];
 
 export const remotion = ['remotion-example'];
+
+export const svelte = ['svelte-hello-world-example'];
 
 export const tauri = ['tauri-mba'];

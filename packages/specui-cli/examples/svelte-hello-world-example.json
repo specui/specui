@@ -1,0 +1,151 @@
+{
+  "title": "My App",
+  "name": "@specui/svelte-hello-world-example",
+  "private": true,
+  "theme": "sahara",
+  "pages": {
+    "/": {
+      "elements": [
+        {
+          "component": "app-bar",
+          "gridColumns": "grid-cols-3",
+          "slotDefault": "place-self-center text-center",
+          "slotTrail": "place-content-end",
+          "slots": {
+            "default": [
+              {
+                "class": "text-xl",
+                "text": "My App"
+              }
+            ],
+            "lead": "Back",
+            "trail": [
+              {
+                "class": "bg-black h-10 rounded-full text-white w-10 flex items-center justify-center",
+                "text": "CT"
+              }
+            ]
+          }
+        },
+        {
+          "class": [
+            "flex",
+            "flex-col",
+            "items-center",
+            "gap-4",
+            "p-4"
+          ],
+          "elements": [
+            {
+              "class": "alert variant-filled-error",
+              "elements": [
+                {
+                  "text": "⚠️"
+                },
+                {
+                  "class": "alert-message",
+                  "elements": [
+                    {
+                      "tag": "h3",
+                      "text": "Warning"
+                    },
+                    {
+                      "tag": "p",
+                      "text": "Admiratio acceptus currus concido depraedor illum cresco \nthalassinus. Derideo pauper varietas aspernatur magni. Suppono \nconor debitis cicuta causa villa tumultus terra ducimus.\n"
+                    }
+                  ]
+                },
+                {
+                  "class": "alert-actions",
+                  "elements": [
+                    {
+                      "class": "btn variant-filled cursor-pointer",
+                      "text": "Okay"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "elements": [
+                {
+                  "class": "flex flex-col gap-2 w-96",
+                  "elements": [
+                    {
+                      "class": "text-xl",
+                      "text": "Contact Us"
+                    },
+                    {
+                      "tag": "label",
+                      "class": "label",
+                      "elements": [
+                        {
+                          "tag": "span",
+                          "text": "Name"
+                        },
+                        {
+                          "tag": "input",
+                          "class": "input",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "label",
+                      "elements": [
+                        {
+                          "tag": "span",
+                          "text": "How did you hear about us?"
+                        },
+                        {
+                          "tag": "select",
+                          "class": "select",
+                          "elements": [
+                            {
+                              "tag": "option",
+                              "text": "ChatGPT"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "label",
+                      "class": "label",
+                      "elements": [
+                        {
+                          "tag": "span",
+                          "text": "Message"
+                        },
+                        {
+                          "tag": "textarea",
+                          "class": "textarea",
+                          "rows": "4"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "button",
+                      "class": "btn variant-filled cursor-pointer w-full",
+                      "disabled": true,
+                      "elements": [
+                        {
+                          "text": "Sending..."
+                        },
+                        {
+                          "component": "progress-radial",
+                          "width": "w-6"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

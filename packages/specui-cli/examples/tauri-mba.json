@@ -1,6 +1,7 @@
 {
-  "name": "vercel-dashboard-mba",
+  "name": "@specui/tauri-mba-example",
   "title": "Vercel",
+  "private": true,
   "domain": "dev.ctate",
   "version": "0.1.0",
   "license": "MIT",
