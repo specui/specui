@@ -7,8 +7,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@skeletonlabs/skeleton": "^2.10.3",

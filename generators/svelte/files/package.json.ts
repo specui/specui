@@ -17,7 +17,6 @@ export default async function PackageFile(spec: Spec) {
         check: 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json',
         'check:watch': 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch',
         format: 'prettier --write .',
-        lint: 'prettier --check . && eslint .',
       },
       devDependencies: {
         '@skeletonlabs/skeleton': '^2.10.3',
