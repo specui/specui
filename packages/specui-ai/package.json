@@ -39,8 +39,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "parse": "ts-node --project tsconfig.json ./scripts/parse.ts",
-    "test": "jest"
+    "parse": "ts-node --project tsconfig.json ./scripts/parse.ts"
   },
   "jest": {
     "preset": "ts-jest"
