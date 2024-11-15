@@ -69,12 +69,6 @@ export async function newAction(options: { example?: string; generator?: string 
 
   await mkdir(dirname(specFile), { recursive: true });
 
-  const generators: Record<string, string> = {
-    drizzle: '@specui/next-drizzle',
-    next: '@specui/next-generator',
-    remotion: '@specui/remotion-generator',
-  };
-
   await writeFile(
     configFile,
     stringify({
