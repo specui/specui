@@ -87,6 +87,6 @@ export interface BaseElement {
   slotTrail?: string;
 
   disabled?: boolean;
-  rows?: number;
+  rows?: string;
   width?: string;
 }

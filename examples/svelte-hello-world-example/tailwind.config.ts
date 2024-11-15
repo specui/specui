@@ -17,7 +17,7 @@ export default {
 
   plugins: [
     skeleton({
-      themes: { preset: ['wintry'] },
+      themes: { preset: ['sahara'] },
     }),
   ],
 } satisfies Config;

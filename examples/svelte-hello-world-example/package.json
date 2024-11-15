@@ -1,4 +1,5 @@
 {
+  "name": "@specui/svelte-hello-world-example",
   "type": "module",
   "scripts": {
     "dev": "vite dev",

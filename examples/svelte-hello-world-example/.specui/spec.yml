@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=./schema.json
+title: My App
+name: '@specui/svelte-hello-world-example'
 private: true
-theme: wintry
+theme: sahara
 pages:
   /:
     elements:
@@ -23,7 +25,7 @@ pages:
           - gap-4
           - p-4
         elements:
-          - class: alert variant-filled-error max-w-96
+          - class: alert variant-filled-error
             elements:
               - text: ⚠️
               - class: alert-message
@@ -33,7 +35,8 @@ pages:
                   - tag: p
                     text: |
                       Admiratio acceptus currus concido depraedor illum cresco 
-                      thalassinus. Derideo pauper varietas aspernatur magni.
+                      thalassinus. Derideo pauper varietas aspernatur magni. Suppono 
+                      conor debitis cicuta causa villa tumultus terra ducimus.
               - class: alert-actions
                 elements:
                   - class: btn variant-filled cursor-pointer

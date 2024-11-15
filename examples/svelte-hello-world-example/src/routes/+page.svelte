@@ -15,13 +15,13 @@
   ></AppBar
 >
 <div class="flex flex-col items-center gap-4 p-4">
-  <div class="alert variant-filled-error max-w-96">
+  <div class="alert variant-filled-error">
     <div>⚠️</div>
     <div class="alert-message">
       <h3>Warning</h3>
       <p>
         Admiratio acceptus currus concido depraedor illum cresco thalassinus. Derideo pauper
-        varietas aspernatur magni.
+        varietas aspernatur magni. Suppono conor debitis cicuta causa villa tumultus terra ducimus.
       </p>
     </div>
     <div class="alert-actions"><div class="btn variant-filled cursor-pointer">Okay</div></div>

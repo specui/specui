@@ -54,6 +54,9 @@
         "defaultChecked": {
           "type": "string"
         },
+        "disabled": {
+          "type": "boolean"
+        },
         "elements": {
           "$ref": "#/definitions/ElementArrayOrRef"
         },
@@ -140,13 +143,13 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1820-247366393-0-1821)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1860-247366393-0-1861)>"
         },
         "required": {
           "type": "boolean"
         },
         "rows": {
-          "type": "number"
+          "type": "string"
         },
         "slotDefault": {
           "type": "string"
@@ -179,6 +182,9 @@
           "type": "string"
         },
         "value": {
+          "type": "string"
+        },
+        "width": {
           "type": "string"
         }
       },
@@ -389,6 +395,9 @@
         "defaultChecked": {
           "type": "string"
         },
+        "disabled": {
+          "type": "boolean"
+        },
         "elements": {
           "$ref": "#/definitions/ElementArrayOrRef"
         },
@@ -475,13 +484,13 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1820-247366393-0-1821)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1860-247366393-0-1861)>"
         },
         "required": {
           "type": "boolean"
         },
         "rows": {
-          "type": "number"
+          "type": "string"
         },
         "slotDefault": {
           "type": "string"
@@ -531,6 +540,9 @@
           "type": "string"
         },
         "value": {
+          "type": "string"
+        },
+        "width": {
           "type": "string"
         }
       },
@@ -590,7 +602,7 @@
       ],
       "type": "string"
     },
-    "Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1820-247366393-0-1821)>": {
+    "Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1860-247366393-0-1861)>": {
       "additionalProperties": {
         "anyOf": [
           {
@@ -701,6 +713,9 @@
         "defaultChecked": {
           "type": "string"
         },
+        "disabled": {
+          "type": "boolean"
+        },
         "elements": {
           "$ref": "#/definitions/ElementArrayOrRef"
         },
@@ -787,13 +802,13 @@
           "type": "string"
         },
         "props": {
-          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1820-247366393-0-1821)>"
+          "$ref": "#/definitions/Record<string,(boolean|number|string|structure-247366393-1404-1436-247366393-1358-1436-247366393-1338-1440-247366393-1328-1441-247366393-745-1860-247366393-0-1861)>"
         },
         "required": {
           "type": "boolean"
         },
         "rows": {
-          "type": "number"
+          "type": "string"
         },
         "slotDefault": {
           "type": "string"
@@ -826,6 +841,9 @@
           "type": "string"
         },
         "value": {
+          "type": "string"
+        },
+        "width": {
           "type": "string"
         }
       },
