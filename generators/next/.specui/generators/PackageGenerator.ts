@@ -4,17 +4,20 @@ import semver from 'semver';
 
 import { Spec } from '../interfaces/Spec';
 
+interface PackageJson {
+  [key: string]: unknown;
+  dependencies?: Record<string, unknown>;
+  devDependencies?: Record<string, unknown>;
+  scripts?: Record<string, unknown>;
+}
+
 export async function PackageGenerator({
-  existsSync,
+  pkg = {},
   spec,
 }: {
-  existsSync?: (path: string) => boolean;
+  pkg?: PackageJson;
   spec: Spec;
 }) {
-  const pkg = existsSync?.(`${process.cwd()}/package.json`)
-    ? require(`${process.cwd()}/package.json`)
-    : {};
-
   return await generate({
     engine: JsonEngine,
     spec: {

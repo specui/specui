@@ -9,6 +9,7 @@ allowBuilds:
   '@sveltejs/kit': false
   '@swc/core': false
   bufferutil: false
+  core-js-pure: false
   esbuild: false
   prisma: false
   sharp: false

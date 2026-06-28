@@ -1,12 +1,13 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 import { DocsMenu } from '@/components/DocsMenu';
 import styles from './layout.module.css';
 
 export interface DocsLayoutProps {
-  children?: JSX.Element;
+  children?: ReactNode;
 }
 
 export default function DocsLayoutClient({ children }: DocsLayoutProps) {

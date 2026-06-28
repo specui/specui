@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Playground } from '@/components/Playground/Playground';
-import { safeDump } from 'js-yaml';
+import { dump } from 'js-yaml';
 import { FramerMotionAnimationExample } from '@/specs/FramerMotionAnimationExample';
 import { NextSpec } from '@/specs/NextSpec';
 import { TauriDesktopAppExample } from '@/specs/TauriDesktopAppExample';
@@ -588,44 +588,46 @@ pages:
                 text: Add
 `;
 
-export function generateMetadata({
-  params,
-}: {
-  params: {
+type PlaygroundNextPageProps = {
+  params: Promise<{
     spec: string;
-  };
-}): Metadata {
+  }>;
+};
+
+export async function generateMetadata({
+  params,
+}: PlaygroundNextPageProps): Promise<Metadata> {
+  const { spec } = await params;
+
   return {
     title: 'Next.js Playground - SpecUI',
     description: 'Build UIs with Specs',
     openGraph: {
-      images: [`https://specui.org/api/og?path=/playground/next/${params.spec}`],
+      images: [`https://specui.org/api/og?path=/playground/next/${spec}`],
       title: 'Next.js Playground - SpecUI',
       url: 'https://specui.org/playground/next',
     },
   };
 }
 
-export default function PlaygroundNextPage({
+export default async function PlaygroundNextPage({
   params,
-}: {
-  params: {
-    spec: string;
-  };
-}) {
+}: PlaygroundNextPageProps) {
+  const { spec: specName } = await params;
+
   const specs: Record<string, string> = {
     'clerk-authentication-example': ClerkAuthenticationExample,
-    'framer-motion-animation-example': safeDump(FramerMotionAnimationExample),
+    'framer-motion-animation-example': dump(FramerMotionAnimationExample),
     'spinning-loader-example': SpinningLoaderExample,
     'photography-website-example': PhotographyWebsiteExampleSpec,
-    'resend-contact-form-example': safeDump(ResendContactFormExample),
+    'resend-contact-form-example': dump(ResendContactFormExample),
     'shadcn-accordion-example': ShadcnAccordionExampleSpec,
-    'tauri-desktop-app-example': safeDump(TauriDesktopAppExample),
+    'tauri-desktop-app-example': dump(TauriDesktopAppExample),
     'todo-example': TodoExample,
     'vercel-analytics-example': VercelAnalyticsExample,
   };
 
-  const spec = specs[params.spec] || safeDump(NextSpec);
+  const spec = specs[specName] || dump(NextSpec);
 
   return (
     <main

@@ -87,7 +87,8 @@ export async function GET(request: Request) {
             textAlign: 'center',
           }}
         >
-          <img height={256} src="https://specui.org/logo.png" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="SpecUI logo" height={256} src="https://specui.org/logo.png" />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', gap: '.5em' }}>
               <span style={{ color: 'gray' }}>page:</span>

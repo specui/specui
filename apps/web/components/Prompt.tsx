@@ -1,7 +1,7 @@
 'use client';
 
-import { useChat } from 'ai/react';
-import { useEffect } from 'react';
+import { useChat } from '@ai-sdk/react';
+import { FormEvent, useEffect, useState } from 'react';
 
 export function Prompt({
   onChange = () => {},
@@ -10,12 +10,18 @@ export function Prompt({
   onChange: (value: string) => void;
   value?: string;
 }) {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, sendMessage } = useChat();
+  const [input, setInput] = useState('');
 
   useEffect(() => {
     const message = messages
       .filter((m) => m.role === 'assistant')
-      .map((m) => m.content)
+      .map((m) =>
+        m.parts
+          .filter((part) => part.type === 'text')
+          .map((part) => part.text)
+          .join(''),
+      )
       .slice(-1)[0];
 
     if (!message) {
@@ -27,6 +33,17 @@ export function Prompt({
         message.replace('```yaml', '').replace('```', ''),
     );
   }, [messages, onChange]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!input.trim()) {
+      return;
+    }
+
+    void sendMessage({ text: input });
+    setInput('');
+  };
 
   return (
     <div className="bg-blue-600 flex items-center p-2 gap-2 mx-auto w-full">
@@ -43,7 +60,7 @@ export function Prompt({
           className="px-4 py-2 rounded-full w-96"
           id="prompt"
           name="prompt"
-          onChange={handleInputChange}
+          onChange={(event) => setInput(event.target.value)}
           placeholder=""
           type="text"
           value={input}

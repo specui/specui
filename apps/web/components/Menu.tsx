@@ -1,7 +1,7 @@
 'use client';
 
-import { GitHub, MenuRounded } from '@mui/icons-material';
 import clsx from 'clsx';
+import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -29,7 +29,7 @@ export function Menu() {
   return (
     <>
       <button className="md:hidden" onClick={() => setShow(!show)}>
-        <MenuRounded className="text-4xl xs:text-3xl sm:text-2xl" />
+        <MenuIcon className="h-9 w-9 xs:h-8 xs:w-8 sm:h-6 sm:w-6" />
       </button>
       <ul className="gap-4 hidden md:flex">
         <MenuContent />

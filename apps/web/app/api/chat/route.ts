@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next';
 import { openai } from '@ai-sdk/openai';
 import { Ratelimit } from '@upstash/ratelimit';
-import { streamText, convertToCoreMessages } from 'ai';
+import { streamText, convertToModelMessages } from 'ai';
 import { kv } from '@vercel/kv';
 import { authOptions } from '@/app/auth';
 import { prompt } from './prompt';
@@ -34,8 +34,8 @@ export async function POST(request: Request) {
   const result = await streamText({
     system: prompt,
     model: openai('gpt-4o-mini'),
-    messages: convertToCoreMessages(messages),
+    messages: await convertToModelMessages(messages),
   });
 
-  return result.toDataStreamResponse();
+  return result.toUIMessageStreamResponse();
 }

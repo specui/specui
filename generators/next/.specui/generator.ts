@@ -36,7 +36,7 @@ export default async function generator(
   spec: Spec,
   PrettierProcessor: IProcessor<any>,
   // IconGenerator: any,
-  existsSync?: (path: string) => boolean,
+  pkg?: Record<string, unknown>,
 ) {
   const routerFolder = spec.next?.routing ?? 'app';
 
@@ -671,7 +671,7 @@ export default async function generator(
       `,
     }),
     'package.json': await PackageGenerator({
-      existsSync,
+      pkg,
       spec,
     }),
     'postcss.config.mjs': await PostcssConfigGenerator({ PrettierProcessor }),

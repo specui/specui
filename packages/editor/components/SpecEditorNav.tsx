@@ -1,8 +1,8 @@
-import { FC, ReactNode, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { useSpecStore } from '@/stores/spec';
 import clsx from 'clsx';
-import { ArrowDropDown, ArrowRight } from '@mui/icons-material';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface SpecItem {
   name: string;
@@ -50,7 +50,11 @@ export const SpecEditorNav: FC = () => {
                 specItem.path
               }`}
             >
-              {expanded[specItem.name] ? <ArrowDropDown /> : <ArrowRight />}
+              {expanded[specItem.name] ? (
+                <ChevronDown className="h-5 w-5" />
+              ) : (
+                <ChevronRight className="h-5 w-5" />
+              )}
             </button>
           ) : (
             <div style={{ width: 24 }} />

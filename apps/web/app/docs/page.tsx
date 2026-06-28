@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@/components/Markdown';
 
 export const metadata: Metadata = {
   title: 'Docs - SpecUI',
@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <main className="prose">
-      <ReactMarkdown className="flex flex-col gap-4">{content}</ReactMarkdown>
+      <Markdown>{content}</Markdown>
     </main>
   );
 }

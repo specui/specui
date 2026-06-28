@@ -1,6 +1,6 @@
 'use client';
 
-import { GitHub, StarOutline } from '@mui/icons-material';
+import { Github, Star } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -35,7 +35,7 @@ export function Stargazers({ owner, repo }: StargazersProps) {
       target="_blank"
     >
       <div className="border-r border-r-gray-300 flex gap-1 items-center pr-2 dark:border-r-gray-700">
-        <StarOutline />
+        <Star className="h-4 w-4" />
         {stargazers ? (
           <div className="text-sm">{stargazers}</div>
         ) : (
@@ -44,7 +44,7 @@ export function Stargazers({ owner, repo }: StargazersProps) {
           </div>
         )}
       </div>
-      <GitHub />
+      <Github className="h-5 w-5" />
     </Link>
   );
 }

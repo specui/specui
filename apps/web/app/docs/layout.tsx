@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 import DocsLayoutClient from './client';
 
 export interface DocsLayoutProps {
-  children?: JSX.Element;
+  children?: ReactNode;
 }
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import { GitHub } from '@mui/icons-material';
+import { Github } from 'lucide-react';
 import { Metadata } from 'next';
 
 import { ExternalLink } from '@/components/ExternalLink';
@@ -63,7 +63,7 @@ export default function GeneratorsPage() {
                 Try It Online
               </a> */}
               <ExternalLink href={generator.githubUrl}>
-                <GitHub />
+                <Github className="h-6 w-6" />
               </ExternalLink>
               <ExternalLink className="mt-1" href={generator.npmUrl}>
                 <NpmIcon size={24} />

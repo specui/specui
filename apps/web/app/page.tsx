@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 
 import { TypingEffect } from '@/components/TypingEffect';
-import { CopyAll } from '@mui/icons-material';
 import Bg from '@/components/Bg';
 import { Install } from '@/components/Install';
 

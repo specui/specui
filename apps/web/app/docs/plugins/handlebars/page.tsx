@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@/components/Markdown';
 
 async function getData() {
   const content = await readFile(join(process.cwd(), './docs/plugins/handlebars.md'), 'utf8');
@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <main className="prose">
-      <ReactMarkdown className="flex flex-col gap-4">{content}</ReactMarkdown>
+      <Markdown>{content}</Markdown>
     </main>
   );
 }

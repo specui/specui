@@ -2,19 +2,20 @@
 
 import { WebContainer } from '@webcontainer/api';
 import Editor from '@monaco-editor/react';
+import Link from 'next/link';
 import nextGenerator from '@specui/next-generator/dist/generator-browser';
 import NextSchema from '@specui/next-generator/.specui/schema.json';
 import vanillaGenerator from '@specui/vanilla-generator/dist/generator-browser';
 import VanillaSchema from '@specui/vanilla-generator/.specui/schema.json';
 import axios from 'axios';
 import { SpecEditor } from 'editor';
-import { safeDump, safeLoad } from 'js-yaml';
+import { dump, load } from 'js-yaml';
 import { configureMonacoYaml } from 'monaco-yaml';
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Convert from 'ansi-to-html';
 
 import { EditorTreeView } from '@/components/EditorTreeView';
-import { Popover } from '@/components/Popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useEditorStore } from '@/stores/editor';
 // import { useSpecStore } from '@/stores/spec';
 import { buildFileSystemTree } from '@/utils/buildFileSystemTree';
@@ -25,7 +26,7 @@ import { getEditorLanguage } from '@/utils/getEditorLanguage';
 import { transform } from '@/utils/transform';
 import { JsIcon } from '@/icons/JsIcon';
 import { NextIcon } from '@/icons/NextIcon';
-import { ArrowDropDown } from '@mui/icons-material';
+import { ChevronDown } from 'lucide-react';
 // import { Prompt } from '../Prompt';
 
 export interface PlaygroundProps {
@@ -37,6 +38,30 @@ export interface PlaygroundProps {
 const ansi = new Convert({
   fg: 'rgb(var(--foreground-rgb))',
 });
+
+function getInitialValue(generator: PlaygroundProps['generator'], spec?: string) {
+  if (generator === 'vanilla') {
+    return (
+      '# yaml-language-server: $schema=/schemas/vanilla-generator-schema.json\n' +
+      (spec || dump(VanillaSpec))
+    );
+  }
+
+  return (
+    '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' +
+    (spec || dump(NextSpec))
+  );
+}
+
+function getPreferredEditorTheme() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'my-dark-theme'
+    : 'my-light-theme';
+}
 
 export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'code', spec }) => {
   // const spec = useSpecStore((state) => state.spec);
@@ -53,39 +78,31 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
   const bootRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const [prevLanguage, setPrevLanguage] = useState<string | undefined>(undefined);
-
   // const value = useMemo(() => {
-  //   return '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + safeDump(spec);
+  //   return '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' + dump(spec);
   // }, [spec]);
 
-  const editorLanguage = useMemo(() => {
-    if (selected.includes('.')) {
-      const newLanguage = getEditorLanguage(selected);
-      setPrevLanguage(newLanguage);
-      return newLanguage;
-    } else {
-      return prevLanguage;
-    }
-  }, [selected, prevLanguage]);
+  const editorLanguage = selected.includes('.') ? getEditorLanguage(selected) : undefined;
+  const selectedCode = typeof code[selected] === 'string' ? code[selected] : '';
 
-  const popoverTargetRef = useRef<HTMLButtonElement>(null);
-  const emulator = useRef<any>();
+  const emulator = useRef(false);
   const [editor, setEditor] = useState<'visual' | 'yaml'>('yaml');
   const [isBootingUp, setIsBootingUp] = useState(false);
   const [log, setLog] = useState('');
   const [output, setOutput] = useState<'preview' | 'code'>(initialOutput);
   const [showPopover, setShowPopover] = useState(false);
-  const [theme, setTheme] = useState('');
+  const [theme, setTheme] = useState(getPreferredEditorTheme);
   const [webcontainerInstance, setWebcontainerInstance] = useState<WebContainer>();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(() => getInitialValue(generator, spec));
 
   const handleGenerate = useCallback(async () => {
     try {
-      const spec = safeLoad(value || '') as any;
+      const spec = load(value || '');
 
       const result =
-        generator === 'next' ? await nextGenerator(spec) : await vanillaGenerator(spec);
+        generator === 'next'
+          ? await nextGenerator(spec as Parameters<typeof nextGenerator>[0])
+          : await vanillaGenerator(spec as Parameters<typeof vanillaGenerator>[0]);
       const data = transform(result);
 
       if (process.env.NEXT_PUBLIC_SPECUI_LIVE_API) {
@@ -116,7 +133,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
     handleGenerate();
   }, [handleGenerate]);
 
-  async function init(code: any) {
+  async function init(code: Record<string, string>) {
     if (!iframeRef.current || !Object.keys(code).length || emulator.current) {
       return;
     }
@@ -185,20 +202,6 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
     }
   }, [generator, iframeRef, output, code]);
 
-  useMemo(() => {
-    if (generator === 'vanilla') {
-      setValue(
-        '# yaml-language-server: $schema=/schemas/vanilla-generator-schema.json\n' +
-          (spec || safeDump(VanillaSpec)),
-      );
-    } else {
-      setValue(
-        '# yaml-language-server: $schema=/schemas/next-generator-schema.json\n' +
-          (spec || safeDump(NextSpec)),
-      );
-    }
-  }, [generator, spec]);
-
   useEffect(() => {
     if (!bootRef.current) {
       return;
@@ -212,7 +215,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
     }
 
     async function update() {
-      const fileSystemTree = buildFileSystemTree(code as any);
+      const fileSystemTree = buildFileSystemTree(code as Record<string, string>);
       await webcontainerInstance!.mount(fileSystemTree);
     }
 
@@ -225,7 +228,6 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
     };
 
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    setTheme(prefersDarkScheme.matches ? 'my-dark-theme' : 'my-light-theme');
 
     prefersDarkScheme.addEventListener('change', updateTheme);
 
@@ -274,47 +276,45 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
     <div className="flex flex-col" style={{ height: '100%' }}>
       {/* <Prompt onChange={(value) => setValue(value)} value={value} /> */}
       <div className="border-b border-b-gray-100 flex justify-between px-4 py-2 dark:border-b-gray-900">
-        <button
-          className="flex items-center"
-          onClick={() => setShowPopover(!showPopover)}
-          ref={popoverTargetRef}
-        >
-          {generator === 'next' ? (
-            <>
+        <Popover open={showPopover} onOpenChange={setShowPopover}>
+          <PopoverTrigger asChild>
+            <button className="flex items-center" type="button">
+              {generator === 'next' ? (
+                <>
+                  <NextIcon />
+                  <span className="ml-2">@specui/next-generator</span>
+                </>
+              ) : (
+                <>
+                  <JsIcon />
+                  <span className="ml-2">@specui/vanilla-generator</span>
+                </>
+              )}
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="flex w-fit min-w-64 flex-col p-1">
+            <Link
+              className={cn('flex items-center gap-2 p-2 text-gray-400 dark:text-gray-500', {
+                'text-black dark:text-white': generator === 'next',
+              })}
+              href="/playground/next"
+              onClick={() => setShowPopover(false)}
+            >
               <NextIcon />
-              <span className="ml-2">@specui/next-generator</span>
-            </>
-          ) : (
-            <>
+              <span>@specui/next-generator</span>
+            </Link>
+            <Link
+              className={cn('flex items-center gap-2 p-2 text-gray-400 dark:text-gray-500', {
+                'text-black dark:text-white': generator === 'vanilla',
+              })}
+              href="/playground"
+              onClick={() => setShowPopover(false)}
+            >
               <JsIcon />
-              <span className="ml-2">@specui/vanilla-generator</span>
-            </>
-          )}
-          <ArrowDropDown />
-        </button>
-        <Popover
-          isOpen={showPopover}
-          onClose={() => setShowPopover(false)}
-          target={popoverTargetRef}
-        >
-          <a
-            className={cn('flex items-center gap-2 p-2 text-gray-400 dark:text-gray-500', {
-              'text-black dark:text-white': generator === 'next',
-            })}
-            href="/playground/next"
-          >
-            <NextIcon />
-            <span>@specui/next-generator</span>
-          </a>
-          <a
-            className={cn('flex items-center gap-2 p-2 text-gray-400 dark:text-gray-500', {
-              'text-black dark:text-white': generator === 'vanilla',
-            })}
-            href="/playground"
-          >
-            <JsIcon />
-            <span>@specui/vanilla-generator</span>
-          </a>
+              <span>@specui/vanilla-generator</span>
+            </Link>
+          </PopoverContent>
         </Popover>
         {/* <div className="border border-gray-200 p-1 bottom-4 rounded-lg right-6 dark:border-gray-700">
           <button
@@ -474,7 +474,7 @@ export const Playground: FC<PlaygroundProps> = ({ generator, initialOutput = 'co
                   readOnly: true,
                 }}
                 theme={theme}
-                value={code[selected] as string}
+                value={selectedCode}
               />
             </div>
           </div>

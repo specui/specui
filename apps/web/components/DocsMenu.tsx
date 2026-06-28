@@ -1,7 +1,7 @@
 'use client';
 
 import cn from '@/utils/cn';
-import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, useState } from 'react';
@@ -121,8 +121,8 @@ export function DocsMenu({ onSelect = () => {} }) {
                 onClick={() => toggleSection(page.text)}
               >
                 {page.text}
-                <ChevronRightIcon
-                  className="transition-transform"
+                <ChevronRight
+                  className="h-4 w-4 transition-transform"
                   style={{ transform: collapsed.includes(page.text) ? 'rotate(90deg)' : undefined }}
                 />
               </button>

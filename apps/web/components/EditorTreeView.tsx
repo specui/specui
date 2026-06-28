@@ -1,13 +1,5 @@
-import {
-  ChevronRight as ChevronRightIcon,
-  Code,
-  ExpandMore as ExpandMoreIcon,
-  FileCopy,
-  Info,
-  KeySharp,
-} from '@mui/icons-material';
-import { TreeItem, TreeView } from '@mui/x-tree-view';
-import { FC, SyntheticEvent, useMemo } from 'react';
+import { ChevronDown, ChevronRight, Code2, File, FileText, Info, KeyRound } from 'lucide-react';
+import { FC, useMemo } from 'react';
 
 import { TsIcon } from '@/icons/TsIcon';
 import { JsIcon } from '@/icons/JsIcon';
@@ -16,6 +8,7 @@ import { GitIcon } from '@/icons/GitIcon';
 import { CssIcon } from '@/icons/CssIcon';
 import { SvgIcon } from '@/icons/SvgIcon';
 import { RenderTree, useEditorStore } from '@/stores/editor';
+import cn from '@/utils/cn';
 
 function sortRenderTree(tree: RenderTree[]): RenderTree[] {
   return tree
@@ -48,74 +41,102 @@ export const EditorTreeView: FC = () => {
 
   const sortedTree = useMemo(() => sortRenderTree(data), [data]);
 
-  const handleToggle = (_: SyntheticEvent, nodeIds: string[]) => {
-    setExpanded(nodeIds);
+  const toggleNode = (nodeId: string) => {
+    setExpanded(
+      expanded.includes(nodeId)
+        ? expanded.filter((expandedId) => expandedId !== nodeId)
+        : [...expanded, nodeId],
+    );
   };
 
-  const handleSelect = (_: SyntheticEvent, nodeId: string) => {
-    setSelected(nodeId);
+  const iconClassName = 'h-4 w-4 shrink-0';
+
+  const getFileIcon = (name: string) => {
+    if (name.startsWith('LICENSE')) {
+      return <KeyRound className={iconClassName} />;
+    }
+    if (name.endsWith('.css')) {
+      return <CssIcon />;
+    }
+    if (name.endsWith('.gitignore')) {
+      return <GitIcon />;
+    }
+    if (name.endsWith('.htm') || name.endsWith('.html')) {
+      return <HtmlIcon />;
+    }
+    if (name.endsWith('.js') || name.endsWith('.jsx')) {
+      return <JsIcon />;
+    }
+    if (name.endsWith('.json')) {
+      return <Code2 className={iconClassName} />;
+    }
+    if (name.endsWith('.md')) {
+      return <Info className={iconClassName} />;
+    }
+    if (name.endsWith('.svg')) {
+      return <SvgIcon />;
+    }
+    if (name.endsWith('.ts') || name.endsWith('.tsx')) {
+      return <TsIcon />;
+    }
+    if (name.endsWith('.txt')) {
+      return <FileText className={iconClassName} />;
+    }
+    return <File className={iconClassName} />;
   };
 
-  const renderTree = (nodes: RenderTree[]) => {
+  const renderTree = (nodes: readonly RenderTree[], depth = 0) => {
     return (
       <>
-        {nodes.map((node) => (
-          <TreeItem
-            key={node.id}
-            endIcon={
-              node.name.startsWith('LICENSE') ? (
-                <KeySharp />
-              ) : node.name.endsWith('.css') ? (
-                <CssIcon />
-              ) : node.name.endsWith('.gitignore') ? (
-                <GitIcon />
-              ) : node.name.endsWith('.htm') || node.name.endsWith('.html') ? (
-                <HtmlIcon />
-              ) : node.name.endsWith('.js') || node.name.endsWith('.jsx') ? (
-                <JsIcon />
-              ) : node.name.endsWith('.json') ? (
-                <Code />
-              ) : node.name.endsWith('.md') ? (
-                <Info />
-              ) : node.name.endsWith('.svg') ? (
-                <SvgIcon />
-              ) : node.name.endsWith('.ts') || node.name.endsWith('.tsx') ? (
-                <TsIcon />
-              ) : (
-                <FileCopy />
-              )
-            }
-            nodeId={node.id}
-            label={
+        {nodes.map((node) => {
+          const isExpanded = expanded.includes(node.id);
+          const isDirectory = Array.isArray(node.children);
+
+          return (
+            <li key={node.id}>
               <div
-                style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  fontSize: '1rem',
-                  fontWeight: '200',
-                }}
+                className={cn(
+                  'flex h-8 min-w-0 items-center gap-1 rounded-sm pr-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-black dark:text-gray-500 dark:hover:bg-gray-900 dark:hover:text-white',
+                  {
+                    'bg-gray-100 text-black dark:bg-gray-900 dark:text-white': selected === node.id,
+                  },
+                )}
+                style={{ paddingLeft: `${depth * 0.75}rem` }}
               >
-                {node.name}
+                {isDirectory ? (
+                  <button
+                    aria-expanded={isExpanded}
+                    aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${node.name}`}
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-sm hover:bg-gray-200 dark:hover:bg-gray-800"
+                    onClick={() => toggleNode(node.id)}
+                    type="button"
+                  >
+                    {isExpanded ? (
+                      <ChevronDown className={iconClassName} />
+                    ) : (
+                      <ChevronRight className={iconClassName} />
+                    )}
+                  </button>
+                ) : (
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center">
+                    {getFileIcon(node.name)}
+                  </span>
+                )}
+                <button
+                  className="min-w-0 flex-1 truncate text-left"
+                  onClick={() => setSelected(node.id)}
+                  type="button"
+                >
+                  {node.name}
+                </button>
               </div>
-            }
-          >
-            {Array.isArray(node.children) ? renderTree(node.children) : null}
-          </TreeItem>
-        ))}
+              {isDirectory && isExpanded ? <ul>{renderTree(node.children!, depth + 1)}</ul> : null}
+            </li>
+          );
+        })}
       </>
     );
   };
 
-  return (
-    <TreeView
-      aria-label="controlled"
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      expanded={expanded}
-      selected={selected}
-      onNodeToggle={handleToggle}
-      onNodeSelect={handleSelect}
-    >
-      {renderTree(sortedTree)}
-    </TreeView>
-  );
+  return <ul aria-label="Generated files">{renderTree(sortedTree)}</ul>;
 };

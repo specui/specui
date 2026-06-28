@@ -1,5 +1,5 @@
-import { Add as AddIcon, Close as DeleteIcon } from '@mui/icons-material';
 import clsx from 'clsx';
+import { Plus, X } from 'lucide-react';
 import { FC, KeyboardEvent, useMemo, useState } from 'react';
 
 import { useSpecStore } from '@/stores/spec';
@@ -250,9 +250,9 @@ export const SpecEditorContent: FC = () => {
                   document.getElementById(`key-${newPath.join('/')}`)!.focus();
                 });
               }}
-              title="Delete (cmd+shift+k)"
+              title="Add"
             >
-              <AddIcon />
+              <Plus className="h-4 w-4" />
             </button>
             <button
               onMouseDown={() => {
@@ -263,7 +263,7 @@ export const SpecEditorContent: FC = () => {
               }}
               title="Delete (cmd+shift+k)"
             >
-              <DeleteIcon />
+              <X className="h-4 w-4" />
             </button>
           </div>
         )}

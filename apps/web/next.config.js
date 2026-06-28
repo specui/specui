@@ -1,5 +1,10 @@
+const path = require('node:path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: path.join(__dirname, '../..'),
+  },
   async headers() {
     return [
       {
@@ -16,16 +21,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  webpack: {
-    module: (config) => {
-      config.module.rules.push({
-        test: /\.md$/,
-        use: 'raw-loader',
-      });
-
-      return config;
-    },
   },
 };
 
