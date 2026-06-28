@@ -1,7 +1,8 @@
 {
   "private": true,
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
@@ -21,5 +22,5 @@
     "release": "changeset && turbo run build lint test && changeset version && turbo run build --filter @specui/cli && changeset publish",
     "test": "turbo run test"
   },
-  "packageManager": "pnpm@9.5.0"
+  "packageManager": "pnpm@11.0.0"
 }

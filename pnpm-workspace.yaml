@@ -3,3 +3,16 @@ packages:
   - 'examples/*'
   - 'generators/*'
   - 'packages/*'
+allowBuilds:
+  '@clerk/shared': false
+  '@prisma/engines': false
+  '@sveltejs/kit': false
+  '@swc/core': false
+  bufferutil: false
+  esbuild: false
+  prisma: false
+  sharp: false
+  utf-8-validate: false
+
+engineStrict: true
+minimumReleaseAge: 2880
